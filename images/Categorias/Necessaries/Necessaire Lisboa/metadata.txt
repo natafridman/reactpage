@@ -1,0 +1,7 @@
+title: Neceser Lisboa
+subtitle: Orden de Viaje
+description: Organización impecable en formato compacto. Forro fácil de limpiar, cierre seguro y capacidad ideal para grooming y esenciales de viaje.
+code: 05
+images: LISBOA(1).jpeg, LISBOA.jpeg, LISBOA_vfirst.jpeg, LISBOA_vlast.jpeg, NECCESER LISBOA.png
+videos: necessaire.mp4
+

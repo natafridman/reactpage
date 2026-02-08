@@ -1,0 +1,6 @@
+title: Gorra Casual
+subtitle: Tela Lavada Ajustable
+description: Esta gorra está confeccionada con tela lavada para un look vintage y relajado. Su diseño cuenta con ojales bordados para ventilación y un cierre ajustable tipo snapback para un ajuste personalizado. Ideal para el uso diario, combina estilo y comodidad de manera versátil.
+code: 02
+images: IMG_4567.jpeg, IMG_4572.jpeg, IMG_4576.jpeg, IMG_4577.jpeg, IMG_4585.jpeg, IMG_4609.jpeg
+videos: gorra_verano.mp4

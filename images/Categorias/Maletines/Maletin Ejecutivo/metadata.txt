@@ -1,0 +1,6 @@
+title: Maletín Ejecutivo
+subtitle: Organización Ejecutiva
+description: Hecho para el ritmo profesional. Compartimentos inteligentes para notebook, documentos y accesorios, con cierre seguro y estructura firme. Cuero premium que gana carácter con el uso.
+code: 02
+images: IMG_1571.jpeg, IMG_1572.jpeg, IMG_1574.jpeg
+videos: maletin.mp4, maletin_viejo.mp4

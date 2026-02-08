@@ -1,0 +1,6 @@
+title: Morral Monaco
+subtitle: Estilo Diario
+description: Compacto y sofisticado. Ideal para llevar lo esencial con comodidad, con cuero resistente y acabados impecables para un look urbano y elegante.
+code: 04
+images: MONACO.jpeg, MONACO_vfirst.jpeg, MONACO_vlast.jpeg, MORRAL MONACO.png
+videos: morral.mp4

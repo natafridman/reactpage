@@ -1,0 +1,6 @@
+title: Gorra Trucker Negra
+subtitle: Malla Transpirable Ajustable
+description: Esta gorra trucker negra combina estilo y funcionalidad con su diseño clásico. Fabricada con un frente sólido y paneles traseros de malla, ofrece transpirabilidad y confort. Su cierre ajustable garantiza un ajuste perfecto. Ideal para el uso diario, protegiendo del sol mientras añade un toque moderno a cualquier atuendo casual.
+code: 01
+images: IMG_4602.jpeg, IMG_4606.jpeg, IMG_4607.jpeg, IMG_4608.jpeg, IMG_4616.jpeg, IMG_4621.jpeg
+videos: gorra_transparente.mp4
