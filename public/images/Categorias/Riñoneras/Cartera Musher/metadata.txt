@@ -1,6 +1,6 @@
-title: Bolso Musher
+title: Cartera Musher
 subtitle: Cuero Minimalista Negro
-description: Elegante bolso tipo saddle diseñado con cuero de alta calidad, ideal para un look minimalista y sofisticado. Su cierre superior con cremallera asegura tus pertenencias, mientras que el detalle de nudos en la correa ajustable añade un toque distintivo. Perfecto para uso diario o eventos casuales chic.
+description: Elegante cartera tipo saddle diseñado con cuero de alta calidad, ideal para un look minimalista y sofisticado. Su cierre superior con cremallera asegura tus pertenencias, mientras que el detalle de nudos en la correa ajustable añade un toque distintivo. Perfecto para uso diario o eventos casuales chic.
 code: 08
-images: cart1.jpeg, cart2.jpeg
+images: cart1.jpeg, cart2.jpeg, 5(2).jpeg, cartera2.jpeg
 videos: cartera.mp4

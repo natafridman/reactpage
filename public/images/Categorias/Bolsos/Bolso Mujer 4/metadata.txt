@@ -1,0 +1,6 @@
+title: Bolso Clutch
+subtitle: Elegante de Cuero
+description: Este bolso clutch confeccionado en cuero negro de alta calidad ofrece un diseño elegante y minimalista. Con un cierre de cremallera seguro y una correa de muñeca desmontable, es perfecto tanto para eventos formales como para salidas casuales. Artesanía cuidada garantiza durabilidad y estilo atemporal.
+code: 02
+images: 6(1).webp, 6.webp
+videos: upscale (9).mp4

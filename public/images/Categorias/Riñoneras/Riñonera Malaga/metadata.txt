@@ -3,4 +3,4 @@ subtitle: Diseño Urbano Premium
 description: El ítem que usás todos los días cuando querés verte bien sin pensar demasiado. Cuero genuino, diseño limpio y el tamaño justo para llevar lo esencial con estilo y seguridad.
 code: 07
 images: rinionera_vfirst.jpg, G28A0317.jpeg, MALAGA(1).jpeg, MALAGA.jpeg, MALAGA_vlast.jpeg, RINIONERA MALAGA.png
-videos: rinionera.mp4
+videos: upscale (6).mp4

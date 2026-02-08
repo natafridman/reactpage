@@ -1,0 +1,6 @@
+title: Riñonera de Cuero
+subtitle: Estilo y Funcionalidad
+description: Riñonera fabricada en cuero de alta calidad disponible en varios colores. Su diseño elegante y práctico asegura que puedas llevar tus elementos esenciales de manera segura y con estilo. Ideal para el uso diario, esta riñonera combina durabilidad y moda, siendo perfecta para cualquier ocasión casual o de viaje.
+code: 01
+images: 4(1).webp, 4(2).webp, 4.webp
+videos: upscale (6).mp4

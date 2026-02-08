@@ -1,6 +1,10 @@
 {
   "Bolsos": [
-    "Bolso Duffle"
+    "Bolso Duffle",
+	"Bolso Mujer 1",
+	"Bolso Mujer 2",
+	"Bolso Mujer 3",
+	"Bolso Mujer 4"
   ],
   "Maletines": [
     "Maletin Ejecutivo"
@@ -19,7 +23,8 @@
   ],
   "Riñoneras": [
     "Riñonera Malaga",
-	  "Cartera Musher"
+	  "Cartera Musher",
+	  "Riñonera Musher"
   ],
   "Gorras": [
     "Gorra Verano",

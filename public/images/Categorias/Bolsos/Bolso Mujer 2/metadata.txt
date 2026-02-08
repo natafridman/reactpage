@@ -1,0 +1,6 @@
+title: Bolso Tipo Saquito
+subtitle: Diseño de Cuero Negro
+description: Este elegante bolso tipo saquito está elaborado en cuero negro de alta calidad, ofreciendo un toque sofisticado y versátil. Su cierre con cordón asegura tus pertenencias, mientras que su interior forrado brinda durabilidad. Ideal para complementar cualquier atuendo diario o de noche, combinando funcionalidad y estilo.
+code: 02
+images: 2(1).webp, 2(2).webp, 2.webp
+videos: upscale (6).mp4

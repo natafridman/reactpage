@@ -1,0 +1,6 @@
+title: Bolso Tote Clásico
+subtitle: Cuero Negro Elegante
+description: Este elegante bolso tote está confeccionado en cuero negro de alta calidad. Su diseño minimalista lo hace versátil para cualquier ocasión. Ideal para usar a diario, el bolso ofrece suficiente espacio para todas tus necesidades. La artesanía cuidadosa asegura durabilidad y un estilo sofisticado que complementa cualquier atuendo.
+code: 01
+images: 1(1).webp, 1.webp
+videos: upscale (7).mp4
