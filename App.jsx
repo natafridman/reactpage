@@ -64,38 +64,6 @@ function App() {
     return metadata;
   }
 
-  // ===== GET AVAILABLE IMAGES IN A PRODUCT FOLDER =====
-  async function getAvailableImages(productPath) {
-    try {
-      const response = await fetch(productPath);
-      if (!response.ok) return [];
-      
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const links = doc.querySelectorAll('a');
-      
-      const images = [];
-      const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];
-      
-      links.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && !href.startsWith('/') && href !== '../') {
-          const lower = href.toLowerCase();
-          if (imageExtensions.some(ext => lower.endsWith(ext))) {
-            images.push(href);
-          }
-        }
-      });
-      
-      return images;
-      
-    } catch (error) {
-      console.error(`Error obteniendo imágenes de ${productPath}:`, error);
-      return [];
-    }
-  }
-
   // ===== LOAD ALL PRODUCTS =====
   async function loadProducts(page = 1) {
     console.log(`📦 Cargando productos (página ${page})...`);
@@ -170,14 +138,11 @@ function App() {
           const metadataText = await metadataResponse.text();
           const metadata = parseMetadata(metadataText);
           
-          const availableImages = await getAvailableImages(`${IMAGES_BASE_FOLDER}/${category}/${productFolder}`);
-          
           loadedProducts.push({
             metadata,
             category,
             productFolder,
             index: startIndex + i, // Index global para mantener odd/even correcto
-            availableImages
           });
           
         } catch (error) {
