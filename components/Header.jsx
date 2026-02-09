@@ -1,6 +1,4 @@
-import { useState } from 'react';
-
-function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive }) {
+function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive, onCategoryClick }) {
   const handleHamburgerClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -22,12 +20,7 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
         </button>
         
         <div className="logo" onClick={onLogoClick}>
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="8" y="12" width="24" height="16" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-            <path d="M12 12V10C12 8.89543 12.8954 8 14 8H26C27.1046 8 28 8.89543 28 10V12" stroke="currentColor" strokeWidth="1.5"/>
-            <circle cx="20" cy="20" r="2" fill="currentColor"/>
-          </svg>
-          <span className="logo-text">YAGO & NATA CO</span>
+          <img src="/images/Branding/B2 B2YOU Header Landscape.png" alt="B2YOU" className="logo-image" />
         </div>
       </div>
       
@@ -38,6 +31,7 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
               key={cat}
               href={`?categoria=${encodeURIComponent(cat)}`} 
               className="category-link"
+              onClick={(e) => onCategoryClick && onCategoryClick(e, cat)}
             >
               {cat.toUpperCase()}
             </a>

@@ -83,6 +83,11 @@
             letter-spacing: 0.05em;
         }
 
+        .logo-image {
+            height: 40px;
+            width: auto;
+        }
+
         /* Hamburger Button */
         .hamburger-btn {
             position: absolute;
