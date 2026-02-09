@@ -918,7 +918,7 @@ body {
     }
     
     .categories-menu.active {
-        max-height: 400px;
+        max-height: 480px;
     }
     
     .categories-container {
