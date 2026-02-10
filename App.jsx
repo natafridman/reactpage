@@ -7,6 +7,7 @@ import LoadingSkeleton from '/components/LoadingSkeleton.jsx';
 import EmptyState from '/components/EmptyState.jsx';
 import ImageModal from '/components/ImageModal.jsx';
 import Footer from '/components/Footer.jsx';
+import { loadManifest, getCategoryFromURL } from '/utils/productUtils.js';
 
 // ===== CONFIGURATION =====
 const IMAGES_BASE_FOLDER = 'images/Categorias';
@@ -28,22 +29,7 @@ function App() {
   const lastScrollY = useRef(window.scrollY);
   const scrollTimer = useRef(null);
   const revealObserver = useRef(null);
-  const manifestCache = useRef(null);
   const productsCache = useRef({});
-
-  // ===== LOAD MANIFEST =====
-  async function loadManifest() {
-    if (manifestCache.current) return manifestCache.current;
-    const response = await fetch('/manifest.json');
-    manifestCache.current = await response.json();
-    return manifestCache.current;
-  }
-
-  // ===== GET CATEGORY FROM URL =====
-  function getCategoryFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('categoria');
-  }
 
   // ===== PARSE METADATA FILE =====
   function parseMetadata(text) {
@@ -368,12 +354,13 @@ function App() {
 
   // ===== LOGO CLICK =====
   function handleLogoClick() {
-    productsCache.current = {};
-    setCurrentPage(1);
-    setTotalProducts(0);
-    window.history.pushState({}, '', window.location.pathname);
-    loadProducts(1);
-    setIsMenuActive(false);
+    // productsCache.current = {};
+    // setCurrentPage(1);
+    // setTotalProducts(0);
+    // window.history.pushState({}, '', window.location.pathname);
+    // loadProducts(1);
+    // setIsMenuActive(false);
+    window.location.href = window.location.origin;
   }
 
   // ===== CONTACT FORM SUBMIT =====
