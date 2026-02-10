@@ -1,10 +1,6 @@
 function ClientsSection() {
   const clients = [
-    { name: 'Nike', logo: '/images/clients/nike.png' },
-    { name: 'Adidas', logo: '/images/clients/adidas.png' },
-    { name: 'Puma', logo: '/images/clients/puma.png' },
-    { name: 'Under Armour', logo: '/images/clients/underarmour.png' },
-    { name: 'New Balance', logo: '/images/clients/newbalance.png' }
+    { name: 'ARTLAB', logo: '/images/Clientes/artlab.jpg' }
   ];
 
   return (
