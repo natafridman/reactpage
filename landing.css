@@ -131,6 +131,15 @@
   transform: translateX(4px);
 }
 
+.hero-cta-productos {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.hero-cta-productos:hover {
+  transform: translateY(-2px) !important;
+}
+
 @keyframes fadeInLeft {
   to {
     opacity: 1;
