@@ -5,7 +5,7 @@ function Footer({ onContactSubmit }) {
         <div className="footer-content">
           {/* Información de la empresa */}
           <div className="footer-section">
-            <h3 className="footer-title">YAGO & NATA CO</h3>
+            <h3 className="footer-title">B2YOU Team</h3>
             <p className="footer-text">Artesanía excepcional en cuero premium. Cada pieza es diseñada y confeccionada con dedicación para acompañarte en tu día a día.</p>
             <div className="footer-social">
               <a href="#" className="social-link" aria-label="Instagram">
@@ -32,7 +32,7 @@ function Footer({ onContactSubmit }) {
           <div className="footer-section">
             <h4 className="footer-subtitle">Contacto</h4>
             <ul className="footer-links">
-              <li><a href="mailto:info@yagonata.com">info@yagonata.com</a></li>
+              <li><a href="mailto:b2you.team@gmail.com">b2you.team@gmail.com</a></li>
               <li><a href="tel:+5491153445155">+54 9 11 5344-5155</a></li>
               <li>Buenos Aires, Argentina</li>
             </ul>
@@ -52,7 +52,7 @@ function Footer({ onContactSubmit }) {
 
         {/* Copyright */}
         <div className="footer-bottom">
-          <p>&copy; 2026 Yago & Nata Co. Todos los derechos reservados.</p>
+          <p>&copy; 2026 B2YOU. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

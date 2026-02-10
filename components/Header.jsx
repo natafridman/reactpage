@@ -20,7 +20,7 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
         </button>
         
         <div className="logo" onClick={onLogoClick}>
-          <img src="/images/Branding/B2 B2YOU Header Landscape.png" alt="B2YOU" className="logo-image" />
+          <img src="/images/Branding/B2 B2YOU Header Landscape 2.png" alt="B2YOU" className="logo-image" />
         </div>
       </div>
       
