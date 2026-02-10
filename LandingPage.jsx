@@ -75,9 +75,9 @@ function LandingPage() {
 
       <main className="landing-main">
         <HeroSection />
-        <ClientsSection />
-        <FeaturedProducts />
         <VisionMission />
+        <FeaturedProducts />
+        <ClientsSection />
       </main>
 
       <Footer onContactSubmit={handleContactSubmit} />

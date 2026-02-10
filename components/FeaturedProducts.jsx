@@ -2,24 +2,27 @@ function FeaturedProducts() {
   const products = [
     {
       id: 1,
-      video: '/videos/product1.mp4',
-      title: 'Bolso Executive',
-      description: 'Elegancia atemporal para el profesional moderno',
-      category: 'Bolsos'
+      video: '/images/Categorias/Bolsos/Bolso Duffle/bolso.mp4',
+      title: 'Bolso Duffle',
+      description: 'Cuero genuino de grano completo, costuras reforzadas a mano y herrajes de alta resistencia. Espacio generoso para escapadas y viajes largos.',
+      category: 'Bolsos',
+      image: '/images/Categorias/Bolsos/Bolso Duffle/IMG_1585.jpeg'
     },
     {
       id: 2,
-      video: '/videos/product2.mp4',
-      title: 'Billetera Premium',
-      description: 'Minimalismo y funcionalidad en cada detalle',
-      category: 'Billeteras'
+      video: '/images/Categorias/Mochilas/Mochila London/mochila.mp4',
+      title: 'Mochila London',
+      description: 'Compartimientos cómodos para el día a día, respaldo acolchado. Resistente y ligera para moverte sin límites.',
+      category: 'Mochilas',
+      image: '/images/Categorias/Mochilas/Mochila London/LONDON(1).jpeg'
     },
     {
       id: 3,
-      video: '/videos/product3.mp4',
-      title: 'Cinturón Artesanal',
-      description: 'Cuero de primera calidad, acabado perfecto',
-      category: 'Accesorios'
+      video: '/images/Categorias/Gorras/Gorra Verano/gorra_verano.mp4',
+      title: 'Gorra Casual',
+      description: 'Look vintage y relajado. Ideal para el uso diario, combina estilo y comodidad.',
+      category: 'Gorras',
+      image: '/images/Categorias/Gorras/Gorra Verano/IMG_4567.jpeg'
     }
   ];
 
@@ -42,7 +45,7 @@ function FeaturedProducts() {
               className="featured-card"
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              <div className="featured-video-wrapper">
+              {/* <div className="featured-video-wrapper">
                 <video 
                   className="featured-video" 
                   autoPlay 
@@ -55,13 +58,17 @@ function FeaturedProducts() {
                 <div className="featured-overlay">
                   <span className="featured-category">{product.category}</span>
                 </div>
-              </div>
+              </div> */}
+              <img 
+                src={`${product.image}`} 
+                alt={product.title}
+                className="featured-video-wrapper"></img>
               
               <div className="featured-content">
                 <h3 className="featured-product-title">{product.title}</h3>
                 <p className="featured-product-description">{product.description}</p>
-                <button className="featured-link">
-                  Ver detalles
+                <button className="featured-link" onClick={() => window.location.href = `/productos?categoria=${encodeURIComponent(product.category)}`}>
+                  Ver mas
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>

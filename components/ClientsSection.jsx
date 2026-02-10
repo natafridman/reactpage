@@ -4,8 +4,7 @@ function ClientsSection() {
     { name: 'Adidas', logo: '/images/clients/adidas.png' },
     { name: 'Puma', logo: '/images/clients/puma.png' },
     { name: 'Under Armour', logo: '/images/clients/underarmour.png' },
-    { name: 'New Balance', logo: '/images/clients/newbalance.png' },
-    { name: 'Reebok', logo: '/images/clients/reebok.png' },
+    { name: 'New Balance', logo: '/images/clients/newbalance.png' }
   ];
 
   return (

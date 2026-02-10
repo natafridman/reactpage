@@ -9,7 +9,7 @@ function HeroSection() {
           muted 
           playsInline
         >
-          <source src="/images/Categorias/Bolsos/Bolso Duffle/bolso.mp4" type="video/mp4" />
+          <source src="/images/Branding/LandingVideo.mp4" type="video/mp4" />
         </video>
         <div className="hero-overlay"></div>
       </div>
