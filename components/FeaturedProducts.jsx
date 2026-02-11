@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 function FeaturedProducts() {
+  const navigate = useNavigate();
+
   const products = [
     {
       id: 1,
@@ -67,7 +71,7 @@ function FeaturedProducts() {
               <div className="featured-content">
                 <h3 className="featured-product-title">{product.title}</h3>
                 <p className="featured-product-description">{product.description}</p>
-                <button className="featured-link" onClick={() => window.location.href = `/productos?categoria=${encodeURIComponent(product.category)}`}>
+                <button className="featured-link" onClick={() => navigate(`/productos?categoria=${encodeURIComponent(product.category)}`)}>
                   Ver mas
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>

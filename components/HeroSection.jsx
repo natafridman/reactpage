@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 const enviarWhatsApp = (tipo) => {
   const mensajes = {
     empresa: "Hola, los contacto desde la web. Somos una empresa interesada en productos corporativos personalizados.",
@@ -10,6 +12,8 @@ const enviarWhatsApp = (tipo) => {
 };
 
 function HeroSection() {
+  const navigate = useNavigate();
+  
   return (
     <section className="hero-section">
       <div className="hero-video-container">
@@ -54,7 +58,7 @@ function HeroSection() {
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
           </button>
-          <button className="hero-cta hero-cta-productos" onClick={() => window.location.href = '/productos'}>
+          <button className="hero-cta hero-cta-productos" onClick={() => navigate('/productos')}>
             Ver productos
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
