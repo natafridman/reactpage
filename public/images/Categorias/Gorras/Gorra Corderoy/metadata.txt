@@ -1,0 +1,6 @@
+title: Gorra Acanalada
+subtitle: Tejido de Corduroy
+description: Gorra de estilo clásico fabricada en tejido de corduroy, disponible en varios colores como negro, gris y marrón. Ideal para un look casual y moderno, cuenta con un ajuste ajustable en la parte trasera para mayor comodidad. Perfecta tanto para el uso diario como para actividades al aire libre.
+code: 01
+images: 8O3A0160.jpeg, 8O3A0164.jpeg, 8O3A0167.jpeg, 8O3A0175.jpeg, 8O3A0177.jpeg
+videos: upscale (7).mp4

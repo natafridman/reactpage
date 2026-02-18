@@ -67,7 +67,7 @@ function VisionMission() {
             </p>
             <div className="vision-stats">
               <div className="vision-stat">
-                <span className="stat-number">15+</span>
+                <span className="stat-number">1+</span>
                 <span className="stat-label">Años de experiencia</span>
               </div>
               <div className="vision-stat">
@@ -75,7 +75,7 @@ function VisionMission() {
                 <span className="stat-label">Cuero genuino</span>
               </div>
               <div className="vision-stat">
-                <span className="stat-number">500+</span>
+                <span className="stat-number">3+</span>
                 <span className="stat-label">Clientes satisfechos</span>
               </div>
             </div>

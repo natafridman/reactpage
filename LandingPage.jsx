@@ -75,8 +75,8 @@ function LandingPage() {
 
       <main className="landing-main">
         <HeroSection />
-        <VisionMission />
         <FeaturedProducts />
+        <VisionMission />
         <ClientsSection />
       </main>
 

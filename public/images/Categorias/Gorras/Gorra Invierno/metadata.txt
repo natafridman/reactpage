@@ -1,0 +1,6 @@
+title: Gorra Clásica
+subtitle: Diseño Comodo Unisex
+description: Gorra diseñada con un estilo clásico y versátil, ideal para cualquier ocasión. Fabricada con materiales duraderos de alta calidad, ofrece comodidad y protección contra el sol. Disponible en variaciones de color para adaptarse a tu estilo personal. Ajustable en la parte trasera para un ajuste perfecto.
+code: 02
+images: 8O3A0142.jpeg, 8O3A0145.jpeg, 8O3A0148.jpeg, 8O3A0151.jpeg, 8O3A0156.jpeg, 8O3A0190.jpeg
+videos: video2.mp4
