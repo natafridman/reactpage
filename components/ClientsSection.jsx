@@ -1,6 +1,7 @@
 function ClientsSection() {
   const clients = [
-    { name: 'ARTLAB', logo: '/images/Clientes/artlab.jpg' }
+    { name: 'ARTFUL', logo: '/images/Clientes/artful.jpg' },
+    { name: 'VIACOTONE', logo: '/images/Clientes/viacotone.png' }
   ];
 
   return (
@@ -20,17 +21,17 @@ function ClientsSection() {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="client-logo-wrapper">
-                <img 
-                  src={client.logo} 
+                <img
+                  src={client.logo}
                   alt={client.name}
                   className="client-logo"
                   onError={(e) => {
-                    // Fallback to placeholder if image doesn't exist
                     e.target.style.display = 'none';
                     e.target.parentElement.innerHTML = `<span class="client-placeholder">${client.name}</span>`;
                   }}
                 />
               </div>
+              <span className="client-name">{client.name}</span>
             </div>
           ))}
         </div>

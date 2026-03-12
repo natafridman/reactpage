@@ -14,6 +14,10 @@ function LandingPage() {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    document.title = 'B2YOU - Accesorios para Marcas y Empresas';
+  }, []);
+
   // Cargar categorías al montar el componente
   useEffect(() => {
     async function loadCategories() {
@@ -44,7 +48,7 @@ function LandingPage() {
       `Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`
     );
 
-    const whatsappNumber = '5491153445155';
+    const whatsappNumber = '5491178279281';
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${subject}%0A%0A${body}`;
 
     window.open(whatsappURL, '_blank');

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './index.css';
 
 import Header from '/components/Header.jsx';
@@ -14,6 +15,9 @@ const IMAGES_BASE_FOLDER = 'images/Categorias';
 const PRODUCTS_PER_PAGE = 4;
 
 function App() {
+  const { categoria: paramCategoria, nombre: paramNombre } = useParams();
+  const isSingleProduct = !!(paramCategoria && paramNombre);
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -114,7 +118,7 @@ function App() {
       
       for (let i = 0; i < productsToLoad.length; i++) {
         const { category, productFolder } = productsToLoad[i];
-        const metadataPath = `${IMAGES_BASE_FOLDER}/${category}/${productFolder}/metadata.txt`;
+        const metadataPath = `/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/metadata.txt`;
         
         try {
           const metadataResponse = await fetch(metadataPath);
@@ -153,8 +157,47 @@ function App() {
     }
   }
 
+  // ===== LOAD SINGLE PRODUCT =====
+  async function loadSingleProduct() {
+    setIsLoading(true);
+    try {
+      const metadataPath = `/${IMAGES_BASE_FOLDER}/${decodeURIComponent(paramCategoria)}/${decodeURIComponent(paramNombre)}/metadata.txt`;
+      const metadataResponse = await fetch(metadataPath);
+      if (!metadataResponse.ok) {
+        setProducts([]);
+        setTotalProducts(0);
+        setIsLoading(false);
+        return;
+      }
+      const metadataText = await metadataResponse.text();
+      const metadata = parseMetadata(metadataText);
+      const product = {
+        metadata,
+        category: decodeURIComponent(paramCategoria),
+        productFolder: decodeURIComponent(paramNombre),
+        index: 0,
+        availableImages: metadata.images || []
+      };
+      setProducts([product]);
+      setTotalProducts(1);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error cargando producto:', error);
+      setProducts([]);
+      setTotalProducts(0);
+      setIsLoading(false);
+    }
+  }
+
   // ===== INITIALIZE ON MOUNT =====
   useEffect(() => {
+    if (isSingleProduct) {
+      document.title = `B2YOU - ${decodeURIComponent(paramNombre)}`;
+    } else {
+      const cat = getCategoryFromURL();
+      document.title = cat ? `B2YOU - ${cat}` : 'B2YOU - Productos';
+    }
+
     async function initialize() {
       try {
         const manifest = await loadManifest();
@@ -164,9 +207,13 @@ function App() {
       }
     }
     initialize();
-    loadProducts();
-    setCurrentPage(1);
-  }, []);
+    if (isSingleProduct) {
+      loadSingleProduct();
+    } else {
+      loadProducts();
+      setCurrentPage(1);
+    }
+  }, [paramCategoria, paramNombre]);
 
   // ===== RESET PAGE WHEN CATEGORY CHANGES =====
   useEffect(() => {
@@ -374,7 +421,7 @@ function App() {
     const subject = encodeURIComponent(`Mensaje de ${name}`);
     const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
     
-    const whatsappNumber = '5491153445155';
+    const whatsappNumber = '5491178279281';
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${subject}%0A%0A${body}`;
     
     window.open(whatsappURL, '_blank');
@@ -393,7 +440,7 @@ function App() {
     setCurrentPage(newPage);
     loadProducts(newPage);
     
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo(0, 0);
   }
 
   function handlePrevPage() {
@@ -411,10 +458,14 @@ function App() {
   // ===== CATEGORY CLICK HANDLER =====
   function handleCategoryClick(e, cat) {
     e.preventDefault();
+    if (isSingleProduct) {
+      navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
+      return;
+    }
     productsCache.current = {};
     setCurrentPage(1);
     setTotalProducts(0);
-    window.history.pushState({}, '', `?categoria=${encodeURIComponent(cat)}`);
+    window.history.pushState({}, '', `/productos?categoria=${encodeURIComponent(cat)}`);
     loadProducts(1);
     setIsMenuActive(false);
   }

@@ -8,7 +8,7 @@ function FeaturedProducts() {
       id: 1,
       video: '/images/Categorias/Bolsos/Bolso Duffle/bolso.mp4',
       title: 'Bolso Duffle',
-      description: 'Cuero genuino de grano completo, costuras reforzadas a mano y herrajes de alta resistencia. Espacio generoso para escapadas y viajes largos.',
+      description: 'Pensado para viajes y escapadas. Amplio, resistente y con terminaciones cuidadas en cada detalle.',
       category: 'Bolsos',
       image: '/images/Categorias/Bolsos/Bolso Duffle/IMG_1585.jpeg'
     },
@@ -16,7 +16,7 @@ function FeaturedProducts() {
       id: 2,
       video: '/images/Categorias/Mochilas/Mochila London/mochila.mp4',
       title: 'Mochila London',
-      description: 'Compartimientos cómodos para el día a día, respaldo acolchado. Resistente y ligera para moverte sin límites.',
+      description: 'Cómoda para el día a día, con respaldo acolchado y compartimientos pensados para que lleves todo con vos.',
       category: 'Mochilas',
       image: '/images/Categorias/Mochilas/Mochila London/LONDON(1).jpeg'
     },
@@ -24,7 +24,7 @@ function FeaturedProducts() {
       id: 3,
       video: '/images/Categorias/Gorras/Gorra Verano/gorra_verano.mp4',
       title: 'Gorra Casual',
-      description: 'Look vintage y relajado. Ideal para el uso diario, combina estilo y comodidad.',
+      description: 'Estilo relajado para todos los días. Simple, cómoda y con buena onda.',
       category: 'Gorras',
       image: '/images/Categorias/Gorras/Gorra Verano/IMG_4567.jpeg'
     }
@@ -34,10 +34,10 @@ function FeaturedProducts() {
     <section className="featured-section">
       <div className="featured-container">
         <div className="featured-header">
-          <span className="featured-subtitle">Colección</span>
-          <h2 className="featured-title">Los favoritos de las marcas</h2>
+          <span className="featured-subtitle">Destacados</span>
+          <h2 className="featured-title">Lo que más eligen nuestros clientes</h2>
           <p className="featured-intro">
-            Productos que destacan por su calidad excepcional y diseño innovador
+            Algunos de los productos con los que más nos piden trabajar
           </p>
           <div className="featured-divider"></div>
         </div>

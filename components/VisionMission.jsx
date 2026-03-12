@@ -11,13 +11,12 @@ function VisionMission() {
                 <path d="M12 8h.01"></path>
               </svg>
             </div>
-            <span className="vision-label">Nuestra Visión</span>
-            <h2 className="vision-title">Redefinir el lujo accesible</h2>
+            <span className="vision-label">Lo que nos mueve</span>
+            <h2 className="vision-title">Hacer productos que valgan la pena</h2>
             <p className="vision-text">
-              Ser la marca líder en productos de cuero premium que combine 
-              artesanía tradicional con innovación contemporánea, creando 
-              piezas atemporales que trascienden tendencias y se convierten 
-              en compañeros de vida para nuestros clientes.
+              Queremos que cada cosa que sale de nuestro taller sea algo que
+              de verdad uses y disfrutes. No buscamos hacer cosas descartables,
+              sino productos que te acompañen y que representen bien a quien los lleva.
             </p>
             <div className="vision-features">
               <div className="vision-feature">
@@ -26,7 +25,7 @@ function VisionMission() {
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
                 </div>
-                <span>Calidad excepcional</span>
+                <span>Buenos materiales</span>
               </div>
               <div className="vision-feature">
                 <div className="feature-icon">
@@ -34,7 +33,7 @@ function VisionMission() {
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
                 </div>
-                <span>Diseño atemporal</span>
+                <span>Diseño con criterio</span>
               </div>
               <div className="vision-feature">
                 <div className="feature-icon">
@@ -42,7 +41,7 @@ function VisionMission() {
                     <polyline points="20 6 9 17 4 12"></polyline>
                   </svg>
                 </div>
-                <span>Compromiso sostenible</span>
+                <span>Trabajo honesto</span>
               </div>
             </div>
           </div>
@@ -57,26 +56,26 @@ function VisionMission() {
                 <path d="M2 12l10 5 10-5"></path>
               </svg>
             </div>
-            <span className="vision-label">Nuestra Misión</span>
-            <h2 className="vision-title">Crear valor duradero</h2>
+            <span className="vision-label">Cómo trabajamos</span>
+            <h2 className="vision-title">De cerca y a medida</h2>
             <p className="vision-text">
-              Diseñar y fabricar productos de cuero de la más alta calidad, 
-              utilizando técnicas artesanales perfeccionadas a lo largo de 
-              generaciones, mientras innovamos constantemente para ofrecer 
-              soluciones que se adapten al estilo de vida moderno.
+              Nos gusta trabajar en contacto directo con cada cliente.
+              Entender qué necesitan, proponer ideas y llegar a un producto
+              que les cierre de verdad. No hay moldes fijos, cada proyecto
+              es distinto y así lo encaramos.
             </p>
             <div className="vision-stats">
               <div className="vision-stat">
-                <span className="stat-number">1+</span>
-                <span className="stat-label">Años de experiencia</span>
-              </div>
-              <div className="vision-stat">
                 <span className="stat-number">100%</span>
-                <span className="stat-label">Cuero genuino</span>
+                <span className="stat-label">Personalizable</span>
               </div>
               <div className="vision-stat">
-                <span className="stat-number">3+</span>
-                <span className="stat-label">Clientes satisfechos</span>
+                <span className="stat-number">8+</span>
+                <span className="stat-label">Categorías</span>
+              </div>
+              <div className="vision-stat">
+                <span className="stat-number">B2B</span>
+                <span className="stat-label">Foco empresas y marcas</span>
               </div>
             </div>
           </div>
