@@ -44,6 +44,7 @@ function Footer({ onContactSubmit }) {
               <li><button className="footer-nav-link" onClick={() => navigate('/Empresas')}>Empresas</button></li>
               <li><button className="footer-nav-link" onClick={() => navigate('/Marcas')}>Marcas</button></li>
               <li><button className="footer-nav-link" onClick={() => navigate('/Nosotros')}>Nosotros</button></li>
+              <li><button className="footer-nav-link" onClick={() => navigate('/red')}>Red Interactiva</button></li>
             </ul>
           </div>
 

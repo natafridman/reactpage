@@ -240,6 +240,7 @@ body {
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 600;
+    font-family: inherit;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     padding: 0.625rem 1.25rem;
@@ -696,6 +697,12 @@ body {
 }
 
 /* ===== SHARE BUTTON ===== */
+.product-actions {
+    display: inline-flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
 .share-btn {
     display: inline-flex;
     align-items: center;
@@ -710,7 +717,6 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-bottom: 2rem;
 }
 
 .share-btn:hover {

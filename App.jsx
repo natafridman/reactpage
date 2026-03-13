@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import './index.css';
 
 import Header from '/components/Header.jsx';
@@ -18,6 +18,7 @@ function App() {
   const { categoria: paramCategoria, nombre: paramNombre } = useParams();
   const isSingleProduct = !!(paramCategoria && paramNombre);
   const navigate = useNavigate();
+  const location = useLocation();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -210,10 +211,11 @@ function App() {
     if (isSingleProduct) {
       loadSingleProduct();
     } else {
-      loadProducts();
+      productsCache.current = {};
       setCurrentPage(1);
+      loadProducts();
     }
-  }, [paramCategoria, paramNombre]);
+  }, [paramCategoria, paramNombre, location.search]);
 
   // ===== RESET PAGE WHEN CATEGORY CHANGES =====
   useEffect(() => {
@@ -458,16 +460,8 @@ function App() {
   // ===== CATEGORY CLICK HANDLER =====
   function handleCategoryClick(e, cat) {
     e.preventDefault();
-    if (isSingleProduct) {
-      navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
-      return;
-    }
-    productsCache.current = {};
-    setCurrentPage(1);
-    setTotalProducts(0);
-    window.history.pushState({}, '', `/productos?categoria=${encodeURIComponent(cat)}`);
-    loadProducts(1);
     setIsMenuActive(false);
+    navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
   }
 
   return (

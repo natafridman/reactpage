@@ -4,6 +4,7 @@ import App from '/App.jsx';
 import EmpresasPage from '/EmpresasPage.jsx';
 import MarcasPage from '/MarcasPage.jsx';
 import NosotrosPage from '/NosotrosPage.jsx';
+import RedProductosPage from '/RedProductosPage.jsx';
 import '/index.css';
 
 function Main() {
@@ -16,6 +17,7 @@ function Main() {
         <Route path="/Empresas" element={<EmpresasPage />} />
         <Route path="/Marcas" element={<MarcasPage />} />
         <Route path="/Nosotros" element={<NosotrosPage />} />
+        <Route path="/red" element={<RedProductosPage />} />
       </Routes>
     </Router>
   );

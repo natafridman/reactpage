@@ -93,6 +93,12 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
           <div className="categories-group">
             <span className="menu-section-label">CATEGORÍAS</span>
             <div className="categories-links">
+              <button
+                className="category-link"
+                onClick={() => { navigate('/productos'); setIsMenuActive(false); }}
+              >
+                TODO
+              </button>
               {categories.map(cat => (
                 <a
                   key={cat}
