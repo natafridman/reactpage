@@ -4,9 +4,9 @@ import './landing.css';
 
 import Header from '/components/Header.jsx';
 import HeroSection from '/components/HeroSection.jsx';
-import ClientsSection from '/components/ClientsSection.jsx';
 import FeaturedProducts from '/components/FeaturedProducts.jsx';
 import VisionMission from '/components/VisionMission.jsx';
+import TestimonialsSection from '/components/TestimonialsSection.jsx';
 import Footer from '/components/Footer.jsx';
 
 function LandingPage() {
@@ -81,7 +81,7 @@ function LandingPage() {
         <HeroSection />
         <FeaturedProducts />
         <VisionMission />
-        <ClientsSection />
+        <TestimonialsSection />
       </main>
 
       <Footer onContactSubmit={handleContactSubmit} />

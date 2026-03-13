@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '/components/Header.jsx';
 import Footer from '/components/Footer.jsx';
+import FAQSection from '/components/FAQSection.jsx';
 import { loadManifest } from '/utils/productUtils.js';
 import './landing.css';
 
@@ -120,6 +121,56 @@ function EmpresasPage() {
               </div>
             </div>
 
+            <section className="process-section">
+              <div className="process-header">
+                <span className="process-label">Proceso</span>
+                <h2 className="process-title">Cómo trabajamos</h2>
+              </div>
+              <div className="process-steps">
+                <div className="process-step">
+                  <span className="process-step-number">01</span>
+                  <h3>Nos contás qué necesitás</h3>
+                  <p>Producto, cantidad, fecha estimada y cualquier referencia de diseño o logo.</p>
+                </div>
+                <div className="process-step">
+                  <span className="process-step-number">02</span>
+                  <h3>Te mandamos una propuesta</h3>
+                  <p>Con opciones de materiales, técnicas de personalización y presupuesto detallado.</p>
+                </div>
+                <div className="process-step">
+                  <span className="process-step-number">03</span>
+                  <h3>Aprobás y arranca producción</h3>
+                  <p>Hacemos una muestra para tu aprobación antes de producir en volumen.</p>
+                </div>
+                <div className="process-step">
+                  <span className="process-step-number">04</span>
+                  <h3>Entrega en tiempo y forma</h3>
+                  <p>Coordinamos la entrega en tu oficina o el punto acordado.</p>
+                </div>
+              </div>
+            </section>
+
+            <section className="order-info-section">
+              <div className="order-info-grid">
+                <div className="order-info-item">
+                  <span className="order-info-label">Pedido mínimo</span>
+                  <span className="order-info-value">desde 10 unidades</span>
+                </div>
+                <div className="order-info-item">
+                  <span className="order-info-label">Tiempo de producción</span>
+                  <span className="order-info-value">15–30 días hábiles</span>
+                </div>
+                <div className="order-info-item">
+                  <span className="order-info-label">Personalización</span>
+                  <span className="order-info-value">Logo, grabado, etiquetas</span>
+                </div>
+                <div className="order-info-item">
+                  <span className="order-info-label">Muestras</span>
+                  <span className="order-info-value">Disponibles con costo</span>
+                </div>
+              </div>
+            </section>
+
             <div className="info-page-cta-section">
               <h2>Hac&eacute; que tu empresa se destaque</h2>
               <p>Contactanos y armamos una propuesta a medida para tu equipo.</p>
@@ -138,6 +189,8 @@ function EmpresasPage() {
             </div>
           </div>
         </section>
+
+        <FAQSection />
       </main>
 
       <Footer onContactSubmit={handleContactSubmit} />

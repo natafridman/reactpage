@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive, onCategoryClick }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pageLabels = { '/Empresas': 'Empresas', '/Marcas': 'Marcas' };
+  const pageBadge = pageLabels[location.pathname] || null;
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('b2you-theme');
     if (saved) return saved === 'dark';
@@ -34,6 +39,7 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
 
         <div className="logo" onClick={onLogoClick}>
           <img src="/images/Branding/B2 B2YOU Header Landscape 2.png" alt="B2YOU" className="logo-image" />
+          {pageBadge && <span className="header-page-badge">{pageBadge}</span>}
         </div>
 
         <button
@@ -63,16 +69,42 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
 
       <nav className={`categories-menu ${isMenuActive ? 'active' : ''}`} id="categoriesMenu">
         <div className="categories-container" id="categoriesContainer">
-          {categories.map(cat => (
-            <a
-              key={cat}
-              href={`?categoria=${encodeURIComponent(cat)}`}
+          <div className="nav-group">
+            <span className="menu-section-label">MENÚ</span>
+            <button
               className="category-link"
-              onClick={(e) => onCategoryClick && onCategoryClick(e, cat)}
+              onClick={() => { navigate('/Empresas'); setIsMenuActive(false); }}
             >
-              {cat.toUpperCase()}
-            </a>
-          ))}
+              EMPRESAS
+            </button>
+            <button
+              className="category-link"
+              onClick={() => { navigate('/Marcas'); setIsMenuActive(false); }}
+            >
+              MARCAS
+            </button>
+            <button
+              className="category-link nav-nosotros"
+              onClick={() => { navigate('/Nosotros'); setIsMenuActive(false); }}
+            >
+              NOSOTROS
+            </button>
+          </div>
+          <div className="categories-group">
+            <span className="menu-section-label">CATEGORÍAS</span>
+            <div className="categories-links">
+              {categories.map(cat => (
+                <a
+                  key={cat}
+                  href={`?categoria=${encodeURIComponent(cat)}`}
+                  className="category-link"
+                  onClick={(e) => onCategoryClick && onCategoryClick(e, cat)}
+                >
+                  {cat.toUpperCase()}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </nav>
     </header>
