@@ -70,7 +70,7 @@ function VisionMission() {
                 <span className="stat-label">Personalizable</span>
               </div>
               <div className="vision-stat">
-                <span className="stat-number">8+</span>
+                <span className="stat-number">15+</span>
                 <span className="stat-label">Categorías</span>
               </div>
               <div className="vision-stat">

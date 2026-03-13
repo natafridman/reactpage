@@ -615,6 +615,27 @@ body {
     transform: translateX(5px);
 }
 
+.footer-subtitle-menu {
+    margin-top: 1.5rem;
+}
+
+.footer-nav-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--b2-light-gray);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+    padding: 0;
+}
+
+.footer-nav-link:hover {
+    color: var(--b2-cognac);
+    transform: translateX(5px);
+}
+
 .contact-form {
     display: flex;
     flex-direction: column;

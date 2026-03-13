@@ -129,7 +129,7 @@ function NosotrosPage() {
               </div>
               <div className="nosotros-intro-stats">
                 <div className="nosotros-stat">
-                  <span className="nosotros-stat-number">8+</span>
+                  <span className="nosotros-stat-number">15+</span>
                   <span className="nosotros-stat-label">Categorías de productos</span>
                 </div>
                 <div className="nosotros-stat">

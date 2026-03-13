@@ -1,4 +1,7 @@
+import { useNavigate } from 'react-router-dom';
+
 function Footer({ onContactSubmit }) {
+  const navigate = useNavigate();
   return (
     <footer className="main-footer">
       <div className="footer-container">
@@ -35,6 +38,12 @@ function Footer({ onContactSubmit }) {
               <li><a href="mailto:b2you.team@gmail.com">b2you.team@gmail.com</a></li>
               <li><a href="tel:+5491178279281">+54 9 11 7827-9281</a></li>
               <li>Buenos Aires, Argentina</li>
+            </ul>
+            <h4 className="footer-subtitle footer-subtitle-menu">Menú</h4>
+            <ul className="footer-links">
+              <li><button className="footer-nav-link" onClick={() => navigate('/Empresas')}>Empresas</button></li>
+              <li><button className="footer-nav-link" onClick={() => navigate('/Marcas')}>Marcas</button></li>
+              <li><button className="footer-nav-link" onClick={() => navigate('/Nosotros')}>Nosotros</button></li>
             </ul>
           </div>
 
