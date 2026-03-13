@@ -9,7 +9,7 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem('b2you-theme');
     if (saved) return saved === 'dark';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return false;
   });
 
   useEffect(() => {
