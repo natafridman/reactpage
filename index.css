@@ -1056,14 +1056,12 @@ body {
         font-size: 0.8rem;
     }
 
-    .product-title-overlay {
-        bottom: 12%;
-        padding: 1.5rem 2rem;
-        max-width: 85%;
+    .hero-image {
+        max-height: 70vh;
     }
 
     .product-title-overlay h2 {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
     
     .loading-product-skeleton {
