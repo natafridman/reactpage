@@ -1718,8 +1718,40 @@
   background: #0A0A0A;
 }
 
+[data-theme="dark"] .nosotros-valores-title {
+  color: #F0F0F0;
+}
+
 [data-theme="dark"] .nosotros-valores-section .info-page-card {
   background: rgba(255, 255, 255, 0.04);
+}
+
+[data-theme="dark"] .nosotros-valores-section .info-page-card h3 {
+  color: #F0F0F0;
+}
+
+[data-theme="dark"] .nosotros-valores-section .info-page-card p {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+[data-theme="dark"] .nosotros-valores-section .info-page-icon {
+  color: #F0F0F0;
+}
+
+[data-theme="dark"] .nosotros-intro-title {
+  color: #F0F0F0;
+}
+
+[data-theme="dark"] .nosotros-intro-text p {
+  color: #B0B0B0;
+}
+
+[data-theme="dark"] .nosotros-stat-label {
+  color: #B0B0B0;
+}
+
+[data-theme="dark"] .info-page-cta-section p {
+  color: #B0B0B0;
 }
 
 /* ===== RESPONSIVE - NEW COMPONENTS ===== */

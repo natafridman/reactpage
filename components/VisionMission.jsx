@@ -14,9 +14,9 @@ function VisionMission() {
             <span className="vision-label">Lo que nos mueve</span>
             <h2 className="vision-title">Hacer productos que valgan la pena</h2>
             <p className="vision-text">
-              Queremos que cada cosa que sale de nuestro taller sea algo que
-              de verdad uses y disfrutes. No buscamos hacer cosas descartables,
-              sino productos que te acompañen y que representen bien a quien los lleva.
+              Queremos que cada idea que sale de nuestro taller sea algo que
+              de verdad uses y disfrutes. No buscamos hacer productos descartables,
+              sino que te acompañen y que representen bien a quien los lleva.
             </p>
             <div className="vision-features">
               <div className="vision-feature">
@@ -62,7 +62,7 @@ function VisionMission() {
               Nos gusta trabajar en contacto directo con cada cliente.
               Entender qué necesitan, proponer ideas y llegar a un producto
               que les cierre de verdad. No hay moldes fijos, cada proyecto
-              es distinto y así lo encaramos.
+              es distinto y así lo encaramos. 
             </p>
             <div className="vision-stats">
               <div className="vision-stat">
