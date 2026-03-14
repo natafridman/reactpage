@@ -1026,6 +1026,11 @@ body {
 @media (max-width: 1024px) {
     .product-section {
         flex-direction: column !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    .product-section:last-child {
+        border-bottom: none;
     }
     
     .hero-side,
@@ -1036,13 +1041,14 @@ body {
     .hero-side {
         min-height: 0;
         height: auto;
-        aspect-ratio: 4 / 3;
+        max-height: 70vh;
         background: transparent;
     }
     
     .gallery-side {
         text-align: left !important;
         padding: 3.5rem 2.5rem;
+        min-height: auto;
     }
     
     .accent-number {
