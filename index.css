@@ -349,6 +349,7 @@ body {
 .hero-image {
     width: 100%;
     height: 100%;
+    max-height: 100vh;
     object-fit: cover;
     transform: scale(1);
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -368,7 +369,17 @@ body {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+}
+
+.product-title-overlay.title-left {
+    border-right: 4px solid var(--b2-cognac);
+    border-left: none;
+}
+
+.product-title-overlay.title-right {
     border-left: 4px solid var(--b2-cognac);
+    border-right: none;
 }
 
 .reveal-in .product-title-overlay {
@@ -406,37 +417,31 @@ body {
 }
 
 .accent-number {
-    font-size: 5rem;
-    font-weight: 900;
-    color: transparent;
-    line-height: 0.9;
-    letter-spacing: -0.05em;
+    font-size: 0.85rem;
+    font-weight: 400;
+    font-family: inherit;
+    color: var(--b2-cognac);
+    line-height: 1;
+    letter-spacing: 0.1em;
     margin-bottom: 1.5rem;
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateY(-10px);
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
-    -webkit-text-stroke: 2px var(--b2-cognac);
+    -webkit-text-stroke: 0;
     position: relative;
 }
 
 .accent-number::before {
-    content: attr(data-number);
-    position: absolute;
-    left: 0;
-    top: 0;
-    -webkit-text-stroke: 0;
-    -webkit-text-fill-color: var(--b2-cognac);
-    opacity: 0.1;
-    z-index: -1;
+    content: none;
 }
 
 .product-section:nth-child(even) .accent-number {
-    transform: translateX(30px);
+    transform: translateY(-10px);
 }
 
 .reveal-in .accent-number {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
 }
 
 .description-text {
@@ -1041,9 +1046,9 @@ body {
     }
     
     .accent-number {
-        font-size: 4rem;
+        font-size: 0.8rem;
     }
-    
+
     .product-title-overlay h2 {
         font-size: 2rem;
     }
@@ -1133,9 +1138,9 @@ body {
     }
     
     .accent-number {
-        font-size: 3.5rem;
+        font-size: 0.8rem;
     }
-    
+
     .description-text p {
         font-size: 1rem;
     }
@@ -1193,7 +1198,7 @@ body {
     }
     
     .accent-number {
-        font-size: 2.5rem;
+        font-size: 0.75rem;
         margin-bottom: 1rem;
     }
     

@@ -1,0 +1,6 @@
+title: Cartera Media Luna
+subtitle: Cuero con Detalle de Nudos
+description: Forma croissant en cuero suave con cremallera superior y correa ajustable con nudos. Disponible en negro y bordó. Compacta pero con espacio para lo esencial, se lleva cruzada y queda bien con cualquier outfit. Se personaliza con grabado en cuero.
+code: CAR-001
+images: cart1.jpeg, cart2.jpeg, 5(2).jpeg, cartera2.jpeg
+videos: cartera.mp4

@@ -20,7 +20,7 @@ function ProductSection({ product, onImageClick }) {
   // Layout calculation
   const isOdd = (index + 1) % 2 !== 0;
   const flexDirection = isOdd ? 'row-reverse' : 'row';
-  const titlePosition = isOdd ? { left: '8%', right: 'auto' } : { right: '8%', left: 'auto' };
+  const titlePosition = isOdd ? { left: '3rem', right: 'auto' } : { right: '3rem', left: 'auto' };
   const titleTransform = isOdd ? 'translateX(-50px)' : 'translateX(50px)';
   const textAlign = isOdd ? 'right' : 'left';
   const numberPosition = isOdd ? { left: 'auto', right: '2rem' } : { left: '2rem', right: 'auto' };
@@ -64,7 +64,7 @@ function ProductSection({ product, onImageClick }) {
             />
           )}
           <div
-            className="product-title-overlay"
+            className={`product-title-overlay ${isOdd ? 'title-left' : 'title-right'}`}
             style={{
               ...titlePosition,
               transform: titleTransform
@@ -79,7 +79,7 @@ function ProductSection({ product, onImageClick }) {
       </div>
 
       <div className="gallery-side" style={{ textAlign }}>
-        <div className="accent-number" style={numberPosition}>
+        <div className="accent-number">
           {metadata.code || String(index + 1).padStart(2, '0')}
         </div>
 

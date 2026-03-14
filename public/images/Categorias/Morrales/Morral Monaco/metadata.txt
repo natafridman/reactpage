@@ -1,6 +1,6 @@
 title: Morral Monaco
 subtitle: Estilo Diario
-description: Compacto y sofisticado. Ideal para llevar lo esencial con comodidad, con cuero resistente y acabados impecables para un look urbano y elegante.
-code: 04
+description: Compacto, cómodo y con acabados impecables. Cuero resistente con correa ajustable, ideal para llevar lo esencial sin perder estilo. Lo usás al hombro y te olvidás. Disponible para personalización con logo en cuero.
+code: MOR-001
 images: MONACO.jpeg, MONACO_vfirst.jpeg, MONACO_vlast.jpeg, MORRAL MONACO.png
 videos: morral.mp4

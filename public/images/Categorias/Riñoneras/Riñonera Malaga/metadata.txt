@@ -1,6 +1,6 @@
 title: Bandolera
 subtitle: Diseño Urbano Premium
-description: El ítem que usás todos los días cuando querés verte bien sin pensar demasiado. Cuero genuino, diseño limpio y el tamaño justo para llevar lo esencial con estilo y seguridad.
-code: 07
+description: Cuero genuino, diseño limpio y el tamaño justo para llevar lo esencial. Se usa cruzada o al hombro y queda bien con todo. Cómoda, segura y con terminaciones que se notan. Disponible para personalización con logo.
+code: RIN-001
 images: rinionera_vfirst.jpg, G28A0317.jpeg, MALAGA(1).jpeg, MALAGA.jpeg, MALAGA_vlast.jpeg, RINIONERA MALAGA.png
 videos: upscale (6).mp4

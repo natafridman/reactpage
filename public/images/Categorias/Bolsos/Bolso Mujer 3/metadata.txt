@@ -1,6 +1,6 @@
 title: Bolso Cruzado
 subtitle: Cuero con Detalle de Nudos
-description: Elegante bolso cruzado hecho de cuero genuino, diseñado para combinar estilo y funcionalidad. Presenta un distintivo detalle de cierre con nudos y correa ajustable. Ideal para uso diario, ofreciendo un amplio espacio interior sin comprometer el diseño moderno y sofisticado. Disponible en diversos colores para adaptarse a cualquier estilo.
-code: 01
+description: Cuero genuino con detalle de nudos y correa ajustable. Cómodo para usar cruzado, con amplio espacio interior y disponible en varios colores. Es de esos accesorios que no te sacás más. Ideal para regalos con personalización en cuero.
+code: BOL-004
 images: 3(1).jpeg, 3(2).jpeg, 3(3).jpeg, 3.jpeg
 videos: upscale (8).mp4

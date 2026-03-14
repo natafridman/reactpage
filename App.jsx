@@ -436,13 +436,13 @@ function App() {
     return Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
   }
 
-  function handlePageChange(newPage) {
+  async function handlePageChange(newPage) {
     if (newPage === currentPage) return;
-    
+
     setCurrentPage(newPage);
-    loadProducts(newPage);
-    
-    window.scrollTo(0, 0);
+    await loadProducts(newPage);
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function handlePrevPage() {
