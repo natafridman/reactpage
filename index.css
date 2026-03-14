@@ -1056,8 +1056,14 @@ body {
         font-size: 0.8rem;
     }
 
+    .product-title-overlay {
+        bottom: 12%;
+        padding: 1.5rem 2rem;
+        max-width: 85%;
+    }
+
     .product-title-overlay h2 {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
     
     .loading-product-skeleton {
