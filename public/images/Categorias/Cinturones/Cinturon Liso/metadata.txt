@@ -1,0 +1,6 @@
+title: Cinturon Liso
+subtitle: Cuero Clasico
+description: Cinturon de cuero liso con hebilla redondeada en acabado plata envejecida. Disponible en negro y marron. Perfil clasico y versatil para uso diario. Se puede personalizar con logo grabado o estampado.
+code: CIN-002
+images: 3380 N .jpeg, 3380 T.jpeg
+videos:

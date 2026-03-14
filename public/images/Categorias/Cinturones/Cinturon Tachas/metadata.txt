@@ -1,0 +1,6 @@
+title: Cinturon Tachas
+subtitle: Cuero Con Tachas
+description: Cinturon de cuero con tachas en relieve en tono negro sobre negro. Hebilla cuadrada mate a juego. Diseño audaz ideal para looks urbanos y casuales con actitud. Se puede personalizar con logo grabado o estampado.
+code: CIN-001
+images: 3378.jpeg
+videos:

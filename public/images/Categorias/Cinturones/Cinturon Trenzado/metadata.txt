@@ -1,0 +1,6 @@
+title: Cinturon Trenzado
+subtitle: Elastizado Trenzado
+description: Cinturon trenzado elastizado con terminaciones de cuero y hebilla cuadrada. Disponible en negro y azul marino. Flexible y comodo, ideal para un estilo sport-chic. Se puede personalizar con logo grabado o estampado.
+code: CIN-008
+images: 8O3A2361.jpeg, 8O3A2364.jpeg, 8O3A2367.jpeg
+videos:

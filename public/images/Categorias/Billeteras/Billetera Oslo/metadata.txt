@@ -1,0 +1,6 @@
+title: Billetera Oslo
+subtitle: Bifold con Tarjetero Extraíble
+description: Billetera bifold de cuero granulado con tarjetero desmontable incluido. Doble funcionalidad en un solo producto: usá la billetera completa o llevá solo el tarjetero. Múltiples ranuras para tarjetas y compartimento para billetes. Se puede personalizar ambas piezas.
+code: BIL-003
+images: OSLO.jpeg, OSLO(1).jpeg, OSLO(2).jpeg, OSLO(3).jpeg, OSLO(4).jpeg, OSLO(5).jpeg
+videos:

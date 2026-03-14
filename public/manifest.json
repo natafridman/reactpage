@@ -28,10 +28,28 @@
     "Riñonera Malaga",
 	  "Riñonera Musher"
   ],
+  "Billeteras": [
+    "Billetera Vintage",
+    "Billetera Niza",
+    "Billetera Oslo",
+    "Billetera Roma",
+    "Tarjetero Simple"
+  ],
   "Gorras": [
     "Gorra Verano",
-	  "Gorra Mardel", 
+	  "Gorra Mardel",
 	  "Gorra Invierno",
 	  "Gorra Corderoy"
+  ],
+  "Cinturones": [
+    "Cinturon Tachas",
+    "Cinturon Liso",
+    "Cinturon Ancho",
+    "Cinturon Vestir",
+    "Cinturon Vintage",
+    "Cinturon Reversible",
+    "Cinturon Moderno",
+    "Cinturon Trenzado",
+    "Cinturon Cosido"
   ]
 }

@@ -1,0 +1,6 @@
+title: Billetera Roma
+subtitle: Bifold Cuero Granulado
+description: Billetera bifold clásica en cuero granulado con múltiples ranuras para tarjetas a ambos lados. Compartimento central para billetes y bolsillo con cierre interno. Un básico que nunca falla, ideal para regalos corporativos o merchandising con grabado personalizado.
+code: BIL-004
+images: ROMA.jpeg, ROMA(1).jpeg, ROMA(2).jpeg
+videos:

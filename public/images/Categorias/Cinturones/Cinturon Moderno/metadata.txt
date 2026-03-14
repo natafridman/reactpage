@@ -1,0 +1,6 @@
+title: Cinturon Moderno
+subtitle: Cuero Contemporaneo
+description: Cinturon de cuero pulido con hebilla cuadrada en acabado negro mate. Disponible en negro y marron. Lineas limpias y minimalistas para un look actual y sofisticado. Se puede personalizar con logo grabado o estampado.
+code: CIN-007
+images: 8O3A2335.jpeg, 8O3A2341.jpeg
+videos:

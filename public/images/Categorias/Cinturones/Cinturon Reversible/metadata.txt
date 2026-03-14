@@ -1,0 +1,6 @@
+title: Cinturon Reversible
+subtitle: Cuero Doble Faz
+description: Cinturon reversible de cuero con un lado negro y otro marron. Hebilla en acabado plata envejecida. Dos cinturones en uno, practico y versatil para combinar con cualquier outfit. Se puede personalizar con logo grabado o estampado.
+code: CIN-006
+images: 8O3A2304.jpeg, 8O3A2306.jpeg
+videos:

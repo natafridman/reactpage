@@ -1,0 +1,6 @@
+title: Cinturon Vestir
+subtitle: Cuero De Vestir
+description: Cinturon de cuero pulido con hebilla rectangular plateada brillante. Disponible en negro y marron. Terminacion elegante ideal para trajes y ocasiones formales. Se puede personalizar con logo grabado o estampado.
+code: CIN-004
+images: 8O3A2279.jpeg, 8O3A2284.jpeg, 8O3A2287.jpeg, 8O3A1923.jpeg
+videos:

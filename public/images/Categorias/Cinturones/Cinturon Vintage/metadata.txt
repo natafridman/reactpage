@@ -1,0 +1,6 @@
+title: Cinturon Vintage
+subtitle: Cuero Envejecido
+description: Cinturon de cuero con acabado envejecido y hebilla de estilo rustico en plata antigua. Cuero texturado que mejora con el uso. Ideal para looks con caracter y personalidad. Se puede personalizar con logo grabado o estampado.
+code: CIN-005
+images: 8O3A2292.jpeg, 8O3A2299.jpeg
+videos:

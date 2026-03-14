@@ -1,0 +1,6 @@
+title: Cinturon Ancho
+subtitle: Cuero Ancho Moderno
+description: Cinturon ancho de cuero liso con hebilla cuadrada texturizada. Disponible en negro y marron. Perfil robusto y moderno ideal para jeans y looks casual. Se puede personalizar con logo grabado o estampado.
+code: CIN-003
+images: 3395(1).jpeg, 3395.jpeg
+videos:
