@@ -1,0 +1,6 @@
+title: Cinturon Ojales
+subtitle: Cuero Con Ojales y Tachas
+description: Cinturon de cuero genuino con diseño de ojales calados y tachas metálicas en relieve. Hebilla redondeada plateada que complementa el estilo rockero. Disponible en negro y marrón. Ideal para looks urbanos con personalidad. Se puede personalizar con logo grabado o estampado.
+code: CIN-010
+images: 8O3A5286.jpeg, 8O3A5489.jpeg
+videos:

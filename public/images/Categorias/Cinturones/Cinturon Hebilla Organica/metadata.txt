@@ -1,0 +1,6 @@
+title: Cinturon Hebilla Organica
+subtitle: Cuero Con Hebilla Artesanal
+description: Cinturon de cuero liso con hebilla ovalada de formas orgánicas en acabado plateado pulido. Diseño único y artesanal que se destaca por su hebilla escultural. Disponible en negro y marrón suela. Ideal para looks casuales con carácter. Se puede personalizar con grabado.
+code: CIN-013
+images: 8O3A5358.jpeg, 8O3A5394.jpeg, 8O3A5408.jpeg
+videos:

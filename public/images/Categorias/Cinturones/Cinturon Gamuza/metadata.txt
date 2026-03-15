@@ -1,0 +1,6 @@
+title: Cinturon Gamuza
+subtitle: Gamuza Suave Clasica
+description: Cinturon de gamuza genuina con textura aterciopelada y hebilla redondeada clásica. Disponible en marrón con hebilla dorada y negro con hebilla plateada. Tacto suave y look casual elegante que combina con todo. Se puede personalizar con logo grabado o estampado.
+code: CIN-011
+images: 8O3A5298.jpeg, 8O3A5307.jpeg
+videos:

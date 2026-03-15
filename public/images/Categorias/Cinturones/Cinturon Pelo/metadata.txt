@@ -1,0 +1,6 @@
+title: Cinturon Pelo
+subtitle: Cuero Pelo de Vaca
+description: Cinturon de cuero con pelo de vaca natural en estampado brindle y manchado. Hebilla redondeada y puntera metálica plateada. Cada pieza es única por las variaciones naturales del pelo. Estilo audaz y original para quienes buscan diferenciarse. Se puede personalizar.
+code: CIN-016
+images: 8O3A5416.jpeg, 8O3A5420.jpeg, 8O3A5446.jpeg
+videos:

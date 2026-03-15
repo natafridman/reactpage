@@ -1,0 +1,6 @@
+title: Cinturon Basico
+subtitle: Cuero Liso Multicolor
+description: Cinturon de cuero ancho con hebilla redondeada clásica. Disponible en cinco colores: negro, marrón, negro craquelado, beige y blanco craquelado. Diseño simple y versátil que se adapta a cualquier estilo. Cuero genuino con terminaciones impecables. Ideal para personalizar con logo.
+code: CIN-019
+images: 8O3A6079.jpeg, 8O3A6082.jpeg, 8O3A6091.jpeg, 8O3A6094.jpeg, 8O3A6096.jpeg, 8O3A6098.jpeg
+videos:

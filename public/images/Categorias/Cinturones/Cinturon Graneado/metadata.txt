@@ -1,0 +1,6 @@
+title: Cinturon Graneado
+subtitle: Cuero Textura Graneada
+description: Cinturon de cuero con textura graneada natural que le da un aspecto rústico y auténtico. Hebilla rectangular clásica en acabado plateado envejecido. Disponible en negro y marrón. Resistente y con carácter que mejora con el uso. Se puede personalizar con logo.
+code: CIN-014
+images: 8O3A5367.jpeg, 8O3A5472.jpeg
+videos:

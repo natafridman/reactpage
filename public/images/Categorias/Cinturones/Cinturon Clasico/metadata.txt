@@ -1,0 +1,6 @@
+title: Cinturon Clasico
+subtitle: Cuero Negro Atemporal
+description: Cinturon de cuero negro liso con hebilla redondeada plateada clásica. Diseño atemporal y elegante que nunca pasa de moda. Ancho medio ideal para uso diario, casual o formal. Cuero genuino resistente con terminaciones de calidad. Se puede personalizar con logo grabado o estampado.
+code: CIN-021
+images: 8O3A6872.jpeg, 8O3A6874.jpeg, 8O3A6876.jpeg
+videos:

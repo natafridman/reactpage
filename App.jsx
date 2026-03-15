@@ -8,6 +8,7 @@ import LoadingSkeleton from '/components/LoadingSkeleton.jsx';
 import EmptyState from '/components/EmptyState.jsx';
 import ImageModal from '/components/ImageModal.jsx';
 import Footer from '/components/Footer.jsx';
+import CategoryBanner from '/components/CategoryBanner.jsx';
 import { loadManifest, getCategoryFromURL } from '/utils/productUtils.js';
 
 // ===== CONFIGURATION =====
@@ -476,6 +477,8 @@ function App() {
 
       <br />
       <br />
+
+      {!isSingleProduct && <CategoryBanner category={getCategoryFromURL()} />}
 
       <main id="productsContainer" style={{ position: 'relative' }}>
         {isLoadingPage && (

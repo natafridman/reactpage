@@ -1,0 +1,6 @@
+title: Cinturon Charol
+subtitle: Cuero Brillante Fino
+description: Cinturon fino de cuero charolado negro con acabado brillante y hebilla cuadrada plateada minimalista. Diseño delgado y elegante ideal para outfits formales o de vestir. Perfecto para agregar un toque sutil y refinado. Se puede personalizar con logo grabado o estampado.
+code: CIN-012
+images: 8O3A5339.jpeg
+videos:

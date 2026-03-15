@@ -1,0 +1,6 @@
+title: Cinturon Ovalado
+subtitle: Cuero Con Hebilla Oval
+description: Cinturon de cuero liso con hebilla ovalada plateada simple y elegante. Diseño limpio y versátil que combina con cualquier outfit casual o semi-formal. Disponible en negro y suela. Terminaciones prolijas y cuero de primera calidad. Se puede personalizar con logo grabado.
+code: CIN-017
+images: 8O3A5506.jpeg
+videos:

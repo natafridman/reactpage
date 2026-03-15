@@ -1,0 +1,6 @@
+title: Cinturon Western Gamuza
+subtitle: Gamuza Con Hebilla Western
+description: Cinturon de gamuza con hebilla western ornamentada en bronce envejecido con detalles florales repujados. Incluye puntera y pasador decorados a juego. Disponible en camel y bordó. Estilo bohemio y campestre con terminaciones premium. Se puede personalizar con grabado.
+code: CIN-015
+images: 8O3A5378.jpeg, 8O3A5532.jpeg
+videos:
