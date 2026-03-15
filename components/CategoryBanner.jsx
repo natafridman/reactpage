@@ -6,8 +6,17 @@ const IMAGES_BASE_FOLDER = 'images/Categorias';
 
 function CategoryBanner({ category }) {
   const [bubbleImages, setBubbleImages] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [activeIndex, setActiveIndex] = useState(0);
   const trackRef = useRef(null);
+  const timerRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (!category) return;
@@ -18,7 +27,6 @@ function CategoryBanner({ category }) {
         const productsInCategory = manifest[category];
         if (!productsInCategory || productsInCategory.length === 0) return;
 
-        // Shuffle and pick up to 10
         const shuffled = [...productsInCategory].sort(() => Math.random() - 0.5);
         const selected = shuffled.slice(0, 10);
 
@@ -36,7 +44,6 @@ function CategoryBanner({ category }) {
                 const rawValue = valueParts.join(':').trim();
                 const imgList = rawValue.split(',').map(s => s.trim()).filter(Boolean);
                 if (imgList.length > 0) {
-                  // Pick a random image from this product
                   const randomImg = imgList[Math.floor(Math.random() * imgList.length)];
                   images.push({
                     src: `/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/${randomImg}`,
@@ -50,6 +57,7 @@ function CategoryBanner({ category }) {
         }
 
         setBubbleImages(images);
+        setActiveIndex(0);
       } catch (err) {
         console.error('Error loading category banner images:', err);
       }
@@ -59,18 +67,68 @@ function CategoryBanner({ category }) {
     loadCategoryImages();
   }, [category]);
 
+  // Mobile auto-advance
+  useEffect(() => {
+    if (!isMobile || bubbleImages.length < 3) return;
+    timerRef.current = setInterval(() => {
+      setActiveIndex(prev => (prev + 1) % bubbleImages.length);
+    }, 2000);
+    return () => clearInterval(timerRef.current);
+  }, [isMobile, bubbleImages.length]);
+
   if (!category || bubbleImages.length === 0) return null;
 
-  // Repeat enough times to always fill wide screens (each bubble ~135px with gap)
-  // Need at least 2x viewport width for seamless loop
-  // Each set = bubbleImages.length items. We need at least 2 sets to loop seamlessly.
-  // On wide screens we need more sets so there's no gap visible.
-  const itemWidth = 135; // 120px bubble + 15px gap
+  const goToProduct = (name) => {
+    navigate(`/producto/${encodeURIComponent(category)}/${encodeURIComponent(name)}`);
+  };
+
+  const getIdx = (offset) => ((activeIndex + offset) % bubbleImages.length + bubbleImages.length) % bubbleImages.length;
+
+  // --- MOBILE RENDER ---
+  if (isMobile && bubbleImages.length >= 3) {
+    // Render all items, assign position class based on distance from activeIndex
+    const getPosition = (i) => {
+      let diff = i - activeIndex;
+      const len = bubbleImages.length;
+      // Wrap around for shortest path
+      if (diff > len / 2) diff -= len;
+      if (diff < -len / 2) diff += len;
+
+      if (diff === 0) return 'mob-center';
+      if (diff === -1) return 'mob-left';
+      if (diff === 1) return 'mob-right';
+      if (diff === -2) return 'mob-exit-left';
+      if (diff === 2) return 'mob-enter-right';
+      return 'mob-hidden';
+    };
+
+    return (
+      <section className="category-banner">
+        <div className="category-banner-content">
+          <h1 className="category-banner-title">{category}</h1>
+          <div className="category-banner-divider"></div>
+        </div>
+        <div className="mobile-bubbles-stage">
+          {bubbleImages.map((img, i) => (
+            <div
+              className={`mob-bubble ${getPosition(i)}`}
+              key={img.name}
+              onClick={() => goToProduct(img.name)}
+            >
+              <img src={img.src} alt={img.name} />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // --- DESKTOP RENDER ---
+  const itemWidth = 135;
   const singleSetWidth = bubbleImages.length * itemWidth;
-  const minWidth = 2 * 1920; // cover 2x a wide viewport
+  const minWidth = 2 * 1920;
   const repeats = Math.max(2, Math.ceil(minWidth / singleSetWidth));
   const duplicated = Array.from({ length: repeats }, () => bubbleImages).flat();
-  // Scroll exactly one set's worth so it loops seamlessly
   const scrollPercent = (100 / repeats);
 
   return (
@@ -89,7 +147,7 @@ function CategoryBanner({ category }) {
             <div
               className="category-bubble"
               key={i}
-              onClick={() => navigate(`/producto/${encodeURIComponent(category)}/${encodeURIComponent(img.name)}`)}
+              onClick={() => goToProduct(img.name)}
             >
               <img src={img.src} alt={img.name} loading="eager" />
             </div>
