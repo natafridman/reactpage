@@ -6,17 +6,8 @@ const IMAGES_BASE_FOLDER = 'images/Categorias';
 
 function CategoryBanner({ category }) {
   const [bubbleImages, setBubbleImages] = useState([]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [activeIndex, setActiveIndex] = useState(0);
   const trackRef = useRef(null);
-  const timerRef = useRef(null);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     if (!category) return;
@@ -28,7 +19,7 @@ function CategoryBanner({ category }) {
         if (!productsInCategory || productsInCategory.length === 0) return;
 
         const shuffled = [...productsInCategory].sort(() => Math.random() - 0.5);
-        const selected = shuffled.slice(0, 10);
+        const selected = shuffled.slice(0, 15);
 
         const images = [];
         for (const productFolder of selected) {
@@ -57,7 +48,6 @@ function CategoryBanner({ category }) {
         }
 
         setBubbleImages(images);
-        setActiveIndex(0);
       } catch (err) {
         console.error('Error loading category banner images:', err);
       }
@@ -67,63 +57,12 @@ function CategoryBanner({ category }) {
     loadCategoryImages();
   }, [category]);
 
-  // Mobile auto-advance
-  useEffect(() => {
-    if (!isMobile || bubbleImages.length < 3) return;
-    timerRef.current = setInterval(() => {
-      setActiveIndex(prev => (prev + 1) % bubbleImages.length);
-    }, 2000);
-    return () => clearInterval(timerRef.current);
-  }, [isMobile, bubbleImages.length]);
-
   if (!category || bubbleImages.length === 0) return null;
 
   const goToProduct = (name) => {
     navigate(`/producto/${encodeURIComponent(category)}/${encodeURIComponent(name)}`);
   };
 
-  const getIdx = (offset) => ((activeIndex + offset) % bubbleImages.length + bubbleImages.length) % bubbleImages.length;
-
-  // --- MOBILE RENDER ---
-  if (isMobile && bubbleImages.length >= 3) {
-    // Render all items, assign position class based on distance from activeIndex
-    const getPosition = (i) => {
-      let diff = i - activeIndex;
-      const len = bubbleImages.length;
-      // Wrap around for shortest path
-      if (diff > len / 2) diff -= len;
-      if (diff < -len / 2) diff += len;
-
-      if (diff === 0) return 'mob-center';
-      if (diff === -1) return 'mob-left';
-      if (diff === 1) return 'mob-right';
-      if (diff === -2) return 'mob-exit-left';
-      if (diff === 2) return 'mob-enter-right';
-      return 'mob-hidden';
-    };
-
-    return (
-      <section className="category-banner">
-        <div className="category-banner-content">
-          <h1 className="category-banner-title">{category}</h1>
-          <div className="category-banner-divider"></div>
-        </div>
-        <div className="mobile-bubbles-stage">
-          {bubbleImages.map((img, i) => (
-            <div
-              className={`mob-bubble ${getPosition(i)}`}
-              key={img.name}
-              onClick={() => goToProduct(img.name)}
-            >
-              <img src={img.src} alt={img.name} />
-            </div>
-          ))}
-        </div>
-      </section>
-    );
-  }
-
-  // --- DESKTOP RENDER ---
   const itemWidth = 135;
   const singleSetWidth = bubbleImages.length * itemWidth;
   const minWidth = 2 * 1920;
