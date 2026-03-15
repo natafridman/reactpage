@@ -193,6 +193,8 @@ function App() {
 
   // ===== INITIALIZE ON MOUNT =====
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+
     if (isSingleProduct) {
       document.title = `B2YOU - ${decodeURIComponent(paramNombre)}`;
     } else {
@@ -478,7 +480,7 @@ function App() {
       <br />
       <br />
 
-      {!isSingleProduct && <CategoryBanner category={getCategoryFromURL()} />}
+      {!isSingleProduct && <CategoryBanner category={getCategoryFromURL() || null} />}
 
       <main id="productsContainer" style={{ position: 'relative' }}>
         {isLoadingPage && (
