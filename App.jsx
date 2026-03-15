@@ -439,10 +439,9 @@ function App() {
   async function handlePageChange(newPage) {
     if (newPage === currentPage) return;
 
+    window.scrollTo({ top: 0, behavior: 'instant' });
     setCurrentPage(newPage);
     await loadProducts(newPage);
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function handlePrevPage() {
