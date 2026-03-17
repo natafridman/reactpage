@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive, onCategoryClick }) {
   const navigate = useNavigate();
   const location = useLocation();
+  const containerRef = useRef(null);
   const pageLabels = { '/Empresas': 'Empresas', '/Marcas': 'Marcas' };
   const pageBadge = pageLabels[location.pathname] || null;
   const [isDark, setIsDark] = useState(() => {
@@ -16,6 +17,22 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     localStorage.setItem('b2you-theme', isDark ? 'dark' : 'light');
   }, [isDark]);
+
+  // Hint animation on mobile: quick scroll down then back up
+  useEffect(() => {
+    if (!isMenuActive || window.innerWidth > 768) return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const timer = setTimeout(() => {
+      container.scrollTo({ top: 40, behavior: 'smooth' });
+      setTimeout(() => {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 350);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [isMenuActive]);
 
   const handleHamburgerClick = (e) => {
     e.preventDefault();
@@ -68,7 +85,7 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
       </div>
 
       <nav className={`categories-menu ${isMenuActive ? 'active' : ''}`} id="categoriesMenu">
-        <div className="categories-container" id="categoriesContainer">
+        <div className="categories-container" id="categoriesContainer" ref={containerRef}>
           <div className="nav-group">
             <span className="menu-section-label">MENÚ</span>
             <button

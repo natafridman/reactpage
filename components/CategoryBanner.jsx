@@ -9,7 +9,12 @@ function CategoryBanner({ category }) {
   const trackRef = useRef(null);
   const navigate = useNavigate();
 
-  // category = specific category name, or null/undefined = all products
+  // Touch/swipe state
+  const touchStartX = useRef(null);
+  const currentOffset = useRef(0);
+  const animationPaused = useRef(false);
+  const resumeTimer = useRef(null);
+
   const isAll = !category;
   const title = isAll ? 'Productos' : category;
 
@@ -20,7 +25,6 @@ function CategoryBanner({ category }) {
 
         let allProducts = [];
         if (isAll) {
-          // Gather all products from all categories
           for (const cat of Object.keys(manifest)) {
             for (const folder of manifest[cat]) {
               allProducts.push({ category: cat, productFolder: folder });
@@ -78,6 +82,59 @@ function CategoryBanner({ category }) {
     navigate(`/producto/${encodeURIComponent(img.category)}/${encodeURIComponent(img.name)}`);
   };
 
+  // Touch handlers for swipe
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    const track = trackRef.current;
+    if (!track) return;
+
+    // Get current computed transform
+    const style = window.getComputedStyle(track);
+    const matrix = new DOMMatrix(style.transform);
+    currentOffset.current = matrix.m41;
+
+    // Pause animation
+    track.style.animation = 'none';
+    track.style.transform = `translateX(${currentOffset.current}px)`;
+    animationPaused.current = true;
+
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+  };
+
+  const handleTouchMove = (e) => {
+    if (touchStartX.current === null) return;
+    const track = trackRef.current;
+    if (!track) return;
+
+    const deltaX = e.touches[0].clientX - touchStartX.current;
+    track.style.transform = `translateX(${currentOffset.current + deltaX}px)`;
+  };
+
+  const handleTouchEnd = () => {
+    touchStartX.current = null;
+    const track = trackRef.current;
+    if (!track) return;
+
+    // Resume animation after a short delay
+    resumeTimer.current = setTimeout(() => {
+      // Get current position and calculate offset percentage
+      const style = window.getComputedStyle(track);
+      const matrix = new DOMMatrix(style.transform);
+      const currentX = matrix.m41;
+      const trackWidth = track.scrollWidth;
+
+      // Normalize position within bounds
+      let normalizedX = currentX % (trackWidth / 2);
+      if (normalizedX > 0) normalizedX -= trackWidth / 2;
+
+      // Set custom property for animation start and resume
+      track.style.transform = '';
+      track.style.setProperty('--swipe-offset', `${normalizedX}px`);
+      track.style.animation = '';
+      animationPaused.current = false;
+    }, 1500);
+  };
+
   let duplicated = [];
   let scrollPercent = 50;
   if (showBubbles) {
@@ -101,6 +158,9 @@ function CategoryBanner({ category }) {
             className="category-bubbles-track"
             ref={trackRef}
             style={{ '--scroll-percent': `-${scrollPercent}%` }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
             {duplicated.map((img, i) => (
               <div

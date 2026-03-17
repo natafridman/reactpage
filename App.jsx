@@ -27,6 +27,7 @@ function App() {
   const [modalDisplay, setModalDisplay] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImageSrc, setModalImageSrc] = useState('');
+  const [modalAllImages, setModalAllImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
@@ -370,17 +371,35 @@ function App() {
     if (products.length === 0) return;
 
     const timer = setTimeout(() => {
-      const galleryItems = document.querySelectorAll('.gallery-item');
+      // For each product section, collect all image srcs
+      const productSections = document.querySelectorAll('.product-section');
 
-      galleryItems.forEach(function(item) {
-        item.style.cursor = 'pointer';
-        const handleClick = function() {
-          const img = this.querySelector('img');
-          if (img) {
-            openModal(img.src);
-          }
-        };
-        item.addEventListener('click', handleClick);
+      productSections.forEach(function(section) {
+        const allImgs = [];
+        // Collect hero image
+        const heroImg = section.querySelector('.hero-image-wrapper img');
+        if (heroImg) allImgs.push(heroImg.src);
+        // Collect gallery images
+        const galleryImgs = section.querySelectorAll('.gallery-item img');
+        galleryImgs.forEach(img => allImgs.push(img.src));
+
+        // Make hero clickable too
+        if (heroImg) {
+          heroImg.style.cursor = 'pointer';
+          heroImg.onclick = () => openModal(heroImg.src, allImgs);
+        }
+
+        const galleryItems = section.querySelectorAll('.gallery-item');
+        galleryItems.forEach(function(item) {
+          item.style.cursor = 'pointer';
+          const handleClick = function() {
+            const img = this.querySelector('img');
+            if (img) {
+              openModal(img.src, allImgs);
+            }
+          };
+          item.addEventListener('click', handleClick);
+        });
       });
     }, 100);
 
@@ -396,8 +415,9 @@ function App() {
     }, 300);
   }
 
-  function openModal(imgSrc) {
+  function openModal(imgSrc, allImgs = []) {
     setModalImageSrc(imgSrc);
+    setModalAllImages(allImgs);
     setModalDisplay(true);
     setTimeout(() => {
       setModalOpen(true);
@@ -553,7 +573,9 @@ function App() {
         modalDisplay={modalDisplay}
         modalOpen={modalOpen}
         imageSrc={modalImageSrc}
+        allImages={modalAllImages}
         onClose={closeModal}
+        onImageChange={setModalImageSrc}
       />
     </>
   );
