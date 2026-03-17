@@ -285,6 +285,23 @@ body {
     transform: scaleX(0);
 }
 
+.category-link--mundial {
+    color: #4A9AD4;
+    font-weight: 700;
+}
+
+.category-link--mundial:visited {
+    color: #4A9AD4;
+}
+
+.category-link--mundial:hover {
+    color: #2E7BB5;
+}
+
+.category-link--mundial::before {
+    background: #4A9AD4;
+}
+
 .menu-nav-separator {
     width: 1px;
     height: 20px;

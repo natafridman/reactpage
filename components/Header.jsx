@@ -99,7 +99,17 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
               >
                 TODO
               </button>
-              {categories.map(cat => (
+              {categories.filter(cat => cat === 'Mundial').map(cat => (
+                <a
+                  key={cat}
+                  href={`?categoria=${encodeURIComponent(cat)}`}
+                  className="category-link category-link--mundial"
+                  onClick={(e) => onCategoryClick && onCategoryClick(e, cat)}
+                >
+                  {cat.toUpperCase()}
+                </a>
+              ))}
+              {categories.filter(cat => cat !== 'Mundial').map(cat => (
                 <a
                   key={cat}
                   href={`?categoria=${encodeURIComponent(cat)}`}

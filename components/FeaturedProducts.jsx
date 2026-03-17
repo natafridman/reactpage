@@ -6,19 +6,19 @@ function FeaturedProducts() {
   const products = [
     {
       id: 1,
+      video: '',
+      title: 'Camiseta Argentina',
+      description: 'La camiseta de la Seleccion con escudo AFA y parche FIFA World Champions 2022. Ideal para personalizar con tu marca.',
+      category: 'Mundial',
+      image: '/images/Categorias/Mundial/Camiseta/WhatsApp Image 2026-03-16 at 17.05.15.jpeg'
+    },
+    {
+      id: 2,
       video: '/images/Categorias/Bolsos/Bolso Duffle/bolso.mp4',
       title: 'Bolso Duffle',
       description: 'Pensado para viajes y escapadas. Amplio, resistente y con terminaciones cuidadas en cada detalle.',
       category: 'Bolsos',
       image: '/images/Categorias/Bolsos/Bolso Duffle/IMG_1585.jpeg'
-    },
-    {
-      id: 2,
-      video: '/images/Categorias/Mochilas/Mochila London/mochila.mp4',
-      title: 'Mochila London',
-      description: 'Cómoda para el día a día, con respaldo acolchado y compartimientos pensados para que lleves todo con vos.',
-      category: 'Mochilas',
-      image: '/images/Categorias/Mochilas/Mochila London/LONDON(1).jpeg'
     },
     {
       id: 3,

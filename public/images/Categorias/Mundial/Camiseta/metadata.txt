@@ -1,0 +1,6 @@
+title: Camiseta Argentina
+subtitle: Seleccion Argentina Oficial
+description: Camiseta de la Seleccion Argentina con escudo AFA bordado y parche FIFA World Champions 2022. Diseño clásico de rayas celestes y blancas con detalles en dorado. Ideal para personalizar con nombre, número o logo corporativo. Perfecta para eventos deportivos, regalos empresariales o merchandising mundialista.
+code: MUN-001
+images: WhatsApp Image 2026-03-16 at 17.05.15.jpeg, WhatsApp Image 2026-03-16 at 17.05.16 (2).jpeg, WhatsApp Image 2026-03-16 at 17.05.16 (3).jpeg, WhatsApp Image 2026-03-16 at 17.05.16.jpeg, WhatsApp Image 2026-03-16 at 17.07.34 (1).jpeg, WhatsApp Image 2026-03-16 at 17.07.34.jpeg
+videos:
