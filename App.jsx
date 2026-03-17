@@ -539,16 +539,43 @@ function App() {
                 </button>
                 
                 <div className="pagination-numbers">
-                  {Array.from({ length: getTotalPages() }, (_, i) => i + 1).map(pageNum => (
-                    <button
-                      key={pageNum}
-                      className={`pagination-number ${currentPage === pageNum ? 'active' : ''}`}
-                      onClick={() => handlePageChange(pageNum)}
-                      disabled={isLoadingPage}
-                    >
-                      {pageNum}
-                    </button>
-                  ))}
+                  {(() => {
+                    const total = getTotalPages();
+                    const pages = [];
+                    const addPage = (n) => {
+                      if (!pages.includes(n) && n >= 1 && n <= total) pages.push(n);
+                    };
+
+                    // Always show first 3
+                    for (let i = 1; i <= Math.min(3, total); i++) addPage(i);
+                    // Around current
+                    addPage(currentPage - 1);
+                    addPage(currentPage);
+                    addPage(currentPage + 1);
+                    // Last 2
+                    addPage(total - 1);
+                    addPage(total);
+
+                    pages.sort((a, b) => a - b);
+
+                    const elements = [];
+                    for (let i = 0; i < pages.length; i++) {
+                      if (i > 0 && pages[i] - pages[i - 1] > 1) {
+                        elements.push(<span key={`dots-${i}`} className="pagination-dots">...</span>);
+                      }
+                      elements.push(
+                        <button
+                          key={pages[i]}
+                          className={`pagination-number ${currentPage === pages[i] ? 'active' : ''}`}
+                          onClick={() => handlePageChange(pages[i])}
+                          disabled={isLoadingPage}
+                        >
+                          {pages[i]}
+                        </button>
+                      );
+                    }
+                    return elements;
+                  })()}
                 </div>
 
                 <button 

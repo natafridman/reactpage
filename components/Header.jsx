@@ -4,7 +4,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive, onCategoryClick }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const containerRef = useRef(null);
   const pageLabels = { '/Empresas': 'Empresas', '/Marcas': 'Marcas' };
   const pageBadge = pageLabels[location.pathname] || null;
   const [isDark, setIsDark] = useState(() => {
@@ -18,18 +17,20 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
     localStorage.setItem('b2you-theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
-  // Hint animation on mobile: quick scroll down then back up
+  // Hint animation on mobile: quick scroll down then back up on the menu nav
+  const menuRef = useRef(null);
   useEffect(() => {
     if (!isMenuActive || window.innerWidth > 768) return;
-    const container = containerRef.current;
-    if (!container) return;
+    const menu = menuRef.current;
+    if (!menu) return;
 
+    // Wait for the menu open transition to finish (max-height transition is 0.4s)
     const timer = setTimeout(() => {
-      container.scrollTo({ top: 40, behavior: 'smooth' });
+      menu.scrollTo({ top: 40, behavior: 'smooth' });
       setTimeout(() => {
-        container.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 350);
-    }, 400);
+        menu.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 200);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [isMenuActive]);
@@ -84,8 +85,8 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
         </button>
       </div>
 
-      <nav className={`categories-menu ${isMenuActive ? 'active' : ''}`} id="categoriesMenu">
-        <div className="categories-container" id="categoriesContainer" ref={containerRef}>
+      <nav className={`categories-menu ${isMenuActive ? 'active' : ''}`} id="categoriesMenu" ref={menuRef}>
+        <div className="categories-container" id="categoriesContainer">
           <div className="nav-group">
             <span className="menu-section-label">MENÚ</span>
             <button

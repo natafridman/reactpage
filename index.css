@@ -365,11 +365,7 @@ body {
     display: flex;
     gap: 1.5rem;
     width: max-content;
-    animation: bubbles-scroll 25s linear infinite;
-}
-
-.category-bubbles-track:hover {
-    animation-play-state: paused;
+    will-change: transform;
 }
 
 .category-bubble {
@@ -403,10 +399,10 @@ body {
 
 @keyframes bubbles-scroll {
     0% {
-        transform: translateX(var(--swipe-offset, 0px));
+        transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(var(--scroll-percent, -50%) + var(--swipe-offset, 0px)));
+        transform: translateX(var(--scroll-percent, -50%));
     }
 }
 
@@ -1156,7 +1152,16 @@ body {
 
 .pagination-numbers {
     display: flex;
-    gap: 0.625rem;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.pagination-dots {
+    color: var(--b2-black);
+    font-size: 0.875rem;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+    padding: 0 0.25rem;
 }
 
 .pagination-number {

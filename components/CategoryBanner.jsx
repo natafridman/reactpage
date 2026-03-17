@@ -9,11 +9,20 @@ function CategoryBanner({ category }) {
   const trackRef = useRef(null);
   const navigate = useNavigate();
 
-  // Touch/swipe state
-  const touchStartX = useRef(null);
-  const currentOffset = useRef(0);
-  const animationPaused = useRef(false);
-  const resumeTimer = useRef(null);
+  // Manual animation state
+  const animState = useRef({
+    position: 0,        // current X position in px
+    baseSpeed: 0,       // px per frame at normal speed (calculated from track width)
+    speed: 0,           // current speed (can be boosted)
+    touching: false,
+    touchStartX: 0,
+    touchStartPos: 0,
+    lastTouchX: 0,
+    lastTouchTime: 0,
+    velocity: 0,        // swipe velocity for momentum
+    raf: null,
+    singleSetWidth: 0,  // width of one set of images for wrapping
+  });
 
   const isAll = !category;
   const title = isAll ? 'Productos' : category;
@@ -76,74 +85,120 @@ function CategoryBanner({ category }) {
     loadImages();
   }, [category]);
 
+  // Manual animation loop (replaces CSS animation)
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || bubbleImages.length < 5) return;
+
+    // Remove CSS animation - we drive it manually
+    track.style.animation = 'none';
+
+    const state = animState.current;
+
+    // Calculate single set width after render
+    const computeWidths = () => {
+      const itemCount = bubbleImages.length;
+      const bubble = track.querySelector('.category-bubble');
+      if (!bubble) return;
+      const style = window.getComputedStyle(track);
+      const gap = parseFloat(style.gap) || 24;
+      const bubbleWidth = bubble.offsetWidth;
+      state.singleSetWidth = itemCount * (bubbleWidth + gap);
+      // Speed: traverse one set in ~50s => px per frame at 60fps
+      state.baseSpeed = state.singleSetWidth / (50 * 60);
+      state.speed = state.baseSpeed;
+    };
+
+    // Wait for layout
+    requestAnimationFrame(computeWidths);
+
+    const animate = () => {
+      if (!state.touching) {
+        // Apply momentum decay if there's residual velocity from swipe
+        if (Math.abs(state.velocity) > 0.1) {
+          state.position += state.velocity;
+          // Decay velocity towards 0, then blend back to base scroll speed
+          state.velocity *= 0.95;
+        } else {
+          // Normal auto-scroll (left direction = negative)
+          state.velocity = 0;
+          state.position -= state.speed;
+        }
+      }
+
+      // Wrap position to avoid huge numbers
+      if (state.singleSetWidth > 0) {
+        while (state.position < -state.singleSetWidth) {
+          state.position += state.singleSetWidth;
+        }
+        while (state.position > 0) {
+          state.position -= state.singleSetWidth;
+        }
+      }
+
+      track.style.transform = `translateX(${state.position}px)`;
+      state.raf = requestAnimationFrame(animate);
+    };
+
+    state.raf = requestAnimationFrame(animate);
+
+    return () => {
+      if (state.raf) cancelAnimationFrame(state.raf);
+    };
+  }, [bubbleImages]);
+
   const showBubbles = bubbleImages.length >= 5;
 
   const goToProduct = (img) => {
     navigate(`/producto/${encodeURIComponent(img.category)}/${encodeURIComponent(img.name)}`);
   };
 
-  // Touch handlers for swipe
   const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-    const track = trackRef.current;
-    if (!track) return;
-
-    // Get current computed transform
-    const style = window.getComputedStyle(track);
-    const matrix = new DOMMatrix(style.transform);
-    currentOffset.current = matrix.m41;
-
-    // Pause animation
-    track.style.animation = 'none';
-    track.style.transform = `translateX(${currentOffset.current}px)`;
-    animationPaused.current = true;
-
-    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    const state = animState.current;
+    state.touching = true;
+    state.touchStartX = e.touches[0].clientX;
+    state.touchStartPos = state.position;
+    state.lastTouchX = e.touches[0].clientX;
+    state.lastTouchTime = Date.now();
+    state.velocity = 0;
   };
 
   const handleTouchMove = (e) => {
-    if (touchStartX.current === null) return;
-    const track = trackRef.current;
-    if (!track) return;
+    e.preventDefault(); // prevent vertical scroll
+    const state = animState.current;
+    if (!state.touching) return;
 
-    const deltaX = e.touches[0].clientX - touchStartX.current;
-    track.style.transform = `translateX(${currentOffset.current + deltaX}px)`;
+    const currentX = e.touches[0].clientX;
+    const now = Date.now();
+
+    // Move track with finger
+    const dx = currentX - state.touchStartX;
+    state.position = state.touchStartPos + dx;
+
+    // Track velocity for momentum
+    const dt = now - state.lastTouchTime;
+    if (dt > 5) {
+      const frameDx = currentX - state.lastTouchX;
+      state.velocity = state.velocity * 0.6 + (frameDx / dt) * 16 * 0.4; // smoothed, in px/frame
+      state.lastTouchX = currentX;
+      state.lastTouchTime = now;
+    }
   };
 
   const handleTouchEnd = () => {
-    touchStartX.current = null;
-    const track = trackRef.current;
-    if (!track) return;
-
-    // Resume animation after a short delay
-    resumeTimer.current = setTimeout(() => {
-      // Get current position and calculate offset percentage
-      const style = window.getComputedStyle(track);
-      const matrix = new DOMMatrix(style.transform);
-      const currentX = matrix.m41;
-      const trackWidth = track.scrollWidth;
-
-      // Normalize position within bounds
-      let normalizedX = currentX % (trackWidth / 2);
-      if (normalizedX > 0) normalizedX -= trackWidth / 2;
-
-      // Set custom property for animation start and resume
-      track.style.transform = '';
-      track.style.setProperty('--swipe-offset', `${normalizedX}px`);
-      track.style.animation = '';
-      animationPaused.current = false;
-    }, 1500);
+    const state = animState.current;
+    state.touching = false;
+    // velocity is preserved and will decay in the animation loop,
+    // then auto-scroll resumes naturally
   };
 
   let duplicated = [];
-  let scrollPercent = 50;
   if (showBubbles) {
     const itemWidth = 135;
     const singleSetWidth = bubbleImages.length * itemWidth;
     const minWidth = 2 * 1920;
-    const repeats = Math.max(2, Math.ceil(minWidth / singleSetWidth));
+    const repeats = Math.max(3, Math.ceil(minWidth / singleSetWidth) + 1);
     duplicated = Array.from({ length: repeats }, () => bubbleImages).flat();
-    scrollPercent = (100 / repeats);
   }
 
   return (
@@ -153,14 +208,16 @@ function CategoryBanner({ category }) {
         <div className="category-banner-divider"></div>
       </div>
       {showBubbles && (
-        <div className="category-bubbles-wrapper">
+        <div
+          className="category-bubbles-wrapper"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          style={{ touchAction: 'none' }}
+        >
           <div
             className="category-bubbles-track"
             ref={trackRef}
-            style={{ '--scroll-percent': `-${scrollPercent}%` }}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
           >
             {duplicated.map((img, i) => (
               <div
