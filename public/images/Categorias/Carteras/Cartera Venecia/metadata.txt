@@ -1,6 +1,6 @@
-title: Bolso Tipo Saquito
+title: Cartera Venecia
 subtitle: Diseño de Cuero Negro
 description: Cuero negro suave con cierre de cordón y forro interior resistente. Compacto pero con espacio para lo esencial. Un diseño diferente que llama la atención y se adapta tanto a looks casuales como de noche. Disponible para personalización corporativa.
-code: BOL-003
+code: CAR-002
 images: 2(1).webp, 2(2).webp, 2.webp
 videos: upscale (6).mp4

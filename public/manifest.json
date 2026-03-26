@@ -1,10 +1,7 @@
 {
   "Bolsos": [
     "Bolso Duffle",
-	"Bolso Mujer 1",
-	"Bolso Mujer 2",
-	"Bolso Mujer 3",
-	"Bolso Mujer 4"
+	"Bolso Mujer 1"
   ],
   "Maletines": [
     "Maletin Ejecutivo"
@@ -22,24 +19,27 @@
     "Portadocumentos Madrid"
   ],
   "Carteras": [
-    "Cartera Musher"
+    "Cartera Musher",
+    "Cartera Venecia",
+    "Cartera Florencia",
+    "Cartera Praga"
   ],
   "Riñoneras": [
-    "Riñonera Malaga",
-	  "Riñonera Musher"
+    "Bandolera Siena",
+	  "Riñonera Atenas"
   ],
   "Billeteras": [
-    "Billetera Vintage",
+    "Billetera Oporto",
     "Billetera Niza",
     "Billetera Oslo",
     "Billetera Roma",
-    "Tarjetero Simple"
+    "Tarjetero Lucca"
   ],
   "Gorras": [
-    "Gorra Verano",
-	  "Gorra Mardel",
-	  "Gorra Invierno",
-	  "Gorra Corderoy"
+    "Gorra Casual",
+	  "Gorra Trucker",
+	  "Gorra Berlin",
+	  "Gorra Brujas"
   ],
   "Cinturones": [
     "Cinturon Tachas",

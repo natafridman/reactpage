@@ -1,4 +1,4 @@
-title: Tarjetero Simple
+title: Tarjetero Lucca
 subtitle: Cuero Compacto
 description: Tarjetero slim de cuero con múltiples ranuras para tarjetas en ambas caras. Mínimo grosor, máxima capacidad. Perfecto para llevar en el bolsillo sin abultar. Se personaliza fácil con grabado o estampado de logo.
 code: TAR-001

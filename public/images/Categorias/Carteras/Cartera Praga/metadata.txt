@@ -1,6 +1,6 @@
-title: Bolso Clutch
+title: Cartera Praga
 subtitle: Elegante de Cuero
 description: Clutch de cuero negro con cremallera y correa de muñeca desmontable. Chico, elegante y práctico para salidas o eventos. Artesanía cuidada que se nota al tacto. Perfecto como obsequio premium con logo grabado.
-code: BOL-005
+code: CAR-004
 images: 6(1).webp, 6.webp
 videos: upscale (9).mp4

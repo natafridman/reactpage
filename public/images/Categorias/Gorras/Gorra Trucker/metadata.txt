@@ -1,4 +1,4 @@
-title: Gorra Trucker Negra
+title: Gorra Trucker
 subtitle: Malla Transpirable Ajustable
 description: Frente sólido con paneles traseros de malla para máxima ventilación. Cierre ajustable y diseño que combina con todo. Cómoda para uso prolongado y perfecta para bordar tu logo. La gorra que la gente elige ponerse.
 code: GOR-002
