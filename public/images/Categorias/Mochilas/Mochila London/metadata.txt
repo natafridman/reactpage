@@ -2,5 +2,5 @@ title: Mochila London
 subtitle: Movimiento Urbano
 description: Respaldo acolchado, compartimientos amplios y líneas limpias que elevan cualquier look. Resistente, liviana y cómoda para moverse todo el día. Se personaliza con logo bordado o grabado. Funcional y con estilo, para regalar o para usar.
 code: MOC-001
-images: MOCHILA LONDON.jpg, LONDON(1).jpeg, LONDON(2).jpeg, LONDON.jpeg, LONDON2.jpeg
+images: LONDON(1).jpeg, LONDON(2).jpeg, LONDON.jpeg, LONDON2.jpeg, MOCHILA LONDON.jpg
 videos: mochila.mp4
