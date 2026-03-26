@@ -209,10 +209,10 @@ async function generate() {
     return currentY + requiredH > USABLE_BOTTOM;
   }
 
-  // Draw category header
-  function drawCategoryHeader(categoryName) {
+  // Draw category header — minSpaceAfter ensures header + first product fit
+  function drawCategoryHeader(categoryName, minSpaceAfter = 0) {
     const headerH = 32;
-    if (needsNewPage(headerH + 20)) startNewPage();
+    if (needsNewPage(headerH + 8 + minSpaceAfter)) startNewPage();
 
     // Cognac pill/banner for category
     const bannerH = 26;
@@ -317,7 +317,14 @@ async function generate() {
 
     if (currentY === 0) startNewPage();
 
-    drawCategoryHeader(category);
+    // Calculate first row height to ensure header + first row fit together
+    const firstLeft = catProducts[0];
+    const firstRight = catProducts.length > 1 ? catProducts[1] : null;
+    const firstRowH = Math.max(
+      estimateCardHeight(firstLeft),
+      firstRight ? estimateCardHeight(firstRight) : 0
+    );
+    drawCategoryHeader(category, firstRowH);
 
     // Layout products in 2-column grid
     for (let i = 0; i < catProducts.length; i += 2) {
@@ -329,7 +336,6 @@ async function generate() {
 
       if (needsNewPage(rowH)) {
         startNewPage();
-        drawCategoryHeader(category);
       }
 
       await drawCard(left, MARGIN, currentY, rowH);
@@ -343,8 +349,13 @@ async function generate() {
   }
 
   // ===== FOOTERS ON ALL PAGES =====
-  const totalPages = doc.bufferedPageRange().count;
+  const range = doc.bufferedPageRange();
+  const totalPages = range.count;
   const footerLogoBuffer = await prepareLogo({ r: CREAM[0], g: CREAM[1], b: CREAM[2] }, 60, 14);
+
+  // Disable auto page addition while writing footers
+  const origAddPage = doc.addPage.bind(doc);
+  doc.addPage = () => doc; // no-op during footer pass
 
   for (let i = 0; i < totalPages; i++) {
     doc.switchToPage(i);
@@ -361,13 +372,14 @@ async function generate() {
       doc.image(footerLogoBuffer, MARGIN, footerY - 2, { height: 12 });
     }
 
-    // Page number (right)
+    // Page number (right) — lineBreak false to prevent extra pages
     doc.fontSize(8).font(FONT_REGULAR).fillColor(LIGHT_GRAY)
       .text(`${i} / ${totalPages - 1}`, MARGIN, footerY, {
-        width: CONTENT_W, align: 'right'
+        width: CONTENT_W, align: 'right', lineBreak: false
       });
   }
 
+  doc.addPage = origAddPage; // restore
   doc.end();
 
   await new Promise(resolve => stream.on('finish', resolve));
