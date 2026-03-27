@@ -22,11 +22,11 @@ function FeaturedProducts() {
     },
     {
       id: 3,
-      video: '/images/Categorias/Gorras/Gorra Verano/gorra_verano.mp4',
+      video: '/images/Categorias/Gorras/Gorra Casual/gorra_verano.mp4',
       title: 'Gorra Casual',
       description: 'Estilo relajado para todos los días. Simple, cómoda y con buena onda.',
       category: 'Gorras',
-      image: '/images/Categorias/Gorras/Gorra Verano/IMG_4567.jpeg'
+      image: '/images/Categorias/Gorras/Gorra Casual/IMG_4567.jpeg'
     }
   ];
 
