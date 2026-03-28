@@ -4,3 +4,5 @@ description: Cuero genuino de grano completo, costuras reforzadas a mano y herra
 code: BOL-001
 images: G28A0280.jpeg, IMG_1576.jpeg, IMG_1579.jpeg, IMG_1581.jpeg, IMG_1583.jpeg, IMG_1585.jpeg
 videos: bolso.mp4, bolso_viejo.mp4
+price_mayorista: 140000
+price_minorista: 280000

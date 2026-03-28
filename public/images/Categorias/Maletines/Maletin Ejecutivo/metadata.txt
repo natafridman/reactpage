@@ -4,3 +4,5 @@ description: Compartimentos inteligentes para notebook, documentos y accesorios.
 code: MAL-001
 images: IMG_1571.jpeg, IMG_1572.jpeg, IMG_1574.jpeg
 videos: maletin.mp4, maletin_viejo.mp4
+price_mayorista: 110000
+price_minorista: 220000

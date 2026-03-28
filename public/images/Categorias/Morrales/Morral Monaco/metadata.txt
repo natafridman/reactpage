@@ -4,3 +4,5 @@ description: Compacto, cómodo y con acabados impecables. Cuero resistente con c
 code: MOR-001
 images: MONACO.jpeg, MONACO_vfirst.jpeg, MONACO_vlast.jpeg, MORRAL MONACO.png
 videos: morral.mp4
+price_mayorista: 75000
+price_minorista: 150000

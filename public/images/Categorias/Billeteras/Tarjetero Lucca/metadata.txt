@@ -4,3 +4,5 @@ description: Tarjetero slim de cuero con múltiples ranuras para tarjetas en amb
 code: TAR-001
 images: TARJETERO SIMPLE.jpeg
 videos:
+price_mayorista: 17500
+price_minorista: 35000

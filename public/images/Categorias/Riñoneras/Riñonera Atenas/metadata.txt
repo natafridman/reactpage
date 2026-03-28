@@ -4,3 +4,5 @@ description: Cuero de alta calidad disponible en varios colores. Práctica para 
 code: RIN-002
 images: 4(1).webp, 4(2).webp, 4.webp
 videos: upscale (6).mp4
+price_mayorista: 62000
+price_minorista: 124000

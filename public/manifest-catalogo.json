@@ -1,0 +1,67 @@
+{
+  "Bolsos": [
+    "Bolso Duffle",
+    "Bolso Mujer 1"
+  ],
+  "Maletines": [
+    "Maletin Ejecutivo"
+  ],
+  "Mochilas": [
+    "Mochila London"
+  ],
+  "Morrales": [
+    "Morral Monaco"
+  ],
+  "Necessaries": [
+    "Necessaire Lisboa"
+  ],
+  "Portadocumentos": [
+    "Portadocumentos Madrid"
+  ],
+  "Carteras": [
+    "Cartera Musher",
+    "Cartera Venecia",
+    "Cartera Florencia",
+    "Cartera Praga"
+  ],
+  "Riñoneras": [
+    "Bandolera Siena",
+    "Riñonera Atenas"
+  ],
+  "Billeteras": [
+    "Billetera Niza",
+    "Billetera Oslo",
+    "Billetera Roma",
+    "Tarjetero Lucca"
+  ],
+  "Gorras": [
+    "Gorra Casual",
+    "Gorra Trucker",
+    "Gorra Berlin",
+    "Gorra Milan"
+  ],
+  "Cinturones": [
+    "Cinturon Ojales",
+    "Cinturon Gamuza",
+    "Cinturon Charol",
+    "Cinturon Hebilla Organica",
+    "Cinturon Graneado",
+    "Cinturon Western Gamuza",
+    "Cinturon Pelo",
+    "Cinturon Ovalado",
+    "Cinturon Western Texturado",
+    "Cinturon Basico",
+    "Cinturon Argolla",
+    "Cinturon Clasico"
+  ],
+  "Mundial": [
+    "Camiseta"
+  ],
+  "_dimension_images": {
+    "Mochila London": ["MOCHILA LONDON.jpg"],
+    "Morral Monaco": ["MORRAL MONACO.png"],
+    "Necessaire Lisboa": ["NECCESER LISBOA.png"],
+    "Portadocumentos Madrid": ["PASAPORTE MADRID.png"],
+    "Bandolera Siena": ["RINIONERA MALAGA.png"]
+  }
+}

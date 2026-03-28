@@ -4,3 +4,5 @@ description: Billetera bifold de cuero con terminación mate que mejora con el u
 code: BIL-001
 images: VINTAGE.jpeg, VINTAGE(1).jpeg, VINTAGE(2).jpeg, 8O3A2613.jpeg, 8O3A2689.jpeg
 videos:
+price_mayorista: 21500
+price_minorista: 43000

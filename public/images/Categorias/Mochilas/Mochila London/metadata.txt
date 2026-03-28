@@ -4,3 +4,5 @@ description: Respaldo acolchado, compartimientos amplios y líneas limpias que e
 code: MOC-001
 images: LONDON(1).jpeg, LONDON(2).jpeg, LONDON.jpeg, LONDON2.jpeg, MOCHILA LONDON.jpg
 videos: mochila.mp4
+price_mayorista: 120000
+price_minorista: 240000

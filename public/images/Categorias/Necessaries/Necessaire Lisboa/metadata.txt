@@ -4,3 +4,5 @@ description: Forro fácil de limpiar, cierre seguro y el tamaño justo para esen
 code: NEC-001
 images: LISBOA(1).jpeg, LISBOA.jpeg, LISBOA_vfirst.jpeg, LISBOA_vlast.jpeg, NECCESER LISBOA.png
 videos: necessaire.mp4
+price_mayorista: 51000
+price_minorista: 102000

@@ -4,3 +4,5 @@ description: Billetera bifold de cuero granulado con tarjetero desmontable inclu
 code: BIL-003
 images: OSLO.jpeg, OSLO(1).jpeg, OSLO(2).jpeg, OSLO(3).jpeg, OSLO(4).jpeg, OSLO(5).jpeg
 videos:
+price_mayorista: 25500
+price_minorista: 51000

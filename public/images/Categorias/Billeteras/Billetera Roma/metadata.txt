@@ -4,3 +4,5 @@ description: Billetera bifold clásica en cuero granulado con múltiples ranuras
 code: BIL-004
 images: ROMA.jpeg, ROMA(1).jpeg, ROMA(2).jpeg
 videos:
+price_mayorista: 34500
+price_minorista: 69000

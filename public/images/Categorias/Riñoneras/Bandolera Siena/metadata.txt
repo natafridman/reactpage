@@ -4,3 +4,5 @@ description: Cuero genuino, diseño limpio y el tamaño justo para llevar lo ese
 code: RIN-001
 images: rinionera_vfirst.jpg, G28A0317.jpeg, MALAGA(1).jpeg, MALAGA.jpeg, MALAGA_vlast.jpeg, RINIONERA MALAGA.png
 videos: upscale (6).mp4
+price_mayorista: 59000
+price_minorista: 118000

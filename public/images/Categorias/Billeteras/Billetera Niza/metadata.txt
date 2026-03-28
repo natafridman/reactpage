@@ -4,3 +4,5 @@ description: Billetera compacta con cierre perimetral que mantiene todo seguro. 
 code: BIL-002
 images: NIZA.jpeg, NIZA(1).jpeg, NIZA(2).jpeg, IMG_3669.jpeg
 videos:
+price_mayorista: 26500
+price_minorista: 53000
