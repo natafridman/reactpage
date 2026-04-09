@@ -1,6 +1,6 @@
 title: Cinturon Gemas Fino
 subtitle: Simil Cuero Fino con Gemas
-description: Cinturon fino con gemas decorativas distribuidas a lo largo de la tira. Delicado, elegante y femenino. Ideal para vestidos o pantalones de vestir.
+description: Cinturon fino con gemas decorativas distribuidas a lo largo de la tira. Delicado, elegante y femenino. Ideal para vestidos o pantalones de vestir. Disponible en Gris Oscuro.
 code: CIN-024
 images: SC0143Z-1.webp, SC0143Z-2.webp
 videos: 

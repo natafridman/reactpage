@@ -1,6 +1,6 @@
 title: Bufanda Cuello
 subtitle: Cuello Tejido Bicolor
-description: Cuello tejido en dos tonos con textura suave que abriga sin abultar. Practico para los dias frios, se acomoda facil y queda bien con cualquier abrigo. Ideal para personalizar con etiqueta de marca.
+description: Cuello tejido en dos tonos con textura suave que abriga sin abultar. Practico para los dias frios, se acomoda facil y queda bien con cualquier abrigo. Ideal para personalizar con etiqueta de marca. Disponible en Marron, Gris Oscuro.
 code: BUF-002
 images: BU0043Z-1.webp, BU0043Z-2.webp, BU0043Z-3.webp, BU0043Z-4.webp, BU0043Z-5.webp, BU0043Z-6.webp, BU0043Z-7.webp
 videos: 

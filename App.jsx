@@ -4,6 +4,7 @@ import './index.css';
 
 import Header from '/components/Header.jsx';
 import ProductSection from '/components/ProductSection.jsx';
+import ProductCard from '/components/ProductCard.jsx';
 import LoadingSkeleton from '/components/LoadingSkeleton.jsx';
 import EmptyState from '/components/EmptyState.jsx';
 import ImageModal from '/components/ImageModal.jsx';
@@ -13,7 +14,8 @@ import { loadManifest, getCategoryFromURL } from '/utils/productUtils.js';
 
 // ===== CONFIGURATION =====
 const IMAGES_BASE_FOLDER = 'images/Categorias';
-const PRODUCTS_PER_PAGE = 4;
+const PRODUCTS_PER_PAGE_LIST = 4;
+const PRODUCTS_PER_PAGE_GRID = 16;
 
 function App() {
   const { categoria: paramCategoria, nombre: paramNombre } = useParams();
@@ -32,6 +34,11 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(0);
   const [isLoadingPage, setIsLoadingPage] = useState(false);
+  const [viewMode, setViewMode] = useState(() => {
+    return localStorage.getItem('b2you-viewMode') || 'list';
+  });
+
+  const PRODUCTS_PER_PAGE = viewMode === 'grid' ? PRODUCTS_PER_PAGE_GRID : PRODUCTS_PER_PAGE_LIST;
 
   const lastScrollY = useRef(window.scrollY);
   const scrollTimer = useRef(null);
@@ -456,7 +463,8 @@ function App() {
 
   // ===== PAGINATION FUNCTIONS =====
   function getTotalPages() {
-    return Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
+    const perPage = viewMode === 'grid' ? PRODUCTS_PER_PAGE_GRID : PRODUCTS_PER_PAGE_LIST;
+    return Math.ceil(totalProducts / perPage);
   }
 
   async function handlePageChange(newPage) {
@@ -479,6 +487,24 @@ function App() {
     }
   }
 
+  // ===== VIEW MODE TOGGLE =====
+  function handleViewModeChange(mode) {
+    if (mode === viewMode) return;
+    localStorage.setItem('b2you-viewMode', mode);
+    setViewMode(mode);
+    productsCache.current = {};
+    setCurrentPage(1);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  // Reload products when viewMode changes
+  useEffect(() => {
+    if (isSingleProduct) return;
+    productsCache.current = {};
+    setCurrentPage(1);
+    loadProducts(1);
+  }, [viewMode]);
+
   // ===== CATEGORY CLICK HANDLER =====
   function handleCategoryClick(e, cat) {
     e.preventDefault();
@@ -500,7 +526,13 @@ function App() {
       <br />
       <br />
 
-      {!isSingleProduct && <CategoryBanner category={getCategoryFromURL() || null} />}
+      {!isSingleProduct && (
+        <CategoryBanner
+          category={getCategoryFromURL() || null}
+          viewMode={viewMode}
+          onViewModeChange={handleViewModeChange}
+        />
+      )}
 
       <main id="productsContainer" style={{ position: 'relative' }}>
         {isLoadingPage && (
@@ -515,14 +547,41 @@ function App() {
           <EmptyState />
         ) : (
           <>
-            {products.map(product => (
-              <ProductSection 
-                key={product.productFolder}
-                product={product}
-                basePath={IMAGES_BASE_FOLDER}
-                onImageClick={openModal}
-              />
-            ))}
+            {viewMode === 'grid' && !isSingleProduct ? (
+              (() => {
+                const colCount = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1200 ? 3 : 4;
+                const cols = Array.from({ length: colCount }, () => []);
+                products.forEach((product, i) => {
+                  cols[i % colCount].push(product);
+                });
+                const maxLen = Math.max(...cols.map(c => c.length));
+                return (
+                  <div className="products-grid">
+                    {cols.map((col, ci) => (
+                      <div className="products-grid-column" key={ci}>
+                        {col.map(product => (
+                          <ProductCard key={product.productFolder} product={product} />
+                        ))}
+                        <div className="product-card product-card-placeholder">
+                          <div className="product-card-placeholder-inner">
+                            <img src="/images/Branding/B2 B2YOU Header Landscape 2.png" alt="" className="placeholder-logo" />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()
+            ) : (
+              products.map(product => (
+                <ProductSection
+                  key={product.productFolder}
+                  product={product}
+                  basePath={IMAGES_BASE_FOLDER}
+                  onImageClick={openModal}
+                />
+              ))
+            )}
             
             {/* Pagination Controls */}
             {getTotalPages() > 1 && (

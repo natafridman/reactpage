@@ -1,6 +1,6 @@
 title: Cinturon Tachas Ancho
 subtitle: Simil Cuero Ancho con Tachas
-description: Cinturon ancho con tachas metalicas distribuidas en hileras. Presencia fuerte, diseno robusto. Perfecto para jeans o sobre vestidos. Disponible en negro y marron.
+description: Cinturon ancho con tachas metalicas distribuidas en hileras. Presencia fuerte, diseno robusto. Perfecto para jeans o sobre vestidos. Disponible en Marron.
 code: CIN-028
 images: SC0148Z-1.webp, SC0148Z-2.webp
 videos: 

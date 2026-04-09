@@ -1,6 +1,6 @@
 title: Bufanda con Corazones
 subtitle: Pashmina con Estampado de Corazones
-description: Pashmina suave con estampado de corazones. Femenina, elegante y con la suavidad justa para usarla todo el dia. Perfecta como regalo corporativo o de temporada. Medidas: 62x185 cm, 310 gr.
+description: Pashmina suave con estampado de corazones. Femenina, elegante y con la suavidad justa para usarla todo el dia. Perfecta como regalo corporativo o de temporada. Medidas: 62x185 cm, 310 gr. Disponible en Gris Oscuro, Rojo, Beige, Gris.
 code: BUF-010
 images: CP0020Z-1.webp, CP0020Z-2.webp, CP0020Z-3.webp, CP0020Z-4.webp, CP0020Z-5.webp, CP0020Z-6.webp, CP0020Z-7.webp, CP0020Z-8.webp
 videos: 

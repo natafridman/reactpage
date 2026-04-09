@@ -1,6 +1,6 @@
 title: Bufanda Nube Bicolor Suave
 subtitle: Lana Nube Bicolor Ultra Suave
-description: Bufanda de lana nube en dos tonos con textura ultra suave. Liviana pero abrigada, con flecos naturales en los extremos. Un basico de invierno que se siente premium. Medidas: 190x40 cm, 260 gr.
+description: Bufanda de lana nube en dos tonos con textura ultra suave. Liviana pero abrigada, con flecos naturales en los extremos. Un basico de invierno que se siente premium. Medidas: 190x40 cm, 260 gr. Disponible en Camel, Gris Oscuro, Rojo, Marron, Negro.
 code: BUF-007
 images: BU0050Z-1.webp, BU0050Z-2.webp, BU0050Z-3.webp, BU0050Z-4.webp, BU0050Z-5.webp, BU0050Z-6.webp, BU0050Z-7.webp, BU0050Z-8.webp, BU0050Z-9.webp
 videos: 

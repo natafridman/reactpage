@@ -1,6 +1,6 @@
 title: Cinturon Tachas Decorativas
 subtitle: Simil Cuero con Tachas Decorativas
-description: Cinturon con tachas decorativas de distintos tamanos que crean un patron visual. Artesanal y moderno a la vez. Disponible en negro y marron.
+description: Cinturon con tachas decorativas de distintos tamanos que crean un patron visual. Artesanal y moderno a la vez. Disponible en Gris Oscuro.
 code: CIN-029
 images: SC0150Z-1.webp
 videos: 

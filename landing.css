@@ -4,7 +4,11 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: #FAFAF9;
+  background: var(--b2-cream);
+}
+
+[data-theme="dark"] .red-page {
+  background: #1a1a1a;
 }
 
 .red-container {
@@ -56,6 +60,10 @@
 /* Red page header matches site theme */
 .red-page .main-header {
   background: rgba(250, 250, 249, 0.95);
+}
+
+[data-theme="dark"] .red-page .main-header {
+  background: rgba(26, 26, 26, 0.95);
 }
 
 /* ===== LANDING PAGE STYLES ===== */

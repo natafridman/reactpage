@@ -1,6 +1,6 @@
 title: Chalina Lisa Liviana
 subtitle: Chalina Lisa Ultra Liviana
-description: Chalina lisa de textura suave y peso minimo. Disponible en multiples colores, se adapta a cualquier look y temporada. La opcion mas versatil para personalizar con tu marca. Medidas: 188x74 cm, 210 gr.
+description: Chalina lisa de textura suave y peso minimo. Disponible en Rosa, Rosa Claro, Turquesa, Violeta, Naranja, Gris Oscuro.
 code: BUF-013
 images: CP0024Z-1.webp, CP0024Z-10.webp, CP0024Z-2.webp, CP0024Z-3.webp, CP0024Z-4.webp, CP0024Z-5.webp, CP0024Z-6.webp, CP0024Z-7.webp, CP0024Z-8.webp, CP0024Z-9.webp
 videos: 

@@ -1,6 +1,6 @@
 title: Cinturon Tachas Clasico
 subtitle: Simil Cuero Clasico con Tachas
-description: El cinturon de tachas de toda la vida, con terminaciones modernas. Un clasico que nunca falla y que combina con todo. Disponible en negro y marron.
+description: El cinturon de tachas de toda la vida, con terminaciones modernas. Un clasico que nunca falla y que combina con todo. Disponible en Gris Oscuro.
 code: CIN-026
 images: SC0146Z-1.webp, SC0146Z-2.webp
 videos: 

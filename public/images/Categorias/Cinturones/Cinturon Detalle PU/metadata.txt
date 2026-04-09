@@ -1,6 +1,6 @@
 title: Cinturon Detalle PU
 subtitle: Simil Cuero con Detalle en PU
-description: Cinturon con detalles en PU que le dan un toque diferenciado. Terminaciones prolijas y diseno versatil que se adapta a distintos estilos. Disponible en varios colores.
+description: Cinturon con detalles en PU que le dan un toque diferenciado. Terminaciones prolijas y diseno versatil que se adapta a distintos estilos. Disponible en Negro, Marron.
 code: CIN-047
 images: SC0177Z-1.webp, SC0177Z-2.webp
 videos: 

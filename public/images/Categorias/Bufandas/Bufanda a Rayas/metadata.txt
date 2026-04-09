@@ -1,6 +1,6 @@
 title: Bufanda a Rayas
 subtitle: Lana Multicolor a Rayas
-description: Bufanda de lana con rayas multicolor vibrantes. Diseno alegre con flecos en los extremos. Un accesorio con personalidad que combina con abrigos neutros. Medidas: 180x30 cm, 290 gr.
+description: Bufanda de lana con rayas multicolor vibrantes. Diseno alegre con flecos en los extremos. Un accesorio con personalidad que combina con abrigos neutros. Medidas: 180x30 cm, 290 gr. Disponible en Rojo, Camel.
 code: BUF-006
 images: BU0049Z-1.webp, BU0049Z-2.webp
 videos: 
