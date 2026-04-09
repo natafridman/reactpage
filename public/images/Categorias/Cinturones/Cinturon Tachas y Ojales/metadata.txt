@@ -1,0 +1,8 @@
+title: Cinturon Tachas y Ojales
+subtitle: Simil Cuero con Tachas y Ojales
+description: Cinturon que mezcla tachas y ojales en un diseno con caracter. Urbano, moderno y con personalidad. Disponible en negro.
+code: CIN-027
+images: SC0147Z-1.webp
+videos: 
+price_mayorista: 6125
+proveedor: javera

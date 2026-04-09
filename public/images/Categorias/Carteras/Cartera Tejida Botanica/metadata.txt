@@ -1,0 +1,8 @@
+title: Cartera Tejida Botanica
+subtitle: Tela Estampada con Diseno Tropical
+description: Tote de tela con estampado botanico vibrante en tonos naranjas. Amplia, comoda y con cierre de boton. Un accesorio que llama la atencion y se adapta tanto a la playa como a salidas casuales. Personalizable con logo. Medidas: 27x38x10 cm.
+code: CAR-009
+images: CA0158Z-1.webp, CA0158Z-2.webp, CA0158Z-3.webp, CA0158Z-4.webp
+videos:
+price_mayorista: 10000
+proveedor: javera

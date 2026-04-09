@@ -1,0 +1,8 @@
+title: Bufanda Flores Grande
+subtitle: Pashmina con Estampado Floral
+description: Pashmina amplia con estampado de flores grandes en tonos naturales. Liviana, suave y con flecos decorativos. Un accesorio que transforma cualquier outfit. Medidas: 180x68 cm, 230 gr.
+code: BUF-016
+images: CP0028Z_foto1.png, CP0028Z_foto2.png, CP0028Z_foto3.png
+videos: 
+price_mayorista: 12375
+proveedor: javera

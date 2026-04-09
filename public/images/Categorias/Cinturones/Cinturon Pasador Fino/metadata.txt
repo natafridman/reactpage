@@ -1,0 +1,8 @@
+title: Cinturon Pasador Fino
+subtitle: Simil Cuero Fino con Pasador
+description: Cinturon fino con sistema de pasador y ojales. Practico, elegante y facil de ajustar. Un basico funcional con diseno limpio. Disponible en varios colores.
+code: CIN-036
+images: SC0159Z-1.webp, SC0159Z-2.webp
+videos: 
+price_mayorista: 4875
+proveedor: javera

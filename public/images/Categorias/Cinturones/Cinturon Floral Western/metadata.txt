@@ -1,0 +1,8 @@
+title: Cinturon Floral Western
+subtitle: Simil Cuero con Motivo Floral Western
+description: Cinturon con grabado floral estilo western. Diseno que evoca lo artesanal con terminaciones modernas. Un accesorio con historia. Disponible en varios colores.
+code: CIN-039
+images: SC0167Z-1.webp
+videos: 
+price_mayorista: 6875
+proveedor: javera

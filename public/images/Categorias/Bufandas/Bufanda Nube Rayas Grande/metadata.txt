@@ -1,0 +1,8 @@
+title: Bufanda Nube Rayas Grande
+subtitle: Lana Nube a Rayas Formato Grande
+description: Bufanda grande de lana nube con rayas coloridas. La mas generosa de la linea, ideal para envolver y abrigar en los dias mas frios. Con flecos en ambos extremos. Medidas: 195x45 cm, 290 gr.
+code: BUF-008
+images: BU0052Z-1.webp, BU0052Z-10.webp, BU0052Z-11.webp, BU0052Z-12.webp, BU0052Z-13.webp, BU0052Z-14.webp, BU0052Z-2.webp, BU0052Z-3.webp, BU0052Z-4.webp, BU0052Z-5.webp, BU0052Z-6.webp, BU0052Z-7.webp, BU0052Z-8.webp, BU0052Z-9.webp
+videos: 
+price_mayorista: 12375
+proveedor: javera

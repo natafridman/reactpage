@@ -1,0 +1,8 @@
+title: Bufanda Nube Bicolor
+subtitle: Lana Nube en Dos Tonos
+description: Bufanda de lana nube bicolor con degrade sutil entre tonos calidos. Amplia, suave y con flecos. Perfecta para abrigar con estilo. Se personaliza con etiqueta bordada. Medidas: 50x190 cm, 270 gr.
+code: BUF-003
+images: BU0044Z-1.webp, BU0044Z-2.webp, BU0044Z-3.webp, BU0044Z-4.webp, BU0044Z-5.webp
+videos: 
+price_mayorista: 12375
+proveedor: javera

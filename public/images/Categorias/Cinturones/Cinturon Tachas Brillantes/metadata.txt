@@ -1,0 +1,8 @@
+title: Cinturon Tachas Brillantes
+subtitle: Simil Cuero con Tachas Brillantes
+description: Cinturon con tachas brillantes que capturan la luz. Diseno llamativo para quienes buscan un accesorio con impacto visual. Disponible en negro.
+code: CIN-030
+images: SC0152Z-1.webp, SC0152Z-2.webp
+videos: 
+price_mayorista: 8125
+proveedor: javera

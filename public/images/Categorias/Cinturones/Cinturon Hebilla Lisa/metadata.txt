@@ -1,0 +1,8 @@
+title: Cinturon Hebilla Lisa
+subtitle: Simil Cuero con Hebilla Metalica Lisa
+description: Cinturon clasico con hebilla metalica lisa y pulida. Diseno minimalista que funciona en cualquier contexto, desde lo casual hasta lo formal. Disponible en varios colores.
+code: CIN-023
+images: SC0142Z-1.webp
+videos: 
+price_mayorista: 4875
+proveedor: javera

@@ -1,0 +1,8 @@
+title: Cinturon Estrella
+subtitle: Simil Cuero con Hebilla Estrella
+description: Cinturon con hebilla en forma de estrella metalica. Diseno con personalidad que se destaca en cualquier look. Simple pero con caracter. Disponible en varios colores.
+code: CIN-025
+images: SC0145Z-1.webp, SC0145Z-2.webp
+videos: 
+price_mayorista: 6125
+proveedor: javera

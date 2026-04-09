@@ -1,0 +1,8 @@
+title: Cinturon Tachas Pequeñas
+subtitle: Simil Cuero con Micro Tachas
+description: Cinturon con tachas pequenas que aportan textura sutil. Diseno discreto pero con detalle. Perfecto para un look pulido sin ser excesivo.
+code: CIN-044
+images: SC0174Z-1.webp
+videos: 
+price_mayorista: 6125
+proveedor: javera

@@ -1,0 +1,8 @@
+title: Bufanda con Estampado Batik
+subtitle: Estampado Batik Artesanal
+description: Bufanda con estampado batik multicolor que evoca lo artesanal. Cada pieza tiene un caracter unico. Amplia, suave y con flecos naturales. Ideal para personalizar. Medidas: 204x38 cm, 300 gr.
+code: BUF-018
+images: CP0032Z-1.webp, CP0032Z-2.webp, CP0032Z-3.webp, CP0032Z-4.webp, CP0032Z-5.webp, CP0032Z-6.webp
+videos: 
+price_mayorista: 12375
+proveedor: javera

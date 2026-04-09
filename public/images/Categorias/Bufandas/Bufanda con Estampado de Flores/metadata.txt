@@ -1,0 +1,8 @@
+title: Bufanda con Estampado de Flores
+subtitle: Pashmina con Estampado Floral Delicado
+description: Pashmina con estampado de flores delicadas en tonos suaves. Liviana, elegante y versatil. Se usa como bufanda, chal o accesorio de moda. Personalizable con etiqueta. Medidas: 180x48 cm, 230 gr.
+code: BUF-015
+images: CP0027Z-1.webp, CP0027Z-2.webp, CP0027Z-3.webp, CP0027Z-4.webp, CP0027Z-5.webp, CP0027Z-6.webp, CP0027Z-7.webp, CP0027Z-8.webp
+videos: 
+price_mayorista: 12375
+proveedor: javera

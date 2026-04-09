@@ -1,0 +1,8 @@
+title: Cinturon Ojales Metalicos
+subtitle: Simil Cuero con Ojales Metalicos
+description: Cinturon con ojales metalicos distribuidos a lo largo de la tira. Diseno urbano con actitud. Resistente y con terminaciones cuidadas. Disponible en negro.
+code: CIN-042
+images: SC0172Z-1.webp, SC0172Z-2.webp
+videos: 
+price_mayorista: 6125
+proveedor: javera

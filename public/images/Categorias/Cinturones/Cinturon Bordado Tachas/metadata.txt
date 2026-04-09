@@ -1,0 +1,8 @@
+title: Cinturon Bordado Tachas
+subtitle: Simil Cuero con Bordado y Tachas
+description: Cinturon con diseno bordado floral acentuado con tachas metalicas. Un accesorio con caracter que combina lo artesanal con lo moderno. Disponible en negro y marron.
+code: CIN-032
+images: SC0154Z-1.webp, SC0154Z-2.webp
+videos: 
+price_mayorista: 7375
+proveedor: javera

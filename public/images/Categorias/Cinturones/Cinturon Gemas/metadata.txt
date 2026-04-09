@@ -1,0 +1,8 @@
+title: Cinturon Gemas
+subtitle: Simil Cuero con Apliques de Gemas
+description: Cinturon con gemas incrustadas que aportan brillo y elegancia. Perfecto para eventos o para elevar un look casual. Un accesorio que no pasa desapercibido.
+code: CIN-022
+images: SC0140Z-1.webp, SC0140Z-2.webp
+videos: 
+price_mayorista: 6875
+proveedor: javera

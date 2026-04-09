@@ -1,0 +1,8 @@
+title: Bufanda Nube Rayas Ancha
+subtitle: Lana Nube a Rayas Anchas
+description: Bufanda de lana nube con rayas anchas en tonos combinados. Generosa en tamano y con textura esponjosa. Abriga de verdad y queda bien con todo. Medidas: 180x45 cm, 290 gr.
+code: BUF-009
+images: BU0053Z-1.webp, BU0053Z-2.webp, BU0053Z-3.webp, BU0053Z-4.webp, BU0053Z-5.webp, BU0053Z-6.webp, BU0053Z-7.webp
+videos: 
+price_mayorista: 12375
+proveedor: javera

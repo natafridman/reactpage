@@ -1,0 +1,8 @@
+title: Cinturon Hebilla Lisa Ancho
+subtitle: Simil Cuero Ancho con Hebilla Lisa
+description: Cinturon ancho con hebilla metalica lisa de gran tamano. Define la cintura con estilo y presencia. Ideal para looks con personalidad. Disponible en varios colores.
+code: CIN-040
+images: SC0168Z-1.webp, SC0168Z-2.webp
+videos: 
+price_mayorista: 6125
+proveedor: javera

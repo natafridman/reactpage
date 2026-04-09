@@ -1,0 +1,8 @@
+title: Cinturon Corazon
+subtitle: Simil Cuero con Hebilla Corazon
+description: Cinturon con hebilla en forma de corazon metalico. Diseno femenino y llamativo que funciona perfecto como accesorio de moda o regalo. Disponible en varios colores.
+code: CIN-041
+images: SC0169Z-1.webp
+videos: 
+price_mayorista: 6125
+proveedor: javera

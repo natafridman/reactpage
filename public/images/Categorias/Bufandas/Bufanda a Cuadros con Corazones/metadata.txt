@@ -1,0 +1,8 @@
+title: Bufanda a Cuadros con Corazones
+subtitle: Tejido a Cuadros con Detalle de Corazones
+description: Bufanda tejida con patron de cuadros y pequenos corazones integrados en el diseno. Original, divertida y con buena terminacion. Ideal para personalizar como regalo de marca.
+code: BUF-001
+images: BU0035Z_foto1.png, BU0035Z_foto2.png, BU0035Z_foto3.png
+videos: 
+price_mayorista: 9875
+proveedor: javera

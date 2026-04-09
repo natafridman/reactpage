@@ -1,0 +1,8 @@
+title: Cartera Tejida Rayas
+subtitle: Tela Tejida a Rayas Multicolor
+description: Tote amplio en tela tejida con rayas de colores. Diseno alegre y funcional, perfecto para el uso diario o como regalo corporativo con identidad. Resistente y con gran capacidad. Se personaliza con etiqueta bordada. Medidas: 30x45x18 cm.
+code: CAR-008
+images: CA0156Z-1.webp, CA0156Z-2.webp, CA0156Z-3.webp
+videos:
+price_mayorista: 12500
+proveedor: javera

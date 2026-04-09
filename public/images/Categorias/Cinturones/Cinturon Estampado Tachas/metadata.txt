@@ -1,0 +1,8 @@
+title: Cinturon Estampado Tachas
+subtitle: Simil Cuero Estampado con Tachas
+description: Cinturon con estampado texturado y tachas decorativas. Combina dos acabados en un solo accesorio. Ideal para looks con actitud. Disponible en negro y marron.
+code: CIN-045
+images: SC0175Z-1.webp
+videos: 
+price_mayorista: 6875
+proveedor: javera

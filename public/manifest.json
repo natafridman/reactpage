@@ -1,7 +1,7 @@
 {
   "Bolsos": [
     "Bolso Duffle",
-	"Bolso Mujer 1"
+    "Bolso Mujer 1"
   ],
   "Maletines": [
     "Maletin Ejecutivo"
@@ -19,14 +19,19 @@
     "Portadocumentos Madrid"
   ],
   "Carteras": [
-    "Cartera Musher",
-    "Cartera Venecia",
     "Cartera Florencia",
-    "Cartera Praga"
+    "Cartera Musher",
+    "Cartera Praga",
+    "Cartera Rafia Clasica",
+    "Cartera Rafia Colgante",
+    "Cartera Tejida Botanica",
+    "Cartera Tejida Geometrica",
+    "Cartera Tejida Rayas",
+    "Cartera Venecia"
   ],
   "Riñoneras": [
     "Bandolera Siena",
-	  "Riñonera Atenas"
+    "Riñonera Atenas"
   ],
   "Billeteras": [
     "Billetera Oporto",
@@ -37,34 +42,80 @@
   ],
   "Gorras": [
     "Gorra Casual",
-	  "Gorra Trucker",
-	  "Gorra Berlin",
-	  "Gorra Milan"
+    "Gorra Trucker",
+    "Gorra Berlin",
+    "Gorra Milan"
   ],
   "Cinturones": [
-    "Cinturon Tachas",
-    "Cinturon Liso",
     "Cinturon Ancho",
+    "Cinturon Ancho Texturado",
+    "Cinturon Argolla",
+    "Cinturon Basico",
+    "Cinturon Bordado Tachas",
+    "Cinturon Charol",
+    "Cinturon Clasico",
+    "Cinturon Corazon",
+    "Cinturon Cosido",
+    "Cinturon Detalle PU",
+    "Cinturon Estampado Tachas",
+    "Cinturon Estrella",
+    "Cinturon Fino Clasico",
+    "Cinturon Floral Western",
+    "Cinturon Gamuza",
+    "Cinturon Gemas",
+    "Cinturon Gemas Fino",
+    "Cinturon Grabado Tachas",
+    "Cinturon Graneado",
+    "Cinturon Hebilla Lisa",
+    "Cinturon Hebilla Lisa Ancho",
+    "Cinturon Hebilla Organica",
+    "Cinturon Liso",
+    "Cinturon Mini Tachas",
+    "Cinturon Moderno",
+    "Cinturon Ojales",
+    "Cinturon Ojales Metalicos",
+    "Cinturon Ojales y Tachas",
+    "Cinturon Ovalado",
+    "Cinturon Pasador Fino",
+    "Cinturon Pasador Metalico",
+    "Cinturon Pelo",
+    "Cinturon Reversible",
+    "Cinturon Tachas",
+    "Cinturon Tachas Ancho",
+    "Cinturon Tachas Brillantes",
+    "Cinturon Tachas Clasico",
+    "Cinturon Tachas Decorativas",
+    "Cinturon Tachas Fino",
+    "Cinturon Tachas Pequeñas",
+    "Cinturon Tachas y Ojales",
+    "Cinturon Texturado Tachas",
+    "Cinturon Trenzado",
     "Cinturon Vestir",
     "Cinturon Vintage",
-    "Cinturon Reversible",
-    "Cinturon Moderno",
-    "Cinturon Trenzado",
-    "Cinturon Cosido",
-    "Cinturon Ojales",
-    "Cinturon Gamuza",
-    "Cinturon Charol",
-    "Cinturon Hebilla Organica",
-    "Cinturon Graneado",
     "Cinturon Western Gamuza",
-    "Cinturon Pelo",
-    "Cinturon Ovalado",
-    "Cinturon Western Texturado",
-    "Cinturon Basico",
-    "Cinturon Argolla",
-    "Cinturon Clasico"
+    "Cinturon Western Texturado"
   ],
   "Mundial": [
     "Camiseta"
+  ],
+  "Bufandas": [
+    "Bufanda Cuello",
+    "Bufanda Diseño Espigas",
+    "Bufanda Diseño Moños",
+    "Bufanda Flores Grande",
+    "Bufanda Flores Vibrante",
+    "Bufanda Nube Bicolor",
+    "Bufanda Nube Bicolor Suave",
+    "Bufanda Nube Rayas Ancha",
+    "Bufanda Nube Rayas Grande",
+    "Bufanda Nube Rayas Pastel",
+    "Bufanda Nube a Rayas",
+    "Bufanda a Cuadros con Corazones",
+    "Bufanda a Rayas",
+    "Bufanda con Corazones",
+    "Bufanda con Estampado Batik",
+    "Bufanda con Estampado de Flores",
+    "Chalina Lisa Liviana",
+    "Chalina Lisa con Textura Pisada"
   ]
 }

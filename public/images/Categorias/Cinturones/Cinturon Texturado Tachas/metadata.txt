@@ -1,0 +1,8 @@
+title: Cinturon Texturado Tachas
+subtitle: Simil Cuero Texturado con Tachas
+description: Cinturon con acabado texturado y tachas metalicas que refuerzan el diseno. Doble textura que se siente y se ve premium. Disponible en negro y marron.
+code: CIN-037
+images: SC0160Z-1.webp, SC0160Z-2.webp
+videos: 
+price_mayorista: 6875
+proveedor: javera

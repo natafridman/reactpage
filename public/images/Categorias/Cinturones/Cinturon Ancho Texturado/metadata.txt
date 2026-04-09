@@ -1,0 +1,8 @@
+title: Cinturon Ancho Texturado
+subtitle: Simil Cuero Ancho con Textura
+description: Cinturon ancho con textura grabada y hebilla metalica. Presencia fuerte que define cualquier outfit. Disponible en varios colores. Se personaliza con grabado o sello.
+code: CIN-038
+images: SC0162Z-1.webp, SC0162Z-2.webp
+videos: 
+price_mayorista: 7375
+proveedor: javera

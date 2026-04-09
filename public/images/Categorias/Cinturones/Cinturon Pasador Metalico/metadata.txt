@@ -1,0 +1,8 @@
+title: Cinturon Pasador Metalico
+subtitle: Simil Cuero con Pasador Metalico
+description: Cinturon con pasador metalico y ojales reforzados. Ajuste seguro y diseno moderno. Funciona tanto en looks casuales como mas armados. Disponible en varios colores.
+code: CIN-035
+images: SC0157Z_foto1.png, SC0157Z_foto2.png, SC0157Z_foto3.png
+videos: 
+price_mayorista: 6125
+proveedor: javera

@@ -1,0 +1,8 @@
+title: Cinturon Mini Tachas
+subtitle: Simil Cuero Fino con Mini Tachas
+description: Cinturon fino con pequenas tachas metalicas que aportan textura sin ser excesivas. Sutil pero con caracter. Combina facil con cualquier estilo.
+code: CIN-034
+images: SC0156Z-1.webp, SC0156Z-2.webp
+videos: 
+price_mayorista: 6125
+proveedor: javera

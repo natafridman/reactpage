@@ -1,0 +1,8 @@
+title: Cinturon Ojales y Tachas
+subtitle: Simil Cuero con Tachas y Ojales Combinados
+description: Cinturon que combina tachas y ojales metalicos en un diseno con presencia. Para quienes buscan un accesorio que se haga notar. Disponible en negro y marron.
+code: CIN-046
+images: SC0176Z-1.webp, SC0176Z-2.webp
+videos: 
+price_mayorista: 7375
+proveedor: javera

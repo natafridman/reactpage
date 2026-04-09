@@ -1,0 +1,8 @@
+title: Cinturon Fino Clasico
+subtitle: Simil Cuero Fino con Hebilla Clasica
+description: Cinturon fino y elegante con hebilla metalica clasica. El basico que no puede faltar. Combina con todo y se adapta a cualquier ocasion. Disponible en varios colores.
+code: CIN-043
+images: SC0173Z-1.webp, SC0173Z-2.webp
+videos: 
+price_mayorista: 4375
+proveedor: javera
