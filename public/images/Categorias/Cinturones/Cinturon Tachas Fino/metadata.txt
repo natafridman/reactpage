@@ -3,6 +3,6 @@ subtitle: Simil Cuero Fino con Tachas
 description: Cinturon fino con tachas metalicas bien distribuidas. Elegante sin perder actitud. Funciona con pantalones de vestir o jeans por igual. Disponible en Marron.
 code: CIN-031
 images: SC0153Z-1.webp
-videos: 
+videos: SC0153Z.mp4
 price_mayorista: 6875
 proveedor: javera

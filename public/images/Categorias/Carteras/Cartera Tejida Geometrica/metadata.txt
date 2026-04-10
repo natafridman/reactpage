@@ -3,6 +3,6 @@ subtitle: Tela Tejida con Diseno Geometrico
 description: Tote de tela tejida con diseno geometrico en tonos celestes. Espaciosa, fresca y con terminaciones cuidadas. Un bolso que combina funcionalidad con un diseno que se destaca. Ideal para personalizar con tu marca. Medidas: 30x45x15 cm. Disponible en Azul, Gris.
 code: CAR-007
 images: CA0153Z-1.webp, CA0153Z-2.webp, CA0153Z-3.webp, CA0153Z-4.webp
-videos:
+videos: CA0153Z.mp4
 price_mayorista: 12500
 proveedor: javera

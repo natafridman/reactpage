@@ -31,11 +31,15 @@ function App() {
   const [modalImageSrc, setModalImageSrc] = useState('');
   const [modalAllImages, setModalAllImages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get('pagina')) || 1;
+  });
   const [totalProducts, setTotalProducts] = useState(0);
   const [isLoadingPage, setIsLoadingPage] = useState(false);
   const [viewMode, setViewMode] = useState(() => {
-    return localStorage.getItem('b2you-viewMode') || 'list';
+    const params = new URLSearchParams(window.location.search);
+    return params.get('vista') || localStorage.getItem('b2you-viewMode') || 'list';
   });
 
   const PRODUCTS_PER_PAGE = viewMode === 'grid' ? PRODUCTS_PER_PAGE_GRID : PRODUCTS_PER_PAGE_LIST;
@@ -223,8 +227,13 @@ function App() {
       loadSingleProduct();
     } else {
       productsCache.current = {};
-      setCurrentPage(1);
-      loadProducts();
+      const params = new URLSearchParams(location.search);
+      const urlPage = parseInt(params.get('pagina')) || 1;
+      const urlView = params.get('vista') || localStorage.getItem('b2you-viewMode') || 'list';
+      setCurrentPage(urlPage);
+      setViewMode(urlView);
+      updateURLParams({ vista: urlView, pagina: urlPage });
+      loadProducts(urlPage);
     }
   }, [paramCategoria, paramNombre, location.search]);
 
@@ -461,6 +470,19 @@ function App() {
     e.target.reset();
   }
 
+  // ===== URL PARAMS SYNC =====
+  function updateURLParams(params) {
+    const url = new URL(window.location);
+    for (const [key, value] of Object.entries(params)) {
+      if (value === null || value === undefined || value === '' || (key === 'pagina' && value === 1) || (key === 'vista' && value === 'list')) {
+        url.searchParams.delete(key);
+      } else {
+        url.searchParams.set(key, value);
+      }
+    }
+    window.history.replaceState({}, '', url);
+  }
+
   // ===== PAGINATION FUNCTIONS =====
   function getTotalPages() {
     const perPage = viewMode === 'grid' ? PRODUCTS_PER_PAGE_GRID : PRODUCTS_PER_PAGE_LIST;
@@ -472,6 +494,7 @@ function App() {
 
     window.scrollTo({ top: 0, behavior: 'instant' });
     setCurrentPage(newPage);
+    updateURLParams({ pagina: newPage });
     await loadProducts(newPage);
   }
 
@@ -494,16 +517,10 @@ function App() {
     setViewMode(mode);
     productsCache.current = {};
     setCurrentPage(1);
+    updateURLParams({ vista: mode, pagina: 1 });
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }
-
-  // Reload products when viewMode changes
-  useEffect(() => {
-    if (isSingleProduct) return;
-    productsCache.current = {};
-    setCurrentPage(1);
     loadProducts(1);
-  }, [viewMode]);
+  }
 
   // ===== CATEGORY CLICK HANDLER =====
   function handleCategoryClick(e, cat) {

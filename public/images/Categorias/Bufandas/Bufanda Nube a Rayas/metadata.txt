@@ -3,6 +3,6 @@ subtitle: Lana Nube con Rayas Multicolor
 description: Bufanda de lana nube con rayas multicolor. Alegre, suave y con la textura esponjosa caracteristica de la lana nube. Un accesorio que levanta cualquier look invernal. Medidas: 49x190 cm, 260 gr. Disponible en Gris Oscuro, Rojo.
 code: BUF-004
 images: BU0046Z-1.webp, BU0046Z-2.webp, BU0046Z-3.webp, BU0046Z-4.webp, BU0046Z-5.webp, BU0046Z-6.webp, BU0046Z-7.webp
-videos: 
+videos: BU0046Z.mp4
 price_mayorista: 11875
 proveedor: javera

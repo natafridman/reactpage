@@ -1,36 +1,69 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const { metadata, category, productFolder, availableImages } = product;
   const [currentImgIdx, setCurrentImgIdx] = useState(0);
+  const [imgHeight, setImgHeight] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const cardRef = useRef(null);
+  const firstLoaded = useRef(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const IMAGES_BASE_FOLDER = '/images/Categorias';
   const productPath = `${IMAGES_BASE_FOLDER}/${category}/${productFolder}`;
   const imageList = Array.isArray(metadata.images) ? metadata.images : availableImages;
 
-  const goToProduct = () => {
-    navigate(`/producto/${encodeURIComponent(category)}/${encodeURIComponent(productFolder)}`);
+  const productUrl = `/producto/${encodeURIComponent(category)}/${encodeURIComponent(productFolder)}`;
+
+  const goToProduct = (e) => {
+    // Let middle-click / ctrl+click open in new tab naturally
+    if (e.button === 1 || e.ctrlKey || e.metaKey) return;
+    e.preventDefault();
+    navigate(productUrl);
   };
 
   const handlePrev = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     setCurrentImgIdx(prev => (prev - 1 + imageList.length) % imageList.length);
   };
 
   const handleNext = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     setCurrentImgIdx(prev => (prev + 1) % imageList.length);
   };
 
   return (
-    <div className="product-card">
-      <div className="product-card-image" onClick={goToProduct}>
+    <div ref={cardRef} className={`product-card ${visible ? 'card-visible' : ''}`}>
+      <a href={productUrl} className="product-card-image" onClick={goToProduct} style={imgHeight ? { height: imgHeight } : undefined}>
         <img
           src={`${productPath}/${imageList[currentImgIdx] || 'hero.jpg'}`}
           alt={metadata.title}
           loading="lazy"
+          onLoad={(e) => {
+            if (!firstLoaded.current) {
+              firstLoaded.current = true;
+              setImgHeight(e.target.offsetHeight);
+            }
+          }}
         />
         {imageList.length > 1 && (
           <>
@@ -49,18 +82,18 @@ function ProductCard({ product }) {
                 <span
                   key={i}
                   className={`card-dot ${i === currentImgIdx ? 'active' : ''}`}
-                  onClick={(e) => { e.stopPropagation(); setCurrentImgIdx(i); }}
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentImgIdx(i); }}
                 />
               ))}
             </div>
           </>
         )}
-      </div>
-      <div className="product-card-info" onClick={goToProduct}>
+      </a>
+      <a href={productUrl} className="product-card-info" onClick={goToProduct}>
         <h3 className="product-card-title">{metadata.title || productFolder}</h3>
         <p className="product-card-subtitle">{metadata.subtitle || category}</p>
         <span className="product-card-code">{metadata.code || ''}</span>
-      </div>
+      </a>
     </div>
   );
 }

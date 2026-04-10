@@ -3,6 +3,6 @@ subtitle: Chalina con Diseno de Espigas
 description: Chalina con diseno de espigas tejidas en tonos calidos. Suave al tacto, generosa en tamano y con flecos en los extremos. Perfecta para regalar o personalizar. Medidas: 60x180 cm, 290 gr. Disponible en Gris, Rojo, Gris Oscuro.
 code: BUF-011
 images: CP0021Z-1.webp, CP0021Z-2.webp, CP0021Z-3.webp, CP0021Z-4.webp, CP0021Z-5.webp, CP0021Z-6.webp, CP0021Z-7.webp
-videos: 
+videos: CP0021Z.mp4
 price_mayorista: 13625
 proveedor: javera

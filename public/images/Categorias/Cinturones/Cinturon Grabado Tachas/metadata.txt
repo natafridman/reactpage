@@ -3,6 +3,6 @@ subtitle: Simil Cuero Grabado con Tachas
 description: Cinturon con cuero grabado y tachas metalicas que refuerzan el diseno. Textura que se siente premium al tacto. Disponible en Marron.
 code: CIN-033
 images: SC0155Z-1.webp
-videos: 
+videos: SC0155Z.mp4
 price_mayorista: 6125
 proveedor: javera

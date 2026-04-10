@@ -3,6 +3,6 @@ subtitle: Chalina con Diseno de Monos
 description: Chalina con diseno de monos tejidos que le dan un toque femenino y elegante. Textura suave y tamano amplio para envolver con estilo. Personalizable con etiqueta. Medidas: 60x180 cm, 290 gr. Disponible en Gris Oscuro, Blanco, Rojo.
 code: BUF-012
 images: CP0022Z-1.webp, CP0022Z-2.webp, CP0022Z-3.webp, CP0022Z-4.webp, CP0022Z-5.webp, CP0022Z-6.webp, CP0022Z-7.webp, CP0022Z-8.webp
-videos: 
+videos: CP0022Z.mp4
 price_mayorista: 13625
 proveedor: javera
