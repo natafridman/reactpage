@@ -7,7 +7,13 @@
     "Maletin Ejecutivo"
   ],
   "Mochilas": [
-    "Mochila London"
+    "Mochila Dubai",
+    "Mochila Lisboa",
+    "Mochila London",
+    "Mochila Paris",
+    "Mochila Pekin",
+    "Mochila Roma",
+    "Mochila Turin"
   ],
   "Morrales": [
     "Morral Monaco"
@@ -19,15 +25,19 @@
     "Portadocumentos Madrid"
   ],
   "Carteras": [
-    "Cartera Musher",
-    "Cartera Venecia",
+    "Cartera Bari",
+    "Cartera Cali",
     "Cartera Florencia",
+    "Cartera Maxi",
+    "Cartera Milan",
+    "Cartera Musher",
     "Cartera Praga",
     "Cartera Rafia Clasica",
     "Cartera Rafia Colgante",
     "Cartera Tejida Botanica",
     "Cartera Tejida Geometrica",
-    "Cartera Tejida Rayas"
+    "Cartera Tejida Rayas",
+    "Cartera Venecia"
   ],
   "Riñoneras": [
     "Bandolera Siena",
@@ -35,47 +45,52 @@
   ],
   "Billeteras": [
     "Billetera Niza",
+    "Billetera Oporto",
     "Billetera Oslo",
     "Billetera Roma",
     "Tarjetero Lucca"
   ],
   "Gorras": [
-    "Gorra Casual",
-    "Gorra Trucker",
     "Gorra Berlin",
-    "Gorra Milan"
+    "Gorra Casual",
+    "Gorra Milan",
+    "Gorra Trucker"
   ],
   "Cinturones": [
-    "Cinturon Ojales",
-    "Cinturon Gamuza",
-    "Cinturon Charol",
-    "Cinturon Hebilla Organica",
-    "Cinturon Graneado",
-    "Cinturon Western Gamuza",
-    "Cinturon Pelo",
-    "Cinturon Ovalado",
-    "Cinturon Western Texturado",
-    "Cinturon Basico",
-    "Cinturon Argolla",
-    "Cinturon Clasico",
+    "Cinturon Ancho",
     "Cinturon Ancho Texturado",
+    "Cinturon Argolla",
+    "Cinturon Basico",
     "Cinturon Bordado Tachas",
+    "Cinturon Charol",
+    "Cinturon Clasico",
     "Cinturon Corazon",
+    "Cinturon Cosido",
     "Cinturon Detalle PU",
     "Cinturon Estampado Tachas",
     "Cinturon Estrella",
     "Cinturon Fino Clasico",
     "Cinturon Floral Western",
+    "Cinturon Gamuza",
     "Cinturon Gemas",
     "Cinturon Gemas Fino",
     "Cinturon Grabado Tachas",
+    "Cinturon Graneado",
     "Cinturon Hebilla Lisa",
     "Cinturon Hebilla Lisa Ancho",
+    "Cinturon Hebilla Organica",
+    "Cinturon Liso",
     "Cinturon Mini Tachas",
+    "Cinturon Moderno",
+    "Cinturon Ojales",
     "Cinturon Ojales Metalicos",
     "Cinturon Ojales y Tachas",
+    "Cinturon Ovalado",
     "Cinturon Pasador Fino",
     "Cinturon Pasador Metalico",
+    "Cinturon Pelo",
+    "Cinturon Reversible",
+    "Cinturon Tachas",
     "Cinturon Tachas Ancho",
     "Cinturon Tachas Brillantes",
     "Cinturon Tachas Clasico",
@@ -83,7 +98,12 @@
     "Cinturon Tachas Fino",
     "Cinturon Tachas Pequeñas",
     "Cinturon Tachas y Ojales",
-    "Cinturon Texturado Tachas"
+    "Cinturon Texturado Tachas",
+    "Cinturon Trenzado",
+    "Cinturon Vestir",
+    "Cinturon Vintage",
+    "Cinturon Western Gamuza",
+    "Cinturon Western Texturado"
   ],
   "Bufandas": [
     "Bufanda Cuello",
@@ -109,10 +129,20 @@
     "Camiseta"
   ],
   "_dimension_images": {
-    "Mochila London": ["MOCHILA LONDON.jpg"],
-    "Morral Monaco": ["MORRAL MONACO.png"],
-    "Necessaire Lisboa": ["NECCESER LISBOA.png"],
-    "Portadocumentos Madrid": ["PASAPORTE MADRID.png"],
-    "Bandolera Siena": ["RINIONERA MALAGA.png"]
+    "Mochila London": [
+      "MOCHILA LONDON.jpg"
+    ],
+    "Morral Monaco": [
+      "MORRAL MONACO.png"
+    ],
+    "Necessaire Lisboa": [
+      "NECCESER LISBOA.png"
+    ],
+    "Portadocumentos Madrid": [
+      "PASAPORTE MADRID.png"
+    ],
+    "Bandolera Siena": [
+      "RINIONERA MALAGA.png"
+    ]
   }
 }

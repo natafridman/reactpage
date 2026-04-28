@@ -1,0 +1,8 @@
+title: Cartera Bari
+subtitle: Hobo de Cuero con Herrajes
+description: Disponible en Suela, Negra, Beige.
+code: CAR-011
+images: BARI_Beige_1.jpeg, BARI_Negra_1.jpeg, BARI_Negra_2.jpeg, BARI_Negra_3.jpeg, BARI_Negra_4.jpeg, BARI_Suela_1.jpeg, BARI_Suela_2.jpeg, BARI_Suela_3.jpeg, BARI_Suela_4.jpeg
+videos:
+price_mayorista: 39000
+proveedor: saxs

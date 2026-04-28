@@ -1,0 +1,8 @@
+title: Cartera Milan
+subtitle: Bandolera Compacta
+description: Disponible en Negra, Peltre.
+code: CAR-012
+images: MILAN_Negra_1.png, MILAN_Peltre_1.png
+videos:
+price_mayorista: 28000
+proveedor: saxs

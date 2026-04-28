@@ -1,0 +1,8 @@
+title: Mochila Roma
+subtitle: Mochila de Nylon Urbana
+description: Disponible en Negra, Verde.
+code: MOC-004
+images: ROMA_Negra_1.png, ROMA_Verde_1.jpeg, ROMA_Verde_2.jpeg, ROMA_Verde_3.jpeg, ROMA_Verde_4.jpeg
+videos:
+price_mayorista: 38000
+proveedor: saxs

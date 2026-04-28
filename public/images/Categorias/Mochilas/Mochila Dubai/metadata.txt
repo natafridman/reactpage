@@ -1,0 +1,8 @@
+title: Mochila Dubai
+subtitle: Mochila de Nylon con Bolsillos
+description: Disponible en Negra.
+code: MOC-002
+images: DUBAI_Negra_1.jpeg, DUBAI_Negra_2.jpeg, DUBAI_Negra_3.jpeg, DUBAI_Negra_4.jpeg
+videos:
+price_mayorista: 35000
+proveedor: saxs

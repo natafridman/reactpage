@@ -1,0 +1,8 @@
+title: Mochila Paris
+subtitle: Mochila de Nylon con Hebillas
+description: Disponible en Negra, Beige.
+code: MOC-003
+images: PARIS_Beige_1.jpeg, PARIS_Beige_2.jpeg, PARIS_Beige_3.jpeg, PARIS_Beige_4.jpeg, PARIS_Negra_1.jpeg, PARIS_Negra_2.jpeg, PARIS_Negra_3.jpeg, PARIS_Negra_4.jpeg, PARIS_Negra_5.jpeg
+videos:
+price_mayorista: 44000
+proveedor: saxs

@@ -1,0 +1,8 @@
+title: Mochila Lisboa
+subtitle: Mochila de Nylon Deportiva
+description: Disponible en Negra.
+code: MOC-007
+images: LISBOA_Negra_1.jpeg, LISBOA_Negra_2.jpeg, LISBOA_Negra_3.jpeg, LISBOA_Negra_4.jpeg
+videos:
+price_mayorista: 32000
+proveedor: saxs

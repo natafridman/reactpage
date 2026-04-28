@@ -1,0 +1,8 @@
+title: Cartera Maxi
+subtitle: Tote Grande de Cuero
+description: Disponible en Suela, Negra.
+code: CAR-013
+images: MAXI_Negra_1.png, MAXI_Suela_1.jpeg, MAXI_Suela_2.jpeg, MAXI_Suela_3.jpeg, MAXI_Suela_4.jpeg
+videos:
+price_mayorista: 40000
+proveedor: saxs

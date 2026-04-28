@@ -1,0 +1,8 @@
+title: Cartera Cali
+subtitle: Tote de Cuero Liso
+description: Disponible en Suela, Negra.
+code: CAR-010
+images: CALI_Negra_1.jpeg, CALI_Negra_2.jpeg, CALI_Negra_3.jpeg, CALI_Negra_4.jpeg, CALI_Suela_1.jpeg, CALI_Suela_2.jpeg, CALI_Suela_3.jpeg
+videos:
+price_mayorista: 36000
+proveedor: saxs

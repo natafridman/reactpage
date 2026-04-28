@@ -1,0 +1,8 @@
+title: Mochila Pekin
+subtitle: Mochila de Nylon con Solapa
+description: Disponible en Negra.
+code: MOC-005
+images: PEKIN_Negra_1.jpeg, PEKIN_Negra_2.jpeg, PEKIN_Negra_3.jpeg, PEKIN_Negra_4.jpeg
+videos:
+price_mayorista: 43000
+proveedor: saxs

@@ -1,0 +1,8 @@
+title: Mochila Turin
+subtitle: Mochila de Nylon Minimalista
+description: Disponible en Negra.
+code: MOC-006
+images: TURIN_Negra_1.jpeg, TURIN_Negra_2.jpeg, TURIN_Negra_3.jpeg, TURIN_Negra_4.jpeg
+videos:
+price_mayorista: 32000
+proveedor: saxs

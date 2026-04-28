@@ -7,7 +7,13 @@
     "Maletin Ejecutivo"
   ],
   "Mochilas": [
-    "Mochila London"
+    "Mochila Dubai",
+    "Mochila Lisboa",
+    "Mochila London",
+    "Mochila Paris",
+    "Mochila Pekin",
+    "Mochila Roma",
+    "Mochila Turin"
   ],
   "Morrales": [
     "Morral Monaco"
@@ -19,7 +25,11 @@
     "Portadocumentos Madrid"
   ],
   "Carteras": [
+    "Cartera Bari",
+    "Cartera Cali",
     "Cartera Florencia",
+    "Cartera Maxi",
+    "Cartera Milan",
     "Cartera Musher",
     "Cartera Praga",
     "Cartera Rafia Clasica",
@@ -34,17 +44,17 @@
     "Riñonera Atenas"
   ],
   "Billeteras": [
-    "Billetera Oporto",
     "Billetera Niza",
+    "Billetera Oporto",
     "Billetera Oslo",
     "Billetera Roma",
     "Tarjetero Lucca"
   ],
   "Gorras": [
-    "Gorra Casual",
-    "Gorra Trucker",
     "Gorra Berlin",
-    "Gorra Milan"
+    "Gorra Casual",
+    "Gorra Milan",
+    "Gorra Trucker"
   ],
   "Cinturones": [
     "Cinturon Ancho",
