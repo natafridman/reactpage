@@ -1,0 +1,8 @@
+/*
+ * Vendored from @blossom-carousel/core@1.1.7 (dist/blossom-carousel-core.css).
+ * Imported locally instead of from the package so the build never depends on
+ * package-manager hoisting — @blossom-carousel/core is a transitive dep and is
+ * not resolvable at the project root under pnpm's strict node_modules.
+ * If you bump @blossom-carousel/react, re-copy this file from the core package.
+ */
+@layer blossom-carousel{[blossom-carousel]{white-space:nowrap;scroll-behavior:smooth;overscroll-behavior-x:contain;box-sizing:border-box;inline-size:100%;max-inline-size:100vw;list-style-type:none;display:inline-block;overflow:auto clip}[blossom-carousel]:is(ul){padding-inline-start:0}[blossom-carousel]{scrollbar-width:none}[blossom-carousel]::-webkit-scrollbar{display:none}[blossom-carousel][has-repeat=true]{padding-inline:50%!important;scroll-padding-inline:50%!important}[blossom-carousel][has-snap=true]{scroll-snap-type:var(--snap-type)!important}[blossom-carousel][has-overflow=true]{cursor:grab}[blossom-carousel][has-overflow=true]:active{cursor:grabbing}@media (pointer:fine){[blossom-carousel][has-overflow=true]:active{scroll-snap-type:none!important}}[blossom-carousel]>*{white-space:initial;vertical-align:top;display:inline-block}[blossom-carousel] *{-webkit-user-drag:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}}
