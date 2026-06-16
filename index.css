@@ -1063,8 +1063,21 @@ body {
 /* ===== SHARE BUTTON ===== */
 .product-actions {
     display: inline-flex;
+    flex-wrap: wrap;
     gap: 0.75rem;
     margin-bottom: 2rem;
+}
+
+/* Mobile: collapse the product action buttons to icons only so the row never
+   overflows the card. Labels stay available via title/aria-label. */
+@media (max-width: 768px) {
+    .product-actions .share-btn {
+        padding: 0.7rem;
+    }
+
+    .product-actions .share-btn .btn-text {
+        display: none;
+    }
 }
 
 .share-btn {
