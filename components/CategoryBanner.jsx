@@ -268,6 +268,9 @@ function CategoryBanner({ category, viewMode, onViewModeChange }) {
           </h1>
           <div className="view-toggle-desktop">{viewToggle}</div>
         </div>
+        <p className="category-banner-subtitle">
+          Diseños propios · Personalizables con tu logo · Producción a medida
+        </p>
         <div className="category-banner-divider"></div>
       </div>
       {showBubbles && (

@@ -2541,3 +2541,19 @@ a.product-card-info {
     -webkit-user-drag: none;
     user-select: none;
 }
+
+/* ===== CATEGORY BANNER value-prop subtitle ===== */
+.category-banner-subtitle {
+    font-size: 0.92rem;
+    color: var(--b2-gray);
+    letter-spacing: 0.02em;
+    margin-top: 0.95rem;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .category-banner-subtitle {
+        font-size: 0.8rem;
+        padding: 0 1rem;
+    }
+}
