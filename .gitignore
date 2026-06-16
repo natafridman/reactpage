@@ -46,3 +46,7 @@ skills-lock.json
 
 # Background-removal local cache
 scripts/.bg-cache/
+
+# Single package manager: pnpm (pnpm-lock.yaml is the source of truth).
+# Keep npm's lockfile out so it can't drift from pnpm-lock and break CI/Vercel.
+package-lock.json
