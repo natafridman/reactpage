@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BlossomCarousel } from '@blossom-carousel/react';
-import { thumbSrc } from '/utils/productUtils.js';
+import { thumbSrc, formatPrice, quoteWhatsappUrl } from '/utils/productUtils.js';
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
@@ -19,6 +19,8 @@ function ProductCard({ product }) {
   const imageList = (Array.isArray(metadata.images) ? metadata.images : availableImages) || [];
   const productUrl = `/producto/${encodeURIComponent(category)}/${encodeURIComponent(productFolder)}`;
   const multi = imageList.length > 1;
+  const price = formatPrice(metadata);
+  const quoteUrl = quoteWhatsappUrl(metadata, productFolder);
 
   // Reveal on scroll into view.
   useEffect(() => {
@@ -149,11 +151,33 @@ function ProductCard({ product }) {
         )}
       </div>
 
-      <a href={productUrl} className="product-card-info" onClick={goToProduct}>
-        <h3 className="product-card-title">{metadata.title || productFolder}</h3>
-        <p className="product-card-subtitle">{metadata.subtitle || category}</p>
-        <span className="product-card-code">{metadata.code || ''}</span>
-      </a>
+      <div className="product-card-info">
+        <a href={productUrl} className="product-card-info-text" onClick={goToProduct}>
+          <h3 className="product-card-title">{metadata.title || productFolder}</h3>
+          <p className="product-card-subtitle">{metadata.subtitle || category}</p>
+          {metadata.code && <span className="product-card-code">{metadata.code}</span>}
+        </a>
+        <div className="product-card-buy">
+          <span className={`product-card-price ${price.consult ? 'is-consult' : ''}`}>
+            {price.display}
+            {price.note && <em>{price.note}</em>}
+          </span>
+          <a
+            className="product-card-wa"
+            href={quoteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            title="Pedí cotización por WhatsApp"
+            aria-label={`Pedí cotización de ${metadata.title || productFolder} por WhatsApp`}
+          >
+            <svg width="15" height="15" viewBox="0 0 32 32" fill="currentColor">
+              <path d="M16.004 0C7.165 0 0 7.163 0 16.001c0 2.82.736 5.573 2.137 7.998L.074 31.79a.5.5 0 0 0 .612.613l7.89-2.066A15.93 15.93 0 0 0 16.004 32C24.837 32 32 24.837 32 16.001 32 7.163 24.837 0 16.004 0zm0 29.333a13.27 13.27 0 0 1-6.87-1.907.5.5 0 0 0-.426-.05l-5.47 1.432 1.43-5.393a.5.5 0 0 0-.054-.432A13.28 13.28 0 0 1 2.667 16C2.667 8.636 8.638 2.667 16.004 2.667c7.364 0 13.33 5.969 13.33 13.334 0 7.364-5.966 13.332-13.33 13.332z"/>
+            </svg>
+            Cotizar
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

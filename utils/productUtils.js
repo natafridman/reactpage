@@ -34,6 +34,32 @@ export function medSrc(fullPath) {
   return variantSrc(fullPath, '.med');
 }
 
+// ===== PRICE + WHATSAPP HELPERS =====
+const ARS = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 });
+
+// Prefer the retail price; fall back to the wholesale price (labelled "por mayor");
+// finally a "Consultá precio" chip so a price slot is never left blank.
+export function formatPrice(metadata) {
+  const min = metadata && metadata.price_minorista;
+  const may = metadata && metadata.price_mayorista;
+  if (min && Number(min) > 0) return { display: ARS.format(Number(min)), note: '', consult: false };
+  if (may && Number(may) > 0) return { display: ARS.format(Number(may)), note: 'por mayor', consult: false };
+  return { display: 'Consultá precio', note: '', consult: true };
+}
+
+export const WA_NUMBER = '5491178279281';
+
+export function whatsappUrl(text) {
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+// Pre-filled WhatsApp quote link for a specific product.
+export function quoteWhatsappUrl(metadata, fallbackName) {
+  const title = (metadata && metadata.title) || fallbackName || 'un producto';
+  const code = metadata && metadata.code ? ` (${metadata.code})` : '';
+  return whatsappUrl(`Hola B2YOU, quiero pedir una cotización de "${title}"${code}. ¿Me pasan precio y mínimo de pedido?`);
+}
+
 // ===== GET CATEGORY FROM URL =====
 export function getCategoryFromURL() {
   const urlParams = new URLSearchParams(window.location.search);

@@ -99,8 +99,24 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-    scroll-snap-type: y mandatory;
+/* (Removed body { scroll-snap-type: y mandatory } — it hijacked whole-document
+   scrolling and made the catalog feel broken. Pages scroll freely now.) */
+
+/* Keyboard focus ring (accessibility) */
+:focus-visible {
+    outline: 2px solid var(--b2-cognac);
+    outline-offset: 2px;
+}
+
+/* Clears the fixed header (replaces a <br><br> hack) */
+.header-spacer {
+    height: var(--header-h);
+}
+
+/* Fraunces italic accent — one expressive word per key heading */
+.accent {
+    font-style: italic;
+    font-weight: 500;
 }
 
 /* ===== HEADER STYLES ===== */
@@ -337,8 +353,10 @@ body {
     color: var(--b2-black);
 }
 
-.category-link:focus {
-    outline: none;
+.category-link:focus-visible {
+    outline: 2px solid var(--b2-cognac);
+    outline-offset: 3px;
+    border-radius: 4px;
 }
 
 .category-link:focus::before {
@@ -714,6 +732,95 @@ body {
 .reveal-in .accent-number {
     opacity: 1;
     transform: translateY(0);
+}
+
+.product-price-line {
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 500;
+    color: var(--b2-cognac);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.product-price-line em {
+    font-style: italic;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--b2-gray);
+    margin-left: 0.35rem;
+}
+
+.product-price-line.is-consult {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--b2-gray);
+}
+
+.reveal-in .product-price-line {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.b2b-terms {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    max-width: 580px;
+    margin: 0 0 2.25rem;
+    padding: 0;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+}
+
+.product-section:nth-child(odd) .b2b-terms {
+    justify-content: flex-end;
+}
+
+.b2b-terms li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--b2-black);
+    text-transform: uppercase;
+}
+
+.b2b-terms li svg {
+    color: var(--b2-cognac);
+    flex-shrink: 0;
+}
+
+.reveal-in .b2b-terms {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-response-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--b2-gray);
+    margin: -0.5rem 0 0;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.35s;
+}
+
+.product-response-note svg {
+    color: var(--b2-cognac);
+    flex-shrink: 0;
+}
+
+.reveal-in .product-response-note {
+    opacity: 1;
 }
 
 .description-text {
@@ -1466,6 +1573,14 @@ a.product-card-info {
 
 .product-card-info {
     padding: 0.875rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-info-text {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     cursor: pointer;
 }
 
@@ -1494,6 +1609,87 @@ a.product-card-info {
     font-size: 0.75rem;
     color: var(--b2-light-gray);
     letter-spacing: 0.05em;
+}
+
+/* Card price + WhatsApp quote CTA */
+.product-card-buy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+}
+
+.product-card-price {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--b2-black);
+    line-height: 1.1;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+[data-theme="dark"] .product-card-price {
+    color: #eee;
+}
+
+.product-card-price em {
+    font-style: normal;
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--b2-light-gray);
+}
+
+.product-card-price.is-consult {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--b2-gray);
+}
+
+.product-card-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--b2-cognac);
+    border-radius: 999px;
+    padding: 0.42rem 0.75rem;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card-wa:hover {
+    background: var(--b2-cognac-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(var(--b2-cognac-rgb), 0.3);
+}
+
+/* Touch devices: card image controls must be visible (no hover) + tappable */
+@media (hover: none) {
+    .card-img-nav {
+        opacity: 0.9;
+        width: 34px;
+        height: 34px;
+    }
+    .card-img-dots {
+        gap: 7px;
+        bottom: 10px;
+    }
+    .card-dot {
+        width: 8px;
+        height: 8px;
+    }
 }
 
 /* Placeholder cards */

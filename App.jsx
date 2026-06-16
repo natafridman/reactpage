@@ -515,8 +515,7 @@ function App() {
         onCategoryClick={handleCategoryClick}
       />
 
-      <br />
-      <br />
+      <div className="header-spacer" aria-hidden="true" />
 
       {!isSingleProduct && (
         <CategoryBanner

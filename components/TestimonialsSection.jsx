@@ -19,7 +19,7 @@ function TestimonialsSection() {
       <div className="testimonials-container">
         <div className="testimonials-header">
           <span className="testimonials-subtitle">Testimonios</span>
-          <h2 className="testimonials-title">Lo que dicen nuestros clientes</h2>
+          <h2 className="testimonials-title">Lo que <em className="accent">dicen</em> nuestros clientes</h2>
           <div className="testimonials-divider"></div>
         </div>
         <div className="testimonials-grid">

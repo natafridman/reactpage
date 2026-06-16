@@ -35,7 +35,7 @@ function BrandStory() {
 
         <div className="brand-story-content">
           <span className="brand-story-eyebrow">Nuestra obsesión</span>
-          <h2 className="brand-story-title">Cuero de verdad, hecho para durar</h2>
+          <h2 className="brand-story-title">Cuero de verdad, hecho para <em className="accent">durar</em></h2>
           <p className="brand-story-text">
             No hacemos productos descartables. Cada bolso, cartera o cinturón sale de
             nuestro taller pensado para acompañarte por años y para representar bien a
