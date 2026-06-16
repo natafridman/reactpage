@@ -1,7 +1,7 @@
 /*
  * Vendored from @blossom-carousel/core@1.1.7 (dist/blossom-carousel-core.css).
  * Imported locally instead of from the package so the build never depends on
- * package-manager hoisting — @blossom-carousel/core is a transitive dep and is
+ * package-manager hoisting - @blossom-carousel/core is a transitive dep and is
  * not resolvable at the project root under pnpm's strict node_modules.
  * If you bump @blossom-carousel/react, re-copy this file from the core package.
  */

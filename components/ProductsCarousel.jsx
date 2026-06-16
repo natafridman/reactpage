@@ -49,7 +49,7 @@ function ProductsCarousel() {
           <span className="featured-subtitle">Catálogo</span>
           <h2 className="featured-title">Explorá nuestros productos</h2>
           <p className="featured-intro">
-            Bolsos, carteras, cinturones, gorras y mucho más — todo personalizable con tu marca.
+            Bolsos, carteras, cinturones, gorras y mucho más, todo personalizable con tu marca.
           </p>
           <div className="featured-divider"></div>
         </div>

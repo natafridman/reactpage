@@ -29,7 +29,7 @@ function ProductSlideshow({ items, autoplay = true, interval = 5500 }) {
     return () => { el.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
   }, [items.length]);
 
-  // Autoplay — advances to the next slide, loops back to the first at the end.
+  // Autoplay - advances to the next slide, loops back to the first at the end.
   useEffect(() => {
     if (!autoplay || items.length < 2) return;
     const id = setInterval(() => {

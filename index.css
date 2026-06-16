@@ -20,7 +20,7 @@
     --b2-cognac-rgb: 122, 79, 72;
     --b2-cognac-hover: #8F6259;
 
-    /* Layout rails — ONE content width for the whole site */
+    /* Layout rails - ONE content width for the whole site */
     --header-h: 75px;
     --content-max: 1280px;
     --content-wide: 1536px;
@@ -2155,23 +2155,39 @@ a.product-card-info {
     background: rgba(18, 18, 18, 0.82);
 }
 
-.product-toolbar-inner {
+/* Top row: centered search + view toggle pinned right */
+.product-toolbar-top {
     max-width: var(--content-max);
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 0.9rem 1.25rem;
-    flex-wrap: wrap;
+    gap: 0.9rem;
 }
 
-/* --- Search field --- */
+/* --- Search field (centered, prominent) --- */
 .toolbar-search {
     position: relative;
-    flex: 1 1 280px;
-    min-width: 230px;
-    max-width: 480px;
+    flex: 0 1 640px;
+    min-width: 0;
+    margin-inline: auto;
     display: flex;
     align-items: center;
+}
+
+/* --- View toggle (segmented control, right side of the toolbar) --- */
+.toolbar-view {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+    background: var(--b2-white);
+    border: 1px solid var(--b2-border);
+    border-radius: 10px;
+    padding: 3px;
+}
+
+[data-theme="dark"] .toolbar-view {
+    background: #1c1c1c;
+    border-color: #333;
 }
 
 .toolbar-search-icon {
@@ -2244,8 +2260,11 @@ a.product-card-info {
 
 /* --- Filter toggles (editorial, not badges) --- */
 .toolbar-filters {
+    max-width: var(--content-max);
+    margin: 0.95rem auto 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.4rem;
     flex-wrap: wrap;
 }
@@ -2358,6 +2377,7 @@ a.product-card-info {
     margin: 0 auto;
     display: flex;
     align-items: baseline;
+    justify-content: center;
     gap: 0.4rem;
     max-height: 0;
     opacity: 0;
@@ -2393,8 +2413,7 @@ a.product-card-info {
     }
 
     .toolbar-search {
-        flex: 1 1 100%;
-        max-width: none;
+        flex: 1 1 auto;
     }
 
     .toolbar-filters {

@@ -1,7 +1,7 @@
 // Generate lightweight sibling thumbnails for every product image, WITHOUT touching originals.
 // For  <dir>/<name>.<ext>  emit:
-//   <dir>/.thumbs/<name>.webp       (~280px  — bubbles & product cards)
-//   <dir>/.thumbs/<name>.med.webp   (~1200px — list-view hero & gallery; modal still opens the original)
+//   <dir>/.thumbs/<name>.webp       (~280px  - bubbles & product cards)
+//   <dir>/.thumbs/<name>.med.webp   (~1200px - list-view hero & gallery; modal still opens the original)
 // Incremental: skips outputs that are newer than their source. Safe to run on every build.
 import sharp from 'sharp';
 import { readdir, mkdir, stat } from 'node:fs/promises';

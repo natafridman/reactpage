@@ -1729,7 +1729,7 @@
 }
 
 /* ===== DARK MODE - NEW COMPONENTS ===== */
-/* Testimonials — var(--b2-white) ya se convierte en #121212 automáticamente,
+/* Testimonials - var(--b2-white) ya se convierte en #121212 automáticamente,
    pero lo forzamos para asegurar la oscuridad correcta */
 [data-theme="dark"] .testimonials-section {
   background: #121212;
@@ -1779,7 +1779,7 @@
   background: #1E1E1E;
 }
 
-/* Nosotros — secciones blancas → oscuras */
+/* Nosotros - secciones blancas → oscuras */
 [data-theme="dark"] .nosotros-intro-section {
   background: #121212;
 }
@@ -1788,7 +1788,7 @@
   background: #121212;
 }
 
-/* Nosotros — sección de valores usa var(--b2-black) como fondo oscuro
+/* Nosotros - sección de valores usa var(--b2-black) como fondo oscuro
    en light mode, en dark mode esa variable se vuelve clara → la forzamos */
 [data-theme="dark"] .nosotros-valores-section {
   background: #0A0A0A;
@@ -1885,7 +1885,7 @@
    REDESIGN SYSTEM  ·  editorial-luxury pass (overrides above)
    ============================================================ */
 
-/* 1 — Display typography on every heading. One H1 size, one H2 size. */
+/* 1 - Display typography on every heading. One H1 size, one H2 size. */
 .clients-title,
 .featured-title,
 .vision-title,
@@ -1918,7 +1918,7 @@
   letter-spacing: -0.01em;
 }
 
-/* 2 — Unify section dividers (was 60px / 80px) into one refined rule. */
+/* 2 - Unify section dividers (was 60px / 80px) into one refined rule. */
 .clients-divider,
 .featured-divider,
 .testimonials-divider,
@@ -1929,7 +1929,7 @@
   opacity: 0.9;
 }
 
-/* 3 — Eyebrow labels: consistent, a touch more refined. */
+/* 3 - Eyebrow labels: consistent, a touch more refined. */
 .clients-subtitle,
 .featured-subtitle,
 .vision-label,
@@ -1943,7 +1943,7 @@
   font-weight: 600;
 }
 
-/* 4 — Equal-height info cards with an editorial index hairline. */
+/* 4 - Equal-height info cards with an editorial index hairline. */
 .info-page-grid {
   align-items: stretch;
 }
@@ -1966,7 +1966,7 @@
   margin-top: auto;
 }
 
-/* 5 — CTA becomes a deliberate leather band (theme-independent). */
+/* 5 - CTA becomes a deliberate leather band (theme-independent). */
 .info-page-cta-section {
   background: linear-gradient(135deg, #2c1a16 0%, var(--b2-cognac) 120%);
   border-radius: 22px;
@@ -2006,7 +2006,7 @@
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
 }
 
-/* 6 — Process numerals go big & editorial in Fraunces. */
+/* 6 - Process numerals go big & editorial in Fraunces. */
 .process-step-number {
   font-family: var(--font-display);
   font-size: 1.4rem;
@@ -2017,7 +2017,7 @@
   font-size: 1.05rem;
 }
 
-/* 7 — A faint grain over hero gradients for a leather feel. */
+/* 7 - A faint grain over hero gradients for a leather feel. */
 .hero-overlay::after,
 .info-page-hero-overlay::after {
   content: '';
@@ -2029,7 +2029,7 @@
   pointer-events: none;
 }
 
-/* 8 — Stat numerals in Fraunces. */
+/* 8 - Stat numerals in Fraunces. */
 .stat-number,
 .nosotros-stat-number {
   font-family: var(--font-display);
@@ -2368,7 +2368,7 @@
   -webkit-user-drag: none;
 }
 
-/* Scroll-driven parallax — Chromium-only, gracefully ignored elsewhere. */
+/* Scroll-driven parallax - Chromium-only, gracefully ignored elsewhere. */
 @supports (animation-timeline: scroll()) {
   .product-slide {
     view-timeline: --slide inline;

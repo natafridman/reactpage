@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { BlossomCarousel } from '@blossom-carousel/react';
 import { loadManifest, parseMetadata, thumbSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
-// A draggable rail of product CATEGORIES — each card links into that category.
+// A draggable rail of product CATEGORIES - each card links into that category.
 // Defaults are tuned for the Marcas page ("everything we can make for your brand").
 function CategoriesCarousel({
   eyebrow = 'Catálogo',
   title = 'Todo lo que fabricamos',
-  intro = 'Elegí los productos que mejor representen a tu marca — todos personalizables.',
+  intro = 'Elegí los productos que mejor representen a tu marca, todos personalizables.',
 }) {
   const navigate = useNavigate();
   const rail = useRef(null);

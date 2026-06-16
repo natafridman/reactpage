@@ -82,7 +82,7 @@ async function loadProducts() {
       const productDir = path.join(IMAGES_BASE, category, productName);
       const metaPath = path.join(productDir, 'metadata.txt');
       if (!fs.existsSync(metaPath)) {
-        console.warn(`  Skipping ${category}/${productName} — no metadata.txt`);
+        console.warn(`  Skipping ${category}/${productName} - no metadata.txt`);
         continue;
       }
       const meta = parseMetadata(fs.readFileSync(metaPath, 'utf-8'));
@@ -190,7 +190,7 @@ async function generate() {
   const range = doc.bufferedPageRange();
   const totalPages = range.count;
 
-  // Prepare footer logos — dark (original) and white (for dark pages)
+  // Prepare footer logos - dark (original) and white (for dark pages)
   const footerLogoDark = await sharp(LOGO_PATH)
     .resize(120, 28, { fit: 'inside', withoutEnlargement: true })
     .png().toBuffer().catch(() => null);
@@ -237,7 +237,7 @@ async function drawProductPage(doc, product) {
   doc.addPage({ size: 'A4', margin: 0 });
   doc.rect(0, 0, PAGE_W, PAGE_H).fill(WHITE);
 
-  // Hero image — large, ~68% of page, trimmed to remove whitespace
+  // Hero image - large, ~68% of page, trimmed to remove whitespace
   const heroTopY = 0;
   const heroH = PAGE_H * 0.68;
 
@@ -284,7 +284,7 @@ async function drawProductPage(doc, product) {
     y += doc.heightOfString(product.description, { width: CW * 0.8, fontSize: 9.5 }) + 10;
   }
 
-  // Price — always show, "Consultar" if missing
+  // Price - always show, "Consultar" if missing
   doc.roundedRect(M, y, CW, 34, 4).fill([248, 246, 244]);
   doc.fontSize(8).font(FONT_REGULAR).fillColor(GRAY)
     .text('MAYORISTA', M + 14, y + 6, { lineBreak: false });
@@ -316,7 +316,7 @@ async function drawProductPage(doc, product) {
   async function placeImage(imgPath, x, y, w, h) {
     const isDim = isDimImage(imgPath);
     if (isDim) {
-      // Contain — show full image without cropping
+      // Contain - show full image without cropping
       const img = await prepareImage(imgPath, w, h);
       if (img) {
         const dims = await getImageDimensions(imgPath);
@@ -326,7 +326,7 @@ async function drawProductPage(doc, product) {
         doc.image(img, x + (w - dw) / 2, y + (h - dh) / 2, { width: dw });
       }
     } else {
-      // Cover — zoom and crop
+      // Cover - zoom and crop
       const img = await prepareImage(imgPath, w, h, { cover: true });
       if (img) doc.image(img, x, y, { width: w, height: h });
     }

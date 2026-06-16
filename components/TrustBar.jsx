@@ -1,4 +1,4 @@
-// Slim trust band placed right under the hero — reinforces credibility before
+// Slim trust band placed right under the hero - reinforces credibility before
 // the visitor scrolls. Factual points only (keeps the site's existing info).
 function TrustBar() {
   const items = [

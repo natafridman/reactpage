@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ProductSlideshow from '/components/ProductSlideshow.jsx';
 import { loadManifest, parseMetadata, medSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
-// "También te puede interesar" — full-width slideshow on the single-product page.
+// "También te puede interesar" - full-width slideshow on the single-product page.
 // Prefers products from the same category, then fills with others.
 function RelatedProducts({ category, folder }) {
   const navigate = useNavigate();

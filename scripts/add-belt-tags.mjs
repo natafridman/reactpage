@@ -2,7 +2,7 @@
 // Tags: gender (hombre/mujer) + origin (importado/nacional). A belt can have several.
 // Origin heuristic: genuine "Cuero"/Gamuza => nacional, "Simil Cuero" => importado.
 // Gender heuristic: decorative/novelty pieces => mujer; classic leather => unisex.
-// All of this lives in editable metadata.txt files — adjust any `tags:` line freely.
+// All of this lives in editable metadata.txt files - adjust any `tags:` line freely.
 import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 

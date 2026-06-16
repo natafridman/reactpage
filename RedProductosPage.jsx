@@ -37,7 +37,7 @@ function RedProductosPage() {
       const catKeys = Object.keys(manifest);
       setCategories(catKeys);
 
-      // Large world size — not limited to screen
+      // Large world size - not limited to screen
       const totalProducts = Object.values(manifest).reduce((s, arr) => s + arr.length, 0);
       const WORLD_W = Math.max(2400, Math.sqrt(totalProducts) * 300);
       const WORLD_H = Math.max(1800, Math.sqrt(totalProducts) * 250);
@@ -256,7 +256,7 @@ function RedProductosPage() {
         ctx.stroke();
       });
 
-      // Nodes — draw hovered last so it's on top
+      // Nodes - draw hovered last so it's on top
       const hovered = hoveredRef.current;
       const drawOrder = nodes.map((_, i) => i);
       if (hovered >= 0) {

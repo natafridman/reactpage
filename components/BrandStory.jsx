@@ -1,6 +1,6 @@
 import { medSrc } from '/utils/productUtils.js';
 
-// Emotional brand-passion / craftsmanship moment — gives the catalog a soul so
+// Emotional brand-passion / craftsmanship moment - gives the catalog a soul so
 // visitors connect with the brand, not just the products.
 const STORY_IMG = '/images/Categorias/Bolsos/Bolso Duffle/IMG_1585.jpeg';
 

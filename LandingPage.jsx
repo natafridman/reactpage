@@ -99,7 +99,7 @@ function LandingPage() {
             <span className="closing-cta-eyebrow">Tu marca, en cada detalle</span>
             <h2 className="closing-cta-title">¿Listos para crear algo tuyo?</h2>
             <p className="closing-cta-text">
-              Contanos qué tenés en mente y armamos una propuesta a medida — sin compromiso.
+              Contanos qué tenés en mente y armamos una propuesta a medida, sin compromiso.
             </p>
             <div className="closing-cta-actions">
               <a className="closing-cta-primary" href={WA_QUOTE} target="_blank" rel="noopener noreferrer">

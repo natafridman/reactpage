@@ -22,7 +22,7 @@ function HeroSection() {
           <span className="hero-eyebrow">Marroquinería premium · Hecho en Buenos Aires</span>
           <h1 className="hero-title">Hacemos los accesorios que tu marca necesita</h1>
           <p className="hero-description">
-            Diseñamos y fabricamos bolsos, mochilas, carteras, cinturones y más —
+            Diseñamos y fabricamos bolsos, mochilas, carteras, cinturones y más,
             con tu identidad, tu logo y la calidad que tus clientes merecen.
           </p>
 

@@ -89,7 +89,7 @@ function MarcasPage() {
         <CategoriesCarousel
           eyebrow="Catálogo"
           title="Todo lo que fabricamos para tu marca"
-          intro="Bolsos, carteras, mochilas, cinturones, gorras y más — elegí lo que mejor representa tu identidad."
+          intro="Bolsos, carteras, mochilas, cinturones, gorras y más. Elegí lo que mejor representa tu identidad."
         />
 
         <section className="info-page-section">

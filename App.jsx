@@ -110,7 +110,7 @@ function App() {
         manifest[category].forEach(productFolder => refs.push({ category, productFolder }));
       }
 
-      // Fetch every metadata file in parallel — small text files, much faster than per-page.
+      // Fetch every metadata file in parallel - small text files, much faster than per-page.
       const loaded = await Promise.all(refs.map(async ({ category, productFolder }, i) => {
         const metadataPath = `/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/metadata.txt`;
         try {
@@ -521,8 +521,6 @@ function App() {
       {!isSingleProduct && (
         <CategoryBanner
           category={getCategoryFromURL() || null}
-          viewMode={viewMode}
-          onViewModeChange={handleViewModeChange}
         />
       )}
 
@@ -535,6 +533,8 @@ function App() {
           onToggleTag={handleToggleTag}
           onClearFilters={handleClearFilters}
           resultCount={totalFiltered}
+          viewMode={viewMode}
+          onViewModeChange={handleViewModeChange}
         />
       )}
 
