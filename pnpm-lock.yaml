@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@blossom-carousel/react':
+        specifier: ^1.1.1
+        version: 1.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@gsap/react':
         specifier: ^2.1.2
         version: 2.1.2(gsap@3.15.0)(react@18.3.1)
@@ -124,6 +127,19 @@ packages:
   '@babel/types@7.29.7':
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
+
+  '@blossom-carousel/core@1.1.7':
+    resolution: {integrity: sha512-3HIaczNWmBqKclz9LSekl48Co7Qc1ktRFLwODsC1P9c5sbo3P1y976aHtXQN83K3Hmr9It7cMVYUmE9qRYgcWQ==}
+
+  '@blossom-carousel/react@1.1.1':
+    resolution: {integrity: sha512-w/P+zLsTNMlIWOzdhqWineGvMhRCRVYJsl4yzh1i+klU/6m63uovN/bpUjkg2QrtNboIe++BzbPkg7YodfLPXQ==}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
+  '@bramus/style-observer@2.0.2':
+    resolution: {integrity: sha512-oRKamZ9Z637pAZgNGJIbNGiFoYQSeA47PpU4K8hXZq9lQcPu35BCqMG9d9J/ab2CB/0XlXq6ToMnVhHF8mLNqg==}
+    engines: {node: '>=12'}
 
   '@emnapi/runtime@1.11.1':
     resolution: {integrity: sha512-vgj7R3y3Wgx24IQaGPA/R6YFXLHVMOZ0uVEyIQPaWs+rd1AzfEMXlAC22FYwO1XkKR6NPsq7mUandH8oIRdZFw==}
@@ -1243,6 +1259,18 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
+
+  '@blossom-carousel/core@1.1.7':
+    dependencies:
+      '@bramus/style-observer': 2.0.2
+
+  '@blossom-carousel/react@1.1.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@blossom-carousel/core': 1.1.7
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@bramus/style-observer@2.0.2': {}
 
   '@emnapi/runtime@1.11.1':
     dependencies:
