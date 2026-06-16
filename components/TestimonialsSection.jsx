@@ -4,13 +4,13 @@ function TestimonialsSection() {
       quote: "Pedimos gorras personalizadas para todo el equipo. La calidad superó las expectativas y el proceso fue muy claro desde el principio.",
       author: "Equipo ARTFUL",
       company: "ARTFUL",
-      logo: '/images/Clientes/artful.jpg'
+      logo: '/images/Clientes/.opt/artful.webp'
     },
     {
       quote: "Trabajamos con B2YOU para nuestra línea de gorras y bolsos de marca propia. La producción fue impecable y los tiempos se cumplieron al pie de la letra.",
       author: "Equipo VIACOTONE",
       company: "VIACOTONE",
-      logo: '/images/Clientes/viacotone.png'
+      logo: '/images/Clientes/.opt/viacotone.webp'
     }
   ];
 

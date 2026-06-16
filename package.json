@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "thumbs": "node scripts/generate-thumbnails.mjs",
+    "logos": "node scripts/optimize-logos.mjs",
     "dev": "vite",
-    "build": "node scripts/generate-thumbnails.mjs && vite build",
+    "build": "node scripts/generate-thumbnails.mjs && node scripts/optimize-logos.mjs && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
