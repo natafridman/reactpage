@@ -5,7 +5,7 @@ import EmpresasPage from '/EmpresasPage.jsx';
 import MarcasPage from '/MarcasPage.jsx';
 import NosotrosPage from '/NosotrosPage.jsx';
 import RedProductosPage from '/RedProductosPage.jsx';
-import '@blossom-carousel/core/style.css';
+import '/blossom-core.css';
 import '/index.css';
 
 const WA_NUMBER = '5491178279281';
