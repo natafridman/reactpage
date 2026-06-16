@@ -2339,6 +2339,28 @@ a.product-card-info {
     color: #F0F0F0;
 }
 
+/* Filled cognac controls: in dark mode the cognac turns light, so their
+   label/icon must be dark. Without this the global .share-btn override above
+   tints the add-to-cart text cognac-on-cognac (invisible). */
+[data-theme="dark"] .share-btn.add-cart-btn,
+[data-theme="dark"] .share-btn.add-cart-btn:hover {
+    color: #2c1a16;
+    border-color: var(--b2-cognac);
+}
+
+[data-theme="dark"] .qty-stepper-val,
+[data-theme="dark"] .qty-stepper-btn {
+    color: #2c1a16;
+}
+
+[data-theme="dark"] .qty-stepper-btn:hover {
+    background: rgba(0, 0, 0, 0.14);
+}
+
+[data-theme="dark"] .product-card-add {
+    color: #2c1a16;
+}
+
 [data-theme="dark"] .modal-close {
     color: #F0F0F0;
     background: rgba(0, 0, 0, 0.6);
