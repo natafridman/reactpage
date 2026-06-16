@@ -114,7 +114,6 @@ function LandingPage() {
                 Ver productos
               </button>
             </div>
-            <p className="closing-cta-response">Respondemos en el día · Lun a Vie 9-18h</p>
             <ul className="guarantee-row">
               <li>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">

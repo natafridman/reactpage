@@ -2648,14 +2648,6 @@
   background: rgba(251, 247, 244, 0.1);
 }
 
-.closing-cta-response,
-.info-page-cta-response {
-  margin: 1.25rem auto 0;
-  font-size: 0.85rem;
-  color: rgba(251, 247, 244, 0.78);
-  letter-spacing: 0.01em;
-}
-
 /* ============================================================
    GUARANTEE / RISK-REVERSAL ROW (on dark cognac surfaces)
    ============================================================ */

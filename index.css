@@ -803,26 +803,6 @@ body {
     transform: translateY(0);
 }
 
-.product-response-note {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    color: var(--b2-gray);
-    margin: -0.5rem 0 0;
-    opacity: 0;
-    transition: opacity 0.6s ease 0.35s;
-}
-
-.product-response-note svg {
-    color: var(--b2-cognac);
-    flex-shrink: 0;
-}
-
-.reveal-in .product-response-note {
-    opacity: 1;
-}
-
 .description-text {
     max-width: 580px;
     margin-bottom: 2.5rem;
