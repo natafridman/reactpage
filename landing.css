@@ -2704,9 +2704,15 @@
 }
 
 .logo-wall-label .accent {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.35em;
   text-transform: none;
-  letter-spacing: 0;
+  letter-spacing: 0.005em;
   color: var(--b2-cognac);
+  position: relative;
+  top: 0.035em;
 }
 
 .logo-wall-row {
