@@ -4,3 +4,4 @@ description: Cinturon de gamuza con hebilla western ornamentada en bronce enveje
 code: CIN-015
 images: 8O3A5378.jpeg, 8O3A5532.jpeg
 videos:
+tags: hombre, mujer, nacional

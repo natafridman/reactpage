@@ -4,3 +4,4 @@ description: Cinturon ancho de cuero liso con hebilla cuadrada texturizada. Disp
 code: CIN-003
 images: 3395(1).jpeg, 3395.jpeg
 videos:
+tags: hombre, mujer, nacional

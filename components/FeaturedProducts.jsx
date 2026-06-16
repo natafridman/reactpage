@@ -1,4 +1,6 @@
 import { useNavigate } from 'react-router-dom';
+import ProductSlideshow from '/components/ProductSlideshow.jsx';
+import { medSrc } from '/utils/productUtils.js';
 
 function FeaturedProducts() {
   const navigate = useNavigate();
@@ -6,15 +8,13 @@ function FeaturedProducts() {
   const products = [
     {
       id: 1,
-      video: '',
       title: 'Camiseta Argentina',
-      description: 'La camiseta de la Seleccion con escudo AFA y parche FIFA World Champions 2022. Ideal para personalizar con tu marca.',
+      description: 'La camiseta de la Selección con escudo AFA y parche FIFA World Champions 2022. Ideal para personalizar con tu marca.',
       category: 'Mundial',
       image: '/images/Categorias/Mundial/Camiseta/WhatsApp Image 2026-03-16 at 17.05.15.jpeg'
     },
     {
       id: 2,
-      video: '/images/Categorias/Bolsos/Bolso Duffle/bolso.mp4',
       title: 'Bolso Duffle',
       description: 'Pensado para viajes y escapadas. Amplio, resistente y con terminaciones cuidadas en cada detalle.',
       category: 'Bolsos',
@@ -22,13 +22,23 @@ function FeaturedProducts() {
     },
     {
       id: 3,
-      video: '/images/Categorias/Gorras/Gorra Casual/gorra_verano.mp4',
       title: 'Gorra Casual',
       description: 'Estilo relajado para todos los días. Simple, cómoda y con buena onda.',
       category: 'Gorras',
       image: '/images/Categorias/Gorras/Gorra Casual/IMG_4567.jpeg'
     }
   ];
+
+  const items = products.map((p) => ({
+    key: p.id,
+    src: medSrc(p.image),
+    full: p.image,
+    eyebrow: p.category,
+    title: p.title,
+    description: p.description,
+    cta: 'Ver productos',
+    onClick: () => navigate(`/productos?categoria=${encodeURIComponent(p.category)}`),
+  }));
 
   return (
     <section className="featured-section">
@@ -42,46 +52,7 @@ function FeaturedProducts() {
           <div className="featured-divider"></div>
         </div>
 
-        <div className="featured-grid">
-          {products.map((product, index) => (
-            <div 
-              key={product.id} 
-              className="featured-card"
-              style={{ animationDelay: `${index * 0.15}s` }}
-            >
-              {/* <div className="featured-video-wrapper">
-                <video 
-                  className="featured-video" 
-                  autoPlay 
-                  loop 
-                  muted 
-                  playsInline
-                >
-                  <source src={product.video} type="video/mp4" />
-                </video>
-                <div className="featured-overlay">
-                  <span className="featured-category">{product.category}</span>
-                </div>
-              </div> */}
-              <img 
-                src={`${product.image}`} 
-                alt={product.title}
-                className="featured-video-wrapper"></img>
-              
-              <div className="featured-content">
-                <h3 className="featured-product-title">{product.title}</h3>
-                <p className="featured-product-description">{product.description}</p>
-                <button className="featured-link" onClick={() => navigate(`/productos?categoria=${encodeURIComponent(product.category)}`)}>
-                  Ver mas
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ProductSlideshow items={items} autoplay interval={6000} />
       </div>
     </section>
   );

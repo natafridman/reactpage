@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '/components/Header.jsx';
 import Footer from '/components/Footer.jsx';
 import FAQSection from '/components/FAQSection.jsx';
+import CategoriesCarousel from '/components/CategoriesCarousel.jsx';
 import { loadManifest } from '/utils/productUtils.js';
 import './landing.css';
 
@@ -76,6 +77,12 @@ function MarcasPage() {
             </p>
           </div>
         </section>
+
+        <CategoriesCarousel
+          eyebrow="Catálogo"
+          title="Todo lo que fabricamos para tu marca"
+          intro="Bolsos, carteras, mochilas, cinturones, gorras y más — elegí lo que mejor representa tu identidad."
+        />
 
         <section className="info-page-section">
           <div className="info-page-container">

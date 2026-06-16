@@ -4,3 +4,4 @@ description: Cinturon de cuero negro liso con hebilla redondeada plateada clási
 code: CIN-021
 images: 8O3A6872.jpeg, 8O3A6874.jpeg, 8O3A6876.jpeg
 videos:
+tags: hombre, mujer, nacional

@@ -4,3 +4,4 @@ description: Cinturon de cuero con textura graneada natural que le da un aspecto
 code: CIN-014
 images: 8O3A5367.jpeg, 8O3A5472.jpeg
 videos:
+tags: hombre, mujer, nacional

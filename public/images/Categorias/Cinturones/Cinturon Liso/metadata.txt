@@ -4,3 +4,4 @@ description: Cinturon de cuero liso con hebilla redondeada en acabado plata enve
 code: CIN-002
 images: 3380 N .jpeg, 3380 T.jpeg
 videos:
+tags: hombre, mujer, nacional

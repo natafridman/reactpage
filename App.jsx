@@ -10,6 +10,8 @@ import EmptyState from '/components/EmptyState.jsx';
 import ImageModal from '/components/ImageModal.jsx';
 import Footer from '/components/Footer.jsx';
 import CategoryBanner from '/components/CategoryBanner.jsx';
+import SearchFilterBar from '/components/SearchFilterBar.jsx';
+import RelatedProducts from '/components/RelatedProducts.jsx';
 import { loadManifest, getCategoryFromURL } from '/utils/productUtils.js';
 
 // ===== CONFIGURATION =====
@@ -17,12 +19,17 @@ const IMAGES_BASE_FOLDER = 'images/Categorias';
 const PRODUCTS_PER_PAGE_LIST = 4;
 const PRODUCTS_PER_PAGE_GRID = 16;
 
+// Belt sub-category axes. OR within an axis, AND across axes.
+const GENDER_TAGS = ['hombre', 'mujer'];
+const ORIGIN_TAGS = ['importado', 'nacional'];
+
 function App() {
   const { categoria: paramCategoria, nombre: paramNombre } = useParams();
   const isSingleProduct = !!(paramCategoria && paramNombre);
   const navigate = useNavigate();
   const location = useLocation();
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);          // single-product mode
+  const [allProducts, setAllProducts] = useState([]);    // full scope (for search/filter)
   const [categories, setCategories] = useState([]);
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isHeaderHidden, setIsHeaderHidden] = useState(false);
@@ -35,12 +42,15 @@ function App() {
     const params = new URLSearchParams(window.location.search);
     return parseInt(params.get('pagina')) || 1;
   });
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [isLoadingPage, setIsLoadingPage] = useState(false);
   const [viewMode, setViewMode] = useState(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get('vista') || localStorage.getItem('b2you-viewMode') || 'list';
   });
+
+  // Search + filter state
+  const [searchInput, setSearchInput] = useState('');   // controlled input (instant)
+  const [searchQuery, setSearchQuery] = useState('');   // debounced value used for filtering
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const PRODUCTS_PER_PAGE = viewMode === 'grid' ? PRODUCTS_PER_PAGE_GRID : PRODUCTS_PER_PAGE_LIST;
 
@@ -53,121 +63,75 @@ function App() {
   function parseMetadata(text) {
     const metadata = {};
     const lines = text.trim().split('\n');
-    
+
     lines.forEach(line => {
       const [key, ...valueParts] = line.split(':');
       if (key && valueParts.length) {
         const normalizedKey = key.trim().toLowerCase();
         const rawValue = valueParts.join(':').trim();
-        
-        if (normalizedKey === 'images' || normalizedKey === 'videos') {
+
+        if (normalizedKey === 'images' || normalizedKey === 'videos' || normalizedKey === 'tags') {
           metadata[normalizedKey] = rawValue
             .split(',')
             .map(item => item.trim())
             .filter(Boolean);
         } else {
           metadata[normalizedKey] = rawValue;
-        } 
+        }
       }
     });
-    
+
     return metadata;
   }
 
-  // ===== LOAD ALL PRODUCTS =====
-  async function loadProducts(page = 1) {
-    console.log(`📦 Cargando productos (página ${page})...`);
-    
+  // ===== LOAD ALL PRODUCTS FOR THE CURRENT SCOPE (category or all) =====
+  async function loadAllForScope() {
     const selectedCategory = getCategoryFromURL();
-    const cacheKey = `${selectedCategory || 'all'}-${page}`;
-    
+    const cacheKey = selectedCategory || 'all';
+
     if (productsCache.current[cacheKey]) {
-      console.log('✅ Usando productos en cache');
-      setProducts(productsCache.current[cacheKey]);
+      setAllProducts(productsCache.current[cacheKey]);
       setIsLoading(false);
-      setIsLoadingPage(false);
       return;
     }
-    
-    if (page === 1) {
-      setIsLoading(true);
-    } else {
-      setIsLoadingPage(true);
-    }
+
+    setIsLoading(true);
 
     try {
       const manifest = await loadManifest();
-      
-      console.log('🔍 Categoría seleccionada:', selectedCategory || 'TODAS');
-      
-      const categoriesToLoad = selectedCategory 
-        ? [selectedCategory] 
-        : Object.keys(manifest);
-      
-      console.log('📂 Categorías a cargar:', categoriesToLoad);
-      
-      let allProductsList = [];
+      const categoriesToLoad = selectedCategory ? [selectedCategory] : Object.keys(manifest);
+
+      const refs = [];
       for (const category of categoriesToLoad) {
         if (!manifest[category]) {
           console.warn(`⚠️ Categoría "${category}" no encontrada en manifest`);
           continue;
         }
-        
-        const productsInCategory = manifest[category];
-        productsInCategory.forEach(productFolder => {
-          allProductsList.push({ category, productFolder });
-        });
+        manifest[category].forEach(productFolder => refs.push({ category, productFolder }));
       }
-      
-      setTotalProducts(allProductsList.length);
-      console.log(`📊 Total de productos: ${allProductsList.length}`);
-      
-      const startIndex = (page - 1) * PRODUCTS_PER_PAGE;
-      const endIndex = startIndex + PRODUCTS_PER_PAGE;
-      const productsToLoad = allProductsList.slice(startIndex, endIndex);
-      
-      console.log(`📄 Cargando productos ${startIndex + 1} a ${Math.min(endIndex, allProductsList.length)}`);
-      
-      const loadedProducts = [];
-      
-      for (let i = 0; i < productsToLoad.length; i++) {
-        const { category, productFolder } = productsToLoad[i];
+
+      // Fetch every metadata file in parallel — small text files, much faster than per-page.
+      const loaded = await Promise.all(refs.map(async ({ category, productFolder }, i) => {
         const metadataPath = `/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/metadata.txt`;
-        
         try {
-          const metadataResponse = await fetch(metadataPath);
-          if (!metadataResponse.ok) {
-            console.warn(`Metadata no encontrado: ${metadataPath}`);
-            continue;
-          }
-          
-          const metadataText = await metadataResponse.text();
-          const metadata = parseMetadata(metadataText);
-          
-          loadedProducts.push({
-            metadata,
-            category,
-            productFolder,
-            index: startIndex + i,
-            availableImages: metadata.images || []
-          });
-          
+          const res = await fetch(metadataPath);
+          if (!res.ok) return null;
+          const metadata = parseMetadata(await res.text());
+          return { metadata, category, productFolder, index: i, availableImages: metadata.images || [] };
         } catch (error) {
           console.error(`Error cargando producto ${productFolder}:`, error);
+          return null;
         }
-      }
-      
-      productsCache.current[cacheKey] = loadedProducts;
-      
-      setProducts(loadedProducts);
+      }));
+
+      const clean = loaded.filter(Boolean);
+      productsCache.current[cacheKey] = clean;
+      setAllProducts(clean);
       setIsLoading(false);
-      setIsLoadingPage(false);
-      console.log(`✅ ${loadedProducts.length} productos cargados para página ${page}`);
-      
+      console.log(`✅ ${clean.length} productos cargados para scope "${cacheKey}"`);
     } catch (error) {
       console.error('❌ Error cargando productos:', error);
       setIsLoading(false);
-      setIsLoadingPage(false);
     }
   }
 
@@ -179,7 +143,6 @@ function App() {
       const metadataResponse = await fetch(metadataPath);
       if (!metadataResponse.ok) {
         setProducts([]);
-        setTotalProducts(0);
         setIsLoading(false);
         return;
       }
@@ -193,17 +156,15 @@ function App() {
         availableImages: metadata.images || []
       };
       setProducts([product]);
-      setTotalProducts(1);
       setIsLoading(false);
     } catch (error) {
       console.error('Error cargando producto:', error);
       setProducts([]);
-      setTotalProducts(0);
       setIsLoading(false);
     }
   }
 
-  // ===== INITIALIZE ON MOUNT =====
+  // ===== INITIALIZE ON MOUNT / SCOPE CHANGE =====
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
 
@@ -223,39 +184,83 @@ function App() {
       }
     }
     initialize();
+
     if (isSingleProduct) {
       loadSingleProduct();
     } else {
-      productsCache.current = {};
       const params = new URLSearchParams(location.search);
       const urlPage = parseInt(params.get('pagina')) || 1;
       const urlView = params.get('vista') || localStorage.getItem('b2you-viewMode') || 'list';
+      // Reset search/filters when the scope changes.
+      setSearchInput('');
+      setSearchQuery('');
+      setSelectedTags([]);
       setCurrentPage(urlPage);
       setViewMode(urlView);
       updateURLParams({ vista: urlView, pagina: urlPage });
-      loadProducts(urlPage);
+      loadAllForScope();
     }
   }, [paramCategoria, paramNombre, location.search]);
 
-  // ===== RESET PAGE WHEN CATEGORY CHANGES =====
+  // ===== DEBOUNCE SEARCH INPUT =====
+  useEffect(() => {
+    const id = setTimeout(() => setSearchQuery(searchInput), 160);
+    return () => clearTimeout(id);
+  }, [searchInput]);
+
+  // ===== RESET TO PAGE 1 WHEN FILTERS/SEARCH CHANGE =====
+  useEffect(() => {
+    setCurrentPage(1);
+    updateURLParams({ pagina: 1 });
+  }, [searchQuery, selectedTags]);
+
+  // ===== POPSTATE =====
   useEffect(() => {
     const handlePopState = () => {
-      productsCache.current = {};
       setCurrentPage(1);
-      setTotalProducts(0);
-      loadProducts(1);
+      loadAllForScope();
     };
-
     window.addEventListener('popstate', handlePopState);
-    
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  // ===== DERIVED: filtered + paginated products =====
+  const selectedCategory = getCategoryFromURL();
+  const isBelts = selectedCategory === 'Cinturones';
+
+  const genderSel = selectedTags.filter(t => GENDER_TAGS.includes(t));
+  const originSel = selectedTags.filter(t => ORIGIN_TAGS.includes(t));
+  const q = searchQuery.trim().toLowerCase();
+
+  const filteredProducts = isSingleProduct ? products : allProducts.filter(p => {
+    if (q) {
+      const m = p.metadata;
+      const hay = [m.title, m.subtitle, m.description, m.code, p.category, p.productFolder]
+        .filter(Boolean).join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    if (selectedTags.length) {
+      const t = (Array.isArray(p.metadata.tags) ? p.metadata.tags : []).map(x => x.toLowerCase());
+      if (genderSel.length && !genderSel.some(x => t.includes(x))) return false;
+      if (originSel.length && !originSel.some(x => t.includes(x))) return false;
+    }
+    return true;
+  });
+
+  // Reindex so list-view layout alternation stays consistent within the filtered set.
+  const reindexed = filteredProducts.map((p, i) => ({ ...p, index: i }));
+  const totalFiltered = reindexed.length;
+  const totalPages = Math.max(1, Math.ceil(totalFiltered / PRODUCTS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const startIndex = (safePage - 1) * PRODUCTS_PER_PAGE;
+  const pageProducts = isSingleProduct ? products : reindexed.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
+
+  // Signature of what is currently displayed (drives reveal re-observation).
+  const displayKey = `${selectedCategory || 'all'}|${q}|${selectedTags.join(',')}|${safePage}|${viewMode}`;
 
   // ===== SCROLL REVEAL ANIMATIONS =====
   useEffect(() => {
-    if (products.length === 0) return;
+    if (pageProducts.length === 0) return;
 
     const timer = setTimeout(() => {
       const revealTargets = document.querySelectorAll(
@@ -263,22 +268,18 @@ function App() {
       );
 
       revealObserver.current = new IntersectionObserver(
-        function(entries, observer) {
-          entries.forEach(function(entry) {
+        function (entries, observer) {
+          entries.forEach(function (entry) {
             if (entry.isIntersecting) {
               entry.target.classList.add('reveal-in');
               observer.unobserve(entry.target);
             }
           });
         },
-        {
-          root: null,
-          rootMargin: '0px 0px -10% 0px',
-          threshold: 0.2
-        }
+        { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.2 }
       );
 
-      revealTargets.forEach(function(el) {
+      revealTargets.forEach(function (el) {
         revealObserver.current.observe(el);
       });
     }, 100);
@@ -289,39 +290,39 @@ function App() {
         revealObserver.current.disconnect();
       }
     };
-  }, [products, currentPage]);
+  }, [displayKey, isLoading]);
 
   // ===== HEADER SCROLL FUNCTIONALITY =====
   useEffect(() => {
     const scrollThreshold = 100;
-    
+
     function handleScroll() {
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY < 10) {
         setIsHeaderHidden(false);
         lastScrollY.current = currentScrollY;
         return;
       }
-      
+
       if (Math.abs(currentScrollY - lastScrollY.current) < 5) {
         return;
       }
-      
+
       if (currentScrollY > lastScrollY.current && currentScrollY > scrollThreshold) {
         if (scrollTimer.current) clearTimeout(scrollTimer.current);
         scrollTimer.current = setTimeout(() => {
           setIsHeaderHidden(true);
         }, 150);
-      } 
+      }
       else if (currentScrollY < lastScrollY.current) {
         if (scrollTimer.current) clearTimeout(scrollTimer.current);
         setIsHeaderHidden(false);
       }
-      
+
       lastScrollY.current = currentScrollY;
     }
-    
+
     let ticking = false;
     const onScroll = () => {
       if (!ticking) {
@@ -334,12 +335,9 @@ function App() {
     };
 
     window.addEventListener('scroll', onScroll);
-    
     return () => {
       window.removeEventListener('scroll', onScroll);
-      if (scrollTimer.current) {
-        clearTimeout(scrollTimer.current);
-      }
+      if (scrollTimer.current) clearTimeout(scrollTimer.current);
     };
   }, []);
 
@@ -350,12 +348,8 @@ function App() {
         setIsMenuActive(false);
       }
     }
-
     document.addEventListener('click', handleClickOutside);
-    
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   // ===== ESCAPE KEY FOR MODAL =====
@@ -365,12 +359,8 @@ function App() {
         closeModal();
       }
     }
-
     document.addEventListener('keydown', handleKeyDown);
-    
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [modalOpen]);
 
   // ===== MODAL BODY OVERFLOW =====
@@ -384,35 +374,32 @@ function App() {
 
   // ===== GALLERY ITEM CLICKS =====
   useEffect(() => {
-    if (products.length === 0) return;
+    if (pageProducts.length === 0) return;
 
     const timer = setTimeout(() => {
-      // For each product section, collect all image srcs
       const productSections = document.querySelectorAll('.product-section');
 
-      productSections.forEach(function(section) {
+      productSections.forEach(function (section) {
         const allImgs = [];
-        // Collect hero image
+        // Use the full-resolution original (data-full) for the modal, not the
+        // medium display variant the <img> actually renders.
+        const fullOf = (el) => el.dataset.full || el.src;
         const heroImg = section.querySelector('.hero-image-wrapper img');
-        if (heroImg) allImgs.push(heroImg.src);
-        // Collect gallery images
+        if (heroImg) allImgs.push(fullOf(heroImg));
         const galleryImgs = section.querySelectorAll('.gallery-item img');
-        galleryImgs.forEach(img => allImgs.push(img.src));
+        galleryImgs.forEach(img => allImgs.push(fullOf(img)));
 
-        // Make hero clickable too
         if (heroImg) {
           heroImg.style.cursor = 'pointer';
-          heroImg.onclick = () => openModal(heroImg.src, allImgs);
+          heroImg.onclick = () => openModal(fullOf(heroImg), allImgs);
         }
 
         const galleryItems = section.querySelectorAll('.gallery-item');
-        galleryItems.forEach(function(item) {
+        galleryItems.forEach(function (item) {
           item.style.cursor = 'pointer';
-          const handleClick = function() {
+          const handleClick = function () {
             const img = this.querySelector('img');
-            if (img) {
-              openModal(img.src, allImgs);
-            }
+            if (img) openModal(fullOf(img), allImgs);
           };
           item.addEventListener('click', handleClick);
         });
@@ -420,12 +407,12 @@ function App() {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [products, currentPage]);
+  }, [displayKey, isLoading]);
 
   // ===== MODAL FUNCTIONS =====
   function closeModal() {
     setModalOpen(false);
-    setTimeout(function() {
+    setTimeout(function () {
       setModalDisplay(false);
       setModalImageSrc('');
     }, 300);
@@ -435,38 +422,25 @@ function App() {
     setModalImageSrc(imgSrc);
     setModalAllImages(allImgs);
     setModalDisplay(true);
-    setTimeout(() => {
-      setModalOpen(true);
-    }, 10);
+    setTimeout(() => setModalOpen(true), 10);
   }
 
   // ===== LOGO CLICK =====
   function handleLogoClick() {
-    // productsCache.current = {};
-    // setCurrentPage(1);
-    // setTotalProducts(0);
-    // window.history.pushState({}, '', window.location.pathname);
-    // loadProducts(1);
-    // setIsMenuActive(false);
     window.location.href = window.location.origin;
   }
 
   // ===== CONTACT FORM SUBMIT =====
   function handleContactSubmit(e) {
     e.preventDefault();
-    
     const name = document.getElementById('contactName').value;
     const email = document.getElementById('contactEmail').value;
     const message = document.getElementById('contactMessage').value;
-    
     const subject = encodeURIComponent(`Mensaje de ${name}`);
     const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
-    
     const whatsappNumber = '5491178279281';
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${subject}%0A%0A${body}`;
-    
     window.open(whatsappURL, '_blank');
-    
     e.target.reset();
   }
 
@@ -485,29 +459,22 @@ function App() {
 
   // ===== PAGINATION FUNCTIONS =====
   function getTotalPages() {
-    const perPage = viewMode === 'grid' ? PRODUCTS_PER_PAGE_GRID : PRODUCTS_PER_PAGE_LIST;
-    return Math.ceil(totalProducts / perPage);
+    return totalPages;
   }
 
-  async function handlePageChange(newPage) {
+  function handlePageChange(newPage) {
     if (newPage === currentPage) return;
-
     window.scrollTo({ top: 0, behavior: 'instant' });
     setCurrentPage(newPage);
     updateURLParams({ pagina: newPage });
-    await loadProducts(newPage);
   }
 
   function handlePrevPage() {
-    if (currentPage > 1) {
-      handlePageChange(currentPage - 1);
-    }
+    if (currentPage > 1) handlePageChange(currentPage - 1);
   }
 
   function handleNextPage() {
-    if (currentPage < getTotalPages()) {
-      handlePageChange(currentPage + 1);
-    }
+    if (currentPage < getTotalPages()) handlePageChange(currentPage + 1);
   }
 
   // ===== VIEW MODE TOGGLE =====
@@ -515,11 +482,9 @@ function App() {
     if (mode === viewMode) return;
     localStorage.setItem('b2you-viewMode', mode);
     setViewMode(mode);
-    productsCache.current = {};
     setCurrentPage(1);
     updateURLParams({ vista: mode, pagina: 1 });
     window.scrollTo({ top: 0, behavior: 'instant' });
-    loadProducts(1);
   }
 
   // ===== CATEGORY CLICK HANDLER =====
@@ -528,6 +493,16 @@ function App() {
     setIsMenuActive(false);
     navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
   }
+
+  // ===== SEARCH / FILTER HANDLERS =====
+  function handleToggleTag(key) {
+    setSelectedTags(prev => prev.includes(key) ? prev.filter(t => t !== key) : [...prev, key]);
+  }
+  function handleClearFilters() {
+    setSelectedTags([]);
+  }
+
+  const showToolbar = !isSingleProduct && !isLoading;
 
   return (
     <>
@@ -551,27 +526,35 @@ function App() {
         />
       )}
 
+      {showToolbar && (
+        <SearchFilterBar
+          searchInput={searchInput}
+          onSearchChange={setSearchInput}
+          showFilters={isBelts}
+          selectedTags={selectedTags}
+          onToggleTag={handleToggleTag}
+          onClearFilters={handleClearFilters}
+          resultCount={totalFiltered}
+        />
+      )}
+
       <main id="productsContainer" style={{ position: 'relative' }}>
-        {isLoadingPage && (
-          <div className="page-loading-overlay">
-            <div className="page-loading-spinner"></div>
-          </div>
-        )}
-        
         {isLoading ? (
           <LoadingSkeleton />
-        ) : totalProducts === 0 ? (
-          <EmptyState />
+        ) : totalFiltered === 0 ? (
+          <EmptyState
+            searching={!!q || selectedTags.length > 0}
+            onReset={() => { setSearchInput(''); setSearchQuery(''); setSelectedTags([]); }}
+          />
         ) : (
           <>
             {viewMode === 'grid' && !isSingleProduct ? (
               (() => {
                 const colCount = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1200 ? 3 : 4;
                 const cols = Array.from({ length: colCount }, () => []);
-                products.forEach((product, i) => {
+                pageProducts.forEach((product, i) => {
                   cols[i % colCount].push(product);
                 });
-                const maxLen = Math.max(...cols.map(c => c.length));
                 return (
                   <div className="products-grid">
                     {cols.map((col, ci) => (
@@ -590,7 +573,7 @@ function App() {
                 );
               })()
             ) : (
-              products.map(product => (
+              pageProducts.map(product => (
                 <ProductSection
                   key={product.productFolder}
                   product={product}
@@ -599,21 +582,21 @@ function App() {
                 />
               ))
             )}
-            
+
             {/* Pagination Controls */}
             {getTotalPages() > 1 && (
               <div className="pagination-container">
-                <button 
+                <button
                   className="pagination-btn pagination-prev"
                   onClick={handlePrevPage}
-                  disabled={currentPage === 1 || isLoadingPage}
+                  disabled={currentPage === 1}
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="15 18 9 12 15 6"></polyline>
                   </svg>
                   Anterior
                 </button>
-                
+
                 <div className="pagination-numbers">
                   {(() => {
                     const total = getTotalPages();
@@ -622,13 +605,10 @@ function App() {
                       if (!pages.includes(n) && n >= 1 && n <= total) pages.push(n);
                     };
 
-                    // Always show first 3
                     for (let i = 1; i <= Math.min(3, total); i++) addPage(i);
-                    // Around current
                     addPage(currentPage - 1);
                     addPage(currentPage);
                     addPage(currentPage + 1);
-                    // Last 2
                     addPage(total - 1);
                     addPage(total);
 
@@ -644,7 +624,6 @@ function App() {
                           key={pages[i]}
                           className={`pagination-number ${currentPage === pages[i] ? 'active' : ''}`}
                           onClick={() => handlePageChange(pages[i])}
-                          disabled={isLoadingPage}
                         >
                           {pages[i]}
                         </button>
@@ -654,10 +633,10 @@ function App() {
                   })()}
                 </div>
 
-                <button 
+                <button
                   className="pagination-btn pagination-next"
                   onClick={handleNextPage}
-                  disabled={currentPage === getTotalPages() || isLoadingPage}
+                  disabled={currentPage === getTotalPages()}
                 >
                   Siguiente
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -665,6 +644,13 @@ function App() {
                   </svg>
                 </button>
               </div>
+            )}
+
+            {isSingleProduct && products[0] && (
+              <RelatedProducts
+                category={products[0].category}
+                folder={products[0].productFolder}
+              />
             )}
           </>
         )}

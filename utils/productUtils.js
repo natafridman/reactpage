@@ -13,6 +13,27 @@ export async function loadManifest() {
   return manifestCache;
 }
 
+// ===== THUMBNAIL HELPERS =====
+// Map a full image path to its generated sidecar webp variant in the sibling
+// `.thumbs` folder. `thumbSrc` => ~280px (cards/bubbles), `medSrc` => ~1200px
+// (list-view hero/gallery). The original stays untouched for the full-screen modal.
+function variantSrc(fullPath, suffix) {
+  if (!fullPath) return fullPath;
+  const i = fullPath.lastIndexOf('/');
+  const dir = fullPath.slice(0, i);
+  const file = fullPath.slice(i + 1);
+  const base = file.replace(/\.(jpe?g|png|webp|gif)$/i, '');
+  return `${dir}/.thumbs/${base}${suffix}.webp`;
+}
+
+export function thumbSrc(fullPath) {
+  return variantSrc(fullPath, '');
+}
+
+export function medSrc(fullPath) {
+  return variantSrc(fullPath, '.med');
+}
+
 // ===== GET CATEGORY FROM URL =====
 export function getCategoryFromURL() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -30,7 +51,7 @@ export function parseMetadata(text) {
       const normalizedKey = key.trim().toLowerCase();
       const rawValue = valueParts.join(':').trim();
       
-      if (normalizedKey === 'images' || normalizedKey === 'videos') {
+      if (normalizedKey === 'images' || normalizedKey === 'videos' || normalizedKey === 'tags') {
         metadata[normalizedKey] = rawValue
           .split(',')
           .map(item => item.trim())

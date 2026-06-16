@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { medSrc } from '/utils/productUtils.js';
 
 function ProductSection({ product, onImageClick }) {
   const navigate = useNavigate();
@@ -62,9 +63,18 @@ function ProductSection({ product, onImageClick }) {
             </video>
           ) : (
             <img
-              src={`${productPath}/${heroImage}`}
+              src={medSrc(`${productPath}/${heroImage}`)}
+              data-full={`${productPath}/${heroImage}`}
               alt={metadata.title}
               className="hero-image"
+              loading="lazy"
+              decoding="async"
+              onError={(e) => {
+                if (!e.target.dataset.fallback) {
+                  e.target.dataset.fallback = '1';
+                  e.target.src = `${productPath}/${heroImage}`;
+                }
+              }}
             />
           )}
           <div
@@ -128,8 +138,17 @@ function ProductSection({ product, onImageClick }) {
               className="gallery-item"
             >
               <img
-                src={`${productPath}/${filename}`}
+                src={medSrc(`${productPath}/${filename}`)}
+                data-full={`${productPath}/${filename}`}
                 alt={`${metadata.title} - Imagen ${idx + 1}`}
+                loading="lazy"
+                decoding="async"
+                onError={(e) => {
+                  if (!e.target.dataset.fallback) {
+                    e.target.dataset.fallback = '1';
+                    e.target.src = `${productPath}/${filename}`;
+                  }
+                }}
               />
             </div>
           ))}

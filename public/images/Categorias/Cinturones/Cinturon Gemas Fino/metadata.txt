@@ -6,3 +6,4 @@ images: SC0143Z-1.webp, SC0143Z-2.webp
 videos: SC0143Z.mp4
 price_mayorista: 5625
 proveedor: javera
+tags: mujer, importado

@@ -4,3 +4,4 @@ description: Cinturon de cuero liso con hebilla ovalada plateada simple y elegan
 code: CIN-017
 images: 8O3A5506.jpeg
 videos:
+tags: hombre, mujer, nacional

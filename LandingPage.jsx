@@ -5,6 +5,7 @@ import './landing.css';
 import Header from '/components/Header.jsx';
 import HeroSection from '/components/HeroSection.jsx';
 import FeaturedProducts from '/components/FeaturedProducts.jsx';
+import ProductsCarousel from '/components/ProductsCarousel.jsx';
 import VisionMission from '/components/VisionMission.jsx';
 import TestimonialsSection from '/components/TestimonialsSection.jsx';
 import Footer from '/components/Footer.jsx';
@@ -81,6 +82,7 @@ function LandingPage() {
         <HeroSection />
         <FeaturedProducts />
         <VisionMission />
+        <ProductsCarousel />
         <TestimonialsSection />
       </main>
 

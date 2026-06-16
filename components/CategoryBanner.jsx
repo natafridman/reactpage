@@ -1,12 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loadManifest } from '/utils/productUtils.js';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { loadManifest, thumbSrc } from '/utils/productUtils.js';
+
+gsap.registerPlugin(useGSAP);
 
 const IMAGES_BASE_FOLDER = 'images/Categorias';
 
 function CategoryBanner({ category, viewMode, onViewModeChange }) {
   const [bubbleImages, setBubbleImages] = useState([]);
   const trackRef = useRef(null);
+  const bannerRef = useRef(null);
   const navigate = useNavigate();
 
   // Manual animation state
@@ -26,6 +31,22 @@ function CategoryBanner({ category, viewMode, onViewModeChange }) {
 
   const isAll = !category;
   const title = isAll ? 'Productos' : category;
+
+  // Premium char-reveal of the title with GSAP, re-running whenever the category changes.
+  useGSAP(() => {
+    const chars = bannerRef.current?.querySelectorAll('.banner-char');
+    if (!chars || !chars.length) return;
+    gsap.fromTo(
+      chars,
+      { yPercent: 115, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.9, ease: 'power4.out', stagger: 0.035 }
+    );
+    gsap.fromTo(
+      '.category-banner-divider',
+      { scaleX: 0, transformOrigin: 'center' },
+      { scaleX: 1, duration: 0.8, ease: 'power3.inOut', delay: 0.25 }
+    );
+  }, { scope: bannerRef, dependencies: [title] });
 
   useEffect(() => {
     async function loadImages() {
@@ -63,8 +84,10 @@ function CategoryBanner({ category, viewMode, onViewModeChange }) {
                 const imgList = rawValue.split(',').map(s => s.trim()).filter(Boolean);
                 if (imgList.length > 0) {
                   const randomImg = imgList[Math.floor(Math.random() * imgList.length)];
+                  const full = `/${IMAGES_BASE_FOLDER}/${cat}/${productFolder}/${randomImg}`;
                   images.push({
-                    src: `/${IMAGES_BASE_FOLDER}/${cat}/${productFolder}/${randomImg}`,
+                    src: thumbSrc(full),
+                    full,
                     name: productFolder,
                     category: cat
                   });
@@ -233,10 +256,16 @@ function CategoryBanner({ category, viewMode, onViewModeChange }) {
   ) : null;
 
   return (
-    <section className="category-banner">
+    <section className="category-banner" ref={bannerRef}>
       <div className="category-banner-content">
         <div className="category-banner-title-row">
-          <h1 className="category-banner-title">{title}</h1>
+          <h1 className="category-banner-title" aria-label={title}>
+            {title.split('').map((ch, i) => (
+              <span className="banner-char-wrap" key={i} aria-hidden="true">
+                <span className="banner-char">{ch === ' ' ? ' ' : ch}</span>
+              </span>
+            ))}
+          </h1>
           <div className="view-toggle-desktop">{viewToggle}</div>
         </div>
         <div className="category-banner-divider"></div>
@@ -259,7 +288,18 @@ function CategoryBanner({ category, viewMode, onViewModeChange }) {
                 key={i}
                 onClick={() => goToProduct(img)}
               >
-                <img src={img.src} alt={img.name} loading="eager" />
+                <img
+                  src={img.src}
+                  alt={img.name}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    if (img.full && !e.target.dataset.fallback) {
+                      e.target.dataset.fallback = '1';
+                      e.target.src = img.full;
+                    }
+                  }}
+                />
               </div>
             ))}
           </div>
