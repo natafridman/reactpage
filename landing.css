@@ -1832,10 +1832,43 @@
 
 /* ===== RESPONSIVE - NEW COMPONENTS ===== */
 @media (max-width: 768px) {
-  /* Declutter the hero on mobile: these trust badges duplicate the trust bar
-     right below it, so hide them here. */
-  .hero-trust-badges {
+  /* Hero audience: put the question on its own line and turn the two options
+     into clean outline pills so they read as choices, not cramped links. */
+  .hero-audience {
+    gap: 0.6rem 0.7rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero-audience-q {
+    flex-basis: 100%;
+    margin: 0 0 0.15rem;
+  }
+
+  .hero-audience-sep {
     display: none;
+  }
+
+  .hero-audience-link {
+    text-decoration: none;
+    border: 1.5px solid rgba(255, 255, 255, 0.42);
+    border-radius: 999px;
+    padding: 0.42rem 0.95rem;
+    font-size: 0.85rem;
+  }
+
+  .hero-audience-link:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Trust badges: tighten so the three sit as a compact group. */
+  .hero-trust-badges {
+    gap: 0.55rem 1.25rem;
+    margin-top: 1.4rem;
+  }
+
+  .hero-badge {
+    font-size: 0.78rem;
   }
 
   .nosotros-intro-grid {
