@@ -1832,6 +1832,12 @@
 
 /* ===== RESPONSIVE - NEW COMPONENTS ===== */
 @media (max-width: 768px) {
+  /* Declutter the hero on mobile: these trust badges duplicate the trust bar
+     right below it, so hide them here. */
+  .hero-trust-badges {
+    display: none;
+  }
+
   .nosotros-intro-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
@@ -1862,11 +1868,6 @@
 }
 
 @media (max-width: 480px) {
-  .hero-trust-badges {
-    gap: 0.75rem 1.5rem;
-    justify-content: center;
-  }
-
   .process-steps {
     grid-template-columns: 1fr;
   }
