@@ -47,6 +47,19 @@ export function formatPrice(metadata) {
   return { display: 'Consultá precio', note: '', consult: true };
 }
 
+// Numeric price (retail preferred, then wholesale); null when none is set.
+export function priceValue(metadata) {
+  const min = metadata && metadata.price_minorista;
+  const may = metadata && metadata.price_mayorista;
+  if (min && Number(min) > 0) return Number(min);
+  if (may && Number(may) > 0) return Number(may);
+  return null;
+}
+
+export function formatARS(n) {
+  return ARS.format(Number(n) || 0);
+}
+
 export const WA_NUMBER = '5491178279281';
 
 export function whatsappUrl(text) {
@@ -58,6 +71,40 @@ export function quoteWhatsappUrl(metadata, fallbackName) {
   const title = (metadata && metadata.title) || fallbackName || 'un producto';
   const code = metadata && metadata.code ? ` (${metadata.code})` : '';
   return whatsappUrl(`Hola B2YOU, quiero pedir una cotización de "${title}"${code}. ¿Me pasan precio y mínimo de pedido?`);
+}
+
+// Build a compact, serializable cart line from a product object (as passed to
+// ProductCard / ProductSection). Stored in localStorage by the cart.
+export function buildCartItem(product) {
+  const { metadata = {}, category, productFolder, availableImages } = product;
+  const imgs = (Array.isArray(metadata.images) ? metadata.images : availableImages) || [];
+  const first = imgs[0] || 'hero.jpg';
+  return {
+    key: `${category}/${productFolder}`,
+    title: metadata.title || productFolder,
+    code: metadata.code || '',
+    category,
+    productFolder,
+    image: thumbSrc(`/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/${first}`),
+    price: priceValue(metadata),
+  };
+}
+
+// Build the WhatsApp order message listing every cart line. No payment is taken;
+// this just hands the order to a human on WhatsApp.
+export function cartWhatsappUrl(items, total) {
+  const lines = items.map((it, i) => {
+    const code = it.code ? ` (${it.code})` : '';
+    const sub = it.price != null ? ` - ${ARS.format(it.price * it.qty)}` : ' - a confirmar';
+    return `${i + 1}. ${it.title}${code} x${it.qty}${sub}`;
+  });
+  let msg = `Hola B2YOU, quiero hacer este pedido:\n\n${lines.join('\n')}`;
+  if (total > 0) msg += `\n\nTotal estimado: ${ARS.format(total)}`;
+  if (items.some((it) => it.price == null)) {
+    msg += `\n\n(Hay productos con precio a confirmar.)`;
+  }
+  msg += `\n\n¿Me confirman disponibilidad y el mínimo de pedido?`;
+  return whatsappUrl(msg);
 }
 
 // ===== GET CATEGORY FROM URL =====

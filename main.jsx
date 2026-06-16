@@ -5,6 +5,8 @@ import EmpresasPage from '/EmpresasPage.jsx';
 import MarcasPage from '/MarcasPage.jsx';
 import NosotrosPage from '/NosotrosPage.jsx';
 import RedProductosPage from '/RedProductosPage.jsx';
+import { CartProvider } from '/context/CartContext.jsx';
+import CartDrawer from '/components/CartDrawer.jsx';
 import '/blossom-core.css';
 import '/index.css';
 
@@ -29,18 +31,21 @@ function WhatsAppFloat() {
 
 function Main() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/productos" element={<App />} />
-        <Route path="/producto/:categoria/:nombre" element={<App />} />
-        <Route path="/Empresas" element={<EmpresasPage />} />
-        <Route path="/Marcas" element={<MarcasPage />} />
-        <Route path="/Nosotros" element={<NosotrosPage />} />
-        <Route path="/red" element={<RedProductosPage />} />
-      </Routes>
-      <WhatsAppFloat />
-    </Router>
+    <CartProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/productos" element={<App />} />
+          <Route path="/producto/:categoria/:nombre" element={<App />} />
+          <Route path="/Empresas" element={<EmpresasPage />} />
+          <Route path="/Marcas" element={<MarcasPage />} />
+          <Route path="/Nosotros" element={<NosotrosPage />} />
+          <Route path="/red" element={<RedProductosPage />} />
+        </Routes>
+        <CartDrawer />
+        <WhatsAppFloat />
+      </Router>
+    </CartProvider>
   );
 }
 

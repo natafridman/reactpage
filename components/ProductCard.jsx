@@ -1,10 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BlossomCarousel } from '@blossom-carousel/react';
-import { thumbSrc, formatPrice, quoteWhatsappUrl } from '/utils/productUtils.js';
+import { thumbSrc, formatPrice, buildCartItem } from '/utils/productUtils.js';
+import { flyToCart } from '/utils/flyToCart.js';
+import { useCart } from '/context/CartContext.jsx';
+import QtyStepper from '/components/QtyStepper.jsx';
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
+  const { items, addItem, increment, decrement } = useCart();
   const { metadata, category, productFolder, availableImages } = product;
   const cardRef = useRef(null);
   const mediaRef = useRef(null);
@@ -20,7 +24,16 @@ function ProductCard({ product }) {
   const productUrl = `/producto/${encodeURIComponent(category)}/${encodeURIComponent(productFolder)}`;
   const multi = imageList.length > 1;
   const price = formatPrice(metadata);
-  const quoteUrl = quoteWhatsappUrl(metadata, productFolder);
+
+  const cartItem = buildCartItem(product);
+  const qty = items.find((i) => i.key === cartItem.key)?.qty || 0;
+
+  const addToCart = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(cartItem);
+    flyToCart(e.currentTarget);
+  };
 
   // Reveal on scroll into view.
   useEffect(() => {
@@ -162,20 +175,29 @@ function ProductCard({ product }) {
             {price.display}
             {price.note && <em>{price.note}</em>}
           </span>
-          <a
-            className="product-card-wa"
-            href={quoteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            title="Pedí cotización por WhatsApp"
-            aria-label={`Pedí cotización de ${metadata.title || productFolder} por WhatsApp`}
-          >
-            <svg width="15" height="15" viewBox="0 0 32 32" fill="currentColor">
-              <path d="M16.004 0C7.165 0 0 7.163 0 16.001c0 2.82.736 5.573 2.137 7.998L.074 31.79a.5.5 0 0 0 .612.613l7.89-2.066A15.93 15.93 0 0 0 16.004 32C24.837 32 32 24.837 32 16.001 32 7.163 24.837 0 16.004 0zm0 29.333a13.27 13.27 0 0 1-6.87-1.907.5.5 0 0 0-.426-.05l-5.47 1.432 1.43-5.393a.5.5 0 0 0-.054-.432A13.28 13.28 0 0 1 2.667 16C2.667 8.636 8.638 2.667 16.004 2.667c7.364 0 13.33 5.969 13.33 13.334 0 7.364-5.966 13.332-13.33 13.332z"/>
-            </svg>
-            Cotizar
-          </a>
+          {qty === 0 ? (
+            <button
+              type="button"
+              className="product-card-add"
+              onClick={addToCart}
+              aria-label={`Agregar ${metadata.title || productFolder} al carrito`}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              Agregar
+            </button>
+          ) : (
+            <QtyStepper
+              variant="card"
+              qty={qty}
+              label={metadata.title || productFolder}
+              onDecrement={() => decrement(cartItem.key)}
+              onIncrement={(srcEl) => { increment(cartItem.key); flyToCart(srcEl); }}
+            />
+          )}
         </div>
       </div>
     </div>

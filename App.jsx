@@ -13,6 +13,7 @@ import CategoryBanner from '/components/CategoryBanner.jsx';
 import SearchFilterBar from '/components/SearchFilterBar.jsx';
 import RelatedProducts from '/components/RelatedProducts.jsx';
 import { loadManifest, getCategoryFromURL } from '/utils/productUtils.js';
+import { useCart } from '/context/CartContext.jsx';
 
 // ===== CONFIGURATION =====
 const IMAGES_BASE_FOLDER = 'images/Categorias';
@@ -33,6 +34,7 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [isHeaderHidden, setIsHeaderHidden] = useState(false);
+  const { addTick } = useCart();
   const [modalDisplay, setModalDisplay] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalImageSrc, setModalImageSrc] = useState('');
@@ -340,6 +342,12 @@ function App() {
       if (scrollTimer.current) clearTimeout(scrollTimer.current);
     };
   }, []);
+
+  // Reveal the header whenever a product is added so the cart (and the
+  // fly-to-cart animation landing on it) stay in view. Skips the initial mount.
+  useEffect(() => {
+    if (addTick > 0) setIsHeaderHidden(false);
+  }, [addTick]);
 
   // ===== CLICK OUTSIDE TO CLOSE MENU =====
   useEffect(() => {
