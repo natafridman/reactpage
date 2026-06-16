@@ -36,3 +36,13 @@ Thumbs.db
 .agents/
 .claude/
 skills-lock.json
+
+# Scratch screenshots / test artifacts (root-level only)
+/*.png
+/*.jpg
+/*.jpeg
+/img-requests.txt
+.playwright-mcp/
+
+# Background-removal local cache
+scripts/.bg-cache/
