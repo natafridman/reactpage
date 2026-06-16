@@ -75,6 +75,14 @@ function MarcasPage() {
             <p className="info-page-subtitle">
               Producci&oacute;n de accesorios con tu marca. Calidad artesanal, escala profesional.
             </p>
+            <div className="info-page-hero-actions">
+              <button className="info-page-hero-btn primary" onClick={() => navigate('/productos')}>
+                Ver productos
+              </button>
+              <button className="info-page-hero-btn ghost" onClick={enviarWhatsApp}>
+                Pedí tu cotización
+              </button>
+            </div>
           </div>
         </section>
 

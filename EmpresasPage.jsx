@@ -74,6 +74,14 @@ function EmpresasPage() {
             <p className="info-page-subtitle">
               Regalos corporativos y productos personalizados que representan tu marca con distinci&oacute;n
             </p>
+            <div className="info-page-hero-actions">
+              <button className="info-page-hero-btn primary" onClick={() => navigate('/productos')}>
+                Ver productos
+              </button>
+              <button className="info-page-hero-btn ghost" onClick={enviarWhatsApp}>
+                Pedí tu cotización
+              </button>
+            </div>
           </div>
         </section>
 

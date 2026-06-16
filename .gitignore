@@ -31,3 +31,8 @@ yarn-error.log*
 
 # OS
 Thumbs.db
+
+# Installed agent skills (local tooling, not project source)
+.agents/
+.claude/
+skills-lock.json
