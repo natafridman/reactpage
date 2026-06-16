@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '/components/Header.jsx';
 import Footer from '/components/Footer.jsx';
-import { loadManifest } from '/utils/productUtils.js';
+import { loadManifest, medSrc } from '/utils/productUtils.js';
 import './landing.css';
 
 const WA_NUMBER = '5491178279281';
+const NOSOTROS_IMG = '/images/Categorias/Carteras/Cartera Milan/MILAN_Negra_1.png';
 
 const valores = [
   {
@@ -137,19 +138,38 @@ function NosotrosPage() {
                   Con sede en Buenos Aires, combinamos producción artesanal con escala profesional para que el resultado sea siempre consistente, sin importar la cantidad del pedido.
                 </p>
               </div>
-              <div className="nosotros-intro-stats">
-                <div className="nosotros-stat">
-                  <span className="nosotros-stat-number">15+</span>
-                  <span className="nosotros-stat-label">Categorías de productos</span>
+              <div className="nosotros-intro-media">
+                <img
+                  src={medSrc(NOSOTROS_IMG)}
+                  alt="Marroquinería B2YOU"
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    if (!e.target.dataset.fallback) {
+                      e.target.dataset.fallback = '1';
+                      e.target.src = NOSOTROS_IMG;
+                    }
+                  }}
+                />
+                <div className="nosotros-intro-badge">
+                  <span className="nosotros-intro-badge-top">Taller propio</span>
+                  <span className="nosotros-intro-badge-bottom">Buenos Aires, Argentina</span>
                 </div>
-                <div className="nosotros-stat">
-                  <span className="nosotros-stat-number">100%</span>
-                  <span className="nosotros-stat-label">Personalizable</span>
-                </div>
-                <div className="nosotros-stat">
-                  <span className="nosotros-stat-number">B2B</span>
-                  <span className="nosotros-stat-label">Foco en marcas y empresas</span>
-                </div>
+              </div>
+            </div>
+
+            <div className="nosotros-stats-strip">
+              <div className="nosotros-stat">
+                <span className="nosotros-stat-number">15+</span>
+                <span className="nosotros-stat-label">Categorías de productos</span>
+              </div>
+              <div className="nosotros-stat">
+                <span className="nosotros-stat-number">100%</span>
+                <span className="nosotros-stat-label">Personalizable</span>
+              </div>
+              <div className="nosotros-stat">
+                <span className="nosotros-stat-number">B2B</span>
+                <span className="nosotros-stat-label">Foco en marcas y empresas</span>
               </div>
             </div>
           </div>

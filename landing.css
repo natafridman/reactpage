@@ -953,21 +953,13 @@
 @media (max-width: 1024px) {
   .hero-content {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
     gap: 2.5rem;
   }
 
   .hero-text {
     max-width: 100%;
-    align-items: center;
-  }
-
-  .hero-title {
-    font-size: 2.75rem;
-  }
-
-  .hero-logo {
-    width: 220px;
+    align-items: flex-start;
   }
 
   .vision-content {
@@ -2826,4 +2818,74 @@
 .info-page-hero-btn.ghost:hover {
   border-color: #fff;
   background: rgba(255, 255, 255, 0.16);
+}
+
+/* ============================================================
+   NOSOTROS intro redesign (story + image + stats strip)
+   ============================================================ */
+.nosotros-intro-grid {
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+}
+
+.nosotros-intro-media {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: var(--b2-cream);
+  box-shadow: 0 24px 60px rgba(var(--b2-cognac-rgb), 0.2);
+}
+
+.nosotros-intro-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nosotros-intro-badge {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 1.2rem;
+  background: rgba(40, 22, 18, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FBF7F4;
+  border-radius: 12px;
+  padding: 0.75rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.nosotros-intro-badge-top {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.nosotros-intro-badge-bottom {
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(251, 247, 244, 0.82);
+}
+
+.nosotros-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--b2-border);
+}
+
+.nosotros-stats-strip .nosotros-stat {
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .nosotros-stats-strip {
+    gap: 1.25rem;
+  }
 }
