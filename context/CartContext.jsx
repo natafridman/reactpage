@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { SHOW_PRICES } from '/utils/productUtils.js';
 
 // Frontend-only shopping cart. State lives in React + localStorage; there is no
 // backend. "Checkout" just builds a WhatsApp message (see cartWhatsappUrl).
@@ -14,7 +15,8 @@ function loadInitial() {
     return parsed.filter((it) => it && it.key && it.title).map((it) => ({
       ...it,
       qty: Math.max(1, Number(it.qty) || 1),
-      price: it.price == null ? null : Number(it.price),
+      // When prices are hidden, null out any price stored before the change.
+      price: !SHOW_PRICES || it.price == null ? null : Number(it.price),
     }));
   } catch {
     return [];

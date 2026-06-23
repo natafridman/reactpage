@@ -115,12 +115,18 @@ function CartDrawer() {
             </ul>
 
             <footer className="cart-foot">
-              <div className="cart-total-row">
-                <span>Total estimado</span>
-                <strong>{formatARS(total)}</strong>
-              </div>
-              {hasUnpriced && (
-                <p className="cart-foot-note">Algunos productos quedan con precio a confirmar.</p>
+              {total > 0 ? (
+                <>
+                  <div className="cart-total-row">
+                    <span>Total estimado</span>
+                    <strong>{formatARS(total)}</strong>
+                  </div>
+                  {hasUnpriced && (
+                    <p className="cart-foot-note">Algunos productos quedan con precio a confirmar.</p>
+                  )}
+                </>
+              ) : (
+                <p className="cart-foot-note">Te pasamos el presupuesto por WhatsApp.</p>
               )}
               <button className="cart-finalize" onClick={finalize}>
                 <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">

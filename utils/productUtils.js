@@ -37,9 +37,16 @@ export function medSrc(fullPath) {
 // ===== PRICE + WHATSAPP HELPERS =====
 const ARS = new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 });
 
+// Master switch for showing prices anywhere on the site. Prices stay in each
+// product's metadata; this only controls whether they are exposed to the UI.
+// Set to true to show prices again.
+export const SHOW_PRICES = false;
+
 // Prefer the retail price; fall back to the wholesale price (labelled "por mayor");
 // finally a "Consultá precio" chip so a price slot is never left blank.
+// When SHOW_PRICES is off, every product reads as "Consultá precio".
 export function formatPrice(metadata) {
+  if (!SHOW_PRICES) return { display: 'Consultá precio', note: '', consult: true };
   const min = metadata && metadata.price_minorista;
   const may = metadata && metadata.price_mayorista;
   if (min && Number(min) > 0) return { display: ARS.format(Number(min)), note: '', consult: false };
@@ -47,8 +54,10 @@ export function formatPrice(metadata) {
   return { display: 'Consultá precio', note: '', consult: true };
 }
 
-// Numeric price (retail preferred, then wholesale); null when none is set.
+// Numeric price (retail preferred, then wholesale); null when none is set or
+// when prices are hidden (so the cart shows "a confirmar" instead of a number).
 export function priceValue(metadata) {
+  if (!SHOW_PRICES) return null;
   const min = metadata && metadata.price_minorista;
   const may = metadata && metadata.price_mayorista;
   if (min && Number(min) > 0) return Number(min);
