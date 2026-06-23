@@ -47,6 +47,9 @@ skills-lock.json
 # Background-removal local cache
 scripts/.bg-cache/
 
+# Source supplier catalogs / price lists (local reference only, not for the repo)
+/catalogos-originales/
+
 # Single package manager: pnpm (pnpm-lock.yaml is the source of truth).
 # Keep npm's lockfile out so it can't drift from pnpm-lock and break CI/Vercel.
 package-lock.json
