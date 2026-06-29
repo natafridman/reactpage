@@ -5,3 +5,4 @@ code: CIN-006
 images: 8O3A2304.jpeg, 8O3A2306.jpeg
 videos:
 tags: hombre, mujer, nacional
+proveedor: aston

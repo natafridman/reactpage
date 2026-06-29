@@ -4,3 +4,4 @@ description: Cuero negro de primera calidad con diseño minimalista que combina 
 code: BOL-002
 images: 1(1).webp, 1.webp
 videos: upscale (7).mp4
+proveedor: aston

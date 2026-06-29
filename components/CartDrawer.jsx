@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useCart } from '/context/CartContext.jsx';
 import { cartWhatsappUrl, formatARS } from '/utils/productUtils.js';
+import { termsFor } from '/utils/paymentTerms.js';
 
 function CartDrawer() {
   const {
@@ -16,11 +17,35 @@ function CartDrawer() {
     clearCart,
   } = useCart();
 
-  // Close on Escape and lock body scroll while the drawer is open.
+  const [showTerms, setShowTerms] = useState(false);
+
+  // Internal validation: agrupar el carrito por proveedor. Los que tienen
+  // condiciones definidas van a `supplierTerms`; cualquier producto cuyo
+  // `proveedor` no esté registrado (o falte) cae en `unknownItems`.
+  const { supplierTerms, unknownItems } = useMemo(() => {
+    const map = new Map();
+    const unknown = [];
+    for (const it of items) {
+      const t = termsFor(it.proveedor);
+      if (t) {
+        if (!map.has(t.key)) map.set(t.key, t);
+      } else {
+        unknown.push(it);
+      }
+    }
+    if (unknown.length && typeof console !== 'undefined') {
+      console.warn('[carrito] productos sin condiciones de pago de proveedor:', unknown.map((i) => i.key));
+    }
+    return { supplierTerms: [...map.values()], unknownItems: unknown };
+  }, [items]);
+
+  // Close on Escape (cierra primero el pop-up de condiciones) and lock scroll.
   useEffect(() => {
     if (!isOpen) return undefined;
     const onKey = (e) => {
-      if (e.key === 'Escape') closeCart();
+      if (e.key !== 'Escape') return;
+      if (showTerms) setShowTerms(false);
+      else closeCart();
     };
     document.addEventListener('keydown', onKey);
     const prevOverflow = document.body.style.overflow;
@@ -29,7 +54,12 @@ function CartDrawer() {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = prevOverflow;
     };
-  }, [isOpen, closeCart]);
+  }, [isOpen, showTerms, closeCart]);
+
+  // Reset el pop-up al cerrar el carrito.
+  useEffect(() => {
+    if (!isOpen) setShowTerms(false);
+  }, [isOpen]);
 
   const finalize = () => {
     if (items.length === 0) return;
@@ -128,6 +158,21 @@ function CartDrawer() {
               ) : (
                 <p className="cart-foot-note">Te pasamos el presupuesto por WhatsApp.</p>
               )}
+              <button
+                className="cart-terms-btn"
+                onClick={() => setShowTerms(true)}
+                aria-haspopup="dialog"
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                Ver condiciones de pago
+                {supplierTerms.length > 0 && (
+                  <span className="cart-terms-count">{supplierTerms.length}</span>
+                )}
+              </button>
               <button className="cart-finalize" onClick={finalize}>
                 <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor">
                   <path d="M16.004 0C7.165 0 0 7.163 0 16.001c0 2.82.736 5.573 2.137 7.998L.074 31.79a.5.5 0 0 0 .612.613l7.89-2.066A15.93 15.93 0 0 0 16.004 32C24.837 32 32 24.837 32 16.001 32 7.163 24.837 0 16.004 0zm0 29.333a13.27 13.27 0 0 1-6.87-1.907.5.5 0 0 0-.426-.05l-5.47 1.432 1.43-5.393a.5.5 0 0 0-.054-.432A13.28 13.28 0 0 1 2.667 16C2.667 8.636 8.638 2.667 16.004 2.667c7.364 0 13.33 5.969 13.33 13.334 0 7.364-5.966 13.332-13.33 13.332z"/>
@@ -139,6 +184,49 @@ function CartDrawer() {
           </>
         )}
       </aside>
+
+      {showTerms && (
+        <div className="cart-terms-modal" role="dialog" aria-modal="true" aria-label="Condiciones de pago">
+          <div className="cart-terms-overlay" onClick={() => setShowTerms(false)} />
+          <div className="cart-terms-dialog">
+            <header className="cart-terms-head">
+              <h3>Condiciones de pago</h3>
+              <button className="cart-terms-close" onClick={() => setShowTerms(false)} aria-label="Cerrar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </header>
+            <div className="cart-terms-body">
+              <p className="cart-terms-intro">
+                Según los productos de tu pedido, estas son las condiciones de cada proveedor:
+              </p>
+              {supplierTerms.map((s) => (
+                <div className="cart-terms-supplier" key={s.key}>
+                  <h4>
+                    {s.name}
+                    {s.note && <span className="cart-terms-supplier-note">{s.note}</span>}
+                  </h4>
+                  <ul>
+                    {s.terms.map((t, i) => (
+                      <li key={i}>{t}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              {unknownItems.length > 0 && (
+                <div className="cart-terms-supplier cart-terms-unknown">
+                  <h4>Otros productos</h4>
+                  <p>
+                    Coordinamos las condiciones por WhatsApp para: {unknownItems.map((i) => i.title).join(', ')}.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

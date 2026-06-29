@@ -6,3 +6,4 @@ images: TARJETERO SIMPLE.jpeg
 videos:
 price_mayorista: 17500
 price_minorista: 35000
+proveedor: aston

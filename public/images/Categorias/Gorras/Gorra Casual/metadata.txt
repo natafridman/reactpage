@@ -4,3 +4,4 @@ description: Tela lavada con look vintage, ojales bordados para ventilación y c
 code: GOR-001
 images: IMG_4567.jpeg, IMG_4572.jpeg, IMG_4576.jpeg, IMG_4577.jpeg, IMG_4585.jpeg, IMG_4609.jpeg
 videos: gorra_verano.mp4
+proveedor: aston

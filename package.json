@@ -6,8 +6,9 @@
   "scripts": {
     "thumbs": "node scripts/generate-thumbnails.mjs",
     "logos": "node scripts/optimize-logos.mjs",
+    "validate": "node scripts/validate-proveedores.mjs",
     "dev": "vite",
-    "build": "node scripts/generate-thumbnails.mjs && node scripts/optimize-logos.mjs && vite build",
+    "build": "node scripts/validate-proveedores.mjs && node scripts/generate-thumbnails.mjs && node scripts/optimize-logos.mjs && vite build",
     "preview": "vite preview"
   },
   "dependencies": {

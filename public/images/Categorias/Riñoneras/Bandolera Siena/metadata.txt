@@ -6,3 +6,4 @@ images: rinionera_vfirst.jpg, G28A0317.jpeg, MALAGA(1).jpeg, MALAGA.jpeg, MALAGA
 videos: upscale (6).mp4
 price_mayorista: 59000
 price_minorista: 118000
+proveedor: aston

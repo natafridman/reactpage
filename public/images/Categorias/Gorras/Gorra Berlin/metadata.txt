@@ -4,3 +4,4 @@ description: Materiales duraderos, ajuste trasero y diseño unisex que funciona 
 code: GOR-003
 images: 8O3A0142.jpeg, 8O3A0145.jpeg, 8O3A0148.jpeg, 8O3A0151.jpeg, 8O3A0156.jpeg, 8O3A0190.jpeg
 videos: video2.mp4
+proveedor: aston

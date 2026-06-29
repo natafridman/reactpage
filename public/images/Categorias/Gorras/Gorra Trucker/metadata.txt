@@ -4,3 +4,4 @@ description: Frente sólido con paneles traseros de malla para máxima ventilaci
 code: GOR-002
 images: IMG_4602.jpeg, IMG_4606.jpeg, IMG_4607.jpeg, IMG_4608.jpeg, IMG_4616.jpeg, IMG_4621.jpeg
 videos: gorra_transparente.mp4
+proveedor: aston

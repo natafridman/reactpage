@@ -4,3 +4,4 @@ description: Corduroy de calidad en negro, gris y marrón. Textura que se destac
 code: GOR-004
 images: 8O3A0160.jpeg, 8O3A0164.jpeg, 8O3A0167.jpeg, 8O3A0175.jpeg, 8O3A0177.jpeg
 videos: upscale (7).mp4
+proveedor: aston

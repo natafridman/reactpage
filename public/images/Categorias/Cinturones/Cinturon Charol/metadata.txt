@@ -5,3 +5,4 @@ code: CIN-012
 images: 8O3A5339.jpeg
 videos:
 tags: mujer, hombre, nacional
+proveedor: aston

@@ -96,6 +96,7 @@ export function buildCartItem(product) {
     productFolder,
     image: thumbSrc(`/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/${first}`),
     price: priceValue(metadata),
+    proveedor: (metadata.proveedor || '').toLowerCase().trim(),
   };
 }
 

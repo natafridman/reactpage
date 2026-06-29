@@ -5,3 +5,4 @@ code: CIN-002
 images: 3380 N .jpeg, 3380 T.jpeg
 videos:
 tags: hombre, mujer, nacional
+proveedor: aston

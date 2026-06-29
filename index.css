@@ -3447,6 +3447,201 @@ a.product-card-info {
     color: #04240f;
 }
 
+/* Info button (condiciones de pago) above the WhatsApp button */
+.cart-terms-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--b2-border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--b2-black);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.cart-terms-btn svg {
+    color: var(--b2-cognac);
+    flex-shrink: 0;
+}
+
+.cart-terms-btn:hover {
+    border-color: var(--b2-cognac);
+    background: rgba(var(--b2-cognac-rgb), 0.06);
+}
+
+.cart-terms-count {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--b2-cognac);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* Condiciones de pago pop-up (sits above the drawer) */
+.cart-terms-modal {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+}
+
+.cart-terms-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 9, 7, 0.55);
+    animation: cart-terms-fade 0.2s ease;
+}
+
+@keyframes cart-terms-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.cart-terms-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(460px, 100%);
+    max-height: 84%;
+    display: flex;
+    flex-direction: column;
+    background: var(--b2-white);
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(15, 9, 7, 0.4);
+    overflow: hidden;
+    animation: cart-terms-pop 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cart-terms-pop {
+    from { transform: translateY(12px) scale(0.97); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.cart-terms-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.35rem;
+    border-bottom: 1px solid var(--b2-border);
+}
+
+.cart-terms-head h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--b2-black);
+    margin: 0;
+}
+
+.cart-terms-close {
+    background: transparent;
+    border: none;
+    color: var(--b2-gray);
+    cursor: pointer;
+    padding: 0.3rem;
+    display: flex;
+    border-radius: 8px;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.cart-terms-close:hover {
+    color: var(--b2-black);
+    background: rgba(var(--b2-cognac-rgb), 0.08);
+}
+
+.cart-terms-body {
+    padding: 1.1rem 1.35rem 1.35rem;
+    overflow-y: auto;
+}
+
+.cart-terms-intro {
+    font-size: 0.85rem;
+    color: var(--b2-gray);
+    margin: 0 0 1rem;
+}
+
+.cart-terms-supplier {
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--b2-border);
+}
+
+.cart-terms-supplier:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.cart-terms-supplier h4 {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--b2-cognac);
+    margin: 0 0 0.5rem;
+}
+
+.cart-terms-supplier-note {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--b2-light-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cart-terms-supplier ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.cart-terms-supplier li {
+    position: relative;
+    padding-left: 1.1rem;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--b2-black);
+}
+
+.cart-terms-supplier li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--b2-cognac);
+}
+
+.cart-terms-unknown p {
+    font-size: 0.85rem;
+    color: var(--b2-gray);
+    margin: 0;
+    line-height: 1.45;
+}
+
 @media (max-width: 480px) {
     .cart-panel {
         width: 100%;

@@ -6,3 +6,4 @@ images: MONACO.jpeg, MONACO_vfirst.jpeg, MONACO_vlast.jpeg, MORRAL MONACO.png
 videos: morral.mp4
 price_mayorista: 75000
 price_minorista: 150000
+proveedor: aston
