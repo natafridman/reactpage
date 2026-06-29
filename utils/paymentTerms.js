@@ -1,10 +1,10 @@
-// Condiciones de pago por proveedor, mostradas en el pop-up del carrito.
+// Condiciones de pago, mostradas en el pop-up del carrito.
 // La clave es el valor del campo `proveedor` de cada metadata.txt de producto.
+// IMPORTANTE: nunca exponemos el nombre ni el contacto del proveedor al cliente;
+// el pop-up agrupa por estas condiciones pero muestra los artículos, no la marca.
 // Mantener en sync con catalogos-originales/CONDICIONES-DE-PAGO.md.
 export const PAYMENT_TERMS = {
   javera: {
-    name: 'Javera',
-    note: 'Marcas: Zaphir · Basilea · Joup',
     terms: [
       'Precios + IVA (no incluyen IVA).',
       'Hay descuentos disponibles; los precios de lista figuran sin descuento aplicado.',
@@ -14,23 +14,18 @@ export const PAYMENT_TERMS = {
     ],
   },
   saxs: {
-    name: 'SAXS',
-    note: 'Carteras · mayorista',
     terms: [
       'El precio depende de la forma de pago: más barato en efectivo; sube al financiar a 30, 60, 90 o 120 días.',
       '5% de descuento en la primera compra.',
       '10% de descuento a partir de las 50 unidades.',
-      'Contacto: Instagram @SAXS.ARG.',
     ],
   },
   aston: {
-    name: 'Aston Accesorios',
-    note: 'Cinturones, billeteras, bolsos, mochilas, gorras y más',
     terms: [
       'Cinturones: se compran por curva de talles y por color (una curva surtida por cada color).',
       'Línea de cuero vacuno: precio preferencial por compras de más de 50 unidades; precios sin IVA.',
       'Resto de productos: precio por cantidad (pedido chico de 8u vs. volumen +64u).',
-      'Forma de pago y plazos a coordinar. Contacto: WhatsApp +54 9 11 3093-0771 · @astonaccesorios.',
+      'Forma de pago y plazos a coordinar.',
     ],
   },
 };

@@ -19,16 +19,18 @@ function CartDrawer() {
 
   const [showTerms, setShowTerms] = useState(false);
 
-  // Internal validation: agrupar el carrito por proveedor. Los que tienen
-  // condiciones definidas van a `supplierTerms`; cualquier producto cuyo
-  // `proveedor` no esté registrado (o falte) cae en `unknownItems`.
-  const { supplierTerms, unknownItems } = useMemo(() => {
+  // Agrupar el carrito por proveedor (internamente), juntando los artículos que
+  // comparten condiciones. NO se expone el nombre del proveedor: el pop-up
+  // muestra los artículos y, debajo, sus condiciones. Validación interna: lo que
+  // no tenga un proveedor reconocido cae en `unknownItems`.
+  const { termGroups, unknownItems } = useMemo(() => {
     const map = new Map();
     const unknown = [];
     for (const it of items) {
       const t = termsFor(it.proveedor);
       if (t) {
-        if (!map.has(t.key)) map.set(t.key, t);
+        if (!map.has(t.key)) map.set(t.key, { key: t.key, terms: t.terms, articles: [] });
+        map.get(t.key).articles.push(it.title);
       } else {
         unknown.push(it);
       }
@@ -36,7 +38,7 @@ function CartDrawer() {
     if (unknown.length && typeof console !== 'undefined') {
       console.warn('[carrito] productos sin condiciones de pago de proveedor:', unknown.map((i) => i.key));
     }
-    return { supplierTerms: [...map.values()], unknownItems: unknown };
+    return { termGroups: [...map.values()], unknownItems: unknown };
   }, [items]);
 
   // Close on Escape (cierra primero el pop-up de condiciones) and lock scroll.
@@ -169,8 +171,8 @@ function CartDrawer() {
                   <line x1="12" y1="8" x2="12.01" y2="8"></line>
                 </svg>
                 Ver condiciones de pago
-                {supplierTerms.length > 0 && (
-                  <span className="cart-terms-count">{supplierTerms.length}</span>
+                {termGroups.length > 0 && (
+                  <span className="cart-terms-count">{termGroups.length}</span>
                 )}
               </button>
               <button className="cart-finalize" onClick={finalize}>
@@ -200,27 +202,22 @@ function CartDrawer() {
             </header>
             <div className="cart-terms-body">
               <p className="cart-terms-intro">
-                Según los productos de tu pedido, estas son las condiciones de cada proveedor:
+                Estas son las condiciones según los productos de tu pedido:
               </p>
-              {supplierTerms.map((s) => (
-                <div className="cart-terms-supplier" key={s.key}>
-                  <h4>
-                    {s.name}
-                    {s.note && <span className="cart-terms-supplier-note">{s.note}</span>}
-                  </h4>
+              {termGroups.map((g) => (
+                <div className="cart-terms-group" key={g.key}>
+                  <p className="cart-terms-articles">{g.articles.join(' · ')}</p>
                   <ul>
-                    {s.terms.map((t, i) => (
+                    {g.terms.map((t, i) => (
                       <li key={i}>{t}</li>
                     ))}
                   </ul>
                 </div>
               ))}
               {unknownItems.length > 0 && (
-                <div className="cart-terms-supplier cart-terms-unknown">
-                  <h4>Otros productos</h4>
-                  <p>
-                    Coordinamos las condiciones por WhatsApp para: {unknownItems.map((i) => i.title).join(', ')}.
-                  </p>
+                <div className="cart-terms-group cart-terms-unknown">
+                  <p className="cart-terms-articles">{unknownItems.map((i) => i.title).join(' · ')}</p>
+                  <p className="cart-terms-note">Coordinamos las condiciones por WhatsApp.</p>
                 </div>
               )}
             </div>
