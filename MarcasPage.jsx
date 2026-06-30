@@ -168,8 +168,8 @@ function MarcasPage() {
             <section className="order-info-section">
               <div className="order-info-grid">
                 <div className="order-info-item">
-                  <span className="order-info-label">Pedido mínimo</span>
-                  <span className="order-info-value">desde 10 unidades</span>
+                  <span className="order-info-label">Volumen</span>
+                  <span className="order-info-value">adecuado al cliente</span>
                 </div>
                 <div className="order-info-item">
                   <span className="order-info-label">Tiempo de producción</span>

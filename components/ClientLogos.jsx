@@ -5,7 +5,6 @@
 // Optimized webp comes from scripts/optimize-logos.mjs (.opt/<slug>.webp);
 // the original PNG is the onError fallback.
 const LOGOS = [
-  { name: 'Artful', slug: 'artful', file: 'artful.png' },
   { name: 'Birmingham', slug: 'birmingham', file: 'birmingham.png' },
   { name: 'Floppy Kenny', slug: 'floppy', file: 'floppy.png' },
   { name: 'Samples Studios', slug: 'samples-studios', file: 'samples studios.png' },

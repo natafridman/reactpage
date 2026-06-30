@@ -5,7 +5,7 @@ function TrustBar() {
     'Cuero genuino',
     'Hecho en Buenos Aires',
     'Marca blanca disponible',
-    'Pedido mínimo 10 unidades',
+    'Volumen adecuado al cliente',
     'Muestras disponibles',
   ];
 

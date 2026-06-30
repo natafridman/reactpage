@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 const faqs = [
   {
-    q: '¿Cuál es el pedido mínimo?',
-    a: 'Trabajamos desde 10 unidades por producto. Para pedidos menores podemos evaluar cada caso puntualmente.'
+    q: '¿Cuál es el volumen de pedido?',
+    a: 'No manejamos un mínimo fijo: adecuamos el volumen a cada cliente. Escribinos y armamos una propuesta a tu medida.'
   },
   {
     q: '¿Cuánto tarda la producción?',

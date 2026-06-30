@@ -7,7 +7,7 @@ import QtyStepper from '/components/QtyStepper.jsx';
 
 const B2B_TERMS = [
   'Personalizable con tu logo',
-  'Pedido mínimo 10u',
+  'Volumen adecuado al cliente',
   'Producción 15-30 días',
   'Marca blanca',
 ];
