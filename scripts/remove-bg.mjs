@@ -25,4 +25,4 @@ for (const file of files) {
   }
 }
 
-console.log("All done! Now run: python add-white-bg.py");
+console.log("All done! Now run: python scripts/add-white-bg.py");

@@ -123,7 +123,7 @@ function SearchFilterBar({
           <input
             type="text"
             className="toolbar-search-input"
-            placeholder="Buscar productos…"
+            placeholder="Buscar…"
             value={searchInput}
             onChange={(e) => onSearchChange(e.target.value)}
             aria-label="Buscar productos"

@@ -241,12 +241,16 @@ export function useModalEscapeKey(modalOpen, closeModal) {
 }
 
 // ===== HOOK: Modal Body Overflow =====
+// Lock on <html> too: html has `overflow-x: hidden`, which stops body's
+// overflow from propagating to the viewport, so body alone doesn't lock scroll.
 export function useModalBodyOverflow(modalDisplay) {
   useEffect(() => {
     if (modalDisplay) {
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
   }, [modalDisplay]);
 }

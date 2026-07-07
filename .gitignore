@@ -50,6 +50,10 @@ scripts/.bg-cache/
 # Source supplier catalogs / price lists (local reference only, not for the repo)
 /catalogos-originales/
 
+# Generated catalog exports (output of scripts/generate-catalog-excel.py)
+/catalogo_productos.xlsx
+/catalogo_productos.b64
+
 # Single package manager: pnpm (pnpm-lock.yaml is the source of truth).
 # Keep npm's lockfile out so it can't drift from pnpm-lock and break CI/Vercel.
 package-lock.json

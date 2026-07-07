@@ -50,11 +50,16 @@ function CartDrawer() {
       else closeCart();
     };
     document.addEventListener('keydown', onKey);
-    const prevOverflow = document.body.style.overflow;
+    // Lock <html> too: its `overflow-x: hidden` stops body's overflow from
+    // propagating to the viewport, so body alone doesn't stop the scroll.
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
     document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prevOverflow;
+      document.body.style.overflow = prevBody;
+      document.documentElement.style.overflow = prevHtml;
     };
   }, [isOpen, showTerms, closeCart]);
 

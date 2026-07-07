@@ -38,6 +38,32 @@ export function CartProvider({ children }) {
     }
   }, [items]);
 
+  // Self-heal: carts stored before the `proveedor` field existed have lines
+  // without it, so the terms pop-up can't match their payment conditions.
+  // Backfill once from each product's metadata.txt.
+  useEffect(() => {
+    const stale = items.filter((it) => it.proveedor === undefined && it.category && it.productFolder);
+    if (!stale.length) return;
+    let alive = true;
+    (async () => {
+      const patches = new Map();
+      await Promise.all(stale.map(async (it) => {
+        try {
+          const res = await fetch(`/images/Categorias/${it.category}/${it.productFolder}/metadata.txt`);
+          if (!res.ok) return;
+          const m = (await res.text()).match(/^\s*proveedor\s*:\s*(.+)\s*$/im);
+          patches.set(it.key, m ? m[1].trim().toLowerCase() : '');
+        } catch {
+          /* offline or missing metadata: leave the line as-is */
+        }
+      }));
+      if (!alive || !patches.size) return;
+      setItems((prev) => prev.map((p) => (patches.has(p.key) ? { ...p, proveedor: patches.get(p.key) } : p)));
+    })();
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items.length]);
+
   const addItem = useCallback((item) => {
     if (!item || !item.key) return;
     setItems((prev) => {
