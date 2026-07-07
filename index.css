@@ -1069,6 +1069,13 @@ body {
     font-size: 0.875rem;
 }
 
+/* Keep the copyright clear of the floating WhatsApp button on phones. */
+@media (max-width: 600px) {
+    .footer-bottom {
+        padding-bottom: 4.5rem;
+    }
+}
+
 /* ===== SHARE BUTTON ===== */
 .product-actions {
     display: inline-flex;
@@ -1666,28 +1673,6 @@ a.product-card-info {
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--b2-gray);
-}
-
-.product-card-wa {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    flex-shrink: 0;
-    font-family: inherit;
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: #fff;
-    background: var(--b2-cognac);
-    border-radius: 999px;
-    padding: 0.42rem 0.75rem;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.product-card-wa:hover {
-    background: var(--b2-cognac-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(var(--b2-cognac-rgb), 0.3);
 }
 
 .product-card-add {
@@ -2303,9 +2288,11 @@ a.product-card-info {
     border-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Dark mode turns the cognac light, so the label must go dark for contrast
+   (same treatment as the add-to-cart buttons). */
 [data-theme="dark"] .form-button {
     background: var(--b2-cognac);
-    color: #F0F0F0;
+    color: #2c1a16;
 }
 
 [data-theme="dark"] .product-title-overlay h2,
@@ -2345,7 +2332,7 @@ a.product-card-info {
 
 [data-theme="dark"] .share-btn:hover {
     background: var(--b2-cognac);
-    color: #F0F0F0;
+    color: #2c1a16;
 }
 
 /* Filled cognac controls: in dark mode the cognac turns light, so their
@@ -2393,8 +2380,10 @@ a.product-card-info {
     background: var(--b2-cream);
 }
 
+/* Keep the viewer backdrop fully opaque in dark mode too; a translucent one
+   lets the page bleed through around the cover-flow. */
 [data-theme="dark"] .modal.show {
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: #000;
 }
 
 /* ===== THEME TOGGLE BUTTON ===== */
