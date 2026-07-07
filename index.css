@@ -253,8 +253,9 @@ body {
     position: absolute;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px) saturate(180%);
+    /* Fully opaque: a translucent veil lets the hero text ghost through the
+       menu items on devices without backdrop-filter support. */
+    background: #FFFFFF;
     border-bottom: 1px solid var(--b2-border);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     max-height: 0;
@@ -2205,7 +2206,7 @@ a.product-card-info {
 }
 
 [data-theme="dark"] .categories-menu {
-    background: rgba(18, 18, 18, 0.98);
+    background: #121212;
 }
 
 [data-theme="dark"] .hamburger-btn span {
