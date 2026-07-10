@@ -1471,8 +1471,9 @@ body {
     border-radius: 12px;
     overflow: hidden;
     background: var(--b2-white);
-    border: 1px solid #d4d4d4;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    /* Warm hairline tinted to the brand instead of a generic gray border. */
+    border: 1px solid rgba(var(--b2-cognac-rgb), 0.16);
+    box-shadow: 0 2px 8px rgba(58, 32, 27, 0.05);
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     opacity: 0;
     transform: translateY(25px);
@@ -1481,13 +1482,24 @@ body {
 .product-card.card-visible {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease;
+    /* Reveal runs as an animation (not a transition) so the per-column stagger
+       delay never slows down the hover lift afterwards. */
+    animation: card-reveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    animation-delay: calc(var(--stagger, 0) * 80ms);
+    transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+}
+
+@keyframes card-reveal {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
 }
 
 .product-card:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-    border-color: #bbb;
+    box-shadow: 0 12px 32px rgba(58, 32, 27, 0.13);
+    transform: translateY(-3px);
+    border-color: rgba(var(--b2-cognac-rgb), 0.3);
 }
 
 [data-theme="dark"] .product-card {
@@ -1519,11 +1531,11 @@ a.product-card-info {
     display: block;
     object-fit: contain;
     object-position: center;
-    transition: transform 0.4s ease;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-card:hover .product-card-image img {
-    transform: scale(1.03);
+    transform: scale(1.045);
 }
 
 .card-img-nav {
@@ -3635,6 +3647,174 @@ a.product-card-info {
     .cart-panel {
         width: 100%;
     }
+}
+
+/* ============================================================
+   PREMIUM MICRO-DETAILS
+   ============================================================ */
+/* Physical press feedback on every primary control. */
+.hero-cta:active,
+.closing-cta-primary:active,
+.closing-cta-secondary:active,
+.info-page-cta:active,
+.info-page-cta-secondary:active,
+.cart-finalize:active,
+.cart-terms-btn:active,
+.form-button:active,
+.product-card-add:active,
+.share-btn:active,
+.qty-stepper-btn:active,
+.pagination-btn:active,
+.notfound-home:active {
+    transform: scale(0.97);
+}
+
+/* Codes, counters and quantities line up like machined digits. */
+.product-card-code,
+.accent-number,
+.cart-panel-count,
+.cart-item-code,
+.cart-toggle-badge,
+.cart-terms-count,
+.qty-stepper-val,
+.pagination-number,
+.modal-counter {
+    font-variant-numeric: tabular-nums;
+}
+
+/* No orphan words in display headings. */
+.hero-title,
+.featured-title,
+.testimonials-title,
+.brand-story-title,
+.closing-cta-title,
+.info-page-title,
+.notfound-title {
+    text-wrap: balance;
+}
+
+/* Back to catalog on a shared product link */
+.product-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-bottom: 1.4rem;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--b2-gray);
+    cursor: pointer;
+    transition: color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-back-link svg {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-back-link:hover {
+    color: var(--b2-cognac);
+}
+
+.product-back-link:hover svg {
+    transform: translateX(-3px);
+}
+
+/* ============================================================
+   404 PAGE
+   ============================================================ */
+.notfound-page {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem var(--gutter);
+    background: var(--b2-cream);
+}
+
+.notfound-code {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(6rem, 18vw, 11rem);
+    line-height: 1;
+    color: rgba(var(--b2-cognac-rgb), 0.22);
+    user-select: none;
+}
+
+.notfound-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: var(--h2);
+    color: var(--b2-black);
+    margin: 0.5rem 0 0.75rem;
+}
+
+.notfound-text {
+    font-size: 1rem;
+    color: var(--b2-gray);
+    max-width: 26rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.notfound-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.notfound-page .hero-cta-primary {
+    background: var(--b2-cognac);
+    color: #fff;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.6rem;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+}
+
+.notfound-page .hero-cta-primary:hover {
+    background: var(--b2-cognac-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(var(--b2-cognac-rgb), 0.3);
+}
+
+.notfound-home {
+    background: transparent;
+    border: none;
+    padding: 0.25rem;
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--b2-gray);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(var(--b2-cognac-rgb), 0.4);
+    transition: color 0.2s ease;
+}
+
+.notfound-home:hover {
+    color: var(--b2-cognac);
+}
+
+[data-theme="dark"] .notfound-page .hero-cta-primary {
+    color: #2c1a16;
 }
 
 /* ============================================================

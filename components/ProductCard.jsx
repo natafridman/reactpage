@@ -6,7 +6,7 @@ import { flyToCart } from '/utils/flyToCart.js';
 import { useCart } from '/context/CartContext.jsx';
 import QtyStepper from '/components/QtyStepper.jsx';
 
-function ProductCard({ product }) {
+function ProductCard({ product, staggerIndex = 0 }) {
   const navigate = useNavigate();
   const { items, addItem, increment, decrement } = useCart();
   const { metadata, category, productFolder, availableImages } = product;
@@ -117,7 +117,11 @@ function ProductCard({ product }) {
   );
 
   return (
-    <div ref={cardRef} className={`product-card ${visible ? 'card-visible' : ''}`}>
+    <div
+      ref={cardRef}
+      className={`product-card ${visible ? 'card-visible' : ''}`}
+      style={{ '--stagger': staggerIndex }}
+    >
       <div
         className="product-card-image"
         ref={mediaRef}

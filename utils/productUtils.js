@@ -117,6 +117,16 @@ export function cartWhatsappUrl(items, total) {
   return whatsappUrl(msg);
 }
 
+// ===== SEARCH TEXT NORMALIZATION =====
+// Lowercase + strip diacritics so "riñonera" matches "Riñoneras" and
+// "maletin" matches "Maletín" regardless of how the visitor types it.
+export function normalizeText(s) {
+  return String(s || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '');
+}
+
 // ===== GET CATEGORY FROM URL =====
 export function getCategoryFromURL() {
   const urlParams = new URLSearchParams(window.location.search);

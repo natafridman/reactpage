@@ -12,7 +12,7 @@ import Footer from '/components/Footer.jsx';
 import CategoryBanner from '/components/CategoryBanner.jsx';
 import SearchFilterBar from '/components/SearchFilterBar.jsx';
 import RelatedProducts from '/components/RelatedProducts.jsx';
-import { loadManifest, getCategoryFromURL } from '/utils/productUtils.js';
+import { loadManifest, getCategoryFromURL, normalizeText } from '/utils/productUtils.js';
 import { useCart } from '/context/CartContext.jsx';
 
 // ===== CONFIGURATION =====
@@ -232,14 +232,16 @@ function App() {
 
   const genderSel = selectedTags.filter(t => GENDER_TAGS.includes(t));
   const originSel = selectedTags.filter(t => ORIGIN_TAGS.includes(t));
-  const q = searchQuery.trim().toLowerCase();
+  // Accent-insensitive, multi-word search: every word the visitor types must
+  // match somewhere in the product ("cinturon tachas" finds "Cinturón Tachas Fino").
+  const qWords = normalizeText(searchQuery).split(/\s+/).filter(Boolean);
 
   const filteredProducts = isSingleProduct ? products : allProducts.filter(p => {
-    if (q) {
+    if (qWords.length) {
       const m = p.metadata;
-      const hay = [m.title, m.subtitle, m.description, m.code, p.category, p.productFolder]
-        .filter(Boolean).join(' ').toLowerCase();
-      if (!hay.includes(q)) return false;
+      const hay = normalizeText([m.title, m.subtitle, m.description, m.code, p.category, p.productFolder]
+        .filter(Boolean).join(' '));
+      if (!qWords.every(w => hay.includes(w))) return false;
     }
     if (selectedTags.length) {
       const t = (Array.isArray(p.metadata.tags) ? p.metadata.tags : []).map(x => x.toLowerCase());
@@ -258,7 +260,7 @@ function App() {
   const pageProducts = isSingleProduct ? products : reindexed.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
   // Signature of what is currently displayed (drives reveal re-observation).
-  const displayKey = `${selectedCategory || 'all'}|${q}|${selectedTags.join(',')}|${safePage}|${viewMode}`;
+  const displayKey = `${selectedCategory || 'all'}|${qWords.join(' ')}|${selectedTags.join(',')}|${safePage}|${viewMode}`;
 
   // ===== SCROLL REVEAL ANIMATIONS =====
   useEffect(() => {
@@ -550,7 +552,7 @@ function App() {
           <LoadingSkeleton />
         ) : totalFiltered === 0 ? (
           <EmptyState
-            searching={!!q || selectedTags.length > 0}
+            searching={qWords.length > 0 || selectedTags.length > 0}
             onReset={() => { setSearchInput(''); setSearchQuery(''); setSelectedTags([]); }}
           />
         ) : (
@@ -567,7 +569,7 @@ function App() {
                     {cols.map((col, ci) => (
                       <div className="products-grid-column" key={ci}>
                         {col.map(product => (
-                          <ProductCard key={product.productFolder} product={product} />
+                          <ProductCard key={product.productFolder} product={product} staggerIndex={ci} />
                         ))}
                         <div className="product-card product-card-placeholder">
                           <div className="product-card-placeholder-inner">
@@ -586,6 +588,7 @@ function App() {
                   product={product}
                   basePath={IMAGES_BASE_FOLDER}
                   onImageClick={openModal}
+                  showBackLink={isSingleProduct}
                 />
               ))
             )}

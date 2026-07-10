@@ -5,6 +5,7 @@ import EmpresasPage from '/EmpresasPage.jsx';
 import MarcasPage from '/MarcasPage.jsx';
 import NosotrosPage from '/NosotrosPage.jsx';
 import RedProductosPage from '/RedProductosPage.jsx';
+import NotFoundPage from '/components/NotFoundPage.jsx';
 import { CartProvider } from '/context/CartContext.jsx';
 import CartDrawer from '/components/CartDrawer.jsx';
 import '/blossom-core.css';
@@ -41,6 +42,7 @@ function Main() {
           <Route path="/Marcas" element={<MarcasPage />} />
           <Route path="/Nosotros" element={<NosotrosPage />} />
           <Route path="/red" element={<RedProductosPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <CartDrawer />
         <WhatsAppFloat />

@@ -12,7 +12,7 @@ const B2B_TERMS = [
   'Marca blanca',
 ];
 
-function ProductSection({ product, onImageClick }) {
+function ProductSection({ product, onImageClick, showBackLink = false }) {
   const navigate = useNavigate();
   const { items, addItem, increment, decrement } = useCart();
   const { metadata, category, productFolder, index, availableImages } = product;
@@ -112,6 +112,16 @@ function ProductSection({ product, onImageClick }) {
       </div>
 
       <div className="gallery-side" style={{ textAlign }}>
+        {showBackLink && (
+          <button className="product-back-link" onClick={() => navigate('/productos')} style={contentMargin}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            Volver al catálogo
+          </button>
+        )}
+
         <div className="accent-number">
           {metadata.code || String(index + 1).padStart(2, '0')}
         </div>
