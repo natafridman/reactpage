@@ -553,33 +553,50 @@ body {
     will-change: transform;
 }
 
+/* Curated lookbook tiles (replaces the old round "bubble" chips, which read
+   cheap): soft squircles with a brand-tinted hairline and warm depth. */
 .category-bubble {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+    position: relative;
+    width: 108px;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    border-radius: 18px;
     overflow: hidden;
     flex-shrink: 0;
-    border: 3px solid var(--b2-border);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(var(--b2-cognac-rgb), 0.14);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.4s ease;
+    box-shadow: 0 8px 22px rgba(58, 32, 27, 0.10);
     cursor: pointer;
 }
 
+/* Inner top-light + gentle bottom scrim for editorial depth. */
+.category-bubble::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    background: linear-gradient(to top, rgba(58, 32, 27, 0.14) 0%, transparent 42%);
+    pointer-events: none;
+}
+
 .category-bubble:hover {
-    border-color: var(--b2-cognac);
-    transform: scale(1.12);
-    box-shadow: 0 8px 25px rgba(122, 79, 72, 0.25);
+    border-color: rgba(var(--b2-cognac-rgb), 0.42);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 34px rgba(58, 32, 27, 0.20);
 }
 
 .category-bubble img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .category-bubble:hover img {
-    transform: scale(1.1);
+    transform: scale(1.06);
 }
 
 @keyframes bubbles-scroll {
@@ -597,13 +614,13 @@ body {
 }
 
 [data-theme="dark"] .category-bubble {
-    border-color: #444;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.10);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
 }
 
 [data-theme="dark"] .category-bubble:hover {
     border-color: var(--b2-cognac);
-    box-shadow: 0 8px 25px rgba(192, 138, 126, 0.3);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.5);
 }
 
 /* Responsive */
@@ -617,12 +634,13 @@ body {
     }
 
     .category-bubble {
-        width: calc((100vw - 4rem) / 3);
-        height: calc((100vw - 4rem) / 3);
+        width: calc((100vw - 3.5rem) / 4);
+        height: auto;
+        border-radius: 14px;
     }
 
     .category-bubbles-track {
-        gap: 0.75rem;
+        gap: 0.7rem;
     }
 
     .category-bubbles-wrapper {
@@ -1065,6 +1083,8 @@ body {
     font-size: 0.9375rem;
     border-radius: 6px;
     transition: all 0.3s ease;
+    /* No free-drag resize handle escaping the footer column. */
+    resize: vertical;
 }
 
 .form-input:focus,
@@ -1559,6 +1579,10 @@ a.product-card-info {
 .product-card-image {
     position: relative;
     width: 100%;
+    /* Uniform tiles: every card is the same height so the columns line up into a
+       clean grid instead of a ragged masonry. */
+    aspect-ratio: 4 / 5;
+    background: var(--b2-cream);
     cursor: pointer;
     overflow: hidden;
 }
@@ -1567,9 +1591,13 @@ a.product-card-info {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .product-card-image {
+    background: #202020;
 }
 
 .product-card:hover .product-card-image img {
@@ -1664,6 +1692,9 @@ a.product-card-info {
     color: var(--b2-black);
     margin: 0 0 0.2rem 0;
     letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 [data-theme="dark"] .product-card-title {
@@ -1676,6 +1707,9 @@ a.product-card-info {
     margin: 0 0 0.35rem 0;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .product-card-code {
@@ -1833,20 +1867,19 @@ a.product-card-info {
     }
 }
 
-/* Touch devices: card image controls must be visible (no hover) + tappable */
+/* Touch devices: no hover, so the arrows only add clutter on a small tile.
+   Hide them and let users swipe; the dots stay as the position indicator. */
 @media (hover: none) {
     .card-img-nav {
-        opacity: 0.9;
-        width: 34px;
-        height: 34px;
+        display: none;
     }
     .card-img-dots {
-        gap: 7px;
-        bottom: 10px;
+        gap: 6px;
+        bottom: 8px;
     }
     .card-dot {
-        width: 8px;
-        height: 8px;
+        width: 6px;
+        height: 6px;
     }
 }
 
@@ -2027,13 +2060,34 @@ a.product-card-info {
 @media (max-width: 1024px) {
     .product-section {
         flex-direction: column !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    [data-theme="dark"] .product-section {
+        border-bottom-color: rgba(255, 255, 255, 0.12);
     }
 
     .product-section:last-child {
         border-bottom: none;
     }
-    
+
+    /* Single-column view: clear the odd/even inline margin-left:auto (from
+       ProductSection contentMargin) so every product's content stays uniformly
+       left-aligned instead of the odd ones hugging the right edge. */
+    .gallery-side .product-back-link,
+    .gallery-side .product-price-line,
+    .gallery-side .description-text,
+    .gallery-side .b2b-terms,
+    .gallery-side .product-actions,
+    .gallery-side .gallery-grid {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .product-section:nth-child(odd) .b2b-terms {
+        justify-content: flex-start;
+    }
+
     .hero-side,
     .gallery-side {
         width: 100%;
@@ -2573,24 +2627,24 @@ a.product-card-info {
     }
 
     .cart-toggle {
-        width: 34px;
-        height: 34px;
+        width: 40px;
+        height: 40px;
     }
 
     .cart-toggle svg {
-        width: 17px;
-        height: 17px;
+        width: 18px;
+        height: 18px;
     }
 
     .theme-toggle {
         right: 1.5rem;
-        width: 34px;
-        height: 34px;
+        width: 40px;
+        height: 40px;
     }
 
     .theme-toggle svg {
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -2631,6 +2685,18 @@ a.product-card-info {
 }
 
 /* ===== WHATSAPP FLOATING - size ===== */
+@media (max-width: 768px) {
+    .whatsapp-float {
+        width: 52px;
+        height: 52px;
+        bottom: 1.1rem;
+        right: 1.1rem;
+    }
+    .whatsapp-float svg {
+        width: 24px;
+        height: 24px;
+    }
+}
 
 /* ============================================================
    PRODUCT TOOLBAR · search + belt filters
@@ -2844,6 +2910,16 @@ a.product-card-info {
     margin-right: 0.35rem;
 }
 
+/* Dark mode: cognac becomes the light #C08A7E, so these filled controls need a
+   dark label like the other filled-cognac controls. The origen chip sits on a
+   fixed slate and must keep its white text. */
+[data-theme="dark"] .toolbar-chip.active:not(.toolbar-chip--origen),
+[data-theme="dark"] .empty-state-reset,
+[data-theme="dark"] .cart-toggle-badge,
+[data-theme="dark"] .cart-terms-count {
+    color: #2c1a16;
+}
+
 .toolbar-chip-clear {
     display: inline-flex;
     align-items: center;
@@ -3049,7 +3125,7 @@ a.product-card-info {
 .card-slide img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
     display: block;
     -webkit-user-drag: none;
@@ -3333,9 +3409,12 @@ a.product-card-info {
     font-size: 0.92rem;
     color: var(--b2-black);
     line-height: 1.2;
+    /* Allow up to two lines so longer product names are not chopped mid-word in
+       the narrow cart column right before the pedido is sent. */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .cart-item-code {

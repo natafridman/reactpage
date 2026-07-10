@@ -173,7 +173,7 @@ function MarcasPage() {
                 </div>
                 <div className="order-info-item">
                   <span className="order-info-label">Tiempo de producción</span>
-                  <span className="order-info-value">15–30 días hábiles</span>
+                  <span className="order-info-value">15-30 días hábiles</span>
                 </div>
                 <div className="order-info-item">
                   <span className="order-info-label">Marca blanca</span>

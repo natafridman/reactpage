@@ -16,7 +16,6 @@ function ProductCard({ product, staggerIndex = 0 }) {
   const dragRef = useRef({ x: 0, y: 0, moved: false });
   const [visible, setVisible] = useState(false);
   const [active, setActive] = useState(0);
-  const [aspect, setAspect] = useState(null);
 
   const IMAGES_BASE_FOLDER = '/images/Categorias';
   const productPath = `${IMAGES_BASE_FOLDER}/${category}/${productFolder}`;
@@ -93,13 +92,7 @@ function ProductCard({ product, staggerIndex = 0 }) {
     navigate(productUrl);
   };
 
-  const onFirstLoad = (e) => {
-    if (!aspect && e.target.naturalWidth && e.target.naturalHeight) {
-      setAspect(e.target.naturalWidth / e.target.naturalHeight);
-    }
-  };
-
-  const renderImg = (file, i) => (
+  const renderImg = (file) => (
     <img
       src={thumbSrc(`${productPath}/${file}`)}
       alt={metadata.title}
@@ -112,7 +105,6 @@ function ProductCard({ product, staggerIndex = 0 }) {
           e.target.src = `${productPath}/${file}`;
         }
       }}
-      onLoad={i === 0 ? onFirstLoad : undefined}
     />
   );
 
@@ -125,7 +117,6 @@ function ProductCard({ product, staggerIndex = 0 }) {
       <div
         className="product-card-image"
         ref={mediaRef}
-        style={{ aspectRatio: String(aspect || 1) }}
         onPointerDownCapture={onDown}
         onPointerMoveCapture={onMove}
       >

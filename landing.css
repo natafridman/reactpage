@@ -652,7 +652,9 @@
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--b2-cognac);
+  /* Sits on the charcoal vision band in BOTH themes, so it must use the light
+     cognac (dark cognac fails contrast on #2D2D2D in light mode). */
+  color: #C08A7E;
   margin-bottom: 1rem;
 }
 
@@ -734,7 +736,8 @@
   display: block;
   font-size: 2.5rem;
   font-weight: 900;
-  color: var(--b2-cognac);
+  /* Charcoal vision band in both themes: use the light cognac for contrast. */
+  color: #C08A7E;
   line-height: 1;
   margin-bottom: 0.5rem;
 }
@@ -1001,15 +1004,43 @@
   .hero-section {
     height: auto;
     min-height: calc(500px + var(--header-h));
-    padding: calc(4rem + var(--header-h)) 0 4rem;
+    padding: calc(3.25rem + var(--header-h)) 0 3.25rem;
+  }
+
+  /* The scroll cue is a desktop affordance; on a phone it means nothing and it
+     lands on top of the trust badges and the WhatsApp button. Remove it. */
+  .hero-scroll-cue {
+    display: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.9rem;
   }
 
   .hero-title {
     font-size: 2.25rem;
+    margin-bottom: 1rem;
   }
 
   .hero-description {
     font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Full-width stacked CTAs read as clean choices instead of two cramped,
+     unequal pills wrapping mid-row. */
+  .hero-cta-group {
+    gap: 0.7rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .hero-cta {
+    width: 100%;
+    min-width: 0;
+    padding: 0.85rem 1.5rem;
   }
 
   .hero-logo {
@@ -1133,6 +1164,18 @@
     color: #F0F0F0;
 }
 
+/* Filled primary CTA uses the light cognac in dark mode, so its label must go
+   dark to stay legible (matches add-to-cart / form-button treatment). */
+[data-theme="dark"] .hero-cta-primary {
+    color: #2c1a16;
+}
+
+[data-theme="dark"] .hero-cta-primary:hover {
+    background: var(--b2-cognac-hover);
+    border-color: var(--b2-cognac-hover);
+    color: #2c1a16;
+}
+
 [data-theme="dark"] .hero-logo {
     filter: brightness(0) invert(1) drop-shadow(0 4px 20px rgba(255, 255, 255, 0.2));
 }
@@ -1219,10 +1262,6 @@
     background: rgba(192, 138, 126, 0.15);
 }
 
-[data-theme="dark"] .info-page-cta-section {
-    background: transparent;
-}
-
 [data-theme="dark"] .info-page-cta-section h2 {
     color: #F0F0F0;
 }
@@ -1264,7 +1303,7 @@
 
 /* ===== TESTIMONIALS SECTION ===== */
 .testimonials-section {
-  padding: 8rem 0;
+  padding: var(--section-pad) 0;
   background: var(--b2-white);
 }
 
@@ -1831,6 +1870,16 @@
   color: #F0F0F0;
 }
 
+/* Valores sits on the charcoal band in both themes: lift the cognac icon chip
+   and stroke to the light cognac so the four icons are not muddy in light mode. */
+.nosotros-valores-section .info-page-icon {
+  background: rgba(192, 138, 126, 0.16);
+}
+
+.nosotros-valores-section .info-page-icon svg {
+  stroke: #C08A7E;
+}
+
 [data-theme="dark"] .nosotros-intro-title {
   color: #F0F0F0;
 }
@@ -1962,6 +2011,21 @@
   line-height: 1.04;
 }
 
+/* Re-assert the mobile hero title sizes AFTER the base rule above; otherwise the
+   later un-mediated var(--h1) (floors at 36px) defeats the media queries and the
+   phone title renders ~20% oversized. */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.875rem;
+  }
+}
+
 .featured-product-title,
 .testimonial-author-name {
   font-family: var(--font-display);
@@ -2002,8 +2066,12 @@
 .info-page-card {
   display: flex;
   flex-direction: column;
-  border-top: 2px solid transparent;
+  /* Resting hairline so the cards read as real cards in light mode too (not flat
+     text blocks); the top edge is the accent that lights cognac on hover. */
+  border: 1px solid var(--b2-border);
+  border-top: 2px solid var(--b2-border);
   border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.35s ease, border-color 0.35s ease;
 }
@@ -2281,9 +2349,15 @@
   color: #F0F0F0;
 }
 
-/* Testimonials: keep the 2 cards from stretching the full rail */
+/* Hover fills with the light cognac, so the chevron must darken to stay visible. */
+[data-theme="dark"] .rail-nav:hover {
+  color: #2c1a16;
+}
+
+/* Testimonials: with a single quote, keep the card from stretching the full
+   rail into a near-empty placeholder box. */
 .testimonials-grid {
-  max-width: 940px;
+  max-width: 620px;
   margin: 0 auto;
 }
 
@@ -2564,6 +2638,13 @@
   background: var(--b2-cognac);
   width: 26px;
   border-radius: 5px;
+}
+
+/* Inactive dots use --b2-border (#333 in dark) which vanishes on the dark rail;
+   give them a perceptible neutral so the position track reads. Scope out .active
+   so the cognac position pill still wins. */
+[data-theme="dark"] .slideshow-dot:not(.active) {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* ============================================================
@@ -3005,8 +3086,15 @@
    NOSOTROS intro redesign (story + image + stats strip)
    ============================================================ */
 .nosotros-intro-grid {
-  grid-template-columns: 1.05fr 0.95fr;
   align-items: center;
+}
+
+/* Desktop proportions only: guard behind min-width so the max-width:768px
+   single-column rule is not defeated by this later un-mediated declaration. */
+@media (min-width: 769px) {
+  .nosotros-intro-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
 }
 
 .nosotros-intro-media {

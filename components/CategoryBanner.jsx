@@ -217,7 +217,7 @@ function CategoryBanner({ category }) {
 
   let duplicated = [];
   if (showBubbles) {
-    const itemWidth = 135;
+    const itemWidth = 108;
     const singleSetWidth = bubbleImages.length * itemWidth;
     const minWidth = 2 * 1920;
     const repeats = Math.max(3, Math.ceil(minWidth / singleSetWidth) + 1);
