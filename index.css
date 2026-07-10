@@ -43,7 +43,7 @@
 
     /* Section vertical rhythm + heading type scale */
     --section-pad: clamp(4rem, 9vw, 8rem);
-    --h1: clamp(2.25rem, 5.2vw, 4.25rem);
+    --h1: clamp(2.25rem, 5.4vw, 4.6rem);
     --h2: clamp(1.9rem, 3.4vw, 2.85rem);
     --h3: 1.3rem;
 }
@@ -130,9 +130,47 @@ body {
     backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid var(--b2-border);
     z-index: 1000;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease,
+        background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.45s ease;
     transform: translateY(0);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Landing top state: the header floats transparent over the hero video and
+   solidifies as soon as the visitor scrolls. */
+.main-header.header-clear {
+    background: transparent;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+    box-shadow: none;
+}
+
+.header-clear .logo-image {
+    filter: brightness(0) invert(1);
+}
+
+.header-clear .hamburger-btn span {
+    background: #fff;
+}
+
+.header-clear .cart-toggle,
+.header-clear .theme-toggle {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.header-clear .cart-toggle:hover,
+.header-clear .theme-toggle:hover {
+    color: #fff;
+    border-color: #fff;
+}
+
+.header-clear .cart-toggle-badge {
+    box-shadow: none;
+}
+
+.header-clear .header-page-badge {
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .main-header.header-hidden {
@@ -3652,6 +3690,57 @@ a.product-card-info {
 /* ============================================================
    PREMIUM MICRO-DETAILS
    ============================================================ */
+/* Film grain: a fixed, static noise veil that gives every surface the feel
+   of printed paper instead of flat pixels. Pointer-events off, so it never
+   interferes; static tile, so it costs nothing to scroll. */
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 6000;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.032;
+    mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .grain-overlay {
+    mix-blend-mode: screen;
+    opacity: 0.045;
+}
+
+/* Text selection carries the brand. */
+::selection {
+    background: rgba(var(--b2-cognac-rgb), 0.28);
+}
+
+/* Slim, warm scrollbar instead of the OS default. */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(122, 79, 72, 0.45) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 11px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(122, 79, 72, 0.4);
+    border-radius: 999px;
+    border: 3px solid var(--b2-cream);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(122, 79, 72, 0.6);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: rgba(192, 138, 126, 0.4);
+    border-color: #1A1A1A;
+}
 /* Physical press feedback on every primary control. */
 .hero-cta:active,
 .closing-cta-primary:active,

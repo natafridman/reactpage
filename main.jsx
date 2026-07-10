@@ -46,6 +46,7 @@ function Main() {
         </Routes>
         <CartDrawer />
         <WhatsAppFloat />
+        <div className="grain-overlay" aria-hidden="true" />
       </Router>
     </CartProvider>
   );

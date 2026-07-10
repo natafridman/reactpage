@@ -2,10 +2,22 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '/context/CartContext.jsx';
 
-function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive, onCategoryClick }) {
+function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive, onCategoryClick, clearAtTop = false }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { count, openCart } = useCart();
+
+  // Landing hero: the header starts transparent over the video and solidifies
+  // once the visitor scrolls. Other pages keep the solid header.
+  const [atTop, setAtTop] = useState(() => window.scrollY < 50);
+  useEffect(() => {
+    if (!clearAtTop) return undefined;
+    const onScroll = () => setAtTop(window.scrollY < 50);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [clearAtTop]);
+  const isClear = clearAtTop && atTop && !isMenuActive;
   const pageLabels = { '/Empresas': 'Empresas', '/Marcas': 'Marcas' };
   const pageBadge = pageLabels[location.pathname] || null;
   const [isDark, setIsDark] = useState(() => {
@@ -44,7 +56,7 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
   };
 
   return (
-    <header className={`main-header ${isHeaderHidden ? 'header-hidden' : ''}`}>
+    <header className={`main-header ${isHeaderHidden ? 'header-hidden' : ''} ${isClear ? 'header-clear' : ''}`}>
       <div className="header-container">
         <button
           className={`hamburger-btn ${isMenuActive ? 'active' : ''}`}

@@ -84,6 +84,7 @@ function LandingPage() {
         setIsMenuActive={setIsMenuActive}
         onLogoClick={handleLogoClick}
         onCategoryClick={handleCategoryClick}
+        clearAtTop
       />
 
       <main className="landing-main">
