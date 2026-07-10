@@ -571,11 +571,6 @@ function App() {
                         {col.map(product => (
                           <ProductCard key={product.productFolder} product={product} staggerIndex={ci} />
                         ))}
-                        <div className="product-card product-card-placeholder">
-                          <div className="product-card-placeholder-inner">
-                            <img src="/images/Branding/B2 B2YOU Header Landscape 2.png" alt="" className="placeholder-logo" />
-                          </div>
-                        </div>
                       </div>
                     ))}
                   </div>

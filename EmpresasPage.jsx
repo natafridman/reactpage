@@ -94,7 +94,7 @@ function EmpresasPage() {
                     <path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle>
                   </svg>
                 </div>
-                <h3>Personalizaci&oacute;n Total</h3>
+                <h3>Personalizaci&oacute;n total</h3>
                 <p>Grabado l&aacute;ser, estampado y bordado con el logo de tu empresa. Cada producto lleva la identidad de tu marca.</p>
               </div>
 
@@ -104,8 +104,8 @@ function EmpresasPage() {
                     <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line>
                   </svg>
                 </div>
-                <h3>Regalos Corporativos</h3>
-                <p>Sorprend&eacute; a tus empleados, clientes y socios con productos premium que generan impacto.</p>
+                <h3>Regalos corporativos</h3>
+                <p>Sorprend&eacute; a tus empleados, clientes y socios con productos que representan bien a tu marca.</p>
               </div>
 
               <div className="info-page-card">
@@ -114,7 +114,7 @@ function EmpresasPage() {
                     <rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
                   </svg>
                 </div>
-                <h3>Pedidos por Volumen</h3>
+                <h3>Pedidos por volumen</h3>
                 <p>Producci&oacute;n a medida con precios especiales para grandes cantidades. Entregas coordinadas a tu oficina.</p>
               </div>
 
@@ -124,8 +124,8 @@ function EmpresasPage() {
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                   </svg>
                 </div>
-                <h3>Calidad Premium</h3>
-                <p>Materiales de primera selecci&oacute;n, costuras reforzadas y terminaciones artesanales que hablan de excelencia.</p>
+                <h3>Calidad artesanal</h3>
+                <p>Materiales de primera selecci&oacute;n, costuras reforzadas y terminaciones hechas a mano para durar.</p>
               </div>
             </div>
 

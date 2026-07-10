@@ -160,16 +160,16 @@ function NosotrosPage() {
 
             <div className="nosotros-stats-strip">
               <div className="nosotros-stat">
-                <span className="nosotros-stat-number">15+</span>
-                <span className="nosotros-stat-label">Categorías de productos</span>
+                <span className="nosotros-stat-value">Taller propio</span>
+                <span className="nosotros-stat-label">Producción en Buenos Aires</span>
               </div>
               <div className="nosotros-stat">
-                <span className="nosotros-stat-number">100%</span>
-                <span className="nosotros-stat-label">Personalizable</span>
+                <span className="nosotros-stat-value">A medida</span>
+                <span className="nosotros-stat-label">Grabado, estampado y bordado</span>
               </div>
               <div className="nosotros-stat">
-                <span className="nosotros-stat-number">B2B</span>
-                <span className="nosotros-stat-label">Foco en marcas y empresas</span>
+                <span className="nosotros-stat-value">Por mayor y menor</span>
+                <span className="nosotros-stat-label">Para marcas y empresas</span>
               </div>
             </div>
           </div>

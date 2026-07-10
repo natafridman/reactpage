@@ -101,8 +101,8 @@ function MarcasPage() {
                     <path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle>
                   </svg>
                 </div>
-                <h3>Marca Blanca</h3>
-                <p>Fabricamos productos con tu etiqueta. Tus clientes reciben un producto premium con la identidad de tu marca.</p>
+                <h3>Marca blanca</h3>
+                <p>Fabricamos productos con tu etiqueta. Tus clientes reciben un producto con la identidad de tu marca.</p>
               </div>
 
               <div className="info-page-card">
@@ -111,7 +111,7 @@ function MarcasPage() {
                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                   </svg>
                 </div>
-                <h3>Cat&aacute;logo Completo</h3>
+                <h3>Cat&aacute;logo completo</h3>
                 <p>Bolsos, mochilas, morrales, ri&ntilde;oneras, portadocumentos, gorras y m&aacute;s. Eleg&iacute;s los productos que mejor se adapten a tu marca.</p>
               </div>
 
@@ -121,7 +121,7 @@ function MarcasPage() {
                     <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                   </svg>
                 </div>
-                <h3>Producci&oacute;n Escalable</h3>
+                <h3>Producci&oacute;n escalable</h3>
                 <p>Desde tiradas peque&ntilde;as hasta grandes vol&uacute;menes. Nos adaptamos al crecimiento de tu marca sin sacrificar calidad.</p>
               </div>
 
@@ -131,8 +131,8 @@ function MarcasPage() {
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
                 </div>
-                <h3>Acompa&ntilde;amiento Dedicado</h3>
-                <p>Trabajamos codo a codo con tu equipo en dise&ntilde;o, materiales y tiempos de entrega para que todo salga perfecto.</p>
+                <h3>Acompa&ntilde;amiento dedicado</h3>
+                <p>Trabajamos codo a codo con tu equipo en dise&ntilde;o, materiales y tiempos de entrega para que todo salga como lo imagin&aacute;s.</p>
               </div>
             </div>
 

@@ -19,6 +19,9 @@
     /* Brand colour helpers */
     --b2-cognac-rgb: 122, 79, 72;
     --b2-cognac-hover: #8F6259;
+    /* Deep espresso for the dark bands: a flat, confident tone instead of a
+       diagonal cognac gradient (which reads as fake-premium). */
+    --b2-espresso: #281612;
 
     /* Layout rails - ONE content width for the whole site */
     --header-h: 75px;
