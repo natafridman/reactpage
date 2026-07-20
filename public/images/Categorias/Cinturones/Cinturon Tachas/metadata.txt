@@ -4,5 +4,5 @@ description: Cinturon de cuero con tachas en relieve en tono negro sobre negro. 
 code: CIN-001
 images: 3378.jpeg
 videos:
-tags: hombre, mujer, nacional
+tags: hombre, importado
 proveedor: aston

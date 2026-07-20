@@ -4,5 +4,5 @@ description: Cinturon ancho de cuero con hebilla de argolla circular sin aguja. 
 code: CIN-020
 images: 8O3A6104.jpeg, 8O3A6131.jpeg, 8O3A6136.jpeg
 videos:
-tags: hombre, mujer, nacional
+tags: mujer, nacional
 proveedor: aston

@@ -4,5 +4,5 @@ description: Cinturon de cuero con pelo de vaca natural en estampado brindle y m
 code: CIN-016
 images: 8O3A5416.jpeg, 8O3A5420.jpeg, 8O3A5446.jpeg
 videos:
-tags: mujer, hombre, nacional
+tags: mujer, nacional
 proveedor: aston

@@ -6,4 +6,4 @@ images: SC0168Z-1.webp, SC0168Z-2.webp
 videos: 
 price_mayorista: 6125
 proveedor: javera
-tags: mujer, hombre, importado
+tags: mujer, importado

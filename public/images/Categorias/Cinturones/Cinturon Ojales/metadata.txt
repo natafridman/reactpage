@@ -4,5 +4,5 @@ description: Cinturon de cuero genuino con diseño de ojales calados y tachas me
 code: CIN-010
 images: 8O3A5286.jpeg, 8O3A5489.jpeg
 videos:
-tags: hombre, mujer, nacional
+tags: mujer, nacional
 proveedor: aston

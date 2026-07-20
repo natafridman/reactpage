@@ -4,5 +4,5 @@ description: Cinturon de cuero pulido con hebilla cuadrada en acabado negro mate
 code: CIN-007
 images: 8O3A2335.jpeg, 8O3A2341.jpeg
 videos:
-tags: hombre, mujer, nacional
+tags: hombre, importado
 proveedor: aston

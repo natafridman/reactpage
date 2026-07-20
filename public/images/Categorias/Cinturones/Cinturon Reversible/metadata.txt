@@ -4,5 +4,5 @@ description: Cinturon reversible de cuero con un lado negro y otro marron. Hebil
 code: CIN-006
 images: 8O3A2304.jpeg, 8O3A2306.jpeg
 videos:
-tags: hombre, mujer, nacional
+tags: hombre, importado
 proveedor: aston

@@ -4,5 +4,5 @@ description: Cinturon de cuero ancho con hebilla redondeada clásica. Disponible
 code: CIN-019
 images: 8O3A6079.jpeg, 8O3A6082.jpeg, 8O3A6091.jpeg, 8O3A6094.jpeg, 8O3A6096.jpeg, 8O3A6098.jpeg
 videos:
-tags: hombre, mujer, nacional
+tags: mujer, nacional
 proveedor: aston
