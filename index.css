@@ -2099,22 +2099,22 @@ a.product-card-info {
     .hero-side {
         min-height: 0;
         height: auto;
-        max-height: 70vh;
+        max-height: 50vh;
         background: transparent;
     }
-    
+
     .gallery-side {
         text-align: left !important;
-        padding: 3.5rem 2.5rem;
+        padding: 2rem 2rem 3rem;
         min-height: auto;
     }
-    
+
     .accent-number {
         font-size: 0.8rem;
     }
 
     .hero-image {
-        max-height: 70vh;
+        max-height: 50vh;
     }
 
     .product-title-overlay h2 {
