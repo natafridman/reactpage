@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import PDFDocument from 'pdfkit';
 import sharp from 'sharp';
+import { PAYMENT_TERMS, normalizeProveedor } from '../utils/paymentTerms.js';
 
 // ===== CONFIG =====
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -34,6 +35,21 @@ const CREAM = [250, 250, 249];
 const CREAM_DIM = [220, 204, 197];
 const WHITE = [255, 255, 255];
 const BORDER = [229, 229, 229];
+
+// ===== PURCHASE CONDITIONS (color-coded) =====
+// Each product carries a coloured dot matching one of these groups; the legend
+// at the end of the catalog maps colour -> conditions. We NEVER print the
+// supplier name or contact: the colour abstracts the supplier away.
+const CONDITIONS = [
+  { key: 'aston',  color: [90, 118, 134],  terms: PAYMENT_TERMS.aston.terms },   // slate
+  { key: 'saxs',   color: [118, 134, 102], terms: PAYMENT_TERMS.saxs.terms },    // sage
+  { key: 'javera', color: [146, 100, 120], terms: PAYMENT_TERMS.javera.terms },  // plum
+  { key: '_other', color: [150, 142, 134], terms: ['Coordinamos las condiciones de compra por WhatsApp.'] }, // taupe
+];
+function conditionFor(proveedor) {
+  const key = normalizeProveedor(proveedor);
+  return CONDITIONS.find(c => c.key === key) || CONDITIONS[CONDITIONS.length - 1];
+}
 
 // Layout
 const PAGE_W = 595.28;
@@ -195,6 +211,9 @@ async function generate() {
     }
   }
 
+  // ===== CONDITIONS LEGEND (end of catalog) =====
+  drawConditionsPage(doc);
+
   // ===== FOOTERS =====
   const range = doc.bufferedPageRange();
   const totalPages = range.count;
@@ -303,8 +322,14 @@ async function drawProductPage(doc, product) {
   y += 12;
   doc.font(FONT_MEDIUM).fontSize(9.5).fillColor(BLACK)
     .text('Consultá el precio', M, y, { lineBreak: false });
-  doc.font(FONT_REGULAR).fontSize(9.5).fillColor(GRAY)
-    .text('Personalizable con tu logo', M, y, { width: CW, align: 'right', lineBreak: false });
+  // Condition colour dot + label, right-aligned (legend at the end of the catalog)
+  const cond = conditionFor(product.proveedor);
+  const condLabel = 'Condiciones de compra';
+  doc.font(FONT_REGULAR).fontSize(9.5);
+  const labelW = doc.widthOfString(condLabel);
+  const labelX = M + CW - labelW;
+  doc.circle(labelX - 11, y + 5, 3.5).fill(cond.color);
+  doc.fillColor(GRAY).text(condLabel, labelX, y, { lineBreak: false });
 
   // ===== PAGE 2: GALLERY (only if multiple images) =====
   if (!hasMultipleImages) return;
@@ -384,6 +409,43 @@ async function drawProductPage(doc, product) {
       await placeImage(botImages[i], i * (botW + gap), topH + gap, botW, botH);
     }
   }
+}
+
+// ===== CONDITIONS LEGEND PAGE =====
+function drawConditionsPage(doc) {
+  doc.addPage({ size: 'A4', margin: 0 });
+  doc.rect(0, 0, PAGE_W, PAGE_H).fill(WHITE);
+  doc.rect(0, 0, PAGE_W, 3).fill(COGNAC);
+
+  const M = MARGIN, CW = CONTENT_W;
+  let y = 66;
+  doc.font(FONT_DISPLAY).fontSize(30).fillColor(BLACK)
+    .text('Condiciones de compra', M, y, { width: CW });
+  y += 42;
+
+  const intro = 'Cada producto lleva un color que corresponde a una de estas condiciones. Los precios y la disponibilidad se confirman por WhatsApp.';
+  doc.font(FONT_REGULAR).fontSize(10).fillColor(GRAY).text(intro, M, y, { width: CW * 0.86, lineGap: 3 });
+  y += doc.heightOfString(intro, { width: CW * 0.86, lineGap: 3 }) + 28;
+
+  const termsX = M + 32;
+  const termsW = CW - 32;
+
+  CONDITIONS.forEach((cond, idx) => {
+    if (idx > 0) {
+      doc.moveTo(M, y - 15).lineTo(M + CW, y - 15).lineWidth(0.5).strokeColor(BORDER).stroke();
+    }
+    // Colour swatch (matches the dot on every product of this group)
+    doc.circle(M + 7, y + 6, 7).fill(cond.color);
+    // Terms as a clean bullet list, bullets in the same colour
+    let ty = y;
+    for (const term of cond.terms) {
+      doc.circle(termsX + 2, ty + 4.5, 1.4).fill(cond.color);
+      doc.font(FONT_REGULAR).fontSize(9.5).fillColor(GRAY)
+        .text(term, termsX + 10, ty, { width: termsW - 10, lineGap: 2.5 });
+      ty += doc.heightOfString(term, { width: termsW - 10, lineGap: 2.5 }) + 5;
+    }
+    y = ty + 20;
+  });
 }
 
 generate().catch(err => {
