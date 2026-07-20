@@ -13,12 +13,16 @@ const LOGO_PATH = path.join(PUBLIC, 'images', 'Branding', 'B2 B2YOU Header Lands
 const LOGO_WHITE_PATH = path.join(PUBLIC, 'images', 'Branding', 'B2YOU-logo-white.jpg');
 const OUTPUT_PATH = path.join(PUBLIC, 'catalogo-b2you.pdf');
 
-// Fonts
+// Fonts. Body/labels stay in Inter; display + titles use Fraunces, the brand
+// serif from the website (pdfkit/fontkit reads the .woff directly).
 const FONTS_DIR = path.join(__dirname, 'fonts');
 const FONT_REGULAR = path.join(FONTS_DIR, 'Inter-Regular.ttf');
 const FONT_BOLD = path.join(FONTS_DIR, 'Inter-Bold.ttf');
 const FONT_MEDIUM = path.join(FONTS_DIR, 'Inter-Medium.ttf');
 const FONT_ITALIC = path.join(FONTS_DIR, 'Inter-MediumItalic.ttf');
+const FR_DIR = path.join(ROOT, 'node_modules', '@fontsource', 'fraunces', 'files');
+const FONT_DISPLAY = path.join(FR_DIR, 'fraunces-latin-600-normal.woff');
+const FONT_DISPLAY_ITALIC = path.join(FR_DIR, 'fraunces-latin-500-italic.woff');
 
 // Brand colors
 const COGNAC = [122, 79, 72];
@@ -27,6 +31,7 @@ const BLACK = [45, 45, 45];
 const GRAY = [90, 90, 90];
 const LIGHT_GRAY = [163, 163, 163];
 const CREAM = [250, 250, 249];
+const CREAM_DIM = [220, 204, 197];
 const WHITE = [255, 255, 255];
 const BORDER = [229, 229, 229];
 
@@ -137,32 +142,30 @@ async function generate() {
 
   // ===== COVER PAGE =====
   doc.rect(0, 0, PAGE_W, PAGE_H).fill(COGNAC);
-  doc.rect(0, 0, PAGE_W, 60).fill(COGNAC_DARK);
-  doc.rect(0, PAGE_H - 60, PAGE_W, 60).fill(COGNAC_DARK);
+  doc.rect(0, PAGE_H - 96, PAGE_W, 96).fill(COGNAC_DARK); // grounding foot band
 
-  // White logo
+  // White logo (negate the dark landscape mark onto a cognac plate)
   const origLogoMeta = await sharp(LOGO_PATH).metadata();
   const negatedLogo = await sharp(LOGO_PATH).negate({ alpha: false }).toBuffer();
   const coverLogoBuffer = await sharp({
     create: { width: origLogoMeta.width, height: origLogoMeta.height, channels: 4,
       background: { r: COGNAC[0], g: COGNAC[1], b: COGNAC[2], alpha: 255 } }
-  }).composite([{ input: negatedLogo, blend: 'over' }]).jpeg({ quality: 90 }).toBuffer();
+  }).composite([{ input: negatedLogo, blend: 'over' }]).jpeg({ quality: 92 }).toBuffer();
 
-  const logoAspect = origLogoMeta.width / origLogoMeta.height;
-  const logoDispW = 320;
-  const logoX = (PAGE_W - logoDispW) / 2;
-  doc.image(coverLogoBuffer, logoX, PAGE_H * 0.26, { width: logoDispW });
+  const logoDispW = 250;
+  doc.image(coverLogoBuffer, (PAGE_W - logoDispW) / 2, PAGE_H * 0.30, { width: logoDispW });
 
-  doc.moveTo(PAGE_W / 2 - 80, PAGE_H * 0.46).lineTo(PAGE_W / 2 + 80, PAGE_H * 0.46)
-    .lineWidth(0.8).strokeColor(WHITE).stroke();
-  doc.fontSize(44).font(FONT_BOLD).fillColor(WHITE)
-    .text('CATÁLOGO', 0, PAGE_H * 0.48, { align: 'center', width: PAGE_W });
-  doc.fontSize(14).font(FONT_REGULAR).fillColor(CREAM)
-    .text('Accesorios Premium para tu Marca', 0, PAGE_H * 0.55, { align: 'center', width: PAGE_W });
-  doc.moveTo(PAGE_W / 2 - 80, PAGE_H * 0.59).lineTo(PAGE_W / 2 + 80, PAGE_H * 0.59)
-    .lineWidth(0.8).strokeColor(WHITE).stroke();
-  doc.fontSize(12).font(FONT_REGULAR).fillColor(WHITE)
-    .text(new Date().getFullYear().toString(), 0, PAGE_H * 0.62, { align: 'center', width: PAGE_W });
+  // Title in Fraunces (brand serif)
+  doc.font(FONT_DISPLAY).fontSize(52).fillColor(CREAM)
+    .text('Catálogo', 0, PAGE_H * 0.50, { align: 'center', width: PAGE_W });
+  doc.moveTo(PAGE_W / 2 - 28, PAGE_H * 0.50 + 78).lineTo(PAGE_W / 2 + 28, PAGE_H * 0.50 + 78)
+    .lineWidth(1).strokeColor(CREAM).stroke();
+  doc.font(FONT_REGULAR).fontSize(10.5).fillColor(CREAM_DIM)
+    .text('ACCESORIOS PARA MARCAS Y EMPRESAS', 0, PAGE_H * 0.50 + 92,
+      { align: 'center', width: PAGE_W, characterSpacing: 2.5 });
+  doc.font(FONT_REGULAR).fontSize(10).fillColor(CREAM)
+    .text(`Edición ${new Date().getFullYear()}`, 0, PAGE_H - 58,
+      { align: 'center', width: PAGE_W, characterSpacing: 1.5 });
 
   // ===== CATEGORY SEPARATOR PAGES + PRODUCT PAGES =====
   const categories = Object.keys(grouped);
@@ -177,8 +180,14 @@ async function generate() {
     darkPages.add(doc.bufferedPageRange().count - 1);
     doc.rect(0, 0, PAGE_W, PAGE_H).fill(COGNAC_DARK);
     doc.rect(0, PAGE_H - 8, PAGE_W, 8).fill(COGNAC);
-    doc.fontSize(32).font(FONT_BOLD).fillColor(WHITE)
-      .text(category.toUpperCase(), MARGIN, PAGE_H * 0.45, { width: CONTENT_W, align: 'center' });
+    doc.font(FONT_DISPLAY).fontSize(42).fillColor(WHITE)
+      .text(category, MARGIN, PAGE_H * 0.44, { width: CONTENT_W, align: 'center' });
+    doc.moveTo(PAGE_W / 2 - 24, PAGE_H * 0.44 + 64).lineTo(PAGE_W / 2 + 24, PAGE_H * 0.44 + 64)
+      .lineWidth(1).strokeColor(CREAM).stroke();
+    const catCount = catProducts.length;
+    doc.font(FONT_REGULAR).fontSize(10).fillColor(CREAM_DIM)
+      .text(`${catCount} ${catCount === 1 ? 'producto' : 'productos'}`, MARGIN, PAGE_H * 0.44 + 76,
+        { width: CONTENT_W, align: 'center', characterSpacing: 1.5 });
 
     // Each product gets 1 page
     for (const product of catProducts) {
@@ -239,7 +248,7 @@ async function drawProductPage(doc, product) {
 
   // Hero image - large, ~68% of page, trimmed to remove whitespace
   const heroTopY = 0;
-  const heroH = PAGE_H * 0.68;
+  const heroH = PAGE_H * 0.64;
 
   if (images.length > 0) {
     // Trim whitespace around product, then fit into hero area
@@ -256,49 +265,46 @@ async function drawProductPage(doc, product) {
     }
   }
 
-  // Cognac strip
-  let y = heroH + 4;
-  doc.rect(M, y, CW, 3).fill(COGNAC);
-  y += 12;
+  // ===== INFO BLOCK =====
+  let y = heroH + 22;
 
-  // Title + Code
+  // Short cognac accent rule
+  doc.rect(M, y, 40, 3).fill(COGNAC);
+  y += 15;
+
+  // Code (small, right-aligned, tabular)
   if (product.code) {
-    doc.fontSize(9).font(FONT_REGULAR).fillColor(LIGHT_GRAY)
-      .text(product.code, M, y + 8, { width: CW, align: 'right', lineBreak: false });
+    doc.font(FONT_MEDIUM).fontSize(8.5).fillColor(LIGHT_GRAY)
+      .text(product.code, M, y + 7, { width: CW, align: 'right', characterSpacing: 1, lineBreak: false });
   }
-  doc.fontSize(28).font(FONT_BOLD).fillColor(BLACK)
-    .text(titleText, M, y, { width: CW - 70 });
-  y += doc.heightOfString(titleText, { width: CW - 70, fontSize: 28 }) + 3;
 
-  // Subtitle
+  // Title in Fraunces
+  doc.font(FONT_DISPLAY).fontSize(27).fillColor(BLACK)
+    .text(titleText, M, y, { width: CW - 80 });
+  y += doc.heightOfString(titleText, { width: CW - 80 }) + 5;
+
+  // Subtitle in Fraunces italic
   if (product.subtitle) {
-    doc.fontSize(12).font(FONT_ITALIC).fillColor(COGNAC)
+    doc.font(FONT_DISPLAY_ITALIC).fontSize(12.5).fillColor(COGNAC)
       .text(product.subtitle, M, y, { width: CW });
-    y += 18;
+    y += doc.heightOfString(product.subtitle, { width: CW }) + 11;
   }
 
   // Description
   if (product.description) {
-    doc.fontSize(9.5).font(FONT_REGULAR).fillColor(GRAY)
-      .text(product.description, M, y, { width: CW * 0.8, lineGap: 2.5 });
-    y += doc.heightOfString(product.description, { width: CW * 0.8, fontSize: 9.5 }) + 10;
+    doc.font(FONT_REGULAR).fontSize(9.5).fillColor(GRAY)
+      .text(product.description, M, y, { width: CW * 0.82, lineGap: 3 });
+    y += doc.heightOfString(product.description, { width: CW * 0.82, lineGap: 3 }) + 15;
   }
 
-  // Price - always show, "Consultar" if missing
-  doc.roundedRect(M, y, CW, 34, 4).fill([248, 246, 244]);
-  doc.fontSize(8).font(FONT_REGULAR).fillColor(GRAY)
-    .text('MAYORISTA', M + 14, y + 6, { lineBreak: false });
-  if (product.price_mayorista) {
-    doc.fontSize(15).font(FONT_BOLD).fillColor(COGNAC)
-      .text(formatPrice(product.price_mayorista), M + 14, y + 16, { lineBreak: false });
-  } else {
-    doc.fontSize(15).font(FONT_ITALIC).fillColor(LIGHT_GRAY)
-      .text('Consultar', M + 14, y + 16, { lineBreak: false });
-  }
-  doc.fontSize(8).font(FONT_REGULAR).fillColor(GRAY)
-    .text('MINORISTA', M + CW / 2, y + 6, { lineBreak: false });
-  doc.fontSize(15).font(FONT_ITALIC).fillColor(LIGHT_GRAY)
-    .text('Consultar', M + CW / 2, y + 16, { lineBreak: false });
+  // Clean value line (prices are hidden site-wide; this is a public download,
+  // so no numbers here). Left: price on request. Right: the core value prop.
+  doc.moveTo(M, y).lineTo(M + CW, y).lineWidth(0.5).strokeColor(BORDER).stroke();
+  y += 12;
+  doc.font(FONT_MEDIUM).fontSize(9.5).fillColor(BLACK)
+    .text('Consultá el precio', M, y, { lineBreak: false });
+  doc.font(FONT_REGULAR).fontSize(9.5).fillColor(GRAY)
+    .text('Personalizable con tu logo', M, y, { width: CW, align: 'right', lineBreak: false });
 
   // ===== PAGE 2: GALLERY (only if multiple images) =====
   if (!hasMultipleImages) return;
