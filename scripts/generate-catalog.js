@@ -51,6 +51,30 @@ function conditionFor(proveedor) {
   return CONDITIONS.find(c => c.key === key) || CONDITIONS[CONDITIONS.length - 1];
 }
 
+// Belt género + origen (from the product tags), as display strings.
+function beltAttributes(product) {
+  const tags = String(product.tags || '').split(',').map(t => t.trim().toLowerCase());
+  const has = t => tags.includes(t);
+  const out = [];
+  const genero = has('hombre') && has('mujer') ? 'Hombre y mujer'
+    : has('hombre') ? 'Hombre' : has('mujer') ? 'Mujer' : null;
+  const origen = has('importado') && has('nacional') ? 'Importado y nacional'
+    : has('importado') ? 'Importado' : has('nacional') ? 'Nacional' : null;
+  if (genero) out.push(genero);
+  if (origen) out.push(origen);
+  return out;
+}
+
+// Draw a small outlined pill; returns its width for laying the next one out.
+function drawAttrPill(doc, x, y, text) {
+  const label = text.toUpperCase();
+  doc.font(FONT_MEDIUM).fontSize(7.5);
+  const w = doc.widthOfString(label) + 16;
+  doc.roundedRect(x, y, w, 16, 8).lineWidth(0.7).strokeColor([201, 173, 167]).stroke();
+  doc.fillColor(COGNAC).text(label, x + 8, y + 4.6, { lineBreak: false });
+  return w;
+}
+
 // Layout
 const PAGE_W = 595.28;
 const PAGE_H = 841.89;
@@ -306,7 +330,17 @@ async function drawProductPage(doc, product) {
   if (product.subtitle) {
     doc.font(FONT_DISPLAY_ITALIC).fontSize(12.5).fillColor(COGNAC)
       .text(product.subtitle, M, y, { width: CW });
-    y += doc.heightOfString(product.subtitle, { width: CW }) + 11;
+    y += doc.heightOfString(product.subtitle, { width: CW }) + 9;
+  }
+
+  // Belt attributes: género + origen as small pills (Cinturones only)
+  if (product.category === 'Cinturones') {
+    const attrs = beltAttributes(product);
+    if (attrs.length) {
+      let px = M;
+      for (const a of attrs) px += drawAttrPill(doc, px, y, a) + 6;
+      y += 28;
+    }
   }
 
   // Description
