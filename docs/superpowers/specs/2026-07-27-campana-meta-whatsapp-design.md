@@ -28,15 +28,62 @@ cambiando solo `destination_type`.
 **Efecto secundario:** el ID numérico de Instagram deja de ser opcional. Con destino Direct los
 anuncios tienen que entregar en Instagram, así que sin ese dato no se pueden crear.
 
-## Objetos ya creados
+## Segundo cambio: del mensaje al sitio web, con píxel
+
+Con la campaña de Direct ya armada, el dueño pidió llevar el tráfico al sitio, y preguntó si se
+podía instalar el píxel. Se hicieron las dos cosas, en ese orden, porque la segunda cambia la
+primera: **sin píxel la única optimización posible es `LINK_CLICKS`** (Meta busca gente propensa a
+clickear), y **con píxel se puede optimizar a `LANDING_PAGE_VIEWS`** (gente que efectivamente
+carga la página). La diferencia es grande y justificó esperar.
+
+### Píxel instalado
+
+Dataset `1010170731888741` "B2YOU Web", creado por el dueño en Events Manager. El conector **no
+tiene herramienta para crear datasets**, solo para leerlos y configurar eventos.
+
+Tres piezas en el código, porque el snippet que da Meta no alcanza en una SPA:
+
+1. `index.html`: código base (`init` + PageView de la carga inicial). El `<noscript>` va en el
+   **body**, no en el head: adentro del head es HTML inválido y el build de Vite lo rechaza con
+   `disallowed-content-in-noscript-in-head`.
+2. `utils/metaPixel.js`: PageView por cambio de ruta, y un evento `Contact` en cada salida hacia
+   WhatsApp. Sin lo primero, Meta solo vería la landing y `/productos`, `/Marcas` y `/Empresas`
+   quedarían invisibles.
+3. `main.jsx`: el componente `PixelTracker`, dentro del `Router` porque usa `useLocation`.
+
+**Por qué el `Contact` se intercepta y no se llama a mano.** Los enlaces de WhatsApp están en unos
+diez archivos y de dos formas: `<a href="wa.me/...">` y `window.open(...)` dentro de handlers.
+En vez de tocar cada llamada y arriesgar que la próxima quede sin medir, se interceptan las dos
+formas desde un solo lugar: un listener de clics en fase de captura, y un envoltorio de
+`window.open` que delega siempre en la nativa.
+
+### Destino de los anuncios
+
+Todos a `https://b2you.com.ar/productos`. Mandando los seis al mismo lugar el test compara
+creativos entre sí, sin que se mezcle el efecto de landings distintas.
+
+No se puede hacer deep link a una categoría: el catálogo solo lee `pagina` y `vista` de la URL, y
+el filtro por categoría vive en el estado de React. Que `/productos?categoria=Gorras` preseleccione
+el filtro sería una mejora concreta del sitio para campañas futuras.
+
+CTA `GET_QUOTE`, que coincide con el "Pedí tu cotización" ya impreso en los creativos.
+
+`promoted_object` con `pixel_id` **no va** en un conjunto de `LANDING_PAGE_VIEWS`: la API lo
+rechaza con "Promoted Object Invalid". Ese campo es para objetivos de conversión.
+
+## Objetos creados
 
 | Objeto | ID | Estado |
 | --- | --- | --- |
-| Campaña `B2YOU · Conversaciones por mensaje · 2026-07` | `120247544246620767` | PAUSED |
+| Campaña `B2YOU · Tráfico al sitio · 2026-07` | `120247546261110767` | PAUSED · vigente |
+| Conjunto `Argentina · amplio · visitas a /productos` | `120247546298030767` | PAUSED |
+| 6 anuncios (01 a 06) | `…46386190767` a `…46490200767` | PAUSED |
+| Campaña `B2YOU · Conversaciones por mensaje · 2026-07` | `120247544246620767` | PAUSED · reemplazada |
 | Conjunto `Argentina · amplio · Instagram Direct` | `120247544326990767` | PAUSED |
+| 6 anuncios de Direct | `…45165380767` a `…45179180767` | PAUSED |
 
-La campaña se creó como "Conversaciones WhatsApp" y se renombró después del cambio de destino,
-para que el nombre no contradiga lo que la campaña hace.
+La campaña de mensajes se conserva pausada. No cuesta nada y sirve como variante lista para probar
+contra la de tráfico, o para reactivar si el sitio no convierte.
 
 Primera campaña paga de B2YOU. Se crea entera por el conector de Meta Ads, en estado pausado,
 para que el dueño la revise en Ads Manager y la active él.
@@ -131,9 +178,13 @@ arriba de eso la entrega se fragmenta. Con ARS 3.000 por día, 6 es el techo út
 
 ### Presupuesto
 
-CBO diario de **ARS 3.000** (`campaign_daily_budget: 300000` en centavos), el doble del mínimo
-técnico. Es un valor de partida: el dueño mencionó "10 USD por día" pero no dio el equivalente en
-pesos, así que se deja este número y se ajusta antes de activar.
+CBO diario de **ARS 15.000** (`campaign_daily_budget: 1500000` en centavos), que es el equivalente
+de los "10 USD por día" que pidió el dueño. Se creó con ARS 3.000 como valor de partida y se
+corrigió cuando dio la cotización.
+
+El salto importa: con ARS 3.000 los 6 creativos se hubieran repartido tan poca entrega que Meta
+habría concentrado en uno o dos y el resto quedaba sin datos. A ARS 15.000 el test de creativos
+produce información utilizable en los seis.
 
 Se elige presupuesto **diario** y no total. El total (lifetime) sirve cuando la campaña tiene
 fecha de inicio y fin cerradas, y su única ventaja real es habilitar la programación por días y

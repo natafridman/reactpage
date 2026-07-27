@@ -19,6 +19,9 @@ import { useCart } from '/context/CartContext.jsx';
 const IMAGES_BASE_FOLDER = 'images/Categorias';
 const PRODUCTS_PER_PAGE_LIST = 4;
 const PRODUCTS_PER_PAGE_GRID = 16;
+// Vista por defecto del catalogo. La usan el estado inicial, el sync con la URL y la
+// limpieza de la query, asi que vive en un solo lugar para que no se desincronicen.
+const DEFAULT_VIEW_MODE = 'grid';
 
 // Belt sub-category axes. OR within an axis, AND across axes.
 const GENDER_TAGS = ['hombre', 'mujer'];
@@ -46,7 +49,7 @@ function App() {
   });
   const [viewMode, setViewMode] = useState(() => {
     const params = new URLSearchParams(window.location.search);
-    return params.get('vista') || localStorage.getItem('b2you-viewMode') || 'list';
+    return params.get('vista') || localStorage.getItem('b2you-viewMode') || DEFAULT_VIEW_MODE;
   });
 
   // Search + filter state
@@ -192,7 +195,7 @@ function App() {
     } else {
       const params = new URLSearchParams(location.search);
       const urlPage = parseInt(params.get('pagina')) || 1;
-      const urlView = params.get('vista') || localStorage.getItem('b2you-viewMode') || 'list';
+      const urlView = params.get('vista') || localStorage.getItem('b2you-viewMode') || DEFAULT_VIEW_MODE;
       // Reset search/filters when the scope changes.
       setSearchInput('');
       setSearchQuery('');
@@ -458,7 +461,7 @@ function App() {
   function updateURLParams(params) {
     const url = new URL(window.location);
     for (const [key, value] of Object.entries(params)) {
-      if (value === null || value === undefined || value === '' || (key === 'pagina' && value === 1) || (key === 'vista' && value === 'list')) {
+      if (value === null || value === undefined || value === '' || (key === 'pagina' && value === 1) || (key === 'vista' && value === DEFAULT_VIEW_MODE)) {
         url.searchParams.delete(key);
       } else {
         url.searchParams.set(key, value);
