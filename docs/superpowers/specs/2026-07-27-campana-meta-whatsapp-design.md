@@ -152,9 +152,23 @@ semana, unos ARS 91.000 por mes**.
 Todos usan el formato feed 1080x1350 del set `ads/B2YOU-ad-*.png` y llevan el
 `instagram_user_id` de @b2you.team.
 
-El CTA y el `link_url` exactos de un anuncio de mensajes a Direct se confirman contra la API al
-crear el primer creativo, no se asumen acá: los anuncios click-to-message no usan un `link_url`
-normal como los de tráfico. Si la API los pide igual, se resuelve en ese momento y se anota.
+**El CTA de un anuncio de mensajes a Direct, resuelto.** `ads_create_creative` no alcanza: no
+expone `app_destination`, y sin ese campo Meta ve el conjunto pidiendo `INSTAGRAM_DIRECT` contra un
+CTA que apunta a Messenger, y rechaza con "The ad's promoted object is invalid". Con
+`call_to_action_type: MESSAGE_PAGE` el error pasa a ser "Call to Action Not Supported: your ad
+won't run on Instagram".
+
+Lo que funciona es crear el anuncio con `object_story_spec` crudo vía `ads_create_ad`:
+
+```json
+"call_to_action": {
+  "type": "INSTAGRAM_MESSAGE",
+  "value": { "app_destination": "INSTAGRAM_DIRECT" }
+}
+```
+
+`link` se setea en `https://www.instagram.com/b2you.team` y `self_ai_disclosure: OPT_IN` va en el
+nivel superior del spec del creativo, donde la API lo acepta.
 
 El copy respeta las reglas del playbook (`docs/ad-post-creation-playbook.md`, sección 7): sin em
 dash, sin superlativos, sin Title Case en español, sin precios, sin nombrar al proveedor, sin
@@ -234,10 +248,25 @@ quedaron en `WITH_ISSUES` con "Image Not Found: you might not have permission to
 **Lección:** que `ads_get_ad_images` devuelva un hash no significa que la imagen sirva. Verificar
 siempre pidiendo `width`/`height`/`url`; si vienen vacíos, la imagen no es de la cuenta.
 
-**Resolución definitiva:** los 6 PNG se copian a `public/creativos/` del repo, se despliegan a
-Vercel y se suben con `ads_creative_upload_image` desde su URL pública. Eso crea imágenes que la
-cuenta publicitaria realmente posee. Después hay que **rehacer los 6 anuncios**, porque los
-creativos son inmutables y los actuales tienen el hash roto adentro.
+**Resolución definitiva.** Los 6 PNG se copiaron a `public/creativos/`, se desplegaron a Vercel y
+quedan públicos en `https://b2you.com.ar/creativos/<archivo>.png`.
+
+`ads_creative_upload_image` **no sirvió**: está bloqueado por rollout gradual en esta cuenta, igual
+que `ads_get_ig_accounts` y `ads_creative_delete`. La vía que funcionó es pasar la URL en el campo
+**`picture` dentro de `link_data`** del `object_story_spec`, al crear el anuncio.
+
+Cuidado con la variante que NO anda: poner `image_url` en el nivel superior del creativo, que es lo
+que sugiere la documentación del tool. Crea el anuncio sin error inmediato, pero el creativo queda
+sin `image_hash` ni `image_url`, con un `thumbnail_url` que apunta a `share_arrow.gif`, y el
+anuncio termina en "Missing Image: An image is required to show this ad on Instagram".
+
+Comparación que lo deja claro, pidiendo `image_hash` e `image_url` de cada creativo:
+
+| Campo | `picture` en `link_data` | `image_url` arriba |
+| --- | --- | --- |
+| `image_hash` | presente | ausente |
+| `image_url` | URL real de fbcdn | ausente |
+| `thumbnail_url` | miniatura del producto | `share_arrow.gif` (placeholder) |
 
 ### Un creativo, una sola imagen
 

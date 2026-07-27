@@ -1,4 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { trackPageView, installWhatsAppTracking } from '/utils/metaPixel.js';
 import LandingPage from '/LandingPage.jsx';
 import App from '/App.jsx';
 import EmpresasPage from '/EmpresasPage.jsx';
@@ -30,10 +32,32 @@ function WhatsAppFloat() {
   );
 }
 
+// Vive dentro del Router porque useLocation lo necesita. No renderiza nada.
+function PixelTracker() {
+  const location = useLocation();
+  const primeraRuta = useRef(true);
+
+  useEffect(() => {
+    installWhatsAppTracking();
+  }, []);
+
+  useEffect(() => {
+    // El PageView de la carga inicial ya lo dispara el snippet de index.html.
+    if (primeraRuta.current) {
+      primeraRuta.current = false;
+      return;
+    }
+    trackPageView();
+  }, [location.pathname]);
+
+  return null;
+}
+
 function Main() {
   return (
     <CartProvider>
       <Router>
+        <PixelTracker />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/productos" element={<App />} />
