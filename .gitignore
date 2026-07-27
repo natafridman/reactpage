@@ -47,6 +47,9 @@ skills-lock.json
 # Background-removal local cache
 scripts/.bg-cache/
 
+# Creativos de anuncios (IG/Meta): salida local, no forma parte del sitio
+/ads/
+
 # Source supplier catalogs / price lists (local reference only, not for the repo)
 /catalogos-originales/
 
@@ -57,3 +60,6 @@ scripts/.bg-cache/
 # Single package manager: pnpm (pnpm-lock.yaml is the source of truth).
 # Keep npm's lockfile out so it can't drift from pnpm-lock and break CI/Vercel.
 package-lock.json
+
+# Scratch dir for favicon generation (holds the temp logo + any local API key).
+_favicon_work/
