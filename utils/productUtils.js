@@ -13,6 +13,21 @@ export async function loadManifest() {
   return manifestCache;
 }
 
+// ===== CATALOG INDEX =====
+// Un unico JSON con el metadata de los 103 productos, generado en el build por
+// scripts/generate-catalog-index.mjs. Reemplaza un fetch por producto (103
+// requests) por uno solo de ~12 KB comprimido.
+let catalogIndexCache = null;
+
+export async function loadCatalogIndex() {
+  if (catalogIndexCache) return catalogIndexCache;
+
+  const response = await fetch('/catalogo-index.json');
+  if (!response.ok) throw new Error(`catalogo-index.json: HTTP ${response.status}`);
+  catalogIndexCache = await response.json();
+  return catalogIndexCache;
+}
+
 // ===== THUMBNAIL HELPERS =====
 // Map a full image path to its generated sidecar webp variant in the sibling
 // `.thumbs` folder. `thumbSrc` => ~280px (cards/bubbles), `medSrc` => ~1200px

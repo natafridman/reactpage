@@ -12,7 +12,7 @@ import Footer from '/components/Footer.jsx';
 import CategoryBanner from '/components/CategoryBanner.jsx';
 import SearchFilterBar from '/components/SearchFilterBar.jsx';
 import RelatedProducts from '/components/RelatedProducts.jsx';
-import { loadManifest, getCategoryFromURL, normalizeText } from '/utils/productUtils.js';
+import { loadManifest, loadCatalogIndex, getCategoryFromURL, normalizeText } from '/utils/productUtils.js';
 import { useCart } from '/context/CartContext.jsx';
 
 // ===== CONFIGURATION =====
@@ -103,41 +103,64 @@ function App() {
     setIsLoading(true);
 
     try {
-      const manifest = await loadManifest();
-      const categoriesToLoad = selectedCategory ? [selectedCategory] : Object.keys(manifest);
-
-      const refs = [];
-      for (const category of categoriesToLoad) {
-        if (!manifest[category]) {
-          console.warn(`⚠️ Categoría "${category}" no encontrada en manifest`);
-          continue;
+      let clean;
+      try {
+        // Camino normal: un solo JSON precalculado en el build.
+        const index = await loadCatalogIndex();
+        const categoriesToLoad = selectedCategory ? [selectedCategory] : Object.keys(index);
+        clean = [];
+        for (const category of categoriesToLoad) {
+          if (!index[category]) {
+            console.warn(`⚠️ Categoría "${category}" no encontrada en el índice`);
+            continue;
+          }
+          for (const entry of index[category]) {
+            clean.push({ ...entry, category, index: clean.length });
+          }
         }
-        manifest[category].forEach(productFolder => refs.push({ category, productFolder }));
+      } catch (indexError) {
+        // Si el indice no esta (deploy viejo, archivo no generado), se cae al
+        // camino anterior en vez de dejar el catalogo vacio. Es lento, pero
+        // funciona: nadie que llegue desde un anuncio ve una pagina rota.
+        console.warn('Índice de catálogo no disponible, usando metadata por producto:', indexError);
+        clean = await loadScopeFromMetadataFiles(selectedCategory);
       }
 
-      // Fetch every metadata file in parallel - small text files, much faster than per-page.
-      const loaded = await Promise.all(refs.map(async ({ category, productFolder }, i) => {
-        const metadataPath = `/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/metadata.txt`;
-        try {
-          const res = await fetch(metadataPath);
-          if (!res.ok) return null;
-          const metadata = parseMetadata(await res.text());
-          return { metadata, category, productFolder, index: i, availableImages: metadata.images || [] };
-        } catch (error) {
-          console.error(`Error cargando producto ${productFolder}:`, error);
-          return null;
-        }
-      }));
-
-      const clean = loaded.filter(Boolean);
       productsCache.current[cacheKey] = clean;
       setAllProducts(clean);
       setIsLoading(false);
-      console.log(`✅ ${clean.length} productos cargados para scope "${cacheKey}"`);
     } catch (error) {
       console.error('❌ Error cargando productos:', error);
       setIsLoading(false);
     }
+  }
+
+  // Camino de respaldo: un fetch por producto. Era el mecanismo original y se
+  // conserva solo por si falta catalogo-index.json.
+  async function loadScopeFromMetadataFiles(selectedCategory) {
+    const manifest = await loadManifest();
+    const categoriesToLoad = selectedCategory ? [selectedCategory] : Object.keys(manifest);
+
+    const refs = [];
+    for (const category of categoriesToLoad) {
+      if (!manifest[category]) continue;
+      manifest[category].forEach(productFolder => refs.push({ category, productFolder }));
+    }
+
+    const loaded = await Promise.all(refs.map(async ({ category, productFolder }, i) => {
+      const metadataPath = `/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/metadata.txt`;
+      try {
+        const res = await fetch(metadataPath);
+        if (!res.ok) return null;
+        const metadata = parseMetadata(await res.text());
+        return { metadata, category, productFolder, index: i, availableImages: metadata.images || [] };
+      } catch (error) {
+        console.error(`Error cargando producto ${productFolder}:`, error);
+        return null;
+      }
+    }));
+
+    return loaded.filter(Boolean);
   }
 
   // ===== LOAD SINGLE PRODUCT =====

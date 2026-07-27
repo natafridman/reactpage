@@ -1,3 +1,8 @@
+/* Fuentes propias. Antes venian de fonts.googleapis.com con un <link> que
+   bloqueaba el primer pintado; ahora se sirven desde el mismo origen.
+   El @import va primero porque CSS lo exige, y Vite lo inlinea en el bundle. */
+@import './fonts.css';
+
 /* ===== B2YOU BRANDING COLORS ===== */
 :root {
     --b2-black: #2D2D2D;

@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B2YOU</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#FAFAF9">
+
+    <title>B2YOU · Accesorios de cuero con tu logo, para marcas y empresas</title>
+    <meta name="description" content="Producimos cinturones, gorras, carteras, mochilas y billeteras de cuero personalizados con tu logo. Aprobás la muestra antes de producir y el presupuesto es cerrado.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_AR">
+    <meta property="og:site_name" content="B2YOU">
+    <meta property="og:title" content="Accesorios de cuero con tu logo, para marcas y empresas">
+    <meta property="og:description" content="Cinturones, gorras, carteras y mochilas personalizados con tu marca. Aprobás la muestra antes de producir y el presupuesto es cerrado.">
+    <meta property="og:url" content="https://www.b2you.com.ar/">
+    <meta property="og:image" content="https://www.b2you.com.ar/creativos/B2YOU-ad-cinturones-grupal.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Las fuentes se sirven desde este mismo dominio (public/fonts, reglas en
+         fonts.css). Se precargan las dos variantes latin, que son las que usa
+         cualquier pagina en espanol; latin-ext baja solo si hace falta. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-normal-latin.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-normal-latin.woff2" crossorigin>
+
     <link rel="icon" type="image/x-icon" href="/favicon2.ico">
+
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -22,6 +39,26 @@
     fbq('track', 'PageView');
     </script>
     <!-- End Meta Pixel Code -->
+
+    <!-- Esqueleto de arranque. Sin esto el visitante mira una pantalla BLANCA
+         hasta que descarga, parsea y ejecuta el bundle: viniendo de un anuncio,
+         es donde mas gente se va. React lo reemplaza al montar.
+         No lleva el wordmark a proposito: "B2YOU" no se tipea nunca en otra
+         fuente, y aca Fraunces todavia puede no haber cargado. -->
+    <style>
+      html { background: #FAFAF9; }
+      body { margin: 0; }
+      #boot { min-height: 100vh; background: #FAFAF9; padding: 24px 20px; box-sizing: border-box; }
+      #boot .bar { height: 56px; border-bottom: 1px solid #E5E5E5; margin: -24px -20px 32px; }
+      #boot .grid { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); max-width: 1200px; margin: 0 auto; }
+      #boot .card { aspect-ratio: 4 / 5; border-radius: 10px; background: #F1EFEC; animation: bootPulse 1.4s ease-in-out infinite; }
+      #boot .card:nth-child(2) { animation-delay: .12s; }
+      #boot .card:nth-child(3) { animation-delay: .24s; }
+      #boot .card:nth-child(4) { animation-delay: .36s; }
+      @keyframes bootPulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+      @media (min-width: 720px) { #boot .grid { grid-template-columns: repeat(4, 1fr); } }
+      @media (prefers-reduced-motion: reduce) { #boot .card { animation: none; } }
+    </style>
 </head>
 <body>
     <!-- El <noscript> del pixel va en el body: dentro del <head> es HTML invalido
@@ -29,7 +66,17 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1010170731888741&ev=PageView&noscript=1"
     /></noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div id="boot" aria-hidden="true">
+        <div class="bar"></div>
+        <div class="grid">
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+          <div class="card"></div>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/index.jsx"></script>
 </body>
 </html>

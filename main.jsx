@@ -1,13 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { trackPageView, installWhatsAppTracking } from '/utils/metaPixel.js';
 import LandingPage from '/LandingPage.jsx';
 import App from '/App.jsx';
-import EmpresasPage from '/EmpresasPage.jsx';
-import MarcasPage from '/MarcasPage.jsx';
-import NosotrosPage from '/NosotrosPage.jsx';
-import RedProductosPage from '/RedProductosPage.jsx';
-import NotFoundPage from '/components/NotFoundPage.jsx';
+
+// "/" y "/productos" se cargan de una: son las dos entradas reales, y
+// /productos es adonde apuntan los anuncios. Diferirlas agregaria un viaje
+// extra justo donde no conviene.
+// El resto se carga bajo demanda, asi su codigo sale del bloque principal y
+// las dos paginas de arriba descargan menos.
+const EmpresasPage = lazy(() => import('/EmpresasPage.jsx'));
+const MarcasPage = lazy(() => import('/MarcasPage.jsx'));
+const NosotrosPage = lazy(() => import('/NosotrosPage.jsx'));
+const RedProductosPage = lazy(() => import('/RedProductosPage.jsx'));
+const NotFoundPage = lazy(() => import('/components/NotFoundPage.jsx'));
 import { CartProvider } from '/context/CartContext.jsx';
 import CartDrawer from '/components/CartDrawer.jsx';
 import '/blossom-core.css';
@@ -58,16 +64,20 @@ function Main() {
     <CartProvider>
       <Router>
         <PixelTracker />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/productos" element={<App />} />
-          <Route path="/producto/:categoria/:nombre" element={<App />} />
-          <Route path="/Empresas" element={<EmpresasPage />} />
-          <Route path="/Marcas" element={<MarcasPage />} />
-          <Route path="/Nosotros" element={<NosotrosPage />} />
-          <Route path="/red" element={<RedProductosPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        {/* fallback null: las rutas diferidas cargan en milisegundos y un
+            spinner intermedio parpadearia mas de lo que ayuda. */}
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/productos" element={<App />} />
+            <Route path="/producto/:categoria/:nombre" element={<App />} />
+            <Route path="/Empresas" element={<EmpresasPage />} />
+            <Route path="/Marcas" element={<MarcasPage />} />
+            <Route path="/Nosotros" element={<NosotrosPage />} />
+            <Route path="/red" element={<RedProductosPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
         <CartDrawer />
         <WhatsAppFloat />
         <div className="grain-overlay" aria-hidden="true" />

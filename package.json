@@ -8,8 +8,9 @@
     "logos": "node scripts/optimize-logos.mjs",
     "validate": "node scripts/validate-proveedores.mjs",
     "dev": "vite",
-    "build": "node scripts/validate-proveedores.mjs && node scripts/generate-thumbnails.mjs && node scripts/optimize-logos.mjs && vite build",
-    "preview": "vite preview"
+    "build": "node scripts/validate-proveedores.mjs && node scripts/generate-thumbnails.mjs && node scripts/optimize-logos.mjs && node scripts/generate-catalog-index.mjs && vite build",
+    "preview": "vite preview",
+    "catalog-index": "node scripts/generate-catalog-index.mjs"
   },
   "dependencies": {
     "@blossom-carousel/react": "^1.1.1",
