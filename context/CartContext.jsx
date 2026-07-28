@@ -1,5 +1,6 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { SHOW_PRICES } from '/utils/productUtils.js';
+import { trackAddToCart } from '/utils/metaPixel.js';
 
 // Frontend-only shopping cart. State lives in React + localStorage; there is no
 // backend. "Checkout" just builds a WhatsApp message (see cartWhatsappUrl).
@@ -29,6 +30,14 @@ export function CartProvider({ children }) {
   // Increments on every "adding" action (add / increment) so the UI can react
   // to a product being added — e.g. revealing the header so the cart is in view.
   const [addTick, setAddTick] = useState(0);
+
+  // `increment(key)` solo recibe la key, no el item. Para reportar que
+  // producto se agrego hace falta leer el item actual sin depender de un
+  // closure viejo (increment es un useCallback con deps []), asi que se lee
+  // de un ref actualizado en cada render en vez de agregar `items` a las deps
+  // y recrear la funcion en cada cambio del carrito.
+  const itemsRef = useRef(items);
+  useEffect(() => { itemsRef.current = items; }, [items]);
 
   useEffect(() => {
     try {
@@ -66,6 +75,7 @@ export function CartProvider({ children }) {
 
   const addItem = useCallback((item) => {
     if (!item || !item.key) return;
+    trackAddToCart(item);
     setItems((prev) => {
       const idx = prev.findIndex((p) => p.key === item.key);
       if (idx >= 0) {
@@ -83,6 +93,8 @@ export function CartProvider({ children }) {
   }, []);
 
   const increment = useCallback((key) => {
+    const current = itemsRef.current.find((p) => p.key === key);
+    if (current) trackAddToCart(current);
     setItems((prev) => prev.map((p) => (p.key === key ? { ...p, qty: p.qty + 1 } : p)));
     setAddTick((t) => t + 1);
   }, []);

@@ -2,12 +2,15 @@
 //
 // El codigo base ya hace `init` y el PageView de la primera carga. En una SPA
 // eso alcanza para la landing y para nada mas: al navegar de "/" a "/productos"
-// no hay recarga, asi que Meta nunca se entera. Este modulo agrega las dos
-// piezas que faltan:
+// no hay recarga, asi que Meta nunca se entera. Este modulo agrega las piezas
+// que faltan:
 //
 //   1. Un PageView por cada cambio de ruta de React Router.
 //   2. Un evento Contact cada vez que alguien sale hacia WhatsApp, que es la
 //      conversion real del sitio.
+//   3. Un evento AddToCart cada vez que se agrega un producto al carrito, con
+//      que producto fue. Se llama desde CartContext.jsx, el unico lugar donde
+//      un item entra al carrito.
 //
 // Los enlaces a WhatsApp estan repartidos en unos diez archivos y de dos formas
 // distintas: <a href="https://wa.me/..."> y window.open(...) dentro de handlers.
@@ -28,6 +31,20 @@ export function trackPageView() {
 
 export function trackContact(origen) {
   send('track', 'Contact', origen ? { content_name: origen } : undefined);
+}
+
+// item es un cart item de buildCartItem() (utils/productUtils.js): trae title,
+// code, price y tambien `proveedor`, que nunca sale del sitio (ver
+// utils/paymentTerms.js). Por eso esta funcion arma el payload a mano en vez
+// de reenviar el objeto entero.
+export function trackAddToCart(item) {
+  if (!item) return;
+  send('track', 'AddToCart', {
+    content_name: item.title,
+    content_ids: [item.code || item.key],
+    content_type: 'product',
+    ...(item.price != null ? { value: item.price, currency: 'ARS' } : {}),
+  });
 }
 
 let instalado = false;
