@@ -10,7 +10,6 @@ import BrandStory from '/components/BrandStory.jsx';
 import FeaturedProducts from '/components/FeaturedProducts.jsx';
 import ProductsCarousel from '/components/ProductsCarousel.jsx';
 import VisionMission from '/components/VisionMission.jsx';
-import TestimonialsSection from '/components/TestimonialsSection.jsx';
 import Footer from '/components/Footer.jsx';
 
 const WA_NUMBER = '5491178279281';
@@ -95,7 +94,6 @@ function LandingPage() {
         <FeaturedProducts />
         <VisionMission />
         <ProductsCarousel />
-        <TestimonialsSection />
 
         <section className="closing-cta">
           <div className="closing-cta-inner">
