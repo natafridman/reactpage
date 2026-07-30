@@ -3147,6 +3147,19 @@ a.product-card-info {
     .product-toolbar {
         top: 75px;
         padding: 0.6rem 1rem 0.65rem;
+        /* Fondo solido y sin desenfoque. En iOS, `backdrop-filter` junto con el
+           `transform` que esconde la barra deja la capa borrosa pegada donde
+           estaba, asi que la barra parecia quedarse flotando aunque el
+           encabezado ya se hubiera ido. Ademas, opaca se lee como una franja
+           cuando pasa por encima de la cinta de fotos del banner, en vez de
+           como un panel suelto. */
+        background: var(--b2-cream);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    [data-theme="dark"] .product-toolbar {
+        background: #141414;
     }
 
     .product-toolbar-top {
