@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -38,6 +38,33 @@ function SearchFilterBar({
   const countRef = useRef(null);
   const prevCount = useRef(resultCount);
   const filtersRef = useRef(null);
+  const [pegada, setPegada] = useState(false);
+
+  // ¿La barra ya esta clavada arriba, o todavia va bajando con la pagina?
+  // Importa porque solo se la esconde cuando esta clavada: si se la esconde
+  // mientras todavia esta en el medio de la pagina, se corre su propio alto
+  // desde donde este y el salto queda en mitad de la vista.
+  // `offsetTop` es posicion de maquetado, asi que no lo afecta el `transform`
+  // que la esconde y se puede leer aunque este corrida.
+  useEffect(() => {
+    const el = scope.current;
+    if (!el) return;
+    const TOPE = 75; // el mismo `top` que tiene en el CSS
+    let raf = 0;
+    const medir = () => {
+      raf = 0;
+      setPegada(window.scrollY + TOPE >= el.offsetTop);
+    };
+    const alScrollear = () => { if (!raf) raf = requestAnimationFrame(medir); };
+    medir();
+    window.addEventListener('scroll', alScrollear, { passive: true });
+    window.addEventListener('resize', alScrollear);
+    return () => {
+      window.removeEventListener('scroll', alScrollear);
+      window.removeEventListener('resize', alScrollear);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   // En telefono los filtros van en un renglon que se arrastra y el ultimo se
   // desvanece contra el borde. Cuando ya no queda nada para correr, se saca ese
@@ -116,7 +143,7 @@ function SearchFilterBar({
   ) : null;
 
   return (
-    <div className={`product-toolbar${headerHidden ? ' is-tucked' : ''}`} ref={scope}>
+    <div className={`product-toolbar${headerHidden && pegada ? ' is-tucked' : ''}`} ref={scope}>
       {/* Envoltorio necesario para el modo columna: el elemento de la grilla se
           estira a lo alto de la fila y este de adentro es el que queda fijo al
           hacer scroll. Sin el, `position: sticky` no tiene recorrido. En la
