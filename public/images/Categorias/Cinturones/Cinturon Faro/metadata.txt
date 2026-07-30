@@ -1,0 +1,8 @@
+title: Cinturon Faro
+subtitle: Basico Oval
+description: Cinturon basico de cuero vacuno con hebilla oval. Pase 30mm. Disponible en cognac y negro. Se personaliza con grabado.
+code: CIN-257
+images: FARO.jpg, FARO(1).jpg, FARO(2).jpg, FARO(3).jpg, FARO(4).jpg, FARO(5).jpg, FARO(6).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

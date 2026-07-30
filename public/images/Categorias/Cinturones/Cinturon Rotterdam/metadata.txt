@@ -1,0 +1,8 @@
+title: Cinturon Rotterdam
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro fino con perforaciones y hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-054
+images: ROTTERDAM.jpg, ROTTERDAM(1).jpg, ROTTERDAM(2).jpg, ROTTERDAM(3).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

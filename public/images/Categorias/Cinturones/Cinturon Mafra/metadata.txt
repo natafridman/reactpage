@@ -1,0 +1,8 @@
+title: Cinturon Mafra
+subtitle: Dos Filas de Microtachas
+description: Cinturon de cuero vacuno con dos filas de microtachas. Pase 25mm. Se personaliza con grabado.
+code: CIN-272
+images: MAFRA.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

@@ -1,0 +1,7 @@
+title: Billetera Verona
+subtitle: Cuero Acanalado Cognac
+description: Billetera bifold de cuero cognac con textura acanalada, ranuras para tarjetas y compartimento para billetes. Se personaliza con grabado.
+code: BIL-011
+images: VERONA.jpg, VERONA(1).jpg
+videos:
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Varsovia
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro perforado con hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-078
+images: VARSOVIA.jpg, VARSOVIA(1).jpg, VARSOVIA(2).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

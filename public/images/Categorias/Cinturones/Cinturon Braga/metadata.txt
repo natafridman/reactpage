@@ -1,0 +1,8 @@
+title: Cinturon Braga
+subtitle: Dos Filas de Remaches
+description: Cinturon de cuero vacuno con dos filas de remaches y hebilla ovalada. Pase 30mm. Disponible en cognac y negro. Se personaliza con grabado.
+code: CIN-255
+images: BRAGA.jpg, BRAGA(1).jpg, BRAGA(2).jpg, BRAGA(3).jpg, BRAGA(4).jpg, BRAGA(5).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Utrecht
+subtitle: Cuero Nacional
+description: Cinturon de cuero con hebilla envejecida, disponible en varios tonos. Cuero nacional, terminacion prolija. Se personaliza con grabado.
+code: CIN-102
+images: UTRECHT.jpg, UTRECHT(1).jpg, UTRECHT(2).jpg, UTRECHT(3).jpg, UTRECHT(4).jpg, UTRECHT(5).jpg, UTRECHT(6).jpg, UTRECHT(7).jpg, UTRECHT(8).jpg, UTRECHT(9).jpg, UTRECHT(10).jpg, UTRECHT(11).jpg, UTRECHT(12).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

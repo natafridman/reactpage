@@ -1,0 +1,8 @@
+title: Cinturon Marsella
+subtitle: Cuero Nacional
+description: Cinturon de cuero blanco perforado con hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-065
+images: MARSELLA.jpg, MARSELLA(1).jpg, MARSELLA(2).jpg, MARSELLA(3).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

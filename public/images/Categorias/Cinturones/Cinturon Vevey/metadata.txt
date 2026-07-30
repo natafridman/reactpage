@@ -1,0 +1,8 @@
+title: Cinturon Vevey
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-286
+images: VEVEY.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

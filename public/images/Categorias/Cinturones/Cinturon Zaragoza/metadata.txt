@@ -1,0 +1,8 @@
+title: Cinturon Zaragoza
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro texturizado con hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-070
+images: ZARAGOZA.jpg, ZARAGOZA(1).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

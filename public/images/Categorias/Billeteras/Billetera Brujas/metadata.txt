@@ -1,0 +1,7 @@
+title: Billetera Brujas
+subtitle: Bifold con Banda Elástica
+description: Billetera bifold de cuero camel con banda elástica de cierre, tono más claro dentro de la línea. Ranuras para tarjetas y compartimento para billetes. Se personaliza con grabado.
+code: BIL-010
+images: BRUJAS.jpg
+videos:
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Granada
+subtitle: Cuero Nacional
+description: Cinturon de cuero camel con costura visible y hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-071
+images: GRANADA.jpg, GRANADA(1).jpg, GRANADA(2).jpg, GRANADA(3).jpg, GRANADA(4).jpg, GRANADA(5).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

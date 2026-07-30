@@ -1,0 +1,7 @@
+title: Billetera Salzburgo
+subtitle: Bifold con Banda Elástica
+description: Billetera bifold de cuero negro con banda elástica de cierre. Espacio para tarjetas y billetes en un formato compacto. Se personaliza con grabado.
+code: BIL-012
+images: SALZBURGO.jpg, SALZBURGO(1).jpg
+videos:
+proveedor: aston

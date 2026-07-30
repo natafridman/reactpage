@@ -1,0 +1,8 @@
+title: Cinturon Baixa
+subtitle: Simil Cuero
+description: Cinturon de simil cuero con hebilla metalica. Se personaliza con grabado.
+code: CIN-276
+images: BAIXA.jpg, BAIXA(1).jpg
+videos:
+tags: mujer, importado
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Tula
+subtitle: Linea Importada
+description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
+code: CIN-192
+images: TULA.jpg
+videos:
+tags: hombre, importado
+proveedor: aston

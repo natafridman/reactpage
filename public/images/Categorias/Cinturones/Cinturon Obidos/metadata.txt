@@ -1,0 +1,8 @@
+title: Cinturon Obidos
+subtitle: Basico con Pasador
+description: Cinturon basico de cuero vacuno con pasador. Pase 25mm. Se personaliza con grabado.
+code: CIN-267
+images: OBIDOS.jpg, OBIDOS(1).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

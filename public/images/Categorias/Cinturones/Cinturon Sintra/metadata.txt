@@ -1,0 +1,8 @@
+title: Cinturon Sintra
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-264
+images: SINTRA.jpg, SINTRA(1).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Bolonia
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro con detalles de tachas y hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-075
+images: BOLONIA.jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

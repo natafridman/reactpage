@@ -1,0 +1,8 @@
+title: Cinturon Belfast
+subtitle: Cuero Nacional
+description: Cinturon de cuero cognac con hebilla plateada. Cuero nacional, terminacion prolija. Se personaliza con grabado.
+code: CIN-100
+images: BELFAST.jpg, BELFAST(1).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Fatima
+subtitle: Hebilla Forrada
+description: Cinturon de cuero vacuno con hebilla forrada. Pase 45mm. Se personaliza con grabado.
+code: CIN-269
+images: FATIMA.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

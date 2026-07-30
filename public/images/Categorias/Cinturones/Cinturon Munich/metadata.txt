@@ -1,0 +1,8 @@
+title: Cinturon Munich
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro liso con hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-057
+images: MUNICH.jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

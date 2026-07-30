@@ -1,0 +1,8 @@
+title: Cinturon Kaunas
+subtitle: Linea Importada
+description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
+code: CIN-113
+images: KAUNAS.jpg, KAUNAS(1).jpg
+videos:
+tags: hombre, importado
+proveedor: aston

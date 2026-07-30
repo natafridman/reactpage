@@ -1,0 +1,8 @@
+title: Cinturon Estocolmo
+subtitle: Cuero Nacional
+description: Cinturon de cuero marrón con costura visible y hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-048
+images: ESTOCOLMO.jpg, ESTOCOLMO(1).jpg, ESTOCOLMO(2).jpg, ESTOCOLMO(3).jpg, ESTOCOLMO(4).jpg, ESTOCOLMO(5).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

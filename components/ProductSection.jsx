@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BlossomCarousel } from '@blossom-carousel/react';
 import { medSrc, formatPrice, quoteWhatsappUrl, buildCartItem } from '/utils/productUtils.js';
 import { flyToCart } from '/utils/flyToCart.js';
 import { useCart } from '/context/CartContext.jsx';
@@ -18,6 +19,8 @@ function ProductSection({ product, onImageClick, showBackLink = false }) {
   const { metadata, category, productFolder, index, availableImages } = product;
   const [copied, setCopied] = useState(false);
   const price = formatPrice(metadata);
+
+
 
   const cartItem = buildCartItem(product);
   const qty = items.find((i) => i.key === cartItem.key)?.qty || 0;
@@ -46,6 +49,8 @@ function ProductSection({ product, onImageClick, showBackLink = false }) {
   const textAlign = isOdd ? 'right' : 'left';
   const numberPosition = isOdd ? { left: 'auto', right: '2rem' } : { left: '2rem', right: 'auto' };
   const contentMargin = isOdd ? { marginLeft: 'auto', marginRight: 0 } : { marginLeft: 0, marginRight: 'auto' };
+
+
 
   function handleShare() {
     const url = `${window.location.origin}/producto/${encodeURIComponent(category)}/${encodeURIComponent(productFolder)}`;
@@ -204,27 +209,30 @@ function ProductSection({ product, onImageClick, showBackLink = false }) {
           </button>
         </div>
 
-        <div className="gallery-grid" style={contentMargin}>
-          {gallerySource.map((filename, idx) => (
-            <div
-              key={idx}
-              className="gallery-item"
-            >
-              <img
-                src={medSrc(`${productPath}/${filename}`)}
-                data-full={`${productPath}/${filename}`}
-                alt={`${metadata.title} - Imagen ${idx + 1}`}
-                loading="lazy"
-                decoding="async"
-                onError={(e) => {
-                  if (!e.target.dataset.fallback) {
-                    e.target.dataset.fallback = '1';
-                    e.target.src = `${productPath}/${filename}`;
-                  }
-                }}
-              />
-            </div>
-          ))}
+        {/* Fila unica de miniaturas en loop continuo. Las imagenes se duplican
+            para que al llegar al final se encadene con el principio sin salto:
+            el desplazamiento vuelve a 0 justo cuando la copia queda alineada
+            con el original, asi que la costura no se ve. */}
+        <div className="gallery-rail" style={contentMargin}>
+          <BlossomCarousel className="gallery-rail-track">
+            {gallerySource.map((filename, idx) => (
+              <div key={idx} className="gallery-item">
+                <img
+                  src={medSrc(`${productPath}/${filename}`)}
+                  data-full={`${productPath}/${filename}`}
+                  alt={`${metadata.title} - Imagen ${idx + 1}`}
+                  loading="lazy"
+                  decoding="async"
+                  onError={(e) => {
+                    if (!e.target.dataset.fallback) {
+                      e.target.dataset.fallback = '1';
+                      e.target.src = `${productPath}/${filename}`;
+                    }
+                  }}
+                />
+              </div>
+            ))}
+          </BlossomCarousel>
         </div>
       </div>
     </section>

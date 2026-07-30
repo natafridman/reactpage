@@ -1,0 +1,8 @@
+title: Cinturon Chiado
+subtitle: Simil Cuero
+description: Cinturon de simil cuero con hebilla metalica. Disponible en camel y negro. Se personaliza con grabado.
+code: CIN-275
+images: CHIADO.jpg, CHIADO(1).jpg, CHIADO(2).jpg, CHIADO(3).jpg
+videos:
+tags: mujer, importado
+proveedor: aston

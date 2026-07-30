@@ -1,0 +1,7 @@
+title: Billetera Cracovia
+subtitle: Cuero Acanalado
+description: Billetera bifold de cuero negro con textura acanalada, ranuras para tarjetas y compartimento para billetes. Terminación prolija en cada costura. Se personaliza con grabado.
+code: BIL-007
+images: CRACOVIA.jpg, CRACOVIA(1).jpg, CRACOVIA(2).jpg, CRACOVIA(3).jpg
+videos:
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Lyon
+subtitle: Cuero Nacional
+description: Cinturon de cuero blanco perforado con hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-066
+images: LYON.jpg, LYON(1).jpg, LYON(2).jpg, LYON(3).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

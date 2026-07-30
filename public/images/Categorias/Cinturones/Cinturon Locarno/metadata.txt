@@ -1,0 +1,8 @@
+title: Cinturon Locarno
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-294
+images: LOCARNO.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

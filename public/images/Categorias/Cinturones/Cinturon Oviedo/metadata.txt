@@ -1,0 +1,8 @@
+title: Cinturon Oviedo
+subtitle: Cuero Vacuno Nacional
+description: Cinturon de cuero vacuno con decoracion tres cuadrados, pase 40mm. Cuero nacional, terminacion prolija. Se personaliza con grabado.
+code: CIN-094
+images: OVIEDO.jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

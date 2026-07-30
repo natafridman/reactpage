@@ -1,0 +1,8 @@
+title: Cinturon Glasgow
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro fino con hebilla chica plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-053
+images: GLASGOW.jpg, GLASGOW(1).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

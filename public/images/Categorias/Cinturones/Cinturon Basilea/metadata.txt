@@ -1,0 +1,8 @@
+title: Cinturon Basilea
+subtitle: Cuero Nacional
+description: Cinturon de cuero azul grisáceo con hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-062
+images: BASILEA.jpg, BASILEA(1).jpg, BASILEA(2).jpg, BASILEA(3).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Toulouse
+subtitle: Cuero Nacional
+description: Cinturon de cuero blanco perforado con hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-064
+images: TOULOUSE.jpg, TOULOUSE(1).jpg, TOULOUSE(2).jpg, TOULOUSE(3).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

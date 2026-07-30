@@ -1,0 +1,8 @@
+title: Cinturon Brig
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-293
+images: BRIG.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

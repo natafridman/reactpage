@@ -1,0 +1,8 @@
+title: Cinturon Sion
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-282
+images: SION.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

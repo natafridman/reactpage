@@ -1,0 +1,8 @@
+title: Cinturon Appenzell
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-304
+images: APPENZELL.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

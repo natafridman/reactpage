@@ -1,0 +1,8 @@
+title: Cinturon Odense
+subtitle: Linea Importada
+description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
+code: CIN-109
+images: ODENSE.jpg, ODENSE(1).jpg, ODENSE(2).jpg
+videos:
+tags: hombre, importado
+proveedor: aston

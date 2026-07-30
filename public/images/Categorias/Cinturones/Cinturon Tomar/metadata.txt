@@ -1,0 +1,8 @@
+title: Cinturon Tomar
+subtitle: Basico 3 Pasadores
+description: Cinturon basico de cuero vacuno con tres pasadores. Pase 30mm. Se personaliza con grabado.
+code: CIN-270
+images: TOMAR.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

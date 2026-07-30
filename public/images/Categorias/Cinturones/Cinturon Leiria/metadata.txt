@@ -1,0 +1,8 @@
+title: Cinturon Leiria
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-263
+images: LEIRIA.jpg, LEIRIA(1).jpg, LEIRIA(2).jpg, LEIRIA(3).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

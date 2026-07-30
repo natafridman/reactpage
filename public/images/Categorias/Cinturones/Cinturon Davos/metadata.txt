@@ -1,0 +1,8 @@
+title: Cinturon Davos
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-296
+images: DAVOS.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

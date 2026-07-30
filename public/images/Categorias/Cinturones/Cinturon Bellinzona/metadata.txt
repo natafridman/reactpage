@@ -1,0 +1,8 @@
+title: Cinturon Bellinzona
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-295
+images: BELLINZONA.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Graca
+subtitle: Simil Cuero
+description: Cinturon de simil cuero con hebilla metalica. Se personaliza con grabado.
+code: CIN-277
+images: GRACA.jpg, GRACA(1).jpg
+videos:
+tags: mujer, importado
+proveedor: aston

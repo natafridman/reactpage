@@ -1,0 +1,7 @@
+title: Morral Bilbao
+subtitle: Bolso Cruzado
+description: Bolso cruzado de tela técnica con correa ajustable y cierre de cremallera. Formato compacto para uso diario. Se personaliza con logo bordado o estampado.
+code: MOR-002
+images: BILBAO.jpg
+videos:
+proveedor: aston

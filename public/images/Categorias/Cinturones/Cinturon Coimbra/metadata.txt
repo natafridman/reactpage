@@ -1,0 +1,8 @@
+title: Cinturon Coimbra
+subtitle: Hebilla Ovalada
+description: Cinturon de cuero vacuno con hebilla ovalada plateada. Disponible en cognac y negro. Se personaliza con grabado.
+code: CIN-256
+images: COIMBRA.jpg, COIMBRA(1).jpg, COIMBRA(2).jpg, COIMBRA(3).jpg, COIMBRA(4).jpg, COIMBRA(5).jpg, COIMBRA(6).jpg, COIMBRA(7).jpg, COIMBRA(8).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

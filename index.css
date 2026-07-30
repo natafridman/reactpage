@@ -668,8 +668,12 @@ body {
 }
 
 /* ===== PRODUCT SECTION ===== */
+/* Alto de la ficha de producto en escritorio: 2/3 de la pantalla, no la pantalla
+   entera. Con 100vh la foto quedaba desproporcionada y empujaba el contenido de
+   la columna de texto fuera de la vista. En <=1024px las columnas se apilan y
+   manda el bloque responsive, que ya usa max-height 50vh. */
 .product-section {
-    min-height: 100vh;
+    min-height: 67vh;
     display: flex;
     position: relative;
     scroll-snap-align: start;
@@ -697,14 +701,19 @@ body {
 /* ===== HERO SIDE ===== */
 .hero-side {
     flex: 1;
-    min-height: 100vh;
+    min-height: 67vh;
+    max-height: 67vh;
     position: relative;
+    overflow: hidden;
     background: var(--b2-black);
 }
 
 .hero-image-wrapper {
     width: 100%;
-    height: 100%;
+    /* Alto explicito, no height:100%. El padre (.hero-side) define su alto con
+       max-height, y contra eso un porcentaje no resuelve: el wrapper se estiraba
+       al alto del contenido y dejaba el titulo del producto fuera del recorte. */
+    height: 67vh;
     position: relative;
     overflow: hidden;
 }
@@ -712,8 +721,6 @@ body {
 .hero-image {
     width: 100%;
     height: 100%;
-    /* No max-height cap: when the text column runs taller than the viewport,
-       the image must keep filling the hero side or a dark slab shows below it. */
     object-fit: cover;
     transform: scale(1);
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -728,8 +735,8 @@ body {
     bottom: 8%;
     background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(10px);
-    padding: 2rem 2.5rem;
-    max-width: 450px;
+    padding: 1.15rem 1.5rem;
+    max-width: 330px;
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -762,7 +769,7 @@ body {
 
 .product-title-overlay h2 {
     color: var(--b2-white);
-    font-size: 2.5rem;
+    font-size: 1.7rem;
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.02em;
@@ -772,8 +779,9 @@ body {
 /* ===== GALLERY SIDE ===== */
 .gallery-side {
     flex: 1;
-    min-height: 100vh;
-    padding: 5rem 4rem;
+    min-height: 67vh;
+    max-height: 67vh;
+    padding: 3rem 4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -900,14 +908,35 @@ body {
 }
 
 /* ===== GALLERY GRID ===== */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+/* Riel de miniaturas: una sola fila en loop continuo (ver el autoplay en
+   ProductSection.jsx). Antes era una grilla de 3 columnas que crecia hacia
+   abajo y estiraba la ficha muy por encima del alto de pantalla. */
+.gallery-rail {
     max-width: 680px;
+    overflow: hidden;
+    /* flex-shrink:0 + alto propio: dentro de la columna flex, el riel se
+       comprimia al espacio sobrante (53px contra 130px de la miniatura) y las
+       fotos quedaban cortadas por abajo. */
+    flex: 0 0 auto;
+    height: 130px;
+}
+
+/* El arrastre lo maneja blossom-carousel; aca solo se oculta la barra. */
+.gallery-rail-track {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.gallery-rail-track::-webkit-scrollbar {
+    display: none;
 }
 
 .gallery-item {
+    flex: 0 0 auto;
+    width: 130px;
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: 8px;
@@ -2087,7 +2116,7 @@ a.product-card-info {
     .gallery-side .description-text,
     .gallery-side .b2b-terms,
     .gallery-side .product-actions,
-    .gallery-side .gallery-grid {
+    .gallery-side .gallery-rail {
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
@@ -2205,9 +2234,12 @@ a.product-card-info {
         padding: 3rem 2rem;
     }
     
-    .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .gallery-rail-track {
         gap: 1rem;
+    }
+
+    .gallery-item {
+        width: 110px;
     }
     
     .accent-number {
@@ -2297,8 +2329,12 @@ a.product-card-info {
         font-size: 1.75rem;
     }
     
-    .gallery-grid {
+    .gallery-rail-track {
         gap: 0.75rem;
+    }
+
+    .gallery-item {
+        width: 95px;
     }
     
     .description-text {
@@ -3128,6 +3164,10 @@ a.product-card-info {
     width: 100%;
     height: 100%;
     text-decoration: none;
+    /* El zoom del hover escala la <img> dentro del slide. Sin recortar aca, la
+       imagen ampliada se desborda de su celda del grid y asoma sobre el slide
+       vecino: se veia como si apareciera "otra foto al lado". */
+    overflow: hidden;
 }
 
 .card-slide img {

@@ -1,0 +1,7 @@
+title: Billetera Ginebra
+subtitle: Cuero Marmolado Azul
+description: Billetera bifold de cuero con terminación marmolada en tono azul, un color distinto al resto de la línea. Ranuras para tarjetas y compartimento para billetes. Se personaliza con grabado.
+code: BIL-008
+images: GINEBRA.jpg
+videos:
+proveedor: aston

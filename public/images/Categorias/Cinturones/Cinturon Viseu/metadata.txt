@@ -1,0 +1,8 @@
+title: Cinturon Viseu
+subtitle: Croco 2
+description: Cinturon ancho de cuero vacuno con textura croco y hebilla ovalada grande. Pase 35mm. Disponible en cognac y negro. Se personaliza con grabado.
+code: CIN-262
+images: VISEU.jpg, VISEU(1).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

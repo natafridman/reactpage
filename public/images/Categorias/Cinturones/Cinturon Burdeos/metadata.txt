@@ -1,0 +1,8 @@
+title: Cinturon Burdeos
+subtitle: Cuero Nacional
+description: Cinturon de cuero camel perforado con hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-067
+images: BURDEOS.jpg, BURDEOS(1).jpg, BURDEOS(2).jpg, BURDEOS(3).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

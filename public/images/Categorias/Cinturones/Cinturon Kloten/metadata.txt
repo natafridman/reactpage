@@ -1,0 +1,8 @@
+title: Cinturon Kloten
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-316
+images: KLOTEN.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

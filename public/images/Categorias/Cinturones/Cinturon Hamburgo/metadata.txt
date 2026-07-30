@@ -1,0 +1,8 @@
+title: Cinturon Hamburgo
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro con logo en la hebilla. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-056
+images: HAMBURGO.jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

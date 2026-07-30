@@ -1,0 +1,8 @@
+title: Cinturon Salamanca
+subtitle: Cuero Vacuno Nacional
+description: Cinturon de cuero vacuno con decoracion básico, pase 40mm. Cuero nacional, terminacion prolija. Se personaliza con grabado.
+code: CIN-090
+images: SALAMANCA.jpg, SALAMANCA(1).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

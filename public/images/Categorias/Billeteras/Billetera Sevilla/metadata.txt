@@ -1,0 +1,7 @@
+title: Billetera Sevilla
+subtitle: Bifold con Banda Elástica
+description: Billetera bifold de cuero graneado cognac, con banda elástica que mantiene el cierre sin necesidad de botón ni broche. Ranuras para tarjetas y compartimento para billetes. Se personaliza con grabado.
+code: BIL-006
+images: SEVILLA.jpg, SEVILLA(1).jpg
+videos:
+proveedor: aston

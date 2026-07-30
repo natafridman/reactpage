@@ -63,3 +63,15 @@ package-lock.json
 
 # Scratch dir for favicon generation (holds the temp logo + any local API key).
 _favicon_work/
+
+# Fotos originales de producto: quedan solo en local, no en el repo.
+# Pesan ~1 GB contra 27 MB de las variantes generadas, y el sitio no las
+# necesita: las tarjetas usan .thumbs/*.webp, y el modal de pantalla completa
+# usa .thumbs/*.med.webp (~1200px) como fuente principal, cayendo al original
+# solo si esa falla. Se ignoran las imagenes que estan sueltas en la carpeta de
+# cada producto; las de .thumbs/ (un nivel mas abajo) si se versionan.
+# Las de los productos ya versionados antes de esta regla siguen trackeadas.
+public/images/Categorias/*/*/*.jpg
+public/images/Categorias/*/*/*.jpeg
+public/images/Categorias/*/*/*.png
+public/images/Categorias/*/*/*.webp

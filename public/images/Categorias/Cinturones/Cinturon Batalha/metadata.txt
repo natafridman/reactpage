@@ -1,0 +1,8 @@
+title: Cinturon Batalha
+subtitle: Micro Full
+description: Cinturon de cuero vacuno modelo micro full. Pase 25mm. Se personaliza con grabado.
+code: CIN-271
+images: BATALHA.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

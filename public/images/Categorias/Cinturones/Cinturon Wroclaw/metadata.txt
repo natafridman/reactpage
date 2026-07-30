@@ -1,0 +1,8 @@
+title: Cinturon Wroclaw
+subtitle: Linea Importada
+description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
+code: CIN-120
+images: WROCLAW.jpg
+videos:
+tags: hombre, importado
+proveedor: aston

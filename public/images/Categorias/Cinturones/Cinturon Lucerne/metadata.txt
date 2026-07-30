@@ -1,0 +1,8 @@
+title: Cinturon Lucerne
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-303
+images: LUCERNE.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

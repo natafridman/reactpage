@@ -1,0 +1,8 @@
+title: Cinturon Lucerna
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-278
+images: LUCERNA.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

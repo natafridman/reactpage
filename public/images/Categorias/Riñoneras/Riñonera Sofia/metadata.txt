@@ -1,0 +1,7 @@
+title: Riñonera Sofia
+subtitle: Tela Técnica Resistente
+description: Riñonera de tela técnica con cierre de cremallera y correa ajustable. Liviana y resistente, pensada para uso diario. Se personaliza con logo bordado o estampado.
+code: RIN-003
+images: SOFIA.jpg, SOFIA(1).jpg
+videos:
+proveedor: aston

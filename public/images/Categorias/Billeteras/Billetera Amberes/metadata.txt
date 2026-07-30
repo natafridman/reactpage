@@ -1,0 +1,7 @@
+title: Billetera Amberes
+subtitle: Bifold con Banda Elástica
+description: Billetera bifold de cuero marrón con banda elástica de cierre. Espacio para tarjetas y billetes en un formato compacto. Se personaliza con grabado.
+code: BIL-009
+images: AMBERES.jpg, AMBERES(1).jpg, AMBERES(2).jpg, AMBERES(3).jpg, AMBERES(4).jpg
+videos:
+proveedor: aston

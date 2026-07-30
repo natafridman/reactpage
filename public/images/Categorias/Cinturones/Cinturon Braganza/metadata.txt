@@ -1,0 +1,8 @@
+title: Cinturon Braganza
+subtitle: Cuero Vacuno
+description: Cinturon fino de cuero vacuno con hebilla cuadrada plateada. Disponible en camel y negro. Se personaliza con grabado.
+code: CIN-254
+images: BRAGANZA.jpg, BRAGANZA(1).jpg, BRAGANZA(2).jpg, BRAGANZA(3).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

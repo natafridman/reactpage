@@ -1,0 +1,8 @@
+title: Cinturon Amsterdam
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro fino con perforaciones. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-055
+images: AMSTERDAM.jpg, AMSTERDAM(1).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

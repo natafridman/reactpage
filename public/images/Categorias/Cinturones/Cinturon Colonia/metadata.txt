@@ -1,0 +1,8 @@
+title: Cinturon Colonia
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro liso con hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-058
+images: COLONIA.jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

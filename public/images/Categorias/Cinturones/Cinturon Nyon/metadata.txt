@@ -1,0 +1,8 @@
+title: Cinturon Nyon
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-288
+images: NYON.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

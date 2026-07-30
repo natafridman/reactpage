@@ -1,0 +1,8 @@
+title: Cinturon Genova
+subtitle: Cuero Nacional
+description: Cinturon de cuero blanco perforado con hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-076
+images: GENOVA.jpg, GENOVA(1).jpg, GENOVA(2).jpg, GENOVA(3).jpg, GENOVA(4).jpg, GENOVA(5).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

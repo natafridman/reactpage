@@ -1,0 +1,8 @@
+title: Cinturon Valencia
+subtitle: Cuero Nacional
+description: Cinturon de cuero cognac texturizado con hebilla plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-069
+images: VALENCIA.jpg, VALENCIA(1).jpg, VALENCIA(2).jpg, VALENCIA(3).jpg, VALENCIA(4).jpg, VALENCIA(5).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

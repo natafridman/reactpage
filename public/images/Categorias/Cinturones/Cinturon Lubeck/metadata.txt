@@ -1,0 +1,8 @@
+title: Cinturon Lubeck
+subtitle: Linea Importada
+description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
+code: CIN-220
+images: LUBECK.jpg
+videos:
+tags: hombre, importado
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Bratislava
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro con detalle de costura y hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-080
+images: BRATISLAVA.jpg, BRATISLAVA(1).jpg, BRATISLAVA(2).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

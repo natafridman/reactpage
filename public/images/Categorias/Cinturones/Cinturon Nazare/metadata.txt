@@ -1,0 +1,8 @@
+title: Cinturon Nazare
+subtitle: Texan 152
+description: Cinturon de cuero vacuno modelo texan. Pase 25mm. Se personaliza con grabado.
+code: CIN-268
+images: NAZARE.jpg, NAZARE(1).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

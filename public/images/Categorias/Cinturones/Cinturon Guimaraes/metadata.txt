@@ -1,0 +1,8 @@
+title: Cinturon Guimaraes
+subtitle: Fino Liso
+description: Cinturon fino de cuero vacuno con hebilla ovalada. Disponible en cognac y negro. Se personaliza con grabado.
+code: CIN-261
+images: GUIMARAES.jpg, GUIMARAES(1).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

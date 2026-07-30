@@ -1,0 +1,8 @@
+title: Cinturon Evora
+subtitle: Fino con Costura
+description: Cinturon fino de cuero vacuno con costura perimetral y hebilla cuadrada. Disponible en blanco y negro. Se personaliza con grabado.
+code: CIN-258
+images: EVORA.jpg, EVORA(1).jpg, EVORA(2).jpg, EVORA(3).jpg, EVORA(4).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

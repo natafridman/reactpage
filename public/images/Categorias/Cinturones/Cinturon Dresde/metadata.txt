@@ -1,0 +1,8 @@
+title: Cinturon Dresde
+subtitle: Cuero Nacional
+description: Cinturon de cuero negro con hebilla cuadrada envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-060
+images: DRESDE.jpg, DRESDE(1).jpg, DRESDE(2).jpg, DRESDE(3).jpg, DRESDE(4).jpg, DRESDE(5).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

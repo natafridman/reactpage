@@ -1,0 +1,8 @@
+title: Cinturon Aveiro
+subtitle: Textura Croco
+description: Cinturon de cuero vacuno con textura tipo croco y hebilla cuadrada. Disponible en cognac y negro. Se personaliza con grabado.
+code: CIN-259
+images: AVEIRO.jpg, AVEIRO(1).jpg, AVEIRO(2).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

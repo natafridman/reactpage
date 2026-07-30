@@ -1,0 +1,8 @@
+title: Cinturon Alfama
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-274
+images: ALFAMA.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

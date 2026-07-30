@@ -1,0 +1,8 @@
+title: Cinturon Gstaad
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-301
+images: GSTAAD.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

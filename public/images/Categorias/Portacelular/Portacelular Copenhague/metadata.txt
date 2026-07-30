@@ -1,0 +1,7 @@
+title: Portacelular Copenhague
+subtitle: Bolso Cruzado para Celular
+description: Bolso chico de tela técnica para llevar el celular cruzado, con correa ajustable y bolsillo con cierre. Disponible en verde y crema. Se personaliza con logo bordado o estampado.
+code: CEL-001
+images: COPENHAGUE_verde.jpg, COPENHAGUE_crema.jpg, COPENHAGUE(1).jpg, COPENHAGUE(2).jpg, COPENHAGUE(3).jpg, COPENHAGUE(4).jpg
+videos:
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Plovdiv
+subtitle: Linea Importada
+description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
+code: CIN-141
+images: PLOVDIV.jpg
+videos:
+tags: hombre, importado
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Dublin
+subtitle: Cuero Nacional
+description: Cinturon de cuero camel con hebilla ovalada plateada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-050
+images: DUBLIN.jpg, DUBLIN(1).jpg, DUBLIN(2).jpg, DUBLIN(3).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston

@@ -1,0 +1,8 @@
+title: Cinturon Delemont
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-311
+images: DELEMONT.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

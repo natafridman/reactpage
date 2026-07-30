@@ -1,0 +1,8 @@
+title: Cinturon Setubal
+subtitle: Texan Shell
+description: Cinturon de cuero vacuno con hebilla texan shell. Pase 25mm. Disponible en camel y negro. Se personaliza con grabado.
+code: CIN-260
+images: SETUBAL.jpg, SETUBAL(1).jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

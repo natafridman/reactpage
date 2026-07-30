@@ -1,0 +1,8 @@
+title: Cinturon Palermo
+subtitle: Cuero Nacional
+description: Cinturon de cuero camel con hebilla dorada. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
+code: CIN-077
+images: PALERMO.jpg, PALERMO(1).jpg, PALERMO(2).jpg, PALERMO(3).jpg, PALERMO(4).jpg, PALERMO(5).jpg, PALERMO(6).jpg, PALERMO(7).jpg, PALERMO(8).jpg
+videos:
+tags: hombre, nacional
+proveedor: aston
