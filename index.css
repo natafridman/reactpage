@@ -945,7 +945,10 @@ body {
     opacity: 0;
     transform: scale(0.9);
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    background: var(--b2-black);
+    /* Fondo claro, no negro: las fotos de producto vienen sobre blanco y el
+       recorte redondeado tiene los bordes suavizados, asi que un fondo oscuro
+       se filtraba por debajo y dejaba cuatro marcas curvas en las puntas. */
+    background: var(--b2-cream);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -961,26 +964,11 @@ body {
 .reveal-in .gallery-item:nth-child(5) { transition-delay: 0.5s; }
 .reveal-in .gallery-item:nth-child(6) { transition-delay: 0.55s; }
 
-.gallery-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(122, 79, 72, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: 1;
-}
-
+/* Al pasar el mouse la miniatura se levanta apenas. Sin velo de color encima:
+   tapaba la foto justo cuando la persona la esta mirando. */
 .gallery-item:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.gallery-item:hover::before {
-    opacity: 1;
+    box-shadow: 0 8px 20px rgba(58, 32, 27, 0.16);
 }
 
 .gallery-item img {
@@ -991,7 +979,7 @@ body {
 }
 
 .gallery-item:hover img {
-    transform: scale(1.1);
+    transform: scale(1.04);
 }
 
 /* ===== FOOTER STYLES ===== */
@@ -2151,10 +2139,38 @@ a.product-card-info {
         max-height: 50vh;
     }
 
-    .product-title-overlay h2 {
-        font-size: 2rem;
+    /* El wrapper lleva un alto explicito de 67vh para el recorte de escritorio.
+       En una sola columna el .hero-side se limita a 50vh, asi que sin bajarlo
+       aca el recuadro del titulo caia dentro de la zona recortada: se veia
+       apenas una franja de 23px pisando el "Volver al catalogo". */
+    .hero-image-wrapper {
+        height: 50vh;
     }
-    
+
+    /* El tope de 67vh es del layout de dos columnas. En una sola columna la
+       ficha crece a lo largo y ese tope le recortaria el contenido. */
+    .gallery-side {
+        max-height: none;
+    }
+
+    /* El corrimiento lateral y el ancho de 330px tambien son del layout de dos
+       columnas, y llegan como estilo en linea desde ProductSection: por eso el
+       !important. Aca el recuadro apoya en el borde inferior de la foto y crece
+       hacia arriba, asi que el recorte no lo puede cortar por mas que el titulo
+       o el subtitulo ocupen dos renglones. */
+    .product-title-overlay {
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0;
+        transform: none !important;
+        max-width: none;
+        padding: 1rem 2rem 1.1rem;
+    }
+
+    .product-title-overlay h2 {
+        font-size: 1.5rem;
+    }
+
     .loading-product-skeleton {
         flex-direction: column;
     }
@@ -2320,13 +2336,14 @@ a.product-card-info {
         margin-bottom: 1rem;
     }
     
+    /* Padding lateral igual al de .gallery-side (1.5rem) para que el titulo
+       quede alineado con el texto que va abajo. */
     .product-title-overlay {
-        padding: 1.5rem 2rem;
-        max-width: 90%;
+        padding: 0.85rem 1.5rem 0.95rem;
     }
-    
+
     .product-title-overlay h2 {
-        font-size: 1.75rem;
+        font-size: 1.3rem;
     }
     
     .gallery-rail-track {
@@ -2377,12 +2394,14 @@ a.product-card-info {
     background: #0A0A0A;
 }
 
+/* El fondo de la miniatura queda claro tambien en oscuro: la foto de producto
+   es blanca en los dos temas y un fondo negro le marcaba las puntas. */
 [data-theme="dark"] .gallery-item {
-    background: #0A0A0A;
+    background: #E8E4E0;
 }
 
-[data-theme="dark"] .gallery-item::before {
-    background: linear-gradient(135deg, rgba(192, 138, 126, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%);
+[data-theme="dark"] .gallery-item:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
 }
 
 [data-theme="dark"] .form-input,
