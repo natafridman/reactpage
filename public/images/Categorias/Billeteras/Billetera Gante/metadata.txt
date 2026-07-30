@@ -1,0 +1,7 @@
+title: Billetera Gante
+subtitle: Cierre con Banda Elastica
+description: Billetera bifold con banda elastica de cierre que mantiene todo en su lugar. Cuero de grano fino, ranuras para tarjetas y compartimento para billetes. Se personaliza con grabado.
+code: BIL-014
+images: GANTE.jpg, GANTE(1).jpg
+videos:
+proveedor: aston

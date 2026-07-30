@@ -1,7 +1,7 @@
 title: Billetera Zurich
 subtitle: Cierre con Cremallera
-description: Billetera compacta con cierre de cremallera perimetral, cuero liso y compartimentos internos para tarjetas y billetes. Diseño prolijo que cierra por completo y protege el contenido. Se personaliza con grabado.
+description: Billetera compacta con cierre de cremallera perimetral en cuero natural de veta irregular, con compartimentos internos para tarjetas y billetes. Diseño prolijo que cierra por completo y protege el contenido. Se personaliza con grabado.
 code: BIL-005
-images: ZURICH.jpg, ZURICH(1).jpg, ZURICH(2).jpg, ZURICH(3).jpg, ZURICH(4).jpg
+images: ZURICH.jpg, ZURICH(1).jpg, ZURICH(2).jpg
 videos:
 proveedor: aston

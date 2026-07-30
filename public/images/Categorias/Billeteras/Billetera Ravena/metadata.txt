@@ -1,0 +1,7 @@
+title: Billetera Ravena
+subtitle: Grano Martillado
+description: Billetera con cierre de cremallera perimetral en cuero de grano martillado parejo, textura firme y prolija. Interior con ranuras para tarjetas y espacio para billetes. Se personaliza con grabado.
+code: BIL-013
+images: RAVENA.jpg, RAVENA(1).jpg
+videos:
+proveedor: aston

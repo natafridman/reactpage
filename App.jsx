@@ -18,7 +18,13 @@ import { useCart } from '/context/CartContext.jsx';
 // ===== CONFIGURATION =====
 const IMAGES_BASE_FOLDER = 'images/Categorias';
 const PRODUCTS_PER_PAGE_LIST = 4;
-const PRODUCTS_PER_PAGE_GRID = 16;
+// En cuadricula la pagina llega hasta 45 productos, pero no se montan los 45 de
+// golpe: entran de a tandas a medida que se baja. Asi se recorre mucho catalogo
+// sin paginar todo el tiempo y sin pagar el costo de 45 tarjetas al abrir. El
+// corte en 45 es a proposito: pasado ese punto conviene cambiar de pagina antes
+// de que el navegador cargue con demasiados nodos e imagenes a la vez.
+const PRODUCTS_PER_PAGE_GRID = 45;
+const GRID_BATCH = 15;
 // Vista por defecto del catalogo. La usan el estado inicial, el sync con la URL y la
 // limpieza de la query, asi que vive en un solo lugar para que no se desincronicen.
 const DEFAULT_VIEW_MODE = 'grid';
@@ -56,6 +62,9 @@ function App() {
   const [searchInput, setSearchInput] = useState('');   // controlled input (instant)
   const [searchQuery, setSearchQuery] = useState('');   // debounced value used for filtering
   const [selectedTags, setSelectedTags] = useState([]);
+  // Cuantos productos de la pagina actual estan montados (ver GRID_BATCH).
+  const [visibleCount, setVisibleCount] = useState(GRID_BATCH);
+  const loadMoreRef = useRef(null);
 
   const PRODUCTS_PER_PAGE = viewMode === 'grid' ? PRODUCTS_PER_PAGE_GRID : PRODUCTS_PER_PAGE_LIST;
 
@@ -287,6 +296,34 @@ function App() {
 
   // Signature of what is currently displayed (drives reveal re-observation).
   const displayKey = `${selectedCategory || 'all'}|${qWords.join(' ')}|${selectedTags.join(',')}|${safePage}|${viewMode}`;
+
+  // ===== TANDAS DENTRO DE LA PAGINA (solo cuadricula) =====
+  const batching = viewMode === 'grid' && !isSingleProduct;
+  const shownProducts = batching ? pageProducts.slice(0, visibleCount) : pageProducts;
+  const hasMoreInPage = batching && visibleCount < pageProducts.length;
+
+  // Volver a la primera tanda cuando cambia lo que se esta mostrando: otra
+  // pagina, otra categoria, otro filtro o otra busqueda.
+  useEffect(() => {
+    setVisibleCount(GRID_BATCH);
+  }, [displayKey]);
+
+  useEffect(() => {
+    if (!hasMoreInPage) return;
+    const el = loadMoreRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((n) => Math.min(n + GRID_BATCH, pageProducts.length));
+        }
+      },
+      // Con margen: la tanda siguiente ya esta puesta cuando se llega al final.
+      { rootMargin: '600px' }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [hasMoreInPage, pageProducts.length]);
 
   // ===== SCROLL REVEAL ANIMATIONS =====
   useEffect(() => {
@@ -540,6 +577,13 @@ function App() {
 
   const showToolbar = !isSingleProduct && !isLoading;
 
+  // En cuadricula la barra pasa a ser una columna a la izquierda, al estilo de
+  // una tienda online. En vista de lista se queda arriba, porque cada producto
+  // ya ocupa el ancho completo y una columna al costado lo dejaria sin lugar.
+  // Que esto pase solo en escritorio lo decide el CSS: en telefono el
+  // contenedor es `display: contents` y todo cae en el orden de siempre.
+  const useSidebar = showToolbar && viewMode === 'grid';
+
   return (
     <>
       <Header
@@ -559,6 +603,7 @@ function App() {
         />
       )}
 
+      <div className={`catalog-layout${useSidebar ? ' has-sidebar' : ''}`}>
       {showToolbar && (
         <SearchFilterBar
           searchInput={searchInput}
@@ -570,6 +615,8 @@ function App() {
           resultCount={totalFiltered}
           viewMode={viewMode}
           onViewModeChange={handleViewModeChange}
+          headerHidden={isHeaderHidden}
+          category={selectedCategory || null}
         />
       )}
 
@@ -584,24 +631,31 @@ function App() {
         ) : (
           <>
             {viewMode === 'grid' && !isSingleProduct ? (
-              (() => {
-                const colCount = window.innerWidth <= 768 ? 2 : window.innerWidth <= 1200 ? 3 : 4;
-                const cols = Array.from({ length: colCount }, () => []);
-                pageProducts.forEach((product, i) => {
-                  cols[i % colCount].push(product);
-                });
-                return (
-                  <div className="products-grid">
-                    {cols.map((col, ci) => (
-                      <div className="products-grid-column" key={ci}>
-                        {col.map(product => (
-                          <ProductCard key={product.productFolder} product={product} staggerIndex={ci} />
-                        ))}
-                      </div>
-                    ))}
+              /* Grilla real, no productos repartidos en columnas sueltas. Antes
+                 se armaban N columnas independientes y cada una crecia por su
+                 cuenta: con 15 productos en 2 columnas quedaban 8 de un lado y
+                 7 del otro, y una terminaba mas abajo que la otra. Con grid las
+                 filas se alinean solas y la ultima simplemente tiene menos
+                 tarjetas. Ademas la cantidad de columnas la decide el CSS, asi
+                 que ahora acompaña el cambio de tamaño de la ventana. */
+              <>
+                <div className="products-grid">
+                  {shownProducts.map((product, i) => (
+                    <ProductCard
+                      key={product.productFolder}
+                      product={product}
+                      staggerIndex={i % 4}
+                    />
+                  ))}
+                </div>
+                {hasMoreInPage && (
+                  <div className="grid-load-more" ref={loadMoreRef} aria-hidden="true">
+                    <span className="grid-load-more-dot" />
+                    <span className="grid-load-more-dot" />
+                    <span className="grid-load-more-dot" />
                   </div>
-                );
-              })()
+                )}
+              </>
             ) : (
               pageProducts.map(product => (
                 <ProductSection
@@ -686,6 +740,7 @@ function App() {
           </>
         )}
       </main>
+      </div>
 
       <Footer onContactSubmit={handleContactSubmit} />
 

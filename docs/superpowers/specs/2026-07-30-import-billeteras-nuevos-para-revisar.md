@@ -4,7 +4,8 @@ Fecha: 2026-07-30. Estado: importado localmente, build verificado, **sin commite
 
 ## Resumen rápido
 
-**285 productos nuevos.** Catálogo: 103 → 388. Todas las carpetas de producto de Drive procesadas.
+**285 productos nuevos.** Catálogo: 103 → 388, y **390 tras la revisión del 2026-07-30**, que
+separó 2 billeteras mal fusionadas. Todas las carpetas de producto de Drive procesadas.
 
 | Tanda | Qué | Productos | Códigos |
 | --- | --- | --- | --- |
@@ -43,21 +44,28 @@ catálogos (6 PDFs) se dejaron sin tocar, como pediste.
 
 ## Decisiones que tomé y que deberías revisar
 
-### 1. Cuatro agrupaciones de fotos ambiguas (billeteras)
+### 1. Agrupaciones de fotos ambiguas (billeteras) — RESUELTO 2026-07-30
 
-No pude distinguir con certeza si eran un producto o dos, ni con zoom ni con clustering por
-color. Elegí la opción más conservadora en cada caso (fusionar antes que duplicar). Revisar
-mirando las fotos reales en `public/images/Categorias/Billeteras/<producto>/`:
+Revisadas con el dueño mirando los originales a tamaño completo. Dos de las tres fusiones estaban
+mal y se separaron; la tercera se confirmó.
 
-- **Billetera Zurich** (BIL-005): fusioné `8O3A1137/1139/1140` (zip negro, 3 fotos) con
-  `Copy of 8O3A1156/1157` (2 fotos más). Las "Copy of" podrían ser un zip negro *distinto*, más
-  texturado, en vez de más ángulos del mismo. Si son otro producto, hay que separarlas en una
-  "Billetera [nombre nuevo]" aparte.
-- **Billetera Cracovia** (BIL-007): fusioné `8O3A1147/1148` (plano + interior, textura acanalada
-  visible) con `8O3A1172/1174` (ángulo, más liso). Podrían ser 2 bifold negros distintos.
-- **Billetera Amberes** (BIL-009): fusioné `8O3A1150/1152/1153` con `8O3A1161/1168`, que habían
-  quedado sueltas del análisis de textura. Las sumé acá por color (marrón medio), no por certeza
-  visual.
+| Caso | Veredicto | Qué se hizo |
+| --- | --- | --- |
+| Zurich (BIL-005) | Eran **2 productos** | Se separó en `Billetera Ravena` (BIL-013) |
+| Cracovia (BIL-007) | Eran **2 productos** | Se separó en `Billetera Gante` (BIL-014) |
+| Amberes (BIL-009) | Era **1 producto** | Sin cambios |
+
+- **Zurich**: el cuero no es el mismo. `8O3A1137` (ahora `ZURICH.jpg`) es cuero natural blando, de
+  arruga y veta irregular. `Copy of 8O3A1156` (ahora `RAVENA.jpg`) es un grano prensado uniforme.
+  Misma silueta de zip perimetral, material distinto. Zurich quedó con 3 fotos y Ravena con 2.
+- **Cracovia**: la diferencia es estructural, no de textura. `8O3A1172/1174` (ahora `GANTE.jpg` y
+  `GANTE(1).jpg`) tienen una **banda elástica de cierre** cruzada, visible tanto cerrada como
+  abierta, que las otras dos no tienen. Cracovia quedó con 2 fotos y Gante con 2.
+- **Amberes**: se confirmó como un solo producto, pero por un motivo distinto al que decía esta
+  nota. No es "por color" sin certeza: las 5 fotos comparten el **mismo interior** (marrón
+  chocolate, 4 ranuras, misma costura) y lo que cambia es el exterior, oscuro en unas y tan con
+  grabado croco en otras. Son dos colores del mismo modelo, que es como el catálogo ya trata las
+  variantes de color.
 - Nada que revisar en las demás — quedaron con 1-2 fotos claras cada una.
 
 ### 2. `proveedor` — RESUELTO: `maleshab98@gmail.com` también es Aston
@@ -93,6 +101,8 @@ producto del catálogo.
 | Riñonera Sofia | RIN-003 | Riñoneras |
 | Portacelular Copenhague | CEL-001 | Portacelular (categoría nueva) |
 | Morral Bilbao | MOR-002 | Morrales |
+| Billetera Ravena | BIL-013 | Billeteras (separada de Zurich, 2026-07-30) |
+| Billetera Gante | BIL-014 | Billeteras (separada de Cracovia, 2026-07-30) |
 
 Nota sobre el código de Portacelular: usé el prefijo `CEL` (de "celular") en vez de `POR`, porque
 `POR` ya lo usa Portadocumentos (`POR-001`) y hubiera chocado.
@@ -287,6 +297,13 @@ miniaturas servidas re-renderizadas y comparadas visualmente contra el catálogo
 
 ## Pendiente
 
-- Revisar las 3 ambigüedades de agrupación de fotos (sección 1).
-- Confirmar o cambiar nombres/códigos inventados (sección 3).
+- ~~Revisar las 3 ambigüedades de agrupación de fotos (sección 1).~~ **Hecho 2026-07-30**: 2 se
+  separaron, 1 se confirmó. El catálogo pasó de 388 a 390 productos.
+- Revisar las agrupaciones dudosas de **cinturones**: `Cinturon Palermo` (Rodrigo), `Peter`
+  (13 fotos tratadas como un producto) y `Roman/Román` (14 fotos). Detalle en la tanda 2.
+- Revisar la separación de **NAOMI** en `Cinturon Guimaraes` y `Cinturon Viseu` (tanda 4), que es
+  el caso inverso: ahí separé y podría corresponder fusionar.
+- Decidir qué pasa con los **150 de la tanda 3**, que salieron de una carpeta con descartes
+  marcados por el proveedor.
+- Confirmar o cambiar los 262 nombres de ciudad inventados (sección 3).
 - Decidir si commitear y pushear. No lo hice todavía.

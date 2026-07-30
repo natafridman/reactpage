@@ -1,4 +1,4 @@
-import { useRef, Fragment } from 'react';
+import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -13,6 +13,14 @@ export const BELT_FILTERS = [
   { key: 'nacional', label: 'Nacional', axis: 'origen' },
 ];
 
+// Los dos ejes, con nombre. En la barra de arriba el titulo se oculta y queda
+// una linea separando los grupos; en la columna lateral se muestra, que es lo
+// que hace entendible por que "Hombre" y "Nacional" se pueden marcar juntos.
+const BELT_AXES = [
+  { key: 'genero', label: 'Género' },
+  { key: 'origen', label: 'Origen' },
+];
+
 function SearchFilterBar({
   searchInput,
   onSearchChange,
@@ -23,18 +31,38 @@ function SearchFilterBar({
   resultCount,
   viewMode,
   onViewModeChange,
+  headerHidden = false,
+  category = null,
 }) {
   const scope = useRef(null);
   const countRef = useRef(null);
   const prevCount = useRef(resultCount);
+  const filtersRef = useRef(null);
 
-  // Entrance: search field rises in, then chips stagger up.
+  // En telefono los filtros van en un renglon que se arrastra y el ultimo se
+  // desvanece contra el borde. Cuando ya no queda nada para correr, se saca ese
+  // desvanecido: si no, el ultimo chip se ve apagado sin motivo.
+  useEffect(() => {
+    const el = filtersRef.current;
+    if (!el) return;
+    const sync = () => {
+      const fin = el.scrollLeft + el.clientWidth >= el.scrollWidth - 2;
+      el.classList.toggle('is-scroll-end', fin);
+    };
+    sync();
+    el.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    return () => {
+      el.removeEventListener('scroll', sync);
+      window.removeEventListener('resize', sync);
+    };
+  }, [showFilters]);
+
+  // Entrada del buscador. Los chips de filtro no se animan a proposito: son
+  // controles, y moverse al entrar o al pasar el mouse los hacia dificiles de
+  // apuntar.
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.from('.toolbar-search', { y: 22, autoAlpha: 0, duration: 0.6 });
-    if (showFilters) {
-      tl.from('.toolbar-chip', { y: 16, autoAlpha: 0, stagger: 0.07, duration: 0.5 }, '-=0.32');
-    }
+    gsap.from('.toolbar-search', { y: 22, autoAlpha: 0, duration: 0.6, ease: 'power3.out' });
   }, { scope, dependencies: [showFilters] });
 
   // Animate the result counter whenever it changes.
@@ -51,32 +79,8 @@ function SearchFilterBar({
     prevCount.current = resultCount;
   }, { dependencies: [resultCount], scope });
 
-  // contextSafe so tweens created in handlers are tracked + reverted on unmount.
-  const { contextSafe } = useGSAP({ scope });
-
-  const handleChip = contextSafe((key, e) => {
-    gsap.fromTo(
-      e.currentTarget,
-      { scale: 0.86 },
-      { scale: 1, duration: 0.5, ease: 'elastic.out(1, 0.55)' }
-    );
-    onToggleTag(key);
-  });
-
-  // Magnetic hover: chip drifts toward the cursor, springs back on leave.
-  const handleChipMove = contextSafe((e) => {
-    const el = e.currentTarget;
-    const r = el.getBoundingClientRect();
-    const mx = e.clientX - (r.left + r.width / 2);
-    const my = e.clientY - (r.top + r.height / 2);
-    gsap.to(el, { x: mx * 0.25, y: my * 0.32, duration: 0.4, ease: 'power3.out' });
-  });
-
-  const handleChipLeave = contextSafe((e) => {
-    gsap.to(e.currentTarget, { x: 0, y: 0, duration: 0.65, ease: 'elastic.out(1, 0.4)' });
-  });
-
   const hasFilters = selectedTags.length > 0;
+  const filtering = Boolean(searchInput) || hasFilters;
 
   const viewToggle = onViewModeChange ? (
     <div className="toolbar-view">
@@ -112,7 +116,12 @@ function SearchFilterBar({
   ) : null;
 
   return (
-    <div className="product-toolbar" ref={scope}>
+    <div className={`product-toolbar${headerHidden ? ' is-tucked' : ''}`} ref={scope}>
+      {/* Envoltorio necesario para el modo columna: el elemento de la grilla se
+          estira a lo alto de la fila y este de adentro es el que queda fijo al
+          hacer scroll. Sin el, `position: sticky` no tiene recorrido. En la
+          barra de arriba es `display: contents` y no cambia nada. */}
+      <div className="toolbar-inner">
       <div className="product-toolbar-top">
         <div className="toolbar-search">
           <svg className="toolbar-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -147,33 +156,32 @@ function SearchFilterBar({
       </div>
 
       {showFilters && (
-        <div className="toolbar-filters" role="group" aria-label="Filtrar cinturones">
+        <div className="toolbar-filters" role="group" aria-label="Filtrar cinturones" ref={filtersRef}>
           <span className="toolbar-filters-label">Filtrar</span>
-          {BELT_FILTERS.map((f, i) => {
-            const prev = BELT_FILTERS[i - 1];
-            const newAxis = prev && prev.axis !== f.axis;
-            const active = selectedTags.includes(f.key);
-            return (
-              <Fragment key={f.key}>
-                {newAxis && <span className="toolbar-axis-sep" aria-hidden="true" />}
-                <button
-                  className={`toolbar-chip toolbar-chip--${f.axis} ${active ? 'active' : ''}`}
-                  onClick={(e) => handleChip(f.key, e)}
-                  onMouseMove={handleChipMove}
-                  onMouseLeave={handleChipLeave}
-                  aria-pressed={active}
-                >
-                  <span className="toolbar-chip-check" aria-hidden="true">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                      strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
-                  </span>
-                  <span className="toolbar-chip-label">{f.label}</span>
-                </button>
-              </Fragment>
-            );
-          })}
+          {BELT_AXES.map((axis) => (
+            <div className={`toolbar-axis toolbar-axis--${axis.key}`} key={axis.key}>
+              <span className="toolbar-axis-label">{axis.label}</span>
+              {BELT_FILTERS.filter((f) => f.axis === axis.key).map((f) => {
+                const active = selectedTags.includes(f.key);
+                return (
+                  <button
+                    key={f.key}
+                    className={`toolbar-chip toolbar-chip--${f.axis} ${active ? 'active' : ''}`}
+                    onClick={() => onToggleTag(f.key)}
+                    aria-pressed={active}
+                  >
+                    <span className="toolbar-chip-check" aria-hidden="true">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </span>
+                    <span className="toolbar-chip-label">{f.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          ))}
           {hasFilters && (
             <button className="toolbar-chip-clear" onClick={onClearFilters} aria-label="Limpiar filtros">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -186,11 +194,17 @@ function SearchFilterBar({
         </div>
       )}
 
-      <div className={`toolbar-meta ${searchInput || hasFilters ? 'is-active' : ''}`}>
+      {/* Siempre visible. Dentro de una categoria dice de que son ("321
+          Cinturones"), que es mas util que un "productos" generico. Al filtrar
+          pasa a "resultados", porque ahi ya no es el total de la categoria. */}
+      <div className={`toolbar-meta ${filtering ? 'is-active' : ''}`}>
         <span className="toolbar-count" ref={countRef}>{resultCount}</span>
         <span className="toolbar-count-label">
-          {resultCount === 1 ? 'resultado' : 'resultados'}
+          {filtering
+            ? (resultCount === 1 ? 'resultado' : 'resultados')
+            : category || (resultCount === 1 ? 'producto' : 'productos')}
         </span>
+      </div>
       </div>
     </div>
   );
