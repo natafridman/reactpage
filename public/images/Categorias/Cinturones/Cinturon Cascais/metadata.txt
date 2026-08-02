@@ -2,7 +2,7 @@ title: Cinturon Cascais
 subtitle: Cuero Vacuno
 description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
 code: CIN-265
-images: CASCAIS.jpg, CASCAIS(1).jpg
+images: CASCAIS.jpg
 videos:
 tags: mujer, nacional
 proveedor: aston
