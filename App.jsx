@@ -12,7 +12,9 @@ import Footer from '/components/Footer.jsx';
 import CategoryBanner from '/components/CategoryBanner.jsx';
 import SearchFilterBar from '/components/SearchFilterBar.jsx';
 import RelatedProducts from '/components/RelatedProducts.jsx';
+import ClaveNacional from '/components/ClaveNacional.jsx';
 import { loadManifest, loadCatalogIndex, getCategoryFromURL, normalizeText } from '/utils/productUtils.js';
+import { esProtegido, estaDesbloqueado } from '/utils/claveNacional.js';
 import { useCart } from '/context/CartContext.jsx';
 
 // ===== CONFIGURATION =====
@@ -62,6 +64,9 @@ function App() {
   const [searchInput, setSearchInput] = useState('');   // controlled input (instant)
   const [searchQuery, setSearchQuery] = useState('');   // debounced value used for filtering
   const [selectedTags, setSelectedTags] = useState([]);
+  // Clave de los cinturones nacionales. Se lee una vez al montar; si vencio,
+  // estaDesbloqueado() ya la borro y arranca en false.
+  const [claveOk, setClaveOk] = useState(() => estaDesbloqueado());
   // Cuantos productos de la pagina actual estan montados (ver GRID_BATCH).
   const [visibleCount, setVisibleCount] = useState(GRID_BATCH);
   const loadMoreRef = useRef(null);
@@ -271,7 +276,14 @@ function App() {
   // match somewhere in the product ("cinturon tachas" finds "Cinturón Tachas Fino").
   const qWords = normalizeText(searchQuery).split(/\s+/).filter(Boolean);
 
-  const filteredProducts = isSingleProduct ? products : allProducts.filter(p => {
+  // Cinturones nacionales: se tapan hasta que se acierte la clave. El corte va
+  // ANTES de los filtros del visitante para que el contador, los filtros de
+  // genero/origen y el buscador trabajen todos sobre lo que realmente se ve, y
+  // para que no se cuelen por el buscador ni por la vista de todos los productos.
+  const ocultosPorClave = claveOk ? 0 : allProducts.filter(esProtegido).length;
+  const visibles = claveOk ? allProducts : allProducts.filter(p => !esProtegido(p));
+
+  const filteredProducts = isSingleProduct ? products : visibles.filter(p => {
     if (qWords.length) {
       const m = p.metadata;
       const hay = normalizeText([m.title, m.subtitle, m.description, m.code, p.category, p.productFolder]
@@ -600,6 +612,7 @@ function App() {
       {!isSingleProduct && (
         <CategoryBanner
           category={getCategoryFromURL() || null}
+          claveOk={claveOk}
         />
       )}
 
@@ -617,10 +630,18 @@ function App() {
           onViewModeChange={handleViewModeChange}
           headerHidden={isHeaderHidden}
           category={selectedCategory || null}
+          claveOk={claveOk}
         />
       )}
 
       <main id="productsContainer" style={{ position: 'relative' }}>
+        {isBelts && !isSingleProduct && !isLoading && (
+          <ClaveNacional
+            desbloqueado={claveOk}
+            ocultos={ocultosPorClave}
+            onDesbloquear={() => setClaveOk(estaDesbloqueado())}
+          />
+        )}
         {isLoading ? (
           <LoadingSkeleton />
         ) : totalFiltered === 0 ? (

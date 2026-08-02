@@ -4555,3 +4555,157 @@ html {
         scroll-behavior: auto !important;
     }
 }
+
+/* ===== CLAVE DE LOS CINTURONES NACIONALES =====
+   Cortina previa al listado de cinturones. Los tokens hacen el trabajo del tema
+   oscuro solos, asi que no hace falta un bloque [data-theme="dark"] aparte. */
+.clave-nac {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.75rem 0 2rem;
+    border-bottom: 1px solid var(--b2-border);
+    margin-bottom: 2rem;
+}
+
+/* una sola fila: el disparador (boton o cajitas) y al lado cuantos faltan */
+.clave-nac-fila {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.clave-nac-cuantos {
+    font-size: 0.9rem;
+    color: var(--b2-gray);
+}
+
+.clave-nac-abrir {
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--b2-black);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-color: var(--b2-cognac);
+    transition: color 0.2s ease;
+}
+
+.clave-nac-abrir:hover {
+    color: var(--b2-cognac);
+}
+
+.clave-nac-campos {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.clave-nac-input {
+    width: 3.1rem;
+    height: 3.6rem;
+    text-align: center;
+    font-family: var(--b2-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--b2-black);
+    background: var(--b2-white);
+    border: 1px solid var(--b2-border);
+    border-radius: 2px;
+    caret-color: var(--b2-cognac);
+    transition: border-color 0.18s ease;
+}
+
+.clave-nac-input:focus {
+    outline: none;
+    border-color: var(--b2-cognac);
+}
+
+.clave-nac.is-error .clave-nac-input {
+    border-color: #B4523F;
+    animation: clave-nac-shake 0.32s ease;
+}
+
+@keyframes clave-nac-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+.clave-nac-aviso {
+    min-height: 1.2em; /* reservado, para que el texto de error no empuje la grilla */
+    margin: 0;
+    font-size: 0.85rem;
+    color: #B4523F;
+}
+
+/* estado desbloqueado: una linea discreta, no un cartel */
+.clave-nac-ok {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 1rem 0 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.clave-nac-ok-texto {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--b2-gray);
+}
+
+.clave-nac-vence {
+    color: var(--b2-light-gray);
+}
+
+.clave-nac-salir {
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--b2-gray);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.clave-nac-salir:hover {
+    color: var(--b2-cognac);
+}
+
+/* En telefono no hay columna lateral que le de eje al bloque, asi que se
+   centra: alineado a la izquierda quedaba colgando del borde. */
+@media (max-width: 768px) {
+    .clave-nac {
+        align-items: center;
+        text-align: center;
+    }
+
+    .clave-nac-fila {
+        justify-content: center;
+    }
+
+    .clave-nac-ok {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .clave-nac-input {
+        width: 2.8rem;
+        height: 3.3rem;
+        font-size: 1.35rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .clave-nac.is-error .clave-nac-input { animation: none; }
+}

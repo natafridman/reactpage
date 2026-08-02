@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { loadCatalogIndex, thumbSrc } from '/utils/productUtils.js';
+import { esProtegido } from '/utils/claveNacional.js';
 
 gsap.registerPlugin(useGSAP);
 
@@ -148,7 +149,7 @@ function BubbleRow({ images, dir, seconds, onPick }) {
   );
 }
 
-function CategoryBanner({ category }) {
+function CategoryBanner({ category, claveOk = false }) {
   const [bubbleImages, setBubbleImages] = useState([]);
   const bannerRef = useRef(null);
   const wrapperRef = useRef(null);
@@ -167,10 +168,14 @@ function CategoryBanner({ category }) {
         // que cueste nada: las que no se ven no se descargan.
         const index = await loadCatalogIndex();
 
-        const productos = isAll
+        const todos = isAll
           ? Object.entries(index).flatMap(([cat, lista]) =>
               (lista || []).map((p) => ({ ...p, category: cat })))
           : (index[category] || []).map((p) => ({ ...p, category }));
+
+        // Los cinturones nacionales tapados tampoco salen en la cinta: si no,
+        // se verian igual arriba aunque el listado los esconda.
+        const productos = claveOk ? todos : todos.filter((p) => !esProtegido(p));
 
         if (!productos.length) return;
 
@@ -201,7 +206,9 @@ function CategoryBanner({ category }) {
     setBubbleImages([]);
     loadImages();
     return () => { cancelado = true; };
-  }, [category, isAll]);
+    // claveOk esta en las dependencias a proposito: al acertar la clave la
+    // cinta se rearma sola e incorpora los nacionales, sin recargar la pagina.
+  }, [category, isAll, claveOk]);
 
   const showBubbles = bubbleImages.length >= 6;
 

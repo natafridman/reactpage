@@ -33,6 +33,7 @@ function SearchFilterBar({
   onViewModeChange,
   headerHidden = false,
   category = null,
+  claveOk = false,
 }) {
   const scope = useRef(null);
   const countRef = useRef(null);
@@ -188,7 +189,12 @@ function SearchFilterBar({
           {BELT_AXES.map((axis) => (
             <div className={`toolbar-axis toolbar-axis--${axis.key}`} key={axis.key}>
               <span className="toolbar-axis-label">{axis.label}</span>
-              {BELT_FILTERS.filter((f) => f.axis === axis.key).map((f) => {
+              {BELT_FILTERS
+                .filter((f) => f.axis === axis.key)
+                // Sin la clave, "Nacional" no se ofrece: filtrarlo llevaba a un
+                // "Sin coincidencias" y ademas anunciaba que hay productos ahi.
+                .filter((f) => claveOk || f.key !== 'nacional')
+                .map((f) => {
                 const active = selectedTags.includes(f.key);
                 return (
                   <button
