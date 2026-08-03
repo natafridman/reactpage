@@ -153,6 +153,7 @@ function ProductCard({ product, staggerIndex = 0 }) {
       ref={cardRef}
       className={`product-card ${visible ? 'card-visible' : ''}`}
       style={{ '--stagger': staggerIndex }}
+      data-folder={productFolder}
     >
       <div
         className="product-card-image"

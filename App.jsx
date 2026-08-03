@@ -27,6 +27,9 @@ const PRODUCTS_PER_PAGE_LIST = 4;
 // de que el navegador cargue con demasiados nodos e imagenes a la vez.
 const PRODUCTS_PER_PAGE_GRID = 45;
 const GRID_BATCH = 15;
+// Foto del estado del catalogo (categoria, filtros, busqueda, pagina, vista y
+// scroll) para poder volver a el tal cual al salir de un producto.
+const CAT_SNAP = 'b2you-cat-snap';
 // Vista por defecto del catalogo. La usan el estado inicial, el sync con la URL y la
 // limpieza de la query, asi que vive en un solo lugar para que no se desincronicen.
 const DEFAULT_VIEW_MODE = 'grid';
@@ -70,6 +73,10 @@ function App() {
   // Cuantos productos de la pagina actual estan montados (ver GRID_BATCH).
   const [visibleCount, setVisibleCount] = useState(GRID_BATCH);
   const loadMoreRef = useRef(null);
+  // Restauracion del catalogo al volver de un producto.
+  const restoreRef = useRef(false);        // la proxima vez que se muestre el catalogo, restaurar el snapshot
+  const pendingScrollRef = useRef(null);   // scrollY a restaurar cuando terminen de renderizar los productos
+  const skipBatchResetRef = useRef(false); // no reiniciar las tandas durante una restauracion
 
   const PRODUCTS_PER_PAGE = viewMode === 'grid' ? PRODUCTS_PER_PAGE_GRID : PRODUCTS_PER_PAGE_LIST;
 
@@ -208,15 +215,6 @@ function App() {
 
   // ===== INITIALIZE ON MOUNT / SCOPE CHANGE =====
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-
-    if (isSingleProduct) {
-      document.title = `B2YOU - ${decodeURIComponent(paramNombre)}`;
-    } else {
-      const cat = getCategoryFromURL();
-      document.title = cat ? `B2YOU - ${cat}` : 'B2YOU - Productos';
-    }
-
     async function initialize() {
       try {
         const manifest = await loadManifest();
@@ -228,21 +226,99 @@ function App() {
     initialize();
 
     if (isSingleProduct) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      document.title = `B2YOU - ${decodeURIComponent(paramNombre)}`;
       loadSingleProduct();
+      return;
+    }
+
+    const cat = getCategoryFromURL();
+    document.title = cat ? `B2YOU - ${cat}` : 'B2YOU - Productos';
+    const params = new URLSearchParams(location.search);
+    const urlPage = parseInt(params.get('pagina')) || 1;
+    const urlView = params.get('vista') || localStorage.getItem('b2you-viewMode') || DEFAULT_VIEW_MODE;
+
+    // ¿Se esta volviendo al catalogo desde un producto? (boton de volver o back
+    // del navegador). Si el snapshot es de esta misma categoria, se restaura
+    // filtros, busqueda, pagina, vista y scroll en vez de resetear.
+    let snap = null;
+    if (restoreRef.current) {
+      try { snap = JSON.parse(sessionStorage.getItem(CAT_SNAP) || 'null'); } catch { /* ignore */ }
+    }
+    restoreRef.current = false;
+    const restaurar = snap && (snap.category || '') === (cat || '');
+
+    if (restaurar) {
+      setSearchInput(snap.search || '');
+      setSearchQuery(snap.search || '');
+      setSelectedTags(Array.isArray(snap.tags) ? snap.tags : []);
+      const view = snap.view || urlView;
+      const page = snap.page || urlPage;
+      setViewMode(view);
+      setCurrentPage(page);
+      // Montar toda la pagina para que se pueda llegar al scroll guardado, y no
+      // dejar que el efecto de tandas lo recorte de nuevo.
+      skipBatchResetRef.current = true;
+      setVisibleCount(PRODUCTS_PER_PAGE_GRID);
+      pendingScrollRef.current = {
+        y: typeof snap.scrollY === 'number' ? snap.scrollY : 0,
+        folder: snap.anchorFolder || null,
+        offset: snap.anchorOffset || 0,
+      };
+      updateURLParams({ vista: view, pagina: page });
     } else {
-      const params = new URLSearchParams(location.search);
-      const urlPage = parseInt(params.get('pagina')) || 1;
-      const urlView = params.get('vista') || localStorage.getItem('b2you-viewMode') || DEFAULT_VIEW_MODE;
-      // Reset search/filters when the scope changes.
+      window.scrollTo({ top: 0, behavior: 'instant' });
       setSearchInput('');
       setSearchQuery('');
       setSelectedTags([]);
       setCurrentPage(urlPage);
       setViewMode(urlView);
       updateURLParams({ vista: urlView, pagina: urlPage });
-      loadAllForScope();
     }
+    loadAllForScope();
   }, [paramCategoria, paramNombre, location.search]);
+
+  // Guardar el estado del catalogo (categoria, filtros, busqueda, pagina, vista)
+  // mientras se navega, para poder volver a el desde un producto.
+  useEffect(() => {
+    if (isSingleProduct) return;
+    let s = {};
+    try { s = JSON.parse(sessionStorage.getItem(CAT_SNAP) || '{}'); } catch { /* ignore */ }
+    s.category = getCategoryFromURL() || '';
+    s.tags = selectedTags;
+    s.search = searchInput;
+    s.page = currentPage;
+    s.view = viewMode;
+    try { sessionStorage.setItem(CAT_SNAP, JSON.stringify(s)); } catch { /* ignore */ }
+  }, [isSingleProduct, selectedTags, searchInput, currentPage, viewMode, location.search]);
+
+  // Guardar la posicion de scroll del catalogo (para restaurarla al volver).
+  useEffect(() => {
+    if (isSingleProduct) return;
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        try {
+          const s = JSON.parse(sessionStorage.getItem(CAT_SNAP) || '{}');
+          s.scrollY = window.scrollY;
+          // Producto ancla: la primer tarjeta cuyo borde superior pasa la barra
+          // fija. Volver a el (no a un numero de px) hace que la restauracion no
+          // dependa de que el banner mida exactamente lo mismo al recargar.
+          const cards = document.querySelectorAll('.product-card[data-folder]');
+          s.anchorFolder = null; s.anchorOffset = 0;
+          for (const c of cards) {
+            const t = c.getBoundingClientRect().top;
+            if (t >= 88) { s.anchorFolder = c.dataset.folder; s.anchorOffset = Math.round(t); break; }
+          }
+          sessionStorage.setItem(CAT_SNAP, JSON.stringify(s));
+        } catch { /* ignore */ }
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { window.removeEventListener('scroll', onScroll); if (raf) cancelAnimationFrame(raf); };
+  }, [isSingleProduct]);
 
   // ===== DEBOUNCE SEARCH INPUT =====
   useEffect(() => {
@@ -257,11 +333,11 @@ function App() {
   }, [searchQuery, selectedTags]);
 
   // ===== POPSTATE =====
+  // El back del navegador tambien tiene que restaurar el catalogo: se marca la
+  // intencion y el efecto de scope de arriba (que corre al cambiar la URL) hace
+  // el resto. Solo restaura si el snapshot es de la categoria a la que se vuelve.
   useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPage(1);
-      loadAllForScope();
-    };
+    const handlePopState = () => { restoreRef.current = true; };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
@@ -315,10 +391,38 @@ function App() {
   const hasMoreInPage = batching && visibleCount < pageProducts.length;
 
   // Volver a la primera tanda cuando cambia lo que se esta mostrando: otra
-  // pagina, otra categoria, otro filtro o otra busqueda.
+  // pagina, otra categoria, otro filtro o otra busqueda. Salvo durante una
+  // restauracion, donde ya se monto la pagina entera para llegar al scroll.
   useEffect(() => {
+    if (skipBatchResetRef.current) { skipBatchResetRef.current = false; return; }
     setVisibleCount(GRID_BATCH);
   }, [displayKey]);
+
+  // Restaurar el scroll una vez que los productos de la pagina ya renderizaron.
+  // Se re-asegura la posicion un par de veces porque la cinta de fotos del
+  // banner termina de cargar despues y, al crecer, el navegador re-ancla el
+  // scroll: sin esto queda unos cientos de px corrido.
+  useEffect(() => {
+    if (pendingScrollRef.current == null) return;
+    if (isSingleProduct || isLoading || pageProducts.length === 0) return;
+    const p = pendingScrollRef.current;
+    pendingScrollRef.current = null;
+    let cancel = false;
+    const go = () => {
+      if (cancel) return;
+      // Ir al producto ancla (posicion inmune al alto del banner); si no esta,
+      // caer al scroll absoluto guardado.
+      if (p.folder) {
+        const el = document.querySelector(`.product-card[data-folder="${(window.CSS && CSS.escape) ? CSS.escape(p.folder) : p.folder}"]`);
+        if (el) { window.scrollBy(0, Math.round(el.getBoundingClientRect().top) - p.offset); return; }
+      }
+      window.scrollTo({ top: p.y, behavior: 'instant' });
+    };
+    requestAnimationFrame(() => requestAnimationFrame(go));
+    const t1 = setTimeout(go, 220);
+    const t2 = setTimeout(go, 480);
+    return () => { cancel = true; clearTimeout(t1); clearTimeout(t2); };
+  }, [isSingleProduct, isLoading, pageProducts.length, displayKey]);
 
   useEffect(() => {
     if (!hasMoreInPage) return;
@@ -572,6 +676,27 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
+  // ===== VOLVER AL CATALOGO DESDE UN PRODUCTO =====
+  // Lo usan el boton "Volver al catalogo" y el de categoria del producto. Si hay
+  // un catalogo guardado, vuelve a el tal cual estaba (filtros, pagina, scroll).
+  // Si se entro directo al producto (sin catalogo previo), va a la categoria de
+  // respaldo o a todos los productos.
+  function handleReturnToCatalog(fallbackCat) {
+    let snap = null;
+    try { snap = JSON.parse(sessionStorage.getItem(CAT_SNAP) || 'null'); } catch { /* ignore */ }
+    if (snap) {
+      restoreRef.current = true;
+      const params = new URLSearchParams();
+      if (snap.category) params.set('categoria', snap.category);
+      if (snap.page > 1) params.set('pagina', snap.page);
+      if (snap.view && snap.view !== DEFAULT_VIEW_MODE) params.set('vista', snap.view);
+      const qs = params.toString();
+      navigate(`/productos${qs ? '?' + qs : ''}`);
+    } else {
+      navigate(fallbackCat ? `/productos?categoria=${encodeURIComponent(fallbackCat)}` : '/productos');
+    }
+  }
+
   // ===== CATEGORY CLICK HANDLER =====
   function handleCategoryClick(e, cat) {
     e.preventDefault();
@@ -685,6 +810,7 @@ function App() {
                   basePath={IMAGES_BASE_FOLDER}
                   onImageClick={openModal}
                   showBackLink={isSingleProduct}
+                  onReturn={handleReturnToCatalog}
                 />
               ))
             )}
