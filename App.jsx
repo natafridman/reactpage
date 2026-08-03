@@ -37,6 +37,7 @@ const DEFAULT_VIEW_MODE = 'grid';
 // Belt sub-category axes. OR within an axis, AND across axes.
 const GENDER_TAGS = ['hombre', 'mujer'];
 const ORIGIN_TAGS = ['importado', 'nacional'];
+const STYLE_TAGS = ['urbano', 'vestir'];
 
 function App() {
   const { categoria: paramCategoria, nombre: paramNombre } = useParams();
@@ -348,6 +349,7 @@ function App() {
 
   const genderSel = selectedTags.filter(t => GENDER_TAGS.includes(t));
   const originSel = selectedTags.filter(t => ORIGIN_TAGS.includes(t));
+  const styleSel = selectedTags.filter(t => STYLE_TAGS.includes(t));
   // Accent-insensitive, multi-word search: every word the visitor types must
   // match somewhere in the product ("cinturon tachas" finds "Cinturón Tachas Fino").
   const qWords = normalizeText(searchQuery).split(/\s+/).filter(Boolean);
@@ -370,6 +372,7 @@ function App() {
       const t = (Array.isArray(p.metadata.tags) ? p.metadata.tags : []).map(x => x.toLowerCase());
       if (genderSel.length && !genderSel.some(x => t.includes(x))) return false;
       if (originSel.length && !originSel.some(x => t.includes(x))) return false;
+      if (styleSel.length && !styleSel.some(x => t.includes(x))) return false;
     }
     return true;
   });

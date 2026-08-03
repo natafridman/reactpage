@@ -11,6 +11,8 @@ export const BELT_FILTERS = [
   { key: 'mujer', label: 'Mujer', axis: 'genero' },
   { key: 'importado', label: 'Importado', axis: 'origen' },
   { key: 'nacional', label: 'Nacional', axis: 'origen' },
+  { key: 'urbano', label: 'Urbano', axis: 'estilo' },
+  { key: 'vestir', label: 'Vestir', axis: 'estilo' },
 ];
 
 // Los dos ejes, con nombre. En la barra de arriba el titulo se oculta y queda
@@ -19,6 +21,7 @@ export const BELT_FILTERS = [
 const BELT_AXES = [
   { key: 'genero', label: 'Género' },
   { key: 'origen', label: 'Origen' },
+  { key: 'estilo', label: 'Estilo' },
 ];
 
 function SearchFilterBar({
