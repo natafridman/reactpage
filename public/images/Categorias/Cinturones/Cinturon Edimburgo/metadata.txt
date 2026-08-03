@@ -2,7 +2,7 @@ title: Cinturon Edimburgo
 subtitle: Cuero Nacional
 description: Cinturon de cuero negro texturizado con hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
 code: CIN-051
-images: EDIMBURGO.jpg, EDIMBURGO(1).jpg
+images: EDIMBURGO(1).jpg, EDIMBURGO.jpg, ZARAGOZA.jpg, ZARAGOZA(1).jpg, VALENCIA.jpg, VALENCIA(1).jpg, VALENCIA(2).jpg, VALENCIA(3).jpg, VALENCIA(4).jpg, VALENCIA(5).jpg, FRANKFURT.jpg, FRANKFURT(1).jpg, FRANKFURT(2).jpg, FRANKFURT(3).jpg, FRANKFURT(4).jpg, FRANKFURT(5).jpg, FRANKFURT(6).jpg, FRANKFURT(7).jpg
 videos:
 tags: hombre, nacional
 proveedor: aston

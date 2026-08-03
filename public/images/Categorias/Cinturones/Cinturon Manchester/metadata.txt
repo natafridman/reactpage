@@ -2,7 +2,7 @@ title: Cinturon Manchester
 subtitle: Cuero Nacional
 description: Cinturon de cuero negro engrasado con hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
 code: CIN-052
-images: MANCHESTER.jpg, MANCHESTER(1).jpg, MANCHESTER(2).jpg, MANCHESTER(3).jpg, MANCHESTER(4).jpg, MANCHESTER(5).jpg, MANCHESTER(6).jpg, MANCHESTER(7).jpg, MANCHESTER(8).jpg, MANCHESTER(9).jpg
+images: MANCHESTER(1).jpg, MANCHESTER.jpg, MANCHESTER(2).jpg, MANCHESTER(3).jpg, MANCHESTER(4).jpg, MANCHESTER(5).jpg, MANCHESTER(6).jpg, MANCHESTER(7).jpg, MANCHESTER(8).jpg, MANCHESTER(9).jpg
 videos:
 tags: hombre, nacional
 proveedor: aston

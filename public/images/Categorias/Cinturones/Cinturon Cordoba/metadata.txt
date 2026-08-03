@@ -1,8 +1,0 @@
-title: Cinturon Cordoba
-subtitle: Cuero Nacional
-description: Cinturon de cuero negro texturizado con hebilla envejecida. Cuero nacional, hebilla resistente y terminacion prolija. Se personaliza con grabado.
-code: CIN-072
-images: CORDOBA.jpg, CORDOBA(1).jpg
-videos:
-tags: hombre, nacional
-proveedor: aston
