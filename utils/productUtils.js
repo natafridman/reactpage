@@ -132,6 +132,63 @@ export function cartWhatsappUrl(items, total) {
   return whatsappUrl(msg);
 }
 
+// ===== CARRITO COMPARTIBLE POR URL (sin backend) =====
+// El link lleva solo la seleccion (key + cantidad) codificada; del otro lado se
+// reconstruye cada linea leyendo el metadata.txt del producto. Asi el URL queda
+// corto y siempre refleja el estado real del catalogo (titulo, foto, condiciones).
+function b64urlEncode(str) {
+  const bin = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, h) => String.fromCharCode(parseInt(h, 16)));
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function b64urlDecode(token) {
+  const b64 = token.replace(/-/g, '+').replace(/_/g, '/');
+  const pct = Array.from(atob(b64), (c) => '%' + c.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+  return decodeURIComponent(pct);
+}
+
+export function encodeCart(items) {
+  const compact = (items || [])
+    .filter((it) => it && it.key)
+    .map((it) => [it.key, Math.max(1, Number(it.qty) || 1)]);
+  return compact.length ? b64urlEncode(JSON.stringify(compact)) : '';
+}
+
+export function decodeCart(token) {
+  if (!token) return [];
+  try {
+    const arr = JSON.parse(b64urlDecode(token));
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .map((row) => (Array.isArray(row) ? { key: String(row[0] || ''), qty: Math.max(1, Number(row[1]) || 1) } : null))
+      .filter((x) => x && x.key);
+  } catch {
+    return [];
+  }
+}
+
+// Link para compartir: abre la home con el token; la app lo detecta al cargar,
+// arma el carrito y abre el cajon (ver CartContext).
+export function cartShareUrl(items) {
+  return `${window.location.origin}/?c=${encodeCart(items)}`;
+}
+
+// Reconstruye una linea del carrito a partir de su key ("Categoria/Carpeta")
+// leyendo el metadata del producto. Devuelve null si el producto ya no existe.
+export async function cartItemFromKey(key, qty) {
+  const i = String(key || '').indexOf('/');
+  if (i < 0) return null;
+  const category = key.slice(0, i);
+  const productFolder = key.slice(i + 1);
+  try {
+    const res = await fetch(`/${IMAGES_BASE_FOLDER}/${category}/${productFolder}/metadata.txt`);
+    if (!res.ok) return null;
+    const metadata = parseMetadata(await res.text());
+    return { ...buildCartItem({ metadata, category, productFolder }), qty: Math.max(1, Number(qty) || 1) };
+  } catch {
+    return null;
+  }
+}
+
 // ===== SEARCH TEXT NORMALIZATION =====
 // Lowercase + strip diacritics so "riñonera" matches "Riñoneras" and
 // "maletin" matches "Maletín" regardless of how the visitor types it.

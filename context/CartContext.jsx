@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { SHOW_PRICES } from '/utils/productUtils.js';
+import { SHOW_PRICES, decodeCart, cartItemFromKey } from '/utils/productUtils.js';
 import { trackAddToCart } from '/utils/metaPixel.js';
 
 // Frontend-only shopping cart. State lives in React + localStorage; there is no
@@ -46,6 +46,33 @@ export function CartProvider({ children }) {
       /* storage full or unavailable: keep the in-memory cart working anyway */
     }
   }, [items]);
+
+  // Carrito compartido por URL: si viene ?c=<token>, se reconstruye la seleccion
+  // del que compartio (reemplaza el carrito local), se abre el cajon, y se limpia
+  // el token de la barra para que un refresh no lo reaplique. Sin backend: la
+  // seleccion viaja en el link y cada linea se rehace desde su metadata.txt.
+  useEffect(() => {
+    const token = new URLSearchParams(window.location.search).get('c');
+    if (!token) return undefined;
+    const cleanUrl = () => {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('c');
+      window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+    };
+    let alive = true;
+    (async () => {
+      const wanted = decodeCart(token);
+      if (!wanted.length) { cleanUrl(); return; }
+      const built = (await Promise.all(wanted.map((w) => cartItemFromKey(w.key, w.qty)))).filter(Boolean);
+      if (!alive) return;
+      if (built.length) {
+        setItems(built);
+        setIsOpen(true);
+      }
+      cleanUrl();
+    })();
+    return () => { alive = false; };
+  }, []);
 
   // Self-heal: carts stored before the `proveedor` field existed have lines
   // without it, so the terms pop-up can't match their payment conditions.

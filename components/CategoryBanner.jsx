@@ -274,7 +274,7 @@ function CategoryBanner({ category, claveOk = false }) {
           </h1>
         </div>
         <p className="category-banner-subtitle">
-          Diseños propios · Personalizables con tu logo · Producción a medida
+          Desarrollamos estos productos y accesorios con diseño personalizado para tu marca y con tu logo
         </p>
         <div className="category-banner-divider"></div>
       </div>

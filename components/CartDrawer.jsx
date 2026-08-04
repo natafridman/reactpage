@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useCart } from '/context/CartContext.jsx';
-import { cartWhatsappUrl, formatARS } from '/utils/productUtils.js';
+import { cartWhatsappUrl, formatARS, cartShareUrl } from '/utils/productUtils.js';
 import { termsFor } from '/utils/paymentTerms.js';
 
 function CartDrawer() {
@@ -18,6 +18,7 @@ function CartDrawer() {
   } = useCart();
 
   const [showTerms, setShowTerms] = useState(false);
+  const [shared, setShared] = useState(''); // '' | 'copiado'
 
   // Agrupar el carrito por proveedor (internamente), juntando los artículos que
   // comparten condiciones. NO se expone el nombre del proveedor: el pop-up
@@ -63,14 +64,35 @@ function CartDrawer() {
     };
   }, [isOpen, showTerms, closeCart]);
 
-  // Reset el pop-up al cerrar el carrito.
+  // Reset el pop-up y el aviso de "copiado" al cerrar el carrito.
   useEffect(() => {
-    if (!isOpen) setShowTerms(false);
+    if (!isOpen) { setShowTerms(false); setShared(''); }
   }, [isOpen]);
 
   const finalize = () => {
     if (items.length === 0) return;
     window.open(cartWhatsappUrl(items, total), '_blank', 'noopener,noreferrer');
+  };
+
+  // Compartir el carrito por link. En mobile abre el menu nativo de compartir;
+  // en desktop copia el link al portapapeles y avisa. El link lleva la seleccion
+  // (ver cartShareUrl); quien lo abre ve estos mismos productos y cantidades.
+  const shareCart = async () => {
+    if (items.length === 0) return;
+    const url = cartShareUrl(items);
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'Mi pedido B2YOU', text: 'Mirá los productos que armé:', url });
+      } catch { /* el usuario cerro el menu de compartir: no hacemos nada */ }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setShared('copiado');
+      setTimeout(() => setShared(''), 2200);
+    } catch {
+      window.prompt('Copiá el link de tu pedido:', url);
+    }
   };
 
   return (
@@ -178,6 +200,27 @@ function CartDrawer() {
                 Ver condiciones de pago
                 {termGroups.length > 0 && (
                   <span className="cart-terms-count">{termGroups.length}</span>
+                )}
+              </button>
+              <button className="cart-terms-btn cart-share" onClick={shareCart} aria-label="Compartir carrito por link">
+                {shared === 'copiado' ? (
+                  <>
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    ¡Link copiado!
+                  </>
+                ) : (
+                  <>
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="18" cy="5" r="3"></circle>
+                      <circle cx="6" cy="12" r="3"></circle>
+                      <circle cx="18" cy="19" r="3"></circle>
+                      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    Compartir carrito
+                  </>
                 )}
               </button>
               <button className="cart-finalize" onClick={finalize}>

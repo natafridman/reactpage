@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '/context/CartContext.jsx';
-import { menuSubcategories } from '/components/SearchFilterBar.jsx';
-import { loadCatalogIndex, thumbSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
+import ShiftingNav from '/components/ShiftingNav.jsx';
+import { loadCatalogIndex } from '/utils/productUtils.js';
 
 function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive, onCategoryClick, clearAtTop = false }) {
   const navigate = useNavigate();
@@ -57,43 +57,20 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
     setIsMenuActive(!isMenuActive);
   };
 
-  // ===== Mega-menu: foto de portada por categoria + categoria en preview =====
   const catList = categories.filter((c) => c !== 'Mundial');
-  const subCats = categories.filter((c) => menuSubcategories(c).length > 0);
-  // Preview por defecto: la categoria con mas subcategorias (luce la funcion).
-  const defaultCat = subCats.slice().sort((a, b) => menuSubcategories(b).length - menuSubcategories(a).length)[0]
-    || catList[0] || null;
-  const [covers, setCovers] = useState({});
-  const [activeCat, setActiveCat] = useState(null);
 
-  // Al abrir el menu por primera vez, cargar el indice del catalogo (cacheado) y
-  // sacar una foto de portada por categoria: el primer producto que tenga imagen.
-  useEffect(() => {
-    if (!isMenuActive || Object.keys(covers).length) return undefined;
-    let alive = true;
-    loadCatalogIndex().then((index) => {
-      if (!alive) return;
-      const map = {};
-      for (const [cat, items] of Object.entries(index)) {
-        const it = (items || []).find((p) => ((p.metadata && p.metadata.images) || p.availableImages || []).length);
-        if (!it) continue;
-        const img = ((it.metadata && it.metadata.images) || it.availableImages)[0];
-        map[cat] = thumbSrc(`/${IMAGES_BASE_FOLDER}/${cat}/${it.productFolder}/${img}`);
-      }
-      setCovers(map);
-    }).catch(() => {});
-    return () => { alive = false; };
-  }, [isMenuActive, covers]);
-
-  // Categoria por defecto del preview: la primera con subcategorias (queda rico).
-  useEffect(() => {
-    if (!activeCat && defaultCat) setActiveCat(defaultCat);
-  }, [defaultCat, activeCat]);
+  // Indice del catalogo (cacheado) para las fotos de los dropdowns del nav. Se
+  // carga recien cuando se abre un dropdown, para no pedir el JSON en cada carga.
+  const [index, setIndex] = useState(null);
+  const indexLoaded = useRef(false);
+  const loadIndex = () => {
+    if (indexLoaded.current) return;
+    indexLoaded.current = true;
+    loadCatalogIndex().then(setIndex).catch(() => {});
+  };
 
   const goCat = (e, cat, sub) => { onCategoryClick && onCategoryClick(e, cat, sub); };
   const goPage = (path) => { navigate(path); setIsMenuActive(false); };
-  const previewCat = activeCat && categories.includes(activeCat) ? activeCat : null;
-  const previewSubs = previewCat ? menuSubcategories(previewCat) : [];
 
   return (
     <header className={`main-header ${isHeaderHidden ? 'header-hidden' : ''} ${isClear ? 'header-clear' : ''}`}>
@@ -113,6 +90,16 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
           <img src="/images/Branding/B2 B2YOU Header Landscape 2.png" alt="B2YOU" className="logo-image" />
           {pageBadge && <span className="header-page-badge">{pageBadge}</span>}
         </div>
+
+        {/* Nav de escritorio: barra de tabs centrada con dropdown que se desliza.
+            En mobile se oculta (por CSS) y queda la hamburguesa + menu clasico. */}
+        <ShiftingNav
+          categories={categories}
+          index={index}
+          onOpen={loadIndex}
+          onCat={goCat}
+          onNav={goPage}
+        />
 
         <div className="header-actions">
           <button
@@ -155,122 +142,8 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
       </div>
 
       <nav className={`categories-menu mega ${isMenuActive ? 'active' : ''}`} id="categoriesMenu" ref={menuRef}>
-        <div className="mega-inner">
-          {/* IZQUIERDA: lista de categorias */}
-          <div className="mega-list" onMouseLeave={() => setActiveCat(defaultCat)}>
-            <span className="menu-section-label">Categorías</span>
-
-            <button
-              className="mega-cat mega-cat--all"
-              onMouseEnter={() => setActiveCat(null)}
-              onClick={() => goPage('/productos')}
-            >
-              <span className="mega-cat-name">Ver todo</span>
-            </button>
-
-            {catList.map((cat) => {
-              const subs = menuSubcategories(cat);
-              return (
-                <div className="mega-cat-wrap" key={cat}>
-                  <a
-                    href={`?categoria=${encodeURIComponent(cat)}`}
-                    className={`mega-cat${previewCat === cat ? ' is-active' : ''}${subs.length ? ' has-subs' : ''}`}
-                    onMouseEnter={() => setActiveCat(cat)}
-                    onFocus={() => setActiveCat(cat)}
-                    onClick={(e) => goCat(e, cat)}
-                  >
-                    <span className="mega-cat-name">{cat}</span>
-                    <svg className="mega-cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                  </a>
-                  {subs.length > 0 && (
-                    <div className="mega-cat-subs">
-                      {subs.map((s) => (
-                        <a
-                          key={s.key}
-                          href={`?categoria=${encodeURIComponent(cat)}&sub=${encodeURIComponent(s.key)}`}
-                          className="mega-sub-chip"
-                          onClick={(e) => goCat(e, cat, s.key)}
-                        >
-                          {s.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-
-            {categories.includes('Mundial') && (
-              <a
-                href="?categoria=Mundial"
-                className="mega-cat mega-cat--mundial"
-                onMouseEnter={() => setActiveCat('Mundial')}
-                onClick={(e) => goCat(e, 'Mundial')}
-              >
-                <span className="mega-cat-name">Mundial</span>
-              </a>
-            )}
-
-            <div className="mega-more">
-              <button onClick={() => goPage('/Empresas')}>Empresas</button>
-              <button onClick={() => goPage('/Marcas')}>Marcas</button>
-              <button onClick={() => goPage('/Nosotros')}>Nosotros</button>
-            </div>
-          </div>
-
-          {/* DERECHA: vista previa (solo desktop; en mobile las subcats van inline) */}
-          <div className="mega-preview" aria-hidden="true">
-            {previewCat ? (
-              <>
-                <div className="mega-preview-media">
-                  {covers[previewCat]
-                    ? <img src={covers[previewCat]} alt="" loading="lazy" decoding="async" />
-                    : <div className="mega-preview-ph" />}
-                </div>
-                <div className="mega-preview-body">
-                  <span className="mega-preview-eyebrow">Categoría</span>
-                  <p className="mega-preview-title accent">{previewCat}</p>
-                  <a
-                    href={`?categoria=${encodeURIComponent(previewCat)}`}
-                    className="mega-preview-all"
-                    onClick={(e) => goCat(e, previewCat)}
-                  >
-                    Ver todo <span aria-hidden="true">→</span>
-                  </a>
-                  {previewSubs.length > 0 && (
-                    <div className="mega-preview-subs">
-                      {previewSubs.map((s) => (
-                        <a
-                          key={s.key}
-                          href={`?categoria=${encodeURIComponent(previewCat)}&sub=${encodeURIComponent(s.key)}`}
-                          className="mega-sub-chip"
-                          onClick={(e) => goCat(e, previewCat, s.key)}
-                        >
-                          {s.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </>
-            ) : (
-              <div className="mega-preview-body mega-preview-body--all">
-                <span className="mega-preview-eyebrow">B2YOU</span>
-                <p className="mega-preview-title accent">Todo el catálogo</p>
-                <button className="mega-preview-all" onClick={() => goPage('/productos')}>
-                  Ver todos los productos <span aria-hidden="true">→</span>
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Menu clasico (lista plana) = el de antes. Solo se muestra en mobile,
-            donde el mega-menu con vista previa no tiene sentido (no hay hover).
-            El alternado desktop/mobile lo decide el CSS. */}
+        {/* Menu clasico (lista plana) = el de antes. Solo se muestra en mobile.
+            En desktop el nav es el ShiftingNav (en el header, arriba). */}
         <div className="menu-classic">
           <div className="categories-container">
             <div className="nav-group">
