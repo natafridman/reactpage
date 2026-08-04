@@ -1,0 +1,7 @@
+title: Remera Basica Lisa Manga Larga
+subtitle: Unisex
+description: Remera básica manga larga de jersey 24/1 algodón peinado, cuello redondo. Ideal para uniforme de trabajo. Colores: Negro, Blanco, Gris, Azul. Talles: S al 8XL. Se personaliza con bordado o estampado.
+code: ART-2003
+images: 01.jpg
+tags: remeras-chombas
+proveedor: factown

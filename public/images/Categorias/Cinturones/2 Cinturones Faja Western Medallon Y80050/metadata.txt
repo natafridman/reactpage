@@ -1,0 +1,7 @@
+title: 2 Cinturones Faja Western Medallon
+subtitle: Pack de 2
+description: Cinturón faja de estilo western con fuerte impronta protagonista. Confeccionado en material simil cuero color negro, presenta un diseño trabajado con múltiples perforaciones y ojalillos metálicos Medidas: 7 cm de ancho x 113 cm de largo Unico Contiene: 2 cinturones
+code: Y80050
+images: 01.png, 02.png
+tags: mujer
+proveedor: carey

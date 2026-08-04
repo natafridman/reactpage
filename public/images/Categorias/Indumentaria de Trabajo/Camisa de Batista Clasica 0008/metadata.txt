@@ -1,0 +1,7 @@
+title: Camisa de Batista Clasica
+subtitle: Hombre
+description: Camisa en batista de primera calidad, prendidura central a botón, cuello inglés, calce slim, manga larga con botón en puño. Talles: 36 al 72. Se personaliza con bordado o estampado.
+code: ART-0008
+images: 01.jpg
+tags: camisas
+proveedor: factown

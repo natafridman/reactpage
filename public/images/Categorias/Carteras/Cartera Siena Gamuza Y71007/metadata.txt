@@ -1,0 +1,5 @@
+title: Cartera Siena Gamuza
+description: Bandolera de gamuza sintética con diseño suave y atemporal, ideal para acompañar cualquier look de todos los días. Medidas aprox: 30 cm de largo por 25 cm de alto Contiene: una cartera
+code: Y71007
+images: 01.jpg, 02.jpg, 03.jpg
+proveedor: carey

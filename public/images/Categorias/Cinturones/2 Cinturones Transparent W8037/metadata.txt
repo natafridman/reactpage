@@ -1,0 +1,6 @@
+title: 2 Cinturones Transparent
+subtitle: Pack de 2
+description: Contiene: 2 cinturones
+code: W8037
+images: 01.webp
+proveedor: carey

@@ -1,0 +1,5 @@
+title: Cartera Pocket
+description: Mini bag con bolsillos frontales y detalles de hebillas que aportan un estilo urbano y moderno. Compacta, práctica y versátil, ideal para llevar lo esencial con un toque de tendencia en cualquier ocasión. Medidas aprox: 30 cm de largo por 12 cm de alto Unico Contiene: 1 cartera
+code: Z71017
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg
+proveedor: carey

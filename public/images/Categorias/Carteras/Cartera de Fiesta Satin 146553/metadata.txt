@@ -1,0 +1,4 @@
+title: Cartera de Fiesta Satin
+description: Carteras de fiesta confeccionadas con acabado satinado y diseño de pliegues que aporta un toque sofisticado. Incluyen cadena metálica desmontable para usar al hombro o como clutch de mano. Son el complemento ideal para bodas, graduaciones, fiestas y eventos especiales. Medidas: 20 cm de largo x 11 cm de alto x 4,5 cm de ancho Contiene: 1 cartera
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg
+proveedor: carey

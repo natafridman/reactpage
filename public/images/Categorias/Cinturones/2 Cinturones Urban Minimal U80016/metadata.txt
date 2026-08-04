@@ -1,0 +1,7 @@
+title: 2 Cinturones Urban Minimal
+subtitle: Pack de 2
+description: Cinturones confeccionados en material símil cuero, de diseño liso y minimalista, pensados para convertirse en un básico infaltable del guardarropa. Su estética simple y limpia los hace fáciles de combinar y aptos para múltiples estilos y ocasiones. Un modelo versátil, ideal para usar tanto a la cintura como a la cadera, combinando perfectamente con jeans, pantalones sastreros, vestidos o prendas oversized. Gracias a su diseño atemporal y colores clásicos, es un producto perfecto para completar looks sin recargar el outfit. Medidas: 2 cm de acncho x 118 cm de largo Surtido Contiene: 2 cinturones
+code: U80016
+images: 01.png, 02.png, 03.png
+tags: mujer
+proveedor: carey

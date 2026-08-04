@@ -1,0 +1,5 @@
+title: Cartera Maxi Curve
+description: Cartera en formato maxi confeccionada en material símil cuero texturado, con diseño de caída blanda que le aportan un look relajado, moderno y elegante. Con tira regulable que permite adaptarla a diferentes alturas y formas de uso al hombro. Medidas aproximadas: 45 cm de ancho x 30 cm de alto Contiene: 1 cartera
+code: Y71001
+images: 01.jpg, 02.jpg, 03.jpg
+proveedor: carey

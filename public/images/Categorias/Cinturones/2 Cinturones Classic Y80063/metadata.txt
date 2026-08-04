@@ -1,0 +1,7 @@
+title: 2 Cinturones Classic
+subtitle: Pack de 2
+description: Cinturón masculino de diseño clásico con acabado simil cuero envejecido y hebilla metálica de líneas elegantes. Medidas aprox: 120 cm Colores surtidos Contiene: 2 cinturones
+code: Y80063
+images: 01.png, 02.jpg, 03.jpg
+tags: hombre
+proveedor: carey

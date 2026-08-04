@@ -1,0 +1,5 @@
+title: Cartera Urban Soft
+description: Cartera de diseño minimalista y formato amplio. Con asa ancha de simil cuero, cierre botón imantado y gran capacidad interior. De estética moderna que se adapta a cualquier ocasión. Medidas: 33 cm de largo x 34 cm de alto Contiene: 1 cartera
+code: Y71017
+images: 01.jpg, 02.jpg
+proveedor: carey

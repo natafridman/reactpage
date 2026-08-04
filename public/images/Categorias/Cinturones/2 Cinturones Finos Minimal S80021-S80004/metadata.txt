@@ -1,0 +1,6 @@
+title: 2 Cinturones Finos Minimal
+subtitle: Pack de 2
+description: La colección ideal para sumar detalle con elegancia: cinturones finos, delicados y versátiles que se adaptan a cualquier look sin recargarlo. Con hebillas pequeñas y tonos neutros, son el complemento perfecto para quienes buscan un estilo limpio y actual. Contiene: 2 cinturones
+code: S80021/S80004
+images: 01.jpg
+proveedor: carey

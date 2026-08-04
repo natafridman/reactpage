@@ -1,0 +1,6 @@
+title: 6 Cintos para Sombreros
+subtitle: Pack de 6
+description: Cinto decorativo para sombrero con diseño regulable y detalle metálico. Ideal para renovar y personalizar tus sombreros. Modelos surtidos Contiene: 6 cintos de sombreros surtidos
+code: Y80001/Y80002/Y80004
+images: 01.jpg
+proveedor: carey

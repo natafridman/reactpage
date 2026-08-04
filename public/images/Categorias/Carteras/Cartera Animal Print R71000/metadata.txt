@@ -1,0 +1,5 @@
+title: Cartera Animal Print
+description: Cartera pequeña de simil cuero con detalles de animal print Incluye correa larga metalica Medias: 19cm x 7cm x 12.5cm
+code: R71000
+images: 01.jpg, 02.jpg
+proveedor: carey

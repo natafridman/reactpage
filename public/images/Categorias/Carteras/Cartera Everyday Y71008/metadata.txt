@@ -1,0 +1,5 @@
+title: Cartera Everyday
+description: Esta cartera combina diseño, amplitud y funcionalidad en un modelo pensado para acompañarte todos los días. Confeccionada en material símil gamuza, se destaca por su silueta relajada y moderna. Incluye un práctico neceser interno de simil cuero, perfecto para organizar objetos personales y mantener todo al alcance de la mano. Cuenta con asas angostas y largas de simil cuero para llevar cómodamente al hombro. Cierre botón imantado. Medidas: 40 cm de largo x 25 cm de alto Contiene: 1 cartera
+code: Y71008
+images: 01.jpg, 02.jpg, 03.jpg
+proveedor: carey

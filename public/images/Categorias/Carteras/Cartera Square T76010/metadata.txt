@@ -1,0 +1,5 @@
+title: Cartera Square
+description: Cartera cuadrada rigida de color liso con relieve a cuadrille Incluye correa de cadena Dorado Contiene: 1 cartera
+code: T76010
+images: 01.jpg
+proveedor: carey

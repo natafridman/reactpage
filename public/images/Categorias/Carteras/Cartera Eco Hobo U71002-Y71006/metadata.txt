@@ -1,0 +1,5 @@
+title: Cartera Eco Hobo
+description: Cartera estilo hobo confeccionada en material símil cuero. De formato amplio y liviano. Con asa larga regulable para adaptarla al hombro según preferencia, aportando practicidad y confort. Medidas aproximadas: 35 cm de ancho x 25 cm de alto Contiene: 1 cartera
+code: U71002/Y71006
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg, 05.jpg
+proveedor: carey

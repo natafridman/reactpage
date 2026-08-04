@@ -1,0 +1,7 @@
+title: 2 Cinturones Shell
+subtitle: Pack de 2
+description: Cintos inspirados en el mar. Su diseño de ostras metalizadas aporta brillo y movimiento. Ideales para combinar con outfits de verano, looks playeros o para sumar un detalle boho en cualquier temporada. Surtido Contiene: 2 cinturones
+code: T80001
+images: 01.jpg, 02.jpg
+tags: mujer
+proveedor: carey

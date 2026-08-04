@@ -1,0 +1,6 @@
+title: Bota de Goma
+subtitle: Talles 37 al 46
+description: Bota de goma unisex con caña alta fabricada en PVC antideslizante ideal para máxima tracción y protección en terrenos difíciles. Colores: Blanco, Negro. Talles: 37, 38, 39, 40, 41, 42, 43, 44, 45, 46. Se personaliza con bordado o estampado.
+code: CAL-001
+images: 01.jpg, 02.jpg
+proveedor: gurre

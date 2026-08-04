@@ -1,0 +1,5 @@
+title: Cartera Queen
+description: Nuestra clutch es “la cartera de fiesta” por excelencia para tus clientas: sofisticada, llamativa y con un trabajo de apliques premium que la hace lucir completamente exclusiva.Con un cierre clutch y doble cadena larga y corta Medidas: 19cm de longitud, 12cm de alto Surtido Contiene: 1 cartera
+code: T76019
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg
+proveedor: carey

@@ -10,7 +10,7 @@ import EmptyState from '/components/EmptyState.jsx';
 import ImageModal from '/components/ImageModal.jsx';
 import Footer from '/components/Footer.jsx';
 import CategoryBanner from '/components/CategoryBanner.jsx';
-import SearchFilterBar from '/components/SearchFilterBar.jsx';
+import SearchFilterBar, { filtersForCategory } from '/components/SearchFilterBar.jsx';
 import RelatedProducts from '/components/RelatedProducts.jsx';
 import ClaveNacional from '/components/ClaveNacional.jsx';
 import { loadManifest, loadCatalogIndex, getCategoryFromURL, normalizeText } from '/utils/productUtils.js';
@@ -34,10 +34,6 @@ const CAT_SNAP = 'b2you-cat-snap';
 // limpieza de la query, asi que vive en un solo lugar para que no se desincronicen.
 const DEFAULT_VIEW_MODE = 'grid';
 
-// Belt sub-category axes. OR within an axis, AND across axes.
-const GENDER_TAGS = ['hombre', 'mujer'];
-const ORIGIN_TAGS = ['importado', 'nacional'];
-const STYLE_TAGS = ['urbano', 'vestir'];
 
 function App() {
   const { categoria: paramCategoria, nombre: paramNombre } = useParams();
@@ -271,7 +267,10 @@ function App() {
       window.scrollTo({ top: 0, behavior: 'instant' });
       setSearchInput('');
       setSearchQuery('');
-      setSelectedTags([]);
+      // Entrada directa a una subcategoria desde el menu: ?sub=pantalones ->
+      // arranca con ese tag ya marcado (el chip de la barra queda activo).
+      const urlSub = params.get('sub');
+      setSelectedTags(urlSub ? [urlSub] : []);
       setCurrentPage(urlPage);
       setViewMode(urlView);
       updateURLParams({ vista: urlView, pagina: urlPage });
@@ -347,9 +346,15 @@ function App() {
   const selectedCategory = getCategoryFromURL();
   const isBelts = selectedCategory === 'Cinturones';
 
-  const genderSel = selectedTags.filter(t => GENDER_TAGS.includes(t));
-  const originSel = selectedTags.filter(t => ORIGIN_TAGS.includes(t));
-  const styleSel = selectedTags.filter(t => STYLE_TAGS.includes(t));
+  // Sub-filtros de la categoria (cinturones: genero/origen/estilo; indumentaria: tipo).
+  const catFilters = filtersForCategory(selectedCategory);
+  // Tags elegidos, agrupados por eje. Se cruzan con AND: cada eje con seleccion
+  // debe matchear alguno de sus tags (OR dentro del eje).
+  const selByAxis = catFilters
+    ? [...new Set(catFilters.map((f) => f.axis))]
+        .map((ax) => ({ sel: selectedTags.filter((x) => catFilters.some((f) => f.axis === ax && f.key === x)) }))
+        .filter((g) => g.sel.length)
+    : [];
   // Accent-insensitive, multi-word search: every word the visitor types must
   // match somewhere in the product ("cinturon tachas" finds "Cinturón Tachas Fino").
   const qWords = normalizeText(searchQuery).split(/\s+/).filter(Boolean);
@@ -368,11 +373,11 @@ function App() {
         .filter(Boolean).join(' '));
       if (!qWords.every(w => hay.includes(w))) return false;
     }
-    if (selectedTags.length) {
+    if (selByAxis.length) {
       const t = (Array.isArray(p.metadata.tags) ? p.metadata.tags : []).map(x => x.toLowerCase());
-      if (genderSel.length && !genderSel.some(x => t.includes(x))) return false;
-      if (originSel.length && !originSel.some(x => t.includes(x))) return false;
-      if (styleSel.length && !styleSel.some(x => t.includes(x))) return false;
+      for (const g of selByAxis) {
+        if (!g.sel.some(x => t.includes(x))) return false;
+      }
     }
     return true;
   });
@@ -701,10 +706,12 @@ function App() {
   }
 
   // ===== CATEGORY CLICK HANDLER =====
-  function handleCategoryClick(e, cat) {
+  // `sub` opcional: entra a la categoria con esa subcategoria (tag) ya aplicada,
+  // via ?sub=... que se lee al cargar la categoria.
+  function handleCategoryClick(e, cat, sub) {
     e.preventDefault();
     setIsMenuActive(false);
-    navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
+    navigate(`/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
   }
 
   // ===== SEARCH / FILTER HANDLERS =====
@@ -749,7 +756,7 @@ function App() {
         <SearchFilterBar
           searchInput={searchInput}
           onSearchChange={setSearchInput}
-          showFilters={isBelts}
+          showFilters={!!catFilters}
           selectedTags={selectedTags}
           onToggleTag={handleToggleTag}
           onClearFilters={handleClearFilters}

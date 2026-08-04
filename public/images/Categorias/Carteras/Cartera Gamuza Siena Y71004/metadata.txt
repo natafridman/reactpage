@@ -1,0 +1,5 @@
+title: Cartera Gamuza Siena
+description: Cartera amplia de diseño clásico con acabado tipo gamuza y detalle de tira con hebilla al frente. Elegante y versátil, ideal para uso diario con gran capacidad y comodidad. Disponible en varios colores para combinar con todo. Medidas aproximadas: 40 x 24cm. Surtido. Contiene: 1 Cartera.
+code: Y71004
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg
+proveedor: carey

@@ -24,6 +24,45 @@ const BELT_AXES = [
   { key: 'estilo', label: 'Estilo' },
 ];
 
+// Sub-categorias de Indumentaria de Trabajo, un solo eje "Tipo". Mismas que la web
+// de Gurre; el `key` es el valor que trae el `tags:` del metadata.txt del producto.
+// "Calzado" tambien vive como categoria propia, pero aca aparece como subcategoria.
+const INDUMENTARIA_FILTERS = [
+  { key: 'camisas', label: 'Camisas', axis: 'tipo' },
+  { key: 'remeras-chombas', label: 'Remeras y Chombas', axis: 'tipo' },
+  { key: 'pantalones', label: 'Pantalones', axis: 'tipo' },
+  { key: 'bombachas-bermudas', label: 'Bombachas y Bermudas', axis: 'tipo' },
+  { key: 'camperas', label: 'Camperas', axis: 'tipo' },
+  { key: 'buzos', label: 'Buzos', axis: 'tipo' },
+  { key: 'mameluco', label: 'Mameluco', axis: 'tipo' },
+  { key: 'varios', label: 'Varios', axis: 'tipo' },
+  { key: 'calzado', label: 'Calzado', axis: 'tipo' },
+];
+const INDUMENTARIA_AXES = [{ key: 'tipo', label: 'Tipo' }];
+
+// Config de sub-filtros por categoria. Devuelve null cuando la categoria no tiene.
+const FILTER_SETS = {
+  Cinturones: { filters: BELT_FILTERS, axes: BELT_AXES, aria: 'Filtrar cinturones' },
+  'Indumentaria de Trabajo': { filters: INDUMENTARIA_FILTERS, axes: INDUMENTARIA_AXES, aria: 'Filtrar indumentaria de trabajo' },
+};
+
+// Lista de filtros ({key,label,axis}) de una categoria, o null. La usa App.jsx
+// para cruzar los tags seleccionados por eje (OR dentro del eje, AND entre ejes).
+export function filtersForCategory(category) {
+  return FILTER_SETS[category]?.filters || null;
+}
+
+// Subcategorias para el menu del header: los chips del PRIMER eje del set
+// (genero en cinturones -> Hombre/Mujer; tipo en indumentaria -> Camisas,
+// Pantalones, ...). Devuelve [] si la categoria no tiene sub-filtros. Entrar a
+// una de estas lleva directo a la categoria con ese tag ya aplicado.
+export function menuSubcategories(category) {
+  const set = FILTER_SETS[category];
+  if (!set || !set.axes.length) return [];
+  const axisKey = set.axes[0].key;
+  return set.filters.filter((f) => f.axis === axisKey).map((f) => ({ key: f.key, label: f.label }));
+}
+
 function SearchFilterBar({
   searchInput,
   onSearchChange,
@@ -113,6 +152,9 @@ function SearchFilterBar({
   const hasFilters = selectedTags.length > 0;
   const filtering = Boolean(searchInput) || hasFilters;
 
+  // Set de sub-filtros de la categoria actual (cinturones, indumentaria, o ninguno).
+  const set = FILTER_SETS[category] || null;
+
   const viewToggle = onViewModeChange ? (
     <div className="toolbar-view">
       <button
@@ -186,13 +228,13 @@ function SearchFilterBar({
         {viewToggle}
       </div>
 
-      {showFilters && (
-        <div className="toolbar-filters" role="group" aria-label="Filtrar cinturones" ref={filtersRef}>
+      {showFilters && set && (
+        <div className="toolbar-filters" role="group" aria-label={set.aria} ref={filtersRef}>
           <span className="toolbar-filters-label">Filtrar</span>
-          {BELT_AXES.map((axis) => (
+          {set.axes.map((axis) => (
             <div className={`toolbar-axis toolbar-axis--${axis.key}`} key={axis.key}>
               <span className="toolbar-axis-label">{axis.label}</span>
-              {BELT_FILTERS
+              {set.filters
                 .filter((f) => f.axis === axis.key)
                 // Sin la clave, "Nacional" no se ofrece: filtrarlo llevaba a un
                 // "Sin coincidencias" y ademas anunciaba que hay productos ahi.

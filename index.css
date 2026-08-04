@@ -315,7 +315,7 @@ body {
 }
 
 .categories-menu.active {
-    max-height: 200px;
+    max-height: 520px;
     opacity: 1;
 }
 
@@ -437,6 +437,294 @@ body {
 
 .category-link--mundial::before {
     background: #4A9AD4;
+}
+
+/* ===== MENU: entrada directa a subcategorias ===== */
+.menu-subs {
+    width: 100%;
+    margin-top: 1.15rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid var(--b2-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.menu-subs-label {
+    border-bottom: none;
+    padding: 0;
+    margin: 0 0 0.1rem;
+}
+
+.menu-sub-group {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.9rem;
+}
+
+.menu-sub-cat {
+    font-family: var(--b2-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.05rem;
+    line-height: 1.1;
+    color: var(--b2-espresso);
+    text-decoration: none;
+    flex-shrink: 0;
+    min-width: 9rem;               /* alinea los chips de los distintos grupos */
+    transition: color 0.25s ease;
+}
+
+.menu-sub-cat:hover,
+.menu-sub-cat:focus-visible { color: var(--b2-cognac); }
+
+.menu-sub-cat:visited { color: var(--b2-espresso); }
+
+.menu-sub-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.menu-sub-chip {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--b2-gray);
+    text-decoration: none;
+    padding: 0.32rem 0.72rem;
+    border: 1px solid var(--b2-border);
+    border-radius: 999px;
+    background: transparent;
+    white-space: nowrap;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.menu-sub-chip:hover {
+    color: #FFFFFF;
+    background: var(--b2-cognac);
+    border-color: var(--b2-cognac);
+    transform: translateY(-1px);
+}
+
+.menu-sub-chip:visited { color: var(--b2-gray); }
+.menu-sub-chip:visited:hover { color: #FFFFFF; }
+
+/* ===== MEGA MENU (lista de categorias + vista previa) ===== */
+.categories-menu.mega { box-shadow: 0 18px 44px rgba(40, 22, 18, 0.12); }
+.categories-menu.mega.active { max-height: min(86vh, 600px); }
+
+/* El menu clasico (lista plana) es solo para mobile; en desktop manda el mega. */
+.menu-classic { display: none; }
+
+.mega-inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    min-height: 400px;
+    max-height: min(86vh, 600px);
+}
+
+/* --- izquierda: lista de categorias --- */
+.mega-list {
+    flex: 0 0 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.08rem;
+    padding: 1.5rem 1rem 1.25rem 2rem;
+    border-right: 1px solid var(--b2-border);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--b2-border) transparent;
+}
+.mega-list::-webkit-scrollbar { width: 5px; }
+.mega-list::-webkit-scrollbar-thumb { background: var(--b2-border); border-radius: 3px; }
+.mega-list::-webkit-scrollbar-track { background: transparent; }
+
+.mega-list .menu-section-label {
+    border-bottom: none;
+    padding: 0 0.85rem 0.55rem;
+    margin-bottom: 0.1rem;
+}
+
+.mega-cat-wrap { display: contents; }
+
+.mega-cat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.5rem 0.85rem;
+    border-radius: 9px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    text-decoration: none;
+    color: var(--b2-black);
+    font-family: inherit;
+    font-size: 0.94rem;
+    font-weight: 500;
+    letter-spacing: 0.005em;
+    line-height: 1.2;
+    transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+}
+
+.mega-cat-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.mega-cat-arrow {
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(-6px);
+    color: var(--b2-cognac);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mega-cat.is-active,
+.mega-cat:hover {
+    background: var(--b2-cream);
+    color: var(--b2-cognac);
+    padding-left: 1.1rem;
+}
+
+.mega-cat.is-active .mega-cat-arrow,
+.mega-cat:hover .mega-cat-arrow { opacity: 1; transform: none; }
+
+.mega-cat:visited { color: var(--b2-black); }
+.mega-cat.is-active:visited,
+.mega-cat:hover:visited { color: var(--b2-cognac); }
+.mega-cat:focus-visible { outline: 2px solid var(--b2-cognac); outline-offset: -2px; }
+
+.mega-cat--all { font-weight: 600; }
+.mega-cat--mundial .mega-cat-name { color: #4A9AD4; font-weight: 700; }
+
+.mega-more {
+    margin-top: 0.8rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--b2-border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+}
+
+.mega-more button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 0.42rem 0.85rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--b2-gray);
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+.mega-more button:hover { color: var(--b2-cognac); background: var(--b2-cream); }
+
+/* las subcats inline solo se muestran en mobile (en desktop van en el preview) */
+.mega-cat-subs { display: none; }
+
+/* --- derecha: vista previa --- */
+.mega-preview {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+    padding: 2rem 2.75rem;
+    min-width: 0;
+}
+
+.mega-preview-media {
+    flex: 0 0 42%;
+    max-width: 290px;
+    aspect-ratio: 4 / 5;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--b2-cream);
+}
+.mega-preview-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mega-preview-ph { width: 100%; height: 100%; }
+
+.mega-preview-body { flex: 1; min-width: 0; }
+
+.mega-preview-eyebrow {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--b2-light-gray);
+    margin-bottom: 0.5rem;
+}
+
+.mega-preview-title {
+    font-family: var(--b2-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.7rem, 2.3vw, 2.25rem);
+    line-height: 1.05;
+    color: var(--b2-black);
+    margin: 0 0 0.9rem;
+}
+
+.mega-preview-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--b2-cognac);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: gap 0.2s ease;
+}
+.mega-preview-all:hover { gap: 0.75rem; }
+
+.mega-preview-subs {
+    margin-top: 1.5rem;
+    padding-top: 1.35rem;
+    border-top: 1px solid var(--b2-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.mega-sub-chip {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--b2-gray);
+    text-decoration: none;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--b2-border);
+    border-radius: 999px;
+    background: transparent;
+    white-space: nowrap;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.mega-sub-chip:hover { color: #FFFFFF; background: var(--b2-cognac); border-color: var(--b2-cognac); transform: translateY(-1px); }
+.mega-sub-chip:visited { color: var(--b2-gray); }
+.mega-sub-chip:visited:hover { color: #FFFFFF; }
+
+@media (max-width: 768px) {
+    /* En mobile se usa el menu clasico (el de antes); el mega se oculta. */
+    .categories-menu.mega.active { max-height: 78vh; overflow-y: auto; }
+    .mega-inner { display: none; }
+    .menu-classic { display: block; }
 }
 
 .menu-nav-separator {
@@ -2325,7 +2613,23 @@ a.product-card-info {
         text-align: left;
         padding: 0.75rem 0;
     }
-    
+
+    .menu-subs {
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+
+    .menu-sub-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.55rem;
+    }
+
+    .menu-sub-cat {
+        min-width: unset;
+        font-size: 1.15rem;
+    }
+
     .gallery-side {
         padding: 3rem 2rem;
     }

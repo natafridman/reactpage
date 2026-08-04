@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '/components/Header.jsx';
-import { loadManifest, parseMetadata, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
+import { loadManifest, parseMetadata, thumbSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
 const PRODUCT_R = 68;
 const CATEGORY_R = 40;
@@ -113,7 +113,10 @@ function RedProductosPage() {
             y: catY + Math.sin(spreadAngle) * dist,
             radius: PRODUCT_R,
             color,
-            image: `/${IMAGES_BASE_FOLDER}/${cat}/${prod.folder}/${firstImage}`,
+            // Los nodos se dibujan en circulos de ~136px: siempre el thumbnail
+            // (.thumbs/<n>.webp ~280px). El original ni se sirve (esta gitignoreado),
+            // asi que en prod cargar el original daria 404 ademas de pesar de mas.
+            image: thumbSrc(`/${IMAGES_BASE_FOLDER}/${cat}/${prod.folder}/${firstImage}`),
             pinned: false,
           };
           allNodes.push(prodNode);
@@ -583,9 +586,9 @@ function RedProductosPage() {
     };
   }, [loading]);
 
-  const handleCategoryClick = (e, cat) => {
+  const handleCategoryClick = (e, cat, sub) => {
     e.preventDefault();
-    navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
+    navigate(`/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
   };
 
   return (

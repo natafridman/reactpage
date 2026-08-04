@@ -1,0 +1,7 @@
+title: Cargo de Trabajo de Gabardina
+subtitle: Hombre
+description: Pantalón cargo de gabardina 8oz con bolsillos en pierna con tapa. Reforzado en entrepierna. Opción alta visibilidad con cintas reflectivas. Colores: Negro, Verde, Habano, Beige, Azul. Se personaliza con bordado o estampado.
+code: ART-0006
+images: 01.jpg
+tags: pantalones
+proveedor: factown

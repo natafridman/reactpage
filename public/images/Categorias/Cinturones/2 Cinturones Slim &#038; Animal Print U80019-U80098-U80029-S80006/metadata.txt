@@ -1,0 +1,6 @@
+title: 2 Cinturones Slim &#038; Animal Print
+subtitle: Pack de 2
+description: La colección perfecta para sumar detalle sin recargar: cinturones finos, livianos y con estampas clave que elevan cualquier look con un toque sutil pero trendy. Diseños minimalistas combinados con animal print y tonos neutros que se adaptan a todos los estilos. Contiene: 2 cinturones
+code: U80019/U80098/U80029/S80006
+images: 01.jpg, 02.png, 03.jpg
+proveedor: carey

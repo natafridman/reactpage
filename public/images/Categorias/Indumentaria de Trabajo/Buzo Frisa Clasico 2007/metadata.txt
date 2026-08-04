@@ -1,0 +1,7 @@
+title: Buzo Frisa Clasico
+subtitle: Unisex
+description: Buzo de frisa peinada 100% algodón, cuello redondo, ribb a tono en puños, cintura y cuello. Suave y resistente. Colores: Negro, Blanco, Gris, Azul. Talles: S al 5XL. Se personaliza con bordado o estampado.
+code: ART-2007
+images: 01.jpg, 02.jpg
+tags: buzos
+proveedor: factown

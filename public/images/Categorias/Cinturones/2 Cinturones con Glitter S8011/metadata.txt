@@ -1,0 +1,6 @@
+title: 2 Cinturones con Glitter
+subtitle: Pack de 2
+description: Contiene: 2 cinturones
+code: S8011
+images: 01.webp
+proveedor: carey

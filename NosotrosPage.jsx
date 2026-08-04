@@ -89,9 +89,9 @@ function NosotrosPage() {
     window.location.href = window.location.origin;
   }
 
-  function handleCategoryClick(e, cat) {
+  function handleCategoryClick(e, cat, sub) {
     e.preventDefault();
-    navigate(`/productos?categoria=${encodeURIComponent(cat)}`);
+    navigate(`/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
   }
 
   function enviarWhatsApp() {

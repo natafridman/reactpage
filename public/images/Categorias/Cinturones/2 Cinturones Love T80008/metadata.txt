@@ -1,0 +1,7 @@
+title: 2 Cinturones Love
+subtitle: Pack de 2
+description: Cinto compuesto por corazones metálicos combinados con piezas texturadas que aportan brillo y movimiento. Es liviano, regulable y perfecto para usar con vestidos, jeans, faldas o looks de noche. Surtido Contiene: 2 cinturones
+code: T80008
+images: 01.jpg, 02.jpg
+tags: mujer
+proveedor: carey

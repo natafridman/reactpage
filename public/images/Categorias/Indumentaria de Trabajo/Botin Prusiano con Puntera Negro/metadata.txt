@@ -1,0 +1,7 @@
+title: Botin Prusiano con Puntera Negro
+subtitle: Talles 37 al 46
+description: Botin prusiano cuero box unisex con puntera metalica de acero complementado con cuello acolchado y suela de PU bi-densidad resistente y duradero. Colores: Negro. Talles: 37, 38, 39, 40, 41, 42, 43, 44, 45, 46. Se personaliza con bordado o estampado.
+code: CAL-002
+images: 01.jpg
+tags: calzado
+proveedor: gurre

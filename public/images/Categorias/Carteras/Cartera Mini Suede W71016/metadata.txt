@@ -1,0 +1,5 @@
+title: Cartera Mini Suede
+description: Cartera compacta en gamuza sintética con correa regulable y detalles en tono cuero Unico Contiene: 1 cartera
+code: W71016
+images: 01.jpg, 02.jpg
+proveedor: carey

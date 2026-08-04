@@ -1,0 +1,5 @@
+title: Cartera Soft Glam
+description: Cartera de simil piel peludita con cadena dorada, cierre y solapa imantada, ideales para sumar un look moderno y súper tendencia en este invierno. Medidas: 29 cm de largo x 20 cm de alto Contiene: 1 cartera
+code: K7002
+images: 01.jpg, 02.webp, 03.webp
+proveedor: carey

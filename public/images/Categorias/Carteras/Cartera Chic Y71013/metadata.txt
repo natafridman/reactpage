@@ -1,0 +1,5 @@
+title: Cartera Chic
+description: Estas carteras estilo hobo fusionan el acabado gamuzado con detalles de corderito suave y simil cuero en la base y asa. Con cierre botón imantado. Amplias, livianas y cómodas, son ideales para acompañar cualquier look de invierno. Contiene: 1 cartera
+code: Y71013
+images: 01.jpg, 02.jpg, 03.jpg
+proveedor: carey

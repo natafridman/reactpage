@@ -1,0 +1,7 @@
+title: Camisa de Jean
+subtitle: Talles 38 al 60
+description: Camisa de jean para hombre en acabado prelavado Stone Wash clásico fabricada en robusto tejido de 13 oz para mayor resistencia y estilo atemporal. Colores: Azul. Talles: 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60. Se personaliza con bordado o estampado.
+code: IND-006
+images: 01.jpg, 02.jpg
+tags: camisas
+proveedor: gurre

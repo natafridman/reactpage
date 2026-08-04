@@ -1,0 +1,7 @@
+title: 2 Cinturones Orbit Glam
+subtitle: Pack de 2
+description: Cinturones metálicos con eslabones circulares pulidos que aportan un estilo moderno y sofisticado. Ideales para marcar la cintura y darle un toque trendy a vestidos, blazers o looks básicos. Livianos, regulables y súper fáciles de combinar. Surtido Contiene: 2 cinturones
+code: W80023
+images: 01.jpg
+tags: mujer
+proveedor: carey

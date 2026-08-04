@@ -1,0 +1,7 @@
+title: Chomba Blanca
+subtitle: Talles S al XXXL
+description: Chomba blanca unisex premium confeccionada en 100% algodon de alta calidad para mayor confort y durabilidad en todo tipo de actividad. Colores: Blanco. Talles: S, M, L, XL, XXL, XXXL. Se personaliza con bordado o estampado.
+code: IND-017
+images: 01.jpg, 02.jpg, 03.jpg
+tags: remeras-chombas
+proveedor: gurre

@@ -1,0 +1,5 @@
+title: Cartera Verona
+description: Un clásico reinventado para la mujer moderna. Su diseño con estampado transmite elegancia y sofisticación, ideal para quienes buscan estilo en cada detalle. Con doble opción de uso —manija corta o correa regulable— se adapta a cualquier ocasión: desde una jornada laboral hasta una salida nocturna. Compacto pero espacioso, el Bolso Verona es el complemento perfecto que no puede faltar en tu local Medidas: 21cm de longitud, 14.5cm de alto y 6.2 cm de ancho Colores surtidos Contiene: 1 cartera
+code: S71007
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg
+proveedor: carey

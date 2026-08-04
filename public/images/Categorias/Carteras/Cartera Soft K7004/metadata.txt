@@ -1,0 +1,5 @@
+title: Cartera Soft
+description: Cartera de simil piel peludita con cadena metálica dorada, ideales para looks de invierno con un toque chic y sofisticado. Medidas: cm de largo x cm de alto Color único Contiene: 1 cartera
+code: K7004
+images: 01.jpg, 02.webp
+proveedor: carey

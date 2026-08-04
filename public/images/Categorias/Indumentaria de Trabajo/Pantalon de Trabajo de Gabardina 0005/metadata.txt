@@ -1,0 +1,7 @@
+title: Pantalon de Trabajo de Gabardina
+subtitle: Hombre
+description: Pantalón clásico de gabardina 8oz, algodón 100% premium. Tiro medio y calce recto, reforzado en entrepierna. Opción alta visibilidad con cintas reflectivas. Colores: Negro, Verde, Beige, Azul. Se personaliza con bordado o estampado.
+code: ART-0005
+images: 01.jpg
+tags: pantalones
+proveedor: factown

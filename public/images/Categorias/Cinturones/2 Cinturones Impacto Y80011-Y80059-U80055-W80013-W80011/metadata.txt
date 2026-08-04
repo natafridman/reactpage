@@ -1,0 +1,6 @@
+title: 2 Cinturones Impacto
+subtitle: Pack de 2
+description: Una selección de cinturones con personalidad fuerte y detalles que no pasan desapercibidos. Desde tachas y ojales hasta hebillas grandes y diseños tipo western, esta colección está pensada para transformar cualquier look en segundos. Contiene: 2 cinturones surtidos
+code: Y80011/Y80059/U80055/W80013/W80011
+images: 01.png, 02.png, 03.png, 04.jpg, 05.jpg
+proveedor: carey

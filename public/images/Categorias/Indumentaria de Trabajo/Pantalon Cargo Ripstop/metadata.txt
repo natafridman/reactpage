@@ -1,0 +1,7 @@
+title: Pantalon Cargo Ripstop
+subtitle: Talles 38 al 60
+description: Pantalon cargo ripstop confeccionado en poliester y algodon con propiedades antidesgarro y costuras reforzadas con atraques para mayor durabilidad cuenta con bolsillos laterales y bolsillo porta celular. Colores: Azul, Beige, Negro, Verde. Talles: 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60. Se personaliza con bordado o estampado.
+code: IND-014
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg, 05.jpg, 06.jpg, 07.jpg, 08.jpg, 09.jpg, 10.jpg, 11.jpg, 12.jpg
+tags: pantalones
+proveedor: gurre

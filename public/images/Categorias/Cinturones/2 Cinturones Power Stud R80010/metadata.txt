@@ -1,0 +1,6 @@
+title: 2 Cinturones Power Stud
+subtitle: Pack de 2
+description: Cinturones de diseño moderno y fuerte presencia visual, confeccionados en material simil cuero y protagonizados por apliques metálicos tipo tacha XL que elevan cualquier look. Un accesorio pensado para sumar carácter y estilo, ideal para outfits urbanos, casuales o de noche. Disponibles en una paleta neutra y atemporal que facilita la combinación con diferentes prendas y temporadas. Su hebilla metálica aporta un acabado elegante y resistente, convirtiéndolos en una pieza clave tanto para looks diarios como para estilismos más audaces. Medidas: 3 cm de ancho x 110 cm de largo Surtido Contiene: 2 cinturones
+code: R80010
+images: 01.png, 02.png, 03.png, 04.png
+proveedor: carey

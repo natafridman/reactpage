@@ -1,0 +1,7 @@
+title: Mameluco de Gabardina
+subtitle: Unisex
+description: Mameluco en gabardina 8oz con bolsillo plaqué, tapacierres, elástico en cintura y reflectivos en frente, espalda, mangas y botamangas. Se personaliza con bordado o estampado.
+code: ART-2012
+images: 01.jpg
+tags: mameluco
+proveedor: factown

@@ -1,0 +1,6 @@
+title: 2 Cinturones Corazon
+subtitle: Pack de 2
+description: Cinturón de diseño moderno con hebilla protagonista en forma de corazón, que aporta un toque audaz y sofisticado. Su acabado oscuro y minimalista lo convierte en el accesorio ideal para elevar looks básicos con estilo y personalidad. Perfecto para usar con jeans, pantalones sastreros o outfits nocturnos, sumando un detalle distintivo y en tendencia. Contiene: 2 cinturones
+code: Y80062/Y80055
+images: 01.png
+proveedor: carey

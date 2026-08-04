@@ -1,0 +1,7 @@
+title: Pantalon Cargo Elastizado
+subtitle: Talles 38 al 60
+description: Pantalon cargo elastizado unisex confeccionado en tela gabardina elastizada con 6 bolsillos 2 frontales 2 laterales y 2 traseros con rodillas y entrepierna reforzadas en linea de botamanga con abrojo. Colores: Azul, Beige, Negro, Verde. Talles: 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60. Se personaliza con bordado o estampado.
+code: IND-012
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg, 05.jpg, 06.jpg
+tags: pantalones
+proveedor: gurre

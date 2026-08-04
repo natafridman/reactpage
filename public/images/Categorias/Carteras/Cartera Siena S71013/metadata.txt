@@ -1,0 +1,5 @@
+title: Cartera Siena
+description: Un diseño elegante y versátil que combina la sofisticación con la practicidad. Su hebilla dorada XL en el frente es el detalle protagonista que lo convierte en un accesorio moderno y chic. Confeccionado en acabado liso, es el complemento ideal para elevar cualquier look, desde lo casual hasta lo más formal. Medidas: 25cm de longitud, 16.5cm de alto y 6cm de ancho Colores surtidos Contiene: 1 cartera
+code: S71013
+images: 01.jpg, 02.jpg
+proveedor: carey

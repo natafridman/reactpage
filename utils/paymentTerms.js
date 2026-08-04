@@ -28,6 +28,29 @@ export const PAYMENT_TERMS = {
       'Forma de pago y plazos a coordinar.',
     ],
   },
+  gurre: {
+    terms: [
+      'Medios de pago: transferencia o depósito bancario, o cheque / e-Check.',
+      'Compra mínima: 10 unidades.',
+      'Se emite factura A o B.',
+      'Forma de pago y entrega a coordinar.',
+    ],
+  },
+  carey: {
+    terms: [
+      'Precios + IVA (no incluyen IVA).',
+      'Venta mayorista: los artículos vienen por pack y hay una compra mínima.',
+      'Descuentos por cantidad.',
+      'Se emite factura A, B o E (IVA exento).',
+      'El envío corre por cuenta del cliente; se despacha dentro de las 72 hs hábiles de acreditado el pago.',
+    ],
+  },
+  factown: {
+    terms: [
+      'Ropa de trabajo; se personaliza con bordado o estampado del logo.',
+      'Forma de pago, mínimos de compra y envío a coordinar.',
+    ],
+  },
 };
 
 // Normaliza un valor de proveedor de la metadata a la clave del registro.

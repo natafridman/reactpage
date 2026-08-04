@@ -1,0 +1,6 @@
+title: 2 Cinturones Mix
+subtitle: Pack de 2
+description: Línea de cintos en símil cuero que combina distintos estilos: desde modelos básicos con hebillas modernas hasta opciones con estampas, tachas y detalles protagonistas. Contiene: 2 cinturones surtidos
+code: Y80033/Y80040/Y80042
+images: 01.jpg
+proveedor: carey

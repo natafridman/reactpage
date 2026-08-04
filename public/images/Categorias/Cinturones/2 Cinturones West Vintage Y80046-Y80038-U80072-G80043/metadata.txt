@@ -1,0 +1,6 @@
+title: 2 Cinturones West Vintage
+subtitle: Pack de 2
+description: cinturones con hebillas protagonistas que elevan cualquier look al instante. Diseños que combinan cuero clásico con detalles en metal trabajado, logrando ese equilibrio perfecto entre tendencia y atemporalidad. Contiene: 2 Cinturones
+code: Y80046/Y80038/U80072/G80043
+images: 01.jpg, 02.png, 03.png, 04.jpg
+proveedor: carey

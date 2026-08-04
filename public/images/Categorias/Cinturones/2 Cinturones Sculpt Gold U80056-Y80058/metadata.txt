@@ -1,0 +1,6 @@
+title: 2 Cinturones Sculpt Gold
+subtitle: Pack de 2
+description: Este cinturón se destaca por su diseño moderno y minimalista, ideal para quienes buscan un accesorio elegante con un toque distintivo. Confeccionado en simil cuero negro de textura suave, presenta una hebilla metálica en acabado brillante, que funciona como pieza protagonista y aporta un look sofisticado y actual. Su diseño limpio y versátil lo convierte en un básico elevado, perfecto para acompañar tanto outfits urbanos como looks más formales. Ideal para usar con jeans, pantalones sastreros, vestidos o blazers, sumando un detalle de tendencia sin recargar el conjunto. Medidas: 2,7 cm de ancho x 104 cm de largo Surtido. Contiene: 2 cinturones
+code: U80056/Y80058
+images: 01.png, 02.jpg
+proveedor: carey

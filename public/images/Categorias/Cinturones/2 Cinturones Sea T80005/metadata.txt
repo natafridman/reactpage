@@ -1,0 +1,7 @@
+title: 2 Cinturones Sea
+subtitle: Pack de 2
+description: Este modelo combina caracoles metálicos en un diseño articulado que aporta movimiento, brillo y un toque boho chic a cualquier look. Ideal para usar con vestidos, shorts o jeans en verano. Liviano y súper versátil. Surtido Contiene: 2 cinturones
+code: T80005
+images: 01.jpg, 02.jpg
+tags: mujer
+proveedor: carey

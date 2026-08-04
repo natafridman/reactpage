@@ -1,0 +1,7 @@
+title: 2 Cinturones Eslabones
+subtitle: Pack de 2
+description: Cinturones metálicos de eslabones XL. Ideales para marcar la cintura y elevar cualquier outfit. Livianos, regulables y en tonos clásicos fáciles de combinar. Surtido Contiene: 2 cinturones
+code: W80017
+images: 01.jpg
+tags: mujer
+proveedor: carey

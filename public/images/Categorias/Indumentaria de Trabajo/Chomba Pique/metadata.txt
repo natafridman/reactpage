@@ -1,0 +1,7 @@
+title: Chomba Pique
+subtitle: Talles S al XXXL
+description: Chomba pique unisex premium confeccionada en 100% algodon de alta calidad para mayor confort y durabilidad en todo tipo de actividad. Colores: Azul, Blanco, Gris, Negro. Talles: S, M, L, XL, XXL, XXXL. Se personaliza con bordado o estampado.
+code: IND-018
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg, 05.jpg, 06.jpg, 07.jpg, 08.jpg, 09.jpg, 10.jpg, 11.jpg, 12.jpg
+tags: remeras-chombas
+proveedor: gurre

@@ -1,0 +1,7 @@
+title: 2 Cinturones Fajas Urban Basic
+subtitle: Pack de 2
+description: Cinturones faja confeccionados en material simil cuero, disponibles en colores clásicos y atemporales. Su diseño de ancho amplio lo convierte en un accesorio versátil, funcional y fácil de combinar. Cuentan con hebilla metálica rectangular de estilo sobrio, ideal para un ajuste cómodo y seguro. El formato faja permite marcar la cintura y realzar la silueta, adaptándose a diferentes talles y estilos. Perfectos para acompañar vestidos, sacos, camisas oversize, sweaters o pantalones de tiro alto. Una propuesta básica pero imprescindible. Medidas: 5,7 cm de ancho x 115 cm de largo Surtido Contiene: 2 cinturones fajas
+code: R80021/U80008
+images: 01.png, 02.png
+tags: mujer
+proveedor: carey

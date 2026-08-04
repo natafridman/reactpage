@@ -1,0 +1,7 @@
+title: 2 Cinturones Hexagonales
+subtitle: Pack de 2
+description: Cinturones metálicos con eslabones geométricos hexagonales que aportan un look moderno y sofisticado. Ideales para marcar la cintura y sumar un detalle protagonista a cualquier outfit. Livianos, regulables y perfectos para elevar looks básicos o de noche. Surtido Contiene: 2 cinturones
+code: W80020
+images: 01.jpg
+tags: mujer
+proveedor: carey

@@ -1,0 +1,7 @@
+title: Chomba Clasica Polo Pique
+subtitle: Unisex
+description: Chomba manga corta de polo piqué 100% algodón, cuello y puños tejidos a tono, botones de pasta. Consultar por jersey 24/1. Colores: Negro, Blanco, Gris, Azul. Talles: S al 5XL. Se personaliza con bordado o estampado.
+code: ART-2001
+images: 01.jpg, 02.jpg
+tags: remeras-chombas
+proveedor: factown

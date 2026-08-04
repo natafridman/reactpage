@@ -1,0 +1,6 @@
+title: 2 Cinturones Narrow
+subtitle: Pack de 2
+description: Versátiles y en tendencia, se adaptan a looks casuales y más jugados Surtido Contiene: 2 cinturones surtidos
+code: Y80020/Y80044
+images: 01.jpg, 02.jpg
+proveedor: carey

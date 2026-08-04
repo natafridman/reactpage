@@ -1,0 +1,5 @@
+title: Cartera Hobo
+description: Carteras tipo hobo soft gamuzadas con base y terminaciones en simil cuero. Incluyen un porta esencial desmontable a juego, ideal para llevar lo indispensable siempre a mano. Medidas: 39 cm de largo x 25 cm de alto Colores surtidos Contiene: 1 cartera
+code: W71006
+images: 01.jpg, 02.jpg, 03.jpg
+proveedor: carey

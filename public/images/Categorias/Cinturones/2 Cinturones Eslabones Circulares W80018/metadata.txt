@@ -1,0 +1,7 @@
+title: 2 Cinturones Eslabones Circulares
+subtitle: Pack de 2
+description: Cinturones metálicos con eslabones redondos XL. Ideales para usar sobre vestidos, blazers o prendas básicas y transformar el outfit al instante. Regulables, livianos y súper en tendencia. Surtido Contiene: 2 cinturones
+code: W80018
+images: 01.jpg
+tags: mujer
+proveedor: carey
