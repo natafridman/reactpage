@@ -2,7 +2,7 @@ title: Cinturon Lipetsk
 subtitle: Linea Importada
 description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
 code: CIN-194
-images: LIPETSK.jpg
+images: LIPETSK.jpg, KIROV.jpg, KASSEL.jpg
 videos:
 tags: hombre, importado
 proveedor: aston

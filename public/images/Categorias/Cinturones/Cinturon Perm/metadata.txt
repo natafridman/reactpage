@@ -2,7 +2,7 @@ title: Cinturon Perm
 subtitle: Linea Importada
 description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
 code: CIN-184
-images: PERM.jpg
+images: PERM.jpg, ROSTOV.jpg, VORONEZH.jpg, VOLGOGRADO.jpg, SARATOV.jpg, TOLIATTI.jpg
 videos:
 tags: hombre, importado
 proveedor: aston

@@ -2,7 +2,7 @@ title: Cinturon Krefeld
 subtitle: Linea Importada
 description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
 code: CIN-218
-images: KREFELD.jpg
+images: KREFELD.jpg, MAGUNCIA.jpg, LUBECK.jpg
 videos:
 tags: hombre, importado
 proveedor: aston

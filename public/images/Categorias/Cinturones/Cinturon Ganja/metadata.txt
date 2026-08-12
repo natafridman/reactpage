@@ -2,7 +2,7 @@ title: Cinturon Ganja
 subtitle: Linea Importada
 description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
 code: CIN-171
-images: GANJA.jpg
+images: GANJA.jpg, SHYMKENT.jpg, ALMATY.jpg, ASTANA.jpg, BISHKEK.jpg
 videos:
 tags: hombre, importado
 proveedor: aston

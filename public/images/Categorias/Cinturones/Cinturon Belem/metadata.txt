@@ -2,7 +2,7 @@ title: Cinturon Belem
 subtitle: Remaches
 description: Cinturon de cuero vacuno con remaches. Pase 25mm. Se personaliza con grabado.
 code: CIN-273
-images: BELEM.jpg
+images: BELEM.jpg, ALFAMA.jpg, DAVOS.jpg
 videos:
 tags: mujer, nacional
 proveedor: aston

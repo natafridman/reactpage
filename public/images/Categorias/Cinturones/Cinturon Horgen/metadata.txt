@@ -2,7 +2,7 @@ title: Cinturon Horgen
 subtitle: Cuero Vacuno
 description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
 code: CIN-319
-images: HORGEN.jpg
+images: HORGEN.jpg, MEILEN.jpg, BULACH.jpg
 videos:
 tags: mujer, nacional
 proveedor: aston
