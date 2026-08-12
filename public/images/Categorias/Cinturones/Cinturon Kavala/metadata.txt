@@ -1,8 +1,0 @@
-title: Cinturon Kavala
-subtitle: Linea Importada
-description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
-code: CIN-158
-images: KAVALA.jpg
-videos:
-tags: hombre, importado
-proveedor: aston

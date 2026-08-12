@@ -6,3 +6,4 @@ images: 3380 N .jpeg, 3380 T.jpeg
 videos:
 tags: hombre, importado, urbano
 proveedor: aston
+notas_interno: en cuero -> 15

@@ -6,3 +6,4 @@ images: 8O3A2304.jpeg, 8O3A2306.jpeg
 videos:
 tags: hombre, importado, urbano, reversible
 proveedor: aston
+notas_interno: en cuero -> 22

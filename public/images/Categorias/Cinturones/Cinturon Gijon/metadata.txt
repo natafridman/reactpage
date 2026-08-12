@@ -6,3 +6,4 @@ images: 8O3A2284.jpeg, 8O3A2279.jpeg, 8O3A2287.jpeg
 videos:
 tags: hombre, importado
 proveedor: aston
+notas_interno: en cuero -> 17

@@ -6,3 +6,4 @@ images: 8O3A2335.jpeg, 8O3A2341.jpeg
 videos:
 tags: hombre, importado, vestir, reversible
 proveedor: aston
+notas_interno: en cuero -> 22

@@ -2,7 +2,7 @@ title: Cinturon Volos
 subtitle: Linea Importada
 description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
 code: CIN-157
-images: VOLOS.jpg
+images: VOLOS.jpg, KAVALA.jpg
 videos:
 tags: hombre, importado
 proveedor: aston
