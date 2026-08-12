@@ -5,3 +5,4 @@ code: BIL-011
 images: VERONA.jpg, VERONA(1).jpg
 videos:
 proveedor: aston
+notas_interno: No

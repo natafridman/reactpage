@@ -7,3 +7,4 @@ videos: bolso.mp4, bolso_viejo.mp4
 price_mayorista: 140000
 price_minorista: 280000
 proveedor: aston
+notas_interno: menos de 10 -> 250; mas de 10 -> 210

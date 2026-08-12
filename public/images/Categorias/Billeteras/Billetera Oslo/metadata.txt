@@ -7,3 +7,4 @@ videos:
 price_mayorista: 25500
 price_minorista: 51000
 proveedor: aston
+notas_interno: 35

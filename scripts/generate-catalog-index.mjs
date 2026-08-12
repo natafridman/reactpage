@@ -43,6 +43,9 @@ for (const [category, folders] of Object.entries(manifest)) {
     }
 
     const metadata = parseMetadata(raw);
+    // Campos internos (ej. notas_interno) NO se exponen al cliente: viven en el
+    // metadata.txt (fuente / git) pero se quitan del indice publico que se sirve.
+    for (const k of Object.keys(metadata)) if (k.endsWith('_interno')) delete metadata[k];
     index[category].push({
       productFolder,
       metadata,

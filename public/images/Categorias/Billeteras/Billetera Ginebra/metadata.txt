@@ -5,3 +5,4 @@ code: BIL-008
 images: GINEBRA.jpg
 videos:
 proveedor: aston
+notas_interno: No

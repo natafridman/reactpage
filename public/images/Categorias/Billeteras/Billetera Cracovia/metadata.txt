@@ -5,3 +5,4 @@ code: BIL-007
 images: CRACOVIA.jpg, CRACOVIA(1).jpg
 videos:
 proveedor: aston
+notas_interno: No

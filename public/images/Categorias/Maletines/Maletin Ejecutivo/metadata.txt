@@ -7,3 +7,4 @@ videos: maletin.mp4, maletin_viejo.mp4
 price_mayorista: 110000
 price_minorista: 220000
 proveedor: aston
+notas_interno: 150
