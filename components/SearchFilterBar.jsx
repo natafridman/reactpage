@@ -76,6 +76,7 @@ function SearchFilterBar({
   headerHidden = false,
   category = null,
   claveOk = false,
+  hayNacional = false,
 }) {
   const scope = useRef(null);
   const countRef = useRef(null);
@@ -236,9 +237,10 @@ function SearchFilterBar({
               <span className="toolbar-axis-label">{axis.label}</span>
               {set.filters
                 .filter((f) => f.axis === axis.key)
-                // Sin la clave, "Nacional" no se ofrece: filtrarlo llevaba a un
-                // "Sin coincidencias" y ademas anunciaba que hay productos ahi.
-                .filter((f) => claveOk || f.key !== 'nacional')
+                // "Nacional" se ofrece si hay clave o si ya hay nacionales
+                // publicos a la vista. Sin ninguna de las dos se esconde: filtrarlo
+                // llevaba a "Sin coincidencias" y anunciaba productos tapados.
+                .filter((f) => f.key !== 'nacional' || claveOk || hayNacional)
                 .map((f) => {
                 const active = selectedTags.includes(f.key);
                 return (

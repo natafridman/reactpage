@@ -366,6 +366,11 @@ function App() {
   const ocultosPorClave = claveOk ? 0 : allProducts.filter(esProtegido).length;
   const visibles = claveOk ? allProducts : allProducts.filter(p => !esProtegido(p));
 
+  // El filtro "Nacional" se ofrece si hay clave, o si ya hay al menos un cinturon
+  // nacional publico a la vista (asi se puede filtrar sin delatar los tapados).
+  const hayNacionalVisible = visibles.some(p => p.category === 'Cinturones'
+    && (Array.isArray(p.metadata?.tags) ? p.metadata.tags : []).some(t => String(t).toLowerCase() === 'nacional'));
+
   const filteredProducts = isSingleProduct ? products : visibles.filter(p => {
     if (qWords.length) {
       const m = p.metadata;
@@ -766,6 +771,7 @@ function App() {
           headerHidden={isHeaderHidden}
           category={selectedCategory || null}
           claveOk={claveOk}
+          hayNacional={hayNacionalVisible}
         />
       )}
 
