@@ -1,0 +1,8 @@
+title: Cinturon Mendoza
+subtitle: Cuero Vacuno Nacional
+description: Cinturon de cuero vacuno marron, hebilla rodillo y pasador simple. Terminacion clasica para uso diario.
+code: CIN-320
+images: 5642.jpg, 5643.jpg, 5644.jpg, 5645.jpg, 5646.jpg, 5647.jpg, 5648.jpg, 5649.jpg, 5650.jpg, 5651.jpg, 5652.jpg, 5653.jpg, 5654.jpg, 5655.jpg, 5656.jpg, 5657.jpg, 5658.jpg, 5659.jpg, 5660.jpg, 5661.jpg, 5662.jpg, 5663.jpg, 5664.jpg, 5665.jpg, 5666.jpg, 5667.jpg, 5668.jpg, 5669.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

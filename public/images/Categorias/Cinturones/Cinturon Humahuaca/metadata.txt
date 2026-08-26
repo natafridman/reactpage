@@ -1,0 +1,8 @@
+title: Cinturon Humahuaca
+subtitle: Cuero Vacuno Nacional
+description: Cuero suela con hebilla western trabajada. Estilo de campo.
+code: CIN-343
+images: 5818.jpg, 5819.jpg, 5820.jpg, 5821.jpg, 5822.jpg, 5823.jpg, 5824.jpg, 5825.jpg, 5826.jpg, 5827.jpg, 5828.jpg, 5829.jpg, 5830.jpg
+videos:
+tags: mujer, nacional, publico
+proveedor: nacional

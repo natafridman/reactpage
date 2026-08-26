@@ -1,0 +1,7 @@
+title: Tabaquera Concordia
+subtitle: Cuero Vacuno Nacional
+description: Tabaquera de cuero vacuno con cierre metalico y broches a presion, interior en gamuza. Formato alargado que se pliega. Terminacion artesanal, se personaliza con grabado.
+code: BIL-015
+images: 5882.jpg, 5883.jpg, 5884.jpg, 5885.jpg, 5886.jpg, 5887.jpg
+videos:
+proveedor: nacional

@@ -1,0 +1,8 @@
+title: Cinturon Parana
+subtitle: Cuero Vacuno Nacional
+description: Cuero suela con gran hebilla oval forrada y costura a tono. Estilo western.
+code: CIN-328
+images: 5723.jpg, 5724.jpg, 5725.jpg, 5726.jpg, 5727.jpg, 5728.jpg, 5729.jpg, 5730.jpg, 5731.jpg, 5732.jpg, 5733.jpg, 5734.jpg, 5735.jpg
+videos:
+tags: mujer, nacional, publico
+proveedor: nacional

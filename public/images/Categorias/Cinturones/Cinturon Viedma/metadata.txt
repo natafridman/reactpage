@@ -1,0 +1,8 @@
+title: Cinturon Viedma
+subtitle: Lona con Cuero Nacional
+description: Lona beige con pasador de cuero y hebilla metalica. Casual y liviano.
+code: CIN-336
+images: 5775.jpg, 5776.jpg, 5777.jpg, 5778.jpg, 5779.jpg, 5780.jpg, 5781.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

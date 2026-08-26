@@ -1,0 +1,8 @@
+title: Cinturon Resistencia
+subtitle: Cuero Vacuno Nacional
+description: Cuero negro texturado con hebilla placa. Sobrio para el dia a dia.
+code: CIN-334
+images: 5768.jpg, 5769.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

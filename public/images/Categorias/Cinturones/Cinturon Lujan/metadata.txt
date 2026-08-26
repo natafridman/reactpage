@@ -1,0 +1,8 @@
+title: Cinturon Lujan
+subtitle: Cuero Vacuno Nacional
+description: Cuero marron con cierre metalico decorativo a lo largo. Un detalle distinto.
+code: CIN-340
+images: 5800.jpg, 5801.jpg, 5802.jpg, 5803.jpg, 5804.jpg
+videos:
+tags: mujer, nacional, publico
+proveedor: nacional
