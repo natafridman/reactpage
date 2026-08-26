@@ -51,6 +51,13 @@ export const PAYMENT_TERMS = {
       'Forma de pago, mínimos de compra y envío a coordinar.',
     ],
   },
+  nacional: {
+    terms: [
+      'Producción nacional.',
+      'Se personaliza con grabado del logo de tu marca.',
+      'Precios, mínimos de compra y forma de pago a coordinar.',
+    ],
+  },
 };
 
 // Normaliza un valor de proveedor de la metadata a la clave del registro.
