@@ -3040,12 +3040,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.45s ease;
+  transition: transform var(--img-hover-dur) var(--ease-soft);
 }
 
 .showcase-card:hover img,
 .showcase-card:focus-visible img {
-  transform: scale(1.045);
+  transform: scale(var(--img-hover-scale));
 }
 
 @media (max-width: 1000px) {
