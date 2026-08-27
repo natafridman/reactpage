@@ -17,6 +17,29 @@ function ImageModal({ modalDisplay, modalOpen, imageSrc, allImages, onClose }) {
 
   const [active, setActive] = useState(0);
 
+  // Zoom de escritorio: click en la imagen centrada la abre a pantalla completa
+  // con lupa que sigue el mouse (la rueda ajusta el aumento). Usa el original en
+  // resolucion completa, no la variante media del carrusel.
+  const canZoom = typeof window !== 'undefined'
+    && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const [zoom, setZoom] = useState(null);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+  const [zoomScale, setZoomScale] = useState(2.2);
+
+  const openZoom = (src) => { setZoomScale(2.2); setZoomPos({ x: 50, y: 50 }); setZoom(src); };
+
+  // Al cerrar el modal, el zoom no queda armado para la proxima apertura.
+  useEffect(() => { if (!modalDisplay) setZoom(null); }, [modalDisplay]);
+
+  // Escape con zoom abierto cierra SOLO el zoom (en captura, para frenar el
+  // listener global que cierra el modal entero).
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e) => { if (e.key === 'Escape') { e.stopPropagation(); setZoom(null); } };
+    document.addEventListener('keydown', onKey, true);
+    return () => document.removeEventListener('keydown', onKey, true);
+  }, [zoom]);
+
   const getScroll = () => wrapRef.current?.querySelector('.cf-carousel');
 
   const centerItem = (idx, behavior = 'auto') => {
@@ -115,8 +138,13 @@ function ImageModal({ modalDisplay, modalOpen, imageSrc, allImages, onClose }) {
                 <img
                   src={medSrc(src)}
                   alt={`Imagen ${i + 1}`}
+                  className={canZoom && i === active ? 'is-zoomable' : undefined}
                   draggable="false"
-                  onClick={(e) => { e.stopPropagation(); centerItem(i, 'smooth'); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (canZoom && i === active) openZoom(src);
+                    else centerItem(i, 'smooth');
+                  }}
                   onError={(e) => {
                     if (!e.target.dataset.fallback) {
                       e.target.dataset.fallback = '1';
@@ -145,6 +173,28 @@ function ImageModal({ modalDisplay, modalOpen, imageSrc, allImages, onClose }) {
       {hasMultiple && (
         <div className="modal-counter">
           {active + 1} / {images.length}
+        </div>
+      )}
+
+      {zoom && (
+        <div
+          className="cf-zoom"
+          onMouseMove={(e) => {
+            const r = e.currentTarget.getBoundingClientRect();
+            setZoomPos({
+              x: ((e.clientX - r.left) / r.width) * 100,
+              y: ((e.clientY - r.top) / r.height) * 100,
+            });
+          }}
+          onWheel={(e) => setZoomScale((s) => Math.min(4, Math.max(1.4, s - Math.sign(e.deltaY) * 0.3)))}
+          onClick={(e) => { e.stopPropagation(); setZoom(null); }}
+        >
+          <img
+            src={zoom}
+            alt="Imagen ampliada"
+            draggable="false"
+            style={{ transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`, transform: `scale(${zoomScale})` }}
+          />
         </div>
       )}
     </div>

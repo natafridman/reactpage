@@ -1,0 +1,8 @@
+title: Cinturon Texturado Fino
+subtitle: Cuero Vacuno Nacional
+description: Cuero texturado fino en negro y marron, hebilla discreta. Linea delgada.
+code: CIN-325
+images: 5701.jpg, 5702.jpg, 5703.jpg, 5704.jpg, 5705.jpg, 5706.jpg, 5707.jpg, 5708.jpg, 5709.jpg, 5710.jpg, 5711.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

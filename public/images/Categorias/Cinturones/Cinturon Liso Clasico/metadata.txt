@@ -1,0 +1,8 @@
+title: Cinturon Liso Clasico
+subtitle: Cuero Vacuno Nacional
+description: Cuero liso con hebilla plateada, en varios colores. Clasico de todos los dias.
+code: CIN-329
+images: 5736.jpg, 5737.jpg, 5738.jpg, 5739.jpg, 5740.jpg, 5741.jpg, 5742.jpg, 5743.jpg, 5744.jpg, 5745.jpg, 5746.jpg, 5747.jpg, 5748.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

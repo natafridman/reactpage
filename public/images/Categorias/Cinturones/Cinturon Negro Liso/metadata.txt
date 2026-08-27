@@ -1,0 +1,8 @@
+title: Cinturon Negro Liso
+subtitle: Cuero Vacuno Nacional
+description: Cuero negro liso con hebilla plateada. Clasico de vestir.
+code: CIN-335
+images: 5770.jpg, 5771.jpg, 5772.jpg, 5773.jpg, 5774.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

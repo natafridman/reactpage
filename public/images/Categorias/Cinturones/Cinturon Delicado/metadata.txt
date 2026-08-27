@@ -1,0 +1,8 @@
+title: Cinturon Delicado
+subtitle: Cuero Vacuno Nacional
+description: Cuero fino negro con hebilla chica. Delicado, para vestir.
+code: CIN-344
+images: 5831.jpg, 5832.jpg
+videos:
+tags: mujer, nacional, publico
+proveedor: nacional

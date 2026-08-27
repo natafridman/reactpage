@@ -1,8 +1,0 @@
-title: Cinturon Tucuman
-subtitle: Cuero Vacuno Nacional
-description: Cuero negro con doble fila de ojales metalicos y hebilla de doble espiga. Robusto.
-code: CIN-324
-images: 5685.jpg, 5686.jpg, 5687.jpg, 5688.jpg, 5689.jpg, 5690.jpg, 5691.jpg, 5692.jpg, 5693.jpg, 5694.jpg, 5695.jpg, 5696.jpg, 5697.jpg, 5698.jpg, 5699.jpg, 5700.jpg
-videos:
-tags: hombre, nacional, publico
-proveedor: nacional

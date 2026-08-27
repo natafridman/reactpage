@@ -1,8 +1,0 @@
-title: Cinturon Chascomus
-subtitle: Cuero Vacuno Nacional
-description: Cuero fino negro con hebilla discreta. Linea delgada femenina.
-code: CIN-345
-images: 5833.jpg, 5834.jpg
-videos:
-tags: mujer, nacional, publico
-proveedor: nacional

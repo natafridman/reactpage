@@ -1,8 +1,0 @@
-title: Cinturon Jujuy
-subtitle: Cuero Vacuno Nacional
-description: Cuero para vestir con hebilla placa, reversible. Elegante y practico.
-code: CIN-331
-images: 5756.jpg, 5757.jpg, 5758.jpg, 5759.jpg
-videos:
-tags: hombre, nacional, publico
-proveedor: nacional

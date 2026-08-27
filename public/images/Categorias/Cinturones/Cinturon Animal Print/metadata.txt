@@ -1,0 +1,8 @@
+title: Cinturon Animal Print
+subtitle: Cuero con Pelo Nacional
+description: Cuero con pelo estampa animal print y hebilla dorada. Bien femenino.
+code: CIN-339
+images: 5789.jpg, 5790.jpg, 5791.jpg, 5792.jpg, 5793.jpg, 5794.jpg, 5795.jpg, 5796.jpg, 5797.jpg, 5798.jpg, 5799.jpg
+videos:
+tags: mujer, nacional, publico
+proveedor: nacional

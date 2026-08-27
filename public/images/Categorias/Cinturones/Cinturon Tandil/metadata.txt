@@ -1,8 +1,0 @@
-title: Cinturon Tandil
-subtitle: Cuero Vacuno Nacional
-description: Cuero fino con hebilla chica. Para vestir, en linea delgada.
-code: CIN-337
-images: 5782.jpg, 5783.jpg, 5784.jpg, 5785.jpg
-videos:
-tags: hombre, nacional, publico
-proveedor: nacional

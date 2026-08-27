@@ -8,10 +8,10 @@ function FeaturedProducts() {
   const products = [
     {
       id: 1,
-      title: 'Camiseta Argentina',
-      description: 'La camiseta de la Selección con escudo AFA y parche FIFA World Champions 2022. Ideal para personalizar con tu marca.',
-      category: 'Mundial',
-      image: '/images/Categorias/Mundial/Camiseta/WhatsApp Image 2026-03-16 at 17.05.15.jpeg'
+      title: 'Campera Gabardina',
+      description: 'Ropa de trabajo resistente, lista para bordar con el logo de tu empresa.',
+      category: 'Indumentaria de Trabajo',
+      image: '/images/Categorias/Indumentaria de Trabajo/Campera Gabardina Antiestatica 2010/01.jpg'
     },
     {
       id: 2,

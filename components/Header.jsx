@@ -156,16 +156,6 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
               <span className="menu-section-label">CATEGORÍAS</span>
               <div className="categories-links">
                 <button className="category-link" onClick={() => goPage('/productos')}>TODO</button>
-                {categories.filter((cat) => cat === 'Mundial').map((cat) => (
-                  <a
-                    key={cat}
-                    href={`?categoria=${encodeURIComponent(cat)}`}
-                    className="category-link category-link--mundial"
-                    onClick={(e) => goCat(e, cat)}
-                  >
-                    {cat.toUpperCase()}
-                  </a>
-                ))}
                 {catList.map((cat) => (
                   <a
                     key={cat}

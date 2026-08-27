@@ -6,7 +6,7 @@ import Header from '/components/Header.jsx';
 import HeroSection from '/components/HeroSection.jsx';
 import TrustBar from '/components/TrustBar.jsx';
 import ClientLogos from '/components/ClientLogos.jsx';
-import BrandStory from '/components/BrandStory.jsx';
+import ShowcaseProducts from '/components/ShowcaseProducts.jsx';
 import FeaturedProducts from '/components/FeaturedProducts.jsx';
 import ProductsCarousel from '/components/ProductsCarousel.jsx';
 import VisionMission from '/components/VisionMission.jsx';
@@ -90,7 +90,7 @@ function LandingPage() {
         <HeroSection />
         <TrustBar />
         <ClientLogos />
-        <BrandStory />
+        <ShowcaseProducts />
         <FeaturedProducts />
         <VisionMission />
         <ProductsCarousel />

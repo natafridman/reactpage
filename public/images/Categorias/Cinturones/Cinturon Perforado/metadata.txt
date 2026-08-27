@@ -1,0 +1,8 @@
+title: Cinturon Perforado
+subtitle: Cuero Vacuno Nacional
+description: Cuero suela con perforado decorativo y hebilla rodillo. Tono claro y calido.
+code: CIN-326
+images: 5712.jpg, 5713.jpg, 5714.jpg, 5715.jpg, 5716.jpg, 5717.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

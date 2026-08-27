@@ -1,0 +1,8 @@
+title: Cinturon Sobrio
+subtitle: Cuero Vacuno Nacional
+description: Cuero oscuro con textura sutil y hebilla simple. Sobrio y versatil.
+code: CIN-323
+images: 5680.jpg, 5681.jpg, 5682.jpg, 5683.jpg, 5684.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

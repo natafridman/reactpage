@@ -1,8 +1,0 @@
-title: Cinturon Ushuaia
-subtitle: Cuero Vacuno Nacional
-description: Cuero suela con hebilla placa metalica. Sobrio, ideal para vestir.
-code: CIN-327
-images: 5718.jpg, 5719.jpg, 5720.jpg, 5721.jpg, 5722.jpg
-videos:
-tags: hombre, nacional, publico
-proveedor: nacional

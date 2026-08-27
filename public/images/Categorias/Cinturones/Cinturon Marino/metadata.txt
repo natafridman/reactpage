@@ -1,0 +1,8 @@
+title: Cinturon Marino
+subtitle: Cuero Vacuno Nacional
+description: Cuero azul con hebilla placa oval. Elegante y distinto.
+code: CIN-333
+images: 5764.jpg, 5765.jpg, 5766.jpg, 5767.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

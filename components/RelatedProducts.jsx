@@ -5,7 +5,9 @@ import { loadManifest, parseMetadata, medSrc, IMAGES_BASE_FOLDER } from '/utils/
 
 // "También te puede interesar" - full-width slideshow on the single-product page.
 // Prefers products from the same category, then fills with others.
-function RelatedProducts({ category, folder }) {
+// Con `explore` (pie del catalogo) invierte la logica: muestra productos de
+// OTRAS categorias, para seguir explorando el resto del catalogo.
+function RelatedProducts({ category, folder, explore = false }) {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
 
@@ -17,17 +19,20 @@ function RelatedProducts({ category, folder }) {
         const manifest = await loadManifest();
         const shuffle = (a) => a.sort(() => Math.random() - 0.5);
 
-        const sameCat = shuffle(
-          (manifest[category] || []).filter((f) => f !== folder).map((f) => ({ cat: category, folder: f }))
-        );
-        let pool = sameCat;
-        if (pool.length < 8) {
-          const others = [];
-          for (const c of Object.keys(manifest)) {
-            if (c === category || c === 'Mundial') continue;
-            for (const f of manifest[c]) others.push({ cat: c, folder: f });
-          }
-          pool = pool.concat(shuffle(others));
+        const others = [];
+        for (const c of Object.keys(manifest)) {
+          if (c === category) continue;
+          for (const f of manifest[c]) others.push({ cat: c, folder: f });
+        }
+
+        let pool;
+        if (explore) {
+          pool = shuffle(others);
+        } else {
+          pool = shuffle(
+            (manifest[category] || []).filter((f) => f !== folder).map((f) => ({ cat: category, folder: f }))
+          );
+          if (pool.length < 8) pool = pool.concat(shuffle(others));
         }
         const picked = pool.slice(0, 8);
 

@@ -46,7 +46,11 @@ function buildTabs(categories) {
       { label: 'Portadocumentos', cat: 'Portadocumentos' },
       { label: 'Portacelular', cat: 'Portacelular' },
       { label: 'Bufandas', cat: 'Bufandas' },
-      { label: 'Mundial', cat: 'Mundial', mundial: true },
+    ] },
+    { h: 'Más', items: [
+      { label: 'Cinturones', cat: 'Cinturones' },
+      { label: 'Ropa de Trabajo', cat: 'Indumentaria de Trabajo' },
+      { label: 'Calzado', cat: 'Calzado' },
     ] },
   ]);
   if (marro.length) tabs.push({ id: 1, title: 'Catálogo', cols: marro, feat: { cat: 'Bolsos', folder: 'Bolso Duffle' }, all: { path: '/productos', label: 'Ver todo el catálogo' } });
@@ -160,7 +164,7 @@ function ShiftingNav({ categories, index, onOpen, onCat, onNav }) {
             className={`snav-tab${selected === t.id ? ' is-open' : ''}`}
             onMouseEnter={() => set(t.id)}
             onFocus={() => set(t.id)}
-            onClick={() => set(selected === t.id ? null : t.id)}
+            onClick={(e) => { if (t.all) go(e, t.all); else set(selected === t.id ? null : t.id); }}
             aria-expanded={selected === t.id}
           >
             <span>{t.title}</span>

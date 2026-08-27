@@ -905,6 +905,13 @@ function App() {
       </main>
       </div>
 
+      {/* Pie del catalogo: seguir explorando otras categorias. Va AFUERA del
+          layout con sidebar para que la columna de filtros (sticky) termine en
+          la paginacion y no siga de largo junto a este carrusel. */}
+      {!isSingleProduct && !isLoading && totalFiltered > 0 && (
+        <RelatedProducts explore category={selectedCategory || ''} />
+      )}
+
       <Footer onContactSubmit={handleContactSubmit} />
 
       <ImageModal

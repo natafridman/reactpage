@@ -1,0 +1,8 @@
+title: Cinturon Grabado
+subtitle: Cuero Vacuno Nacional
+description: Cuero marron grabado con tachas y ojales, hebilla envejecida. Look con actitud.
+code: CIN-322
+images: 5675.jpg, 5676.jpg, 5677.jpg, 5678.jpg, 5679.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

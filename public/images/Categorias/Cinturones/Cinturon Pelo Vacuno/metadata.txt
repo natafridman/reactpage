@@ -1,0 +1,8 @@
+title: Cinturon Pelo Vacuno
+subtitle: Cuero con Pelo Nacional
+description: Cuero con pelo natural vacuno y hebilla forrada. Pieza statement.
+code: CIN-338
+images: 5786.jpg, 5787.jpg, 5788.jpg
+videos:
+tags: mujer, nacional, publico
+proveedor: nacional

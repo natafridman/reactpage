@@ -1,0 +1,8 @@
+title: Cinturon Reversible Fino
+subtitle: Cuero Vacuno Nacional
+description: Cuero fino reversible negro y suela, hebilla chica. Para vestir.
+code: CIN-332
+images: 5760.jpg, 5761.jpg, 5762.jpg, 5763.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional
