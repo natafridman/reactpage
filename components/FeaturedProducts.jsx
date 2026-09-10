@@ -44,7 +44,6 @@ function FeaturedProducts() {
     <section className="featured-section">
       <div className="featured-container">
         <div className="featured-header">
-          <span className="featured-subtitle">Destacados</span>
           <h2 className="featured-title">Lo que más <em className="accent">eligen</em> nuestros clientes</h2>
           <p className="featured-intro">
             Algunos de los productos con los que más nos piden trabajar

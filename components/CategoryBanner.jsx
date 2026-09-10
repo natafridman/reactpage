@@ -274,7 +274,7 @@ function CategoryBanner({ category, claveOk = false }) {
           </h1>
         </div>
         <p className="category-banner-subtitle">
-          Desarrollamos estos productos y accesorios con diseño personalizado para tu marca y con tu logo
+          Bolsos, carteras, cinturones y más para llevar tu logo. Armá tu pedido y te cotizamos por WhatsApp.
         </p>
         <div className="category-banner-divider"></div>
       </div>

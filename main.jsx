@@ -1,7 +1,7 @@
 import { useEffect, useRef, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { trackPageView, installWhatsAppTracking } from '/utils/metaPixel.js';
-import LandingPage from '/LandingPage.jsx';
+import LandingV2 from '/LandingV2.jsx';
 import App from '/App.jsx';
 
 // "/" y "/productos" se cargan de una: son las dos entradas reales, y
@@ -18,6 +18,9 @@ import { CartProvider } from '/context/CartContext.jsx';
 import CartDrawer from '/components/CartDrawer.jsx';
 import '/blossom-core.css';
 import '/index.css';
+// landing.css lo cargaba la landing vieja; la ficha de producto (relacionados)
+// y las paginas de marca siguen usando sus estilos.
+import '/landing.css';
 
 const WA_NUMBER = '5491178279281';
 
@@ -59,6 +62,11 @@ function PixelTracker() {
   return null;
 }
 
+function RedirectKeepQuery({ to }) {
+  const { search } = useLocation();
+  return <Navigate to={to + search} replace />;
+}
+
 function Main() {
   return (
     <CartProvider>
@@ -68,13 +76,17 @@ function Main() {
             spinner intermedio parpadearia mas de lo que ayuda. */}
         <Suspense fallback={null}>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/productos" element={<App />} />
+            <Route path="/" element={<LandingV2 />} />
+            <Route path="/productos" element={<App variant="v2" />} />
             <Route path="/producto/:categoria/:nombre" element={<App />} />
             <Route path="/Empresas" element={<EmpresasPage />} />
             <Route path="/Marcas" element={<MarcasPage />} />
             <Route path="/Nosotros" element={<NosotrosPage />} />
             <Route path="/red" element={<RedProductosPage />} />
+            {/* La v2 ya es la version principal: los enlaces viejos redirigen
+                conservando la query (?categoria=...). */}
+            <Route path="/v2" element={<RedirectKeepQuery to="/" />} />
+            <Route path="/v2/productos" element={<RedirectKeepQuery to="/productos" />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

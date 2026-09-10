@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BlossomCarousel } from '@blossom-carousel/react';
 import { thumbSrc, medSrc, buildCartItem } from '/utils/productUtils.js';
+import { COLOR_GROUPS, productColors } from '/utils/colors.js';
 import { flyToCart } from '/utils/flyToCart.js';
 import { useCart } from '/context/CartContext.jsx';
 import QtyStepper from '/components/QtyStepper.jsx';
@@ -18,6 +19,12 @@ function ProductCard({ product, staggerIndex = 0 }) {
   const [active, setActive] = useState(0);
   // Indices de las imagenes que ya tienen la version grande lista en cache.
   const [sharp, setSharp] = useState(() => new Set());
+  // Perf: the rail is a horizontal scroller, so the browser's lazy-load margin
+  // pre-fetches almost every hidden slide of every card (~300 images on the
+  // grid). Non-first slides get their src only once this card is touched,
+  // hovered or paged, so a cold grid loads one thumb per card.
+  const [revealed, setRevealed] = useState(false);
+  const reveal = () => { if (!revealed) setRevealed(true); };
 
   const IMAGES_BASE_FOLDER = '/images/Categorias';
   const productPath = `${IMAGES_BASE_FOLDER}/${category}/${productFolder}`;
@@ -109,15 +116,16 @@ function ProductCard({ product, staggerIndex = 0 }) {
 
   const goToImg = (i, e) => {
     e.preventDefault();
+    reveal();
     e.stopPropagation();
     const el = getRail();
     if (el) el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' });
   };
-  const prev = (e) => { e.preventDefault(); e.stopPropagation(); carousel.current?.prev({ align: 'start' }); };
-  const next = (e) => { e.preventDefault(); e.stopPropagation(); carousel.current?.next({ align: 'start' }); };
+  const prev = (e) => { e.preventDefault(); e.stopPropagation(); reveal(); carousel.current?.prev({ align: 'start' }); };
+  const next = (e) => { e.preventDefault(); e.stopPropagation(); reveal(); carousel.current?.next({ align: 'start' }); };
 
   // Distinguish a click (navigate) from a drag (browse images).
-  const onDown = (e) => { dragRef.current = { x: e.clientX, y: e.clientY, moved: false }; };
+  const onDown = (e) => { reveal(); dragRef.current = { x: e.clientX, y: e.clientY, moved: false }; };
   const onMove = (e) => {
     if (Math.abs(e.clientX - dragRef.current.x) > 6 || Math.abs(e.clientY - dragRef.current.y) > 6) {
       dragRef.current.moved = true;
@@ -134,7 +142,7 @@ function ProductCard({ product, staggerIndex = 0 }) {
     <img
       data-idx={i}
       data-full={`${productPath}/${file}`}
-      src={sharp.has(i) ? medSrc(`${productPath}/${file}`) : thumbSrc(`${productPath}/${file}`)}
+      src={(i === 0 || revealed) ? (sharp.has(i) ? medSrc(`${productPath}/${file}`) : thumbSrc(`${productPath}/${file}`)) : undefined}
       alt={metadata.title}
       loading="lazy"
       decoding="async"
@@ -158,6 +166,7 @@ function ProductCard({ product, staggerIndex = 0 }) {
       <div
         className="product-card-image"
         ref={mediaRef}
+        onMouseEnter={reveal}
         onPointerDownCapture={onDown}
         onPointerMoveCapture={onMove}
       >
@@ -204,6 +213,19 @@ function ProductCard({ product, staggerIndex = 0 }) {
         <a href={productUrl} className="product-card-info-text" onClick={goToProduct}>
           <h3 className="product-card-title">{metadata.title || productFolder}</h3>
           <p className="product-card-subtitle">{metadata.subtitle || category}</p>
+          {/* Colores disponibles (derivados del contenido), como puntitos bajo el subtitulo. */}
+          {(() => {
+            const cs = productColors(product).slice(0, 5);
+            if (!cs.length) return null;
+            return (
+              <span className="product-card-colors" aria-label={`Colores: ${cs.map((k) => COLOR_GROUPS.find((g) => g.key === k)?.label).join(', ')}`}>
+                {cs.map((k) => {
+                  const g = COLOR_GROUPS.find((x) => x.key === k);
+                  return <span key={k} className="product-card-color" style={{ background: g?.swatch }} title={g?.label} />;
+                })}
+              </span>
+            );
+          })()}
         </a>
         {/* Sin precio ni codigo de articulo a la vista: el precio se cotiza y el
             codigo es interno. Igual viaja al carrito y al mensaje de WhatsApp. */}

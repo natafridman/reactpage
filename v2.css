@@ -1,0 +1,785 @@
+/* ==========================================================================
+   B2YOU - landing + catálogo (la version actual). Todo bajo .v2 para no pisar
+   landing.css / index.css. Tokens de marca (escala p-50..p-900, Fraunces) vienen de :root.
+   Un acento (cognac). Bandas en espresso/cognac planos. Sin degradés de marca.
+   Estructura de tienda (refs: Gueber, Saxs) con identidad B2YOU.
+   ========================================================================== */
+
+.v2 {
+  --v2-max: var(--content-max, 1280px);
+  --v2-pad: clamp(2.5rem, 6vw, 4.5rem);
+  --v2-radius: var(--r-lg);
+  --v2-shadow: 0 18px 44px rgba(var(--b2-cognac-rgb), 0.14);
+  background: var(--b2-cream);
+  color: var(--b2-black);
+}
+.v2 main { display: block; }
+
+.v2-section {
+  max-width: var(--v2-max);
+  margin: 0 auto;
+  padding: var(--v2-pad) var(--gutter);
+}
+.v2-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--b2-border);
+}
+
+.v2-h1 {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+.v2-h1 em { font-style: italic; color: var(--p-200); }
+.v2-h2 {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+.v2-lead {
+  font-size: clamp(1rem, 1.35vw, 1.15rem);
+  line-height: 1.55;
+  max-width: 34rem;
+  margin: 0 0 1.5rem;
+}
+.v2-link {
+  color: var(--b2-cognac);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 1px;
+  white-space: nowrap;
+}
+.v2-link:hover { color: var(--b2-cognac-hover); }
+
+/* ---------- Botones ---------- */
+.v2-cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.v2-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 1.6rem;
+  border-radius: var(--r-pill);
+  font-family: inherit;
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1.5px solid var(--b2-cognac);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+}
+.v2-btn:active { transform: scale(0.98); }
+.v2-btn:focus-visible { outline: 3px solid rgba(var(--b2-cognac-rgb), 0.45); outline-offset: 3px; }
+.v2-btn-primary { background: var(--b2-cognac); color: #fff; }
+.v2-btn-primary:hover { background: var(--b2-cognac-hover); border-color: var(--b2-cognac-hover); }
+.v2-btn-light { background: #FBF7F4; color: var(--p-900); border-color: #FBF7F4; }
+.v2-btn-light:hover { background: #fff; border-color: #fff; }
+.v2-btn-outline-light { background: transparent; color: #FBF7F4; border-color: rgba(251, 247, 244, 0.7); }
+.v2-btn-outline-light:hover { background: rgba(251, 247, 244, 0.12); border-color: #FBF7F4; }
+
+/* ---------- Revelado escalonado ---------- */
+.v2-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s var(--ease-soft, ease), transform 0.6s var(--ease-soft, ease);
+  transition-delay: calc(var(--i, 0) * 45ms);
+}
+.v2-reveal.is-in { opacity: 1; transform: none; }
+
+/* ==========================================================================
+   BARRA DE ANUNCIOS: beneficios reales, espresso plano.
+   ========================================================================== */
+.v2-announce {
+  background: var(--b2-espresso);
+  color: rgba(251, 247, 244, 0.92);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  padding: 0.45rem var(--gutter);
+  position: relative;
+  z-index: 3;
+}
+.v2-announce span { padding: 0 1.1rem; }
+.v2-announce span + span { border-left: 1px solid rgba(251, 247, 244, 0.28); }
+
+/* ==========================================================================
+   HERO: foto a sangre con velo espresso, frase y CTAs claros.
+   ========================================================================== */
+.v2-hero-photo {
+  position: relative;
+  min-height: clamp(520px, 76vh, 780px);
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background: var(--b2-espresso);
+  color: #FBF7F4;
+}
+.v2-hero-photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 45% 40%;
+  filter: saturate(0.95);
+  animation: v2-hero-in 1.2s var(--ease-soft, ease) both;
+  will-change: transform, opacity;
+}
+@keyframes v2-hero-in { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: none; } }
+.v2-hero-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(40, 22, 18, 0.86) 0%, rgba(40, 22, 18, 0.62) 40%, rgba(40, 22, 18, 0.1) 75%, rgba(40, 22, 18, 0) 100%);
+}
+.v2-hero-photo-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--v2-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 5rem) var(--gutter);
+}
+.v2-hero-photo .v2-h1 { max-width: 15ch; }
+.v2-hero-photo .v2-lead { color: rgba(251, 247, 244, 0.86); }
+
+/* ==========================================================================
+   CÍRCULOS DE CATEGORÍAS (acceso rápido).
+   ========================================================================== */
+.v2-circles { padding-top: clamp(1.75rem, 4vw, 3rem); padding-bottom: 0.5rem; }
+.v2-circles-row {
+  display: flex;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.4vw, 2.2rem);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 0.4rem;
+}
+.v2-circles-row::-webkit-scrollbar { display: none; }
+.v2-circle {
+  flex: 0 0 auto;
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: inherit;
+  width: clamp(88px, 8.2vw, 118px);
+}
+.v2-circle-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--b2-border);
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(var(--b2-cognac-rgb), 0.1);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.v2-circle-media img {
+  width: 100%;
+  height: 100%;
+  /* Las fotos traen margen blanco propio (reencuadre 4:5), asi que un padding
+     chico no alcanza: se recorta con cover y se acerca con escala. */
+  object-fit: cover;
+  padding: 0;
+  transform: scale(1);
+  display: block;
+  transition: transform var(--img-hover-dur, 0.9s) var(--ease-soft, ease);
+}
+.v2-circle:hover .v2-circle-media { border-color: var(--b2-cognac); box-shadow: 0 10px 26px rgba(var(--b2-cognac-rgb), 0.2); }
+.v2-circle:hover .v2-circle-media img { transform: scale(1.03); }
+.v2-circle-name {
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--b2-black);
+  transition: color 0.2s ease;
+}
+.v2-circle:hover .v2-circle-name { color: var(--b2-cognac); }
+
+/* ==========================================================================
+   BANNERS CON FOTO: dos por fila, nombre en Fraunces y "Ver más".
+   ========================================================================== */
+.v2-banners {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+.v2-banner {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--v2-radius);
+  overflow: hidden;
+  background: var(--b2-espresso);
+  text-decoration: none;
+  color: #FBF7F4;
+}
+.v2-banner {
+  box-shadow: 0 12px 30px rgba(var(--b2-cognac-rgb), 0.1);
+  transition: transform 0.35s var(--ease-soft, ease), box-shadow 0.35s ease;
+}
+.v2-banner:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(var(--b2-cognac-rgb), 0.16); }
+.v2-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--img-hover-dur, 0.9s) var(--ease-soft, ease);
+}
+.v2-banner--contain { background: #fff; }
+.v2-banner--contain img { object-fit: contain; padding: 6% 10%; }
+.v2-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(67, 47, 40, 0) 45%, rgba(67, 47, 40, 0.74) 100%);
+}
+.v2-banner:hover img { transform: scale(var(--img-hover-scale, 1.018)); }
+.v2-banner-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1rem, 2.4vw, 1.75rem);
+}
+.v2-banner-title {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.v2-banner-cta {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 1rem;
+  border-radius: var(--r-pill);
+  background: rgba(251, 247, 244, 0.94);
+  color: var(--p-900);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   BANDA DE BENEFICIOS: cognac plano, tres pasos con ícono.
+   ========================================================================== */
+.v2-benefits {
+  background: var(--b2-cognac);
+  color: #FBF7F4;
+  margin-top: var(--v2-pad);
+}
+.v2-benefits-inner {
+  max-width: var(--v2-max);
+  margin: 0 auto;
+  padding: clamp(1.5rem, 3vw, 2.25rem) var(--gutter);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem 0;
+}
+.v2-benefit {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+@media (min-width: 861px) {
+  .v2-benefit + .v2-benefit { border-left: 1px solid rgba(251, 247, 244, 0.22); padding-left: 1.75rem; }
+}
+.v2-benefit svg { flex: 0 0 auto; margin-top: 0.15rem; color: var(--p-200); }
+.v2-benefit-title {
+  display: block;
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: 1.12rem;
+  line-height: 1.2;
+}
+.v2-benefit-text {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: rgba(251, 247, 244, 0.86);
+  margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   LOS MÁS PEDIDOS: misma tarjeta del catálogo (carrito incluido).
+   ========================================================================== */
+.v2-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.1rem;
+}
+.v2 .product-card { margin: 0; }
+
+/* ==========================================================================
+   SOBRE NOSOTROS: marco fino cognac, foto | texto + logo | foto.
+   ========================================================================== */
+.v2-about { padding-top: 0; }
+.v2-about-frame {
+  border: 1px solid var(--v2-tint-2);
+  border-radius: var(--v2-radius);
+  padding: clamp(1rem, 2.4vw, 2rem);
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: clamp(1rem, 2.4vw, 2rem);
+  align-items: center;
+  background: var(--v2-tint-1);
+}
+.v2-about-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--r-md);
+  display: block;
+}
+.v2-about-copy {
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 0 clamp(0.5rem, 2vw, 1.5rem);
+}
+.v2-about-title {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.v2-about-logo { height: 34px; width: auto; }
+[data-theme="dark"] .v2-about-logo { filter: brightness(0) invert(1); }
+.v2-about-copy p {
+  margin: 0;
+  color: var(--b2-gray);
+  font-size: 0.98rem;
+  line-height: 1.6;
+  max-width: 30rem;
+}
+
+/* ==========================================================================
+   FAQ: dos columnas, todo visible.
+   ========================================================================== */
+.v2-faq .v2-h2 { margin-bottom: 1.4rem; }
+.v2-faq-grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.1rem 3rem;
+}
+.v2-faq-grid > div { padding-top: 1rem; border-top: 1px solid var(--b2-border); }
+.v2-faq-grid dt {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  margin-bottom: 0.4rem;
+}
+.v2-faq-grid dd { margin: 0; color: var(--b2-gray); font-size: 0.95rem; line-height: 1.55; }
+
+/* ==========================================================================
+   CIERRE: banda cognac con un CTA claro.
+   ========================================================================== */
+.v2-close-band {
+  background: var(--b2-cognac);
+  color: #FBF7F4;
+  text-align: center;
+  padding: clamp(2.5rem, 5vw, 3.75rem) var(--gutter);
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+}
+.v2-close-title {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.1;
+  margin: 0;
+}
+.v2-close-band p { margin: 0 0 0.8rem; max-width: 34rem; color: rgba(251, 247, 244, 0.88); }
+
+/* ==========================================================================
+   CATÁLOGO v2: cabecera fina + chips + grilla a todo el ancho.
+   ========================================================================== */
+.catalog-v2 .v2-cat-head { background: var(--b2-cream); padding: 1.5rem 0 0.25rem; }
+.catalog-v2 .v2-cat-head-inner { max-width: var(--v2-max); margin: 0 auto; padding: 0 var(--gutter); }
+.catalog-v2 .v2-cat-title-row { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; }
+.catalog-v2 .v2-cat-title {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  margin: 0;
+}
+.catalog-v2 .v2-cat-count { font-family: var(--b2-display); font-style: italic; font-size: 1.05rem; color: var(--b2-cognac); }
+.catalog-v2 .v2-cat-title-row { margin-bottom: 0.9rem; }
+.catalog-v2 .v2-chips {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.catalog-v2 .v2-chips::-webkit-scrollbar { display: none; }
+.catalog-v2 .v2-chip {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 0.95rem;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--b2-border);
+  background: var(--b2-white);
+  color: var(--b2-black);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.catalog-v2 .v2-chip:hover { background: var(--v2-tint-1); border-color: var(--v2-tint-3); color: var(--b2-cognac); }
+.catalog-v2 .v2-chip.is-on { background: var(--b2-cognac); border-color: var(--b2-cognac); color: #fff; }
+.catalog-v2 .toolbar-count, .catalog-v2 .toolbar-count-label { display: none; }
+.catalog-v2 .products-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1rem; }
+@media (min-width: 900px) {
+  .catalog-v2 .v2-chips { flex-wrap: wrap; overflow: visible; row-gap: 0.5rem; }
+}
+
+/* ==========================================================================
+   CATÁLOGO v2: filtros laterales (como una tienda): color + ejes por categoría.
+   ========================================================================== */
+.catalog-v2 .catalog-layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  column-gap: 1.5rem;
+  max-width: var(--v2-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.catalog-v2 .catalog-layout > :first-child { grid-column: 1 / -1; }
+.catalog-v2 .catalog-layout > main { grid-column: 2; min-width: 0; }
+.catalog-v2 .products-grid { padding-left: 0; padding-right: 0; max-width: none; }
+.catalog-v2 .v2-filters {
+  grid-column: 1;
+  align-self: start;
+  position: sticky;
+  /* Debajo de la barra de busqueda pegajosa (101px), no debajo del header solo. */
+  top: calc(var(--header-h) + 101px + 1rem);
+  padding: 2rem 0 2rem;
+  display: grid;
+  gap: 1.25rem;
+}
+.catalog-v2 .v2-filters-toggle { display: none; }
+.catalog-v2 .v2-filters-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--b2-border);
+}
+.catalog-v2 .v2-filters-title {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+.catalog-v2 .v2-filters-clear {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--b2-cognac);
+  cursor: pointer;
+  border-bottom: 1px solid currentColor;
+}
+.catalog-v2 .v2-filter-group { display: grid; gap: 0.6rem; }
+.catalog-v2 .v2-filter-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--b2-gray);
+}
+.catalog-v2 .v2-filter-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.catalog-v2 .v2-fchip {
+  min-height: 36px;
+  padding: 0 0.85rem;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--b2-border);
+  background: var(--b2-white);
+  color: var(--b2-black);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+.catalog-v2 .v2-fchip:hover { background: var(--v2-tint-1); border-color: var(--v2-tint-3); color: var(--b2-cognac); }
+.catalog-v2 .v2-fchip.is-on { background: var(--b2-cognac); border-color: var(--b2-cognac); color: #fff; }
+/* Buscador bien visible: blanco, borde marcado y sombra suave sobre la crema. */
+.catalog-v2 .toolbar-search-input {
+  font-size: 1rem;
+  color: var(--b2-black);
+  background: var(--b2-white);
+  border: 1.5px solid var(--v2-tint-3);
+  box-shadow: 0 6px 18px rgba(var(--b2-cognac-rgb), 0.1);
+}
+.catalog-v2 .toolbar-search-input:focus {
+  border-color: var(--b2-cognac);
+  box-shadow: 0 0 0 3px rgba(var(--b2-cognac-rgb), 0.18);
+}
+.catalog-v2 .toolbar-search-input::placeholder { color: var(--b2-gray); }
+.catalog-v2 .toolbar-search-icon { color: var(--b2-cognac); }
+
+/* Vista de a un producto (lista): sin barra lateral, la ficha usa todo el ancho. */
+/* La ficha se vuelve una tarjeta de alto automatico: el texto manda y la foto
+   la acompaña estirandose (absolute dentro de .hero-side). Antes .gallery-side
+   tenia max-height 67vh y el contenido desbordaba sobre la ficha siguiente. */
+.catalog-v2.is-list #productsContainer { display: flex; flex-direction: column; gap: 2.5rem; padding-top: 1.75rem; }
+.catalog-v2 .product-section {
+  min-height: 0;
+  border-radius: var(--v2-radius);
+  overflow: hidden;
+  border: 1px solid var(--v2-tint-2);
+  scroll-snap-align: none;
+}
+.catalog-v2 .gallery-side {
+  min-height: 0;
+  max-height: none;
+  min-width: 0; /* sin esto el riel de 680px fijaba el ancho minimo y la columna desbordaba por la izquierda */
+  padding: 2.25rem 2.5rem;
+}
+.catalog-v2 .gallery-side .description-text,
+.catalog-v2 .gallery-side .gallery-rail { max-width: 100%; }
+.catalog-v2 .gallery-side .description-text { font-size: 1rem; line-height: 1.6; }
+@media (min-width: 1025px) {
+  .catalog-v2 .hero-side { flex: 0 0 44%; min-height: 520px; max-height: none; }
+  .catalog-v2 .hero-image-wrapper { position: absolute; inset: 0; height: auto; }
+  .catalog-v2 .product-title-overlay { bottom: 1.5rem; }
+}
+@media (max-width: 640px) {
+  .catalog-v2 .gallery-side { padding: 1.5rem 1.25rem 1.75rem; }
+}
+@media (max-width: 640px) {
+  /* En vertical el recorte se centra en las manos sobre el cuero, no en la espalda. */
+  .v2-hero-photo-img { object-position: 68% 45%; }
+}
+
+
+/* Muestras de color en fila, con tooltip animado (nombre · cantidad). */
+.catalog-v2 .v2-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  padding: 0.35rem 0 0.1rem;
+}
+.catalog-v2 .v2-swatch {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.catalog-v2 .v2-swatch-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  box-shadow: 0 0 0 2px var(--b2-white);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.22s ease;
+}
+.catalog-v2 .v2-swatch.is-light .v2-swatch-dot { color: var(--p-900); }
+.catalog-v2 .v2-swatch-dot svg { opacity: 0; transform: scale(0.4); transition: opacity 0.18s ease, transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+.catalog-v2 .v2-swatch:hover .v2-swatch-dot { transform: scale(1.1); }
+.catalog-v2 .v2-swatch.is-on .v2-swatch-dot { box-shadow: 0 0 0 2px var(--b2-white), 0 0 0 4px var(--b2-cognac); }
+.catalog-v2 .v2-swatch.is-on .v2-swatch-dot svg { opacity: 1; transform: scale(1); }
+.catalog-v2 .v2-swatch:focus-visible { outline: none; }
+.catalog-v2 .v2-swatch:focus-visible .v2-swatch-dot { box-shadow: 0 0 0 2px var(--b2-white), 0 0 0 4px rgba(var(--b2-cognac-rgb), 0.55); }
+/* Tooltip: sube y aparece con un pequeño rebote; flecha con ::before. */
+.catalog-v2 .v2-swatch::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translate(-50%, 6px) scale(0.94);
+  transform-origin: bottom center;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--b2-espresso);
+  color: #FBF7F4;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  padding: 0.38rem 0.6rem;
+  border-radius: var(--r-sm);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  z-index: 6;
+  transition: opacity 0.16s ease, transform 0.24s cubic-bezier(0.2, 0.9, 0.3, 1.25);
+}
+.catalog-v2 .v2-swatch::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 2px);
+  width: 8px;
+  height: 8px;
+  background: var(--b2-espresso);
+  transform: translate(-50%, 6px) rotate(45deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 6;
+  transition: opacity 0.16s ease, transform 0.24s cubic-bezier(0.2, 0.9, 0.3, 1.25);
+}
+.catalog-v2 .v2-swatch:hover::after,
+.catalog-v2 .v2-swatch:focus-visible::after { opacity: 1; transform: translate(-50%, 0) scale(1); }
+.catalog-v2 .v2-swatch:hover::before,
+.catalog-v2 .v2-swatch:focus-visible::before { opacity: 1; transform: translate(-50%, 0) rotate(45deg); }
+.catalog-v2 .v2-swatches-note {
+  margin: 0.15rem 0 0;
+  font-size: 0.82rem;
+  color: var(--b2-gray);
+  min-height: 1.2em;
+}
+.catalog-v2 .v2-filters { overflow: visible; }
+
+@media (max-width: 900px) {
+  .catalog-v2 .catalog-layout { grid-template-columns: 1fr; column-gap: 0; }
+  .catalog-v2 .catalog-layout > main { grid-column: 1; }
+  .catalog-v2 .v2-filters-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: start;
+    margin: 0.5rem 0 0.25rem;
+    min-height: 42px;
+    padding: 0 1rem;
+    border-radius: var(--r-pill);
+    border: 1.5px solid var(--b2-border);
+    background: var(--b2-white);
+    color: var(--b2-black);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .catalog-v2 .v2-filters {
+    grid-column: 1;
+    position: static;
+    display: none;
+    padding: 0.75rem 0 0.5rem;
+    gap: 1.1rem;
+  }
+  .catalog-v2 .v2-filters.is-open { display: grid; }
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .catalog-v2 .products-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .v2-grid { grid-template-columns: repeat(3, 1fr); }
+  .v2-about-frame { grid-template-columns: 1fr 1fr; }
+  .v2-about-frame .v2-about-photo:last-child { display: none; }
+}
+
+@media (max-width: 860px) {
+  .v2-hero-photo { min-height: clamp(460px, 70vh, 640px); }
+  .v2-hero-photo::after { background: linear-gradient(180deg, rgba(40, 22, 18, 0.15) 0%, rgba(40, 22, 18, 0.55) 55%, rgba(40, 22, 18, 0.88) 100%); }
+  .v2-hero-photo { align-items: end; }
+  .v2-hero-photo .v2-h1 { max-width: none; }
+  .v2-benefits-inner { grid-template-columns: 1fr; gap: 1.1rem; }
+  .v2-faq-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .v2-about-frame { grid-template-columns: 1fr; }
+  .v2-about-frame .v2-about-photo:first-child { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 640px) {
+  .v2-announce { font-size: 0.72rem; justify-content: flex-start; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  .v2-announce::-webkit-scrollbar { display: none; }
+  .v2-circles-row { justify-content: flex-start; gap: 0.9rem; margin: 0 calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); }
+  .v2-circle { width: 84px; }
+  .v2-banners { grid-template-columns: 1fr; gap: 0.75rem; }
+  .v2-banner { aspect-ratio: 4 / 3; }
+  .v2-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .catalog-v2 .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  .v2-cta-row .v2-btn { flex: 1 1 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-reveal { opacity: 1; transform: none; transition: none; }
+  .v2-hero-photo-img { animation: none; }
+  .v2-btn, .v2-circle-media, .v2-circle-media img, .v2-banner img, .catalog-v2 .v2-chip { transition: none; }
+}
+
+/* Ficha en v2: recuadro de titulo en marron profundo y eyebrow en tinte claro. */
+.catalog-v2 .product-title-overlay { background: rgba(67, 47, 40, 0.94); }
+.catalog-v2 .product-subtitle { color: var(--p-200); }
+
+/* Modo oscuro: el acento sube a p-200 (rosa claro), asi que las bandas grandes
+   se quedan en cognac y todo lo que lleva fondo de acento pasa a texto p-900.
+   Sin esto quedaba blanco sobre rosa (1.8:1). */
+[data-theme="dark"] .v2-benefits,
+[data-theme="dark"] .v2-close-band { background: var(--p-600); }
+[data-theme="dark"] .v2 .v2-btn-primary,
+[data-theme="dark"] .v2 .v2-chip.is-on,
+[data-theme="dark"] .v2 .v2-fchip.is-on,
+[data-theme="dark"] .v2 .add-cart-btn,
+[data-theme="dark"] .v2 .product-card-add,
+[data-theme="dark"] .v2 .pagination-btn.active,
+[data-theme="dark"] .v2 .pagination-number.active,
+[data-theme="dark"] .v2 .qty-stepper,
+[data-theme="dark"] .v2 .cart-finalize,
+[data-theme="dark"] .v2 .share-btn:hover,
+[data-theme="dark"] .v2 .form-button,
+[data-theme="dark"] .v2 .empty-state-reset,
+[data-theme="dark"] .v2 .cart-toggle-badge,
+[data-theme="dark"] .v2 .pagination-btn:hover:not(:disabled),
+[data-theme="dark"] .v2 .modal-close:hover,
+[data-theme="dark"] .v2 .modal-nav:hover,
+[data-theme="dark"] .v2 .toolbar-search-clear:hover,
+[data-theme="dark"] .v2 .cart-qty button:hover { color: var(--p-900); }
+[data-theme="dark"] .v2 .add-cart-btn svg,
+[data-theme="dark"] .v2 .product-card-add svg { color: var(--p-900); }
+[data-theme="dark"] .v2 .v2-btn-light { background: var(--p-50); border-color: var(--p-50); color: var(--p-900); }

@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
+import './v2.css';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import './index.css';
 
@@ -11,6 +12,7 @@ import ImageModal from '/components/ImageModal.jsx';
 import Footer from '/components/Footer.jsx';
 import CategoryBanner from '/components/CategoryBanner.jsx';
 import SearchFilterBar, { filtersForCategory } from '/components/SearchFilterBar.jsx';
+import { COLOR_GROUPS, productColors } from '/utils/colors.js';
 import RelatedProducts from '/components/RelatedProducts.jsx';
 import ClaveNacional from '/components/ClaveNacional.jsx';
 import { loadManifest, loadCatalogIndex, getCategoryFromURL, normalizeText } from '/utils/productUtils.js';
@@ -35,7 +37,9 @@ const CAT_SNAP = 'b2you-cat-snap';
 const DEFAULT_VIEW_MODE = 'grid';
 
 
-function App() {
+function App({ variant } = {}) {
+  // 'v2': cabecera fina + chips de categoria, sin barra lateral (ver v2.css).
+  const base = '';
   const { categoria: paramCategoria, nombre: paramNombre } = useParams();
   const isSingleProduct = !!(paramCategoria && paramNombre);
   const navigate = useNavigate();
@@ -64,6 +68,9 @@ function App() {
   const [searchInput, setSearchInput] = useState('');   // controlled input (instant)
   const [searchQuery, setSearchQuery] = useState('');   // debounced value used for filtering
   const [selectedTags, setSelectedTags] = useState([]);
+  // v2: filtro por color (familias derivadas del contenido, ver utils/colors.js)
+  const [selectedColors, setSelectedColors] = useState([]);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   // Clave de los cinturones nacionales. Se lee una vez al montar; si vencio,
   // estaDesbloqueado() ya la borro y arranca en false.
   const [claveOk, setClaveOk] = useState(() => estaDesbloqueado());
@@ -249,6 +256,7 @@ function App() {
       setSearchInput(snap.search || '');
       setSearchQuery(snap.search || '');
       setSelectedTags(Array.isArray(snap.tags) ? snap.tags : []);
+      setSelectedColors(Array.isArray(snap.colors) ? snap.colors : []);
       const view = snap.view || urlView;
       const page = snap.page || urlPage;
       setViewMode(view);
@@ -271,6 +279,7 @@ function App() {
       // arranca con ese tag ya marcado (el chip de la barra queda activo).
       const urlSub = params.get('sub');
       setSelectedTags(urlSub ? [urlSub] : []);
+      setSelectedColors([]);
       setCurrentPage(urlPage);
       setViewMode(urlView);
       updateURLParams({ vista: urlView, pagina: urlPage });
@@ -286,11 +295,12 @@ function App() {
     try { s = JSON.parse(sessionStorage.getItem(CAT_SNAP) || '{}'); } catch { /* ignore */ }
     s.category = getCategoryFromURL() || '';
     s.tags = selectedTags;
+    s.colors = selectedColors;
     s.search = searchInput;
     s.page = currentPage;
     s.view = viewMode;
     try { sessionStorage.setItem(CAT_SNAP, JSON.stringify(s)); } catch { /* ignore */ }
-  }, [isSingleProduct, selectedTags, searchInput, currentPage, viewMode, location.search]);
+  }, [isSingleProduct, selectedTags, selectedColors, searchInput, currentPage, viewMode, location.search]);
 
   // Guardar la posicion de scroll del catalogo (para restaurarla al volver).
   useEffect(() => {
@@ -330,7 +340,7 @@ function App() {
   useEffect(() => {
     setCurrentPage(1);
     updateURLParams({ pagina: 1 });
-  }, [searchQuery, selectedTags]);
+  }, [searchQuery, selectedTags, selectedColors]);
 
   // ===== POPSTATE =====
   // El back del navegador tambien tiene que restaurar el catalogo: se marca la
@@ -371,7 +381,13 @@ function App() {
   const hayNacionalVisible = visibles.some(p => p.category === 'Cinturones'
     && (Array.isArray(p.metadata?.tags) ? p.metadata.tags : []).some(t => String(t).toLowerCase() === 'nacional'));
 
-  const filteredProducts = isSingleProduct ? products : visibles.filter(p => {
+  // Colores por producto, una vez por carga (derivados del contenido).
+  const colorOf = useMemo(() => {
+    const m = new Map();
+    for (const p of allProducts) m.set(`${p.category}/${p.productFolder}`, productColors(p));
+    return m;
+  }, [allProducts]);
+  const matchesBase = (p) => {
     if (qWords.length) {
       const m = p.metadata;
       const hay = normalizeText([m.title, m.subtitle, m.description, m.code, p.category, p.productFolder]
@@ -385,7 +401,22 @@ function App() {
       }
     }
     return true;
-  });
+  };
+  const matchesColor = (p) => {
+    if (!selectedColors.length) return true;
+    const cs = colorOf.get(`${p.category}/${p.productFolder}`) || [];
+    return selectedColors.some(c => cs.includes(c));
+  };
+  const baseProducts = isSingleProduct ? products : visibles.filter(matchesBase);
+  const filteredProducts = isSingleProduct ? products : baseProducts.filter(matchesColor);
+  // Conteo por color sobre busqueda + tags (sin el propio filtro de color), para
+  // que cada opcion diga cuantos productos agrega.
+  const colorCounts = {};
+  if (!isSingleProduct) {
+    for (const p of baseProducts) {
+      for (const c of (colorOf.get(`${p.category}/${p.productFolder}`) || [])) colorCounts[c] = (colorCounts[c] || 0) + 1;
+    }
+  }
 
   // Reindex so list-view layout alternation stays consistent within the filtered set.
   const reindexed = filteredProducts.map((p, i) => ({ ...p, index: i }));
@@ -396,7 +427,7 @@ function App() {
   const pageProducts = isSingleProduct ? products : reindexed.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
   // Signature of what is currently displayed (drives reveal re-observation).
-  const displayKey = `${selectedCategory || 'all'}|${qWords.join(' ')}|${selectedTags.join(',')}|${safePage}|${viewMode}`;
+  const displayKey = `${selectedCategory || 'all'}|${qWords.join(' ')}|${selectedTags.join(',')}|${selectedColors.join(',')}|${safePage}|${viewMode}`;
 
   // ===== TANDAS DENTRO DE LA PAGINA (solo cuadricula) =====
   const batching = viewMode === 'grid' && !isSingleProduct;
@@ -629,7 +660,7 @@ function App() {
 
   // ===== LOGO CLICK =====
   function handleLogoClick() {
-    window.location.href = window.location.origin;
+    window.location.href = window.location.origin + base;
   }
 
   // ===== CONTACT FORM SUBMIT =====
@@ -704,7 +735,7 @@ function App() {
       if (snap.page > 1) params.set('pagina', snap.page);
       if (snap.view && snap.view !== DEFAULT_VIEW_MODE) params.set('vista', snap.view);
       const qs = params.toString();
-      navigate(`/productos${qs ? '?' + qs : ''}`);
+      navigate(`${base}/productos${qs ? '?' + qs : ''}`);
     } else {
       navigate(fallbackCat ? `/productos?categoria=${encodeURIComponent(fallbackCat)}` : '/productos');
     }
@@ -716,10 +747,17 @@ function App() {
   function handleCategoryClick(e, cat, sub) {
     e.preventDefault();
     setIsMenuActive(false);
-    navigate(`/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
+    navigate(`${base}/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
   }
 
   // ===== SEARCH / FILTER HANDLERS =====
+  function handleToggleColor(key) {
+    setSelectedColors(prev => prev.includes(key) ? prev.filter(c => c !== key) : [...prev, key]);
+  }
+  function handleClearAll() {
+    setSelectedTags([]);
+    setSelectedColors([]);
+  }
   function handleToggleTag(key) {
     setSelectedTags(prev => prev.includes(key) ? prev.filter(t => t !== key) : [...prev, key]);
   }
@@ -734,10 +772,10 @@ function App() {
   // ya ocupa el ancho completo y una columna al costado lo dejaria sin lugar.
   // Que esto pase solo en escritorio lo decide el CSS: en telefono el
   // contenedor es `display: contents` y todo cae en el orden de siempre.
-  const useSidebar = showToolbar && viewMode === 'grid';
+  const useSidebar = variant !== 'v2' && showToolbar && viewMode === 'grid';
 
   return (
-    <>
+    <div className={variant === 'v2' ? `v2 catalog-v2${viewMode !== 'grid' ? ' is-list' : ''}` : undefined}>
       <Header
         categories={categories}
         isMenuActive={isMenuActive}
@@ -749,7 +787,37 @@ function App() {
 
       <div className="header-spacer" aria-hidden="true" />
 
-      {!isSingleProduct && (
+      {variant === 'v2' && !isSingleProduct && (
+        <div className="v2-cat-head">
+          <div className="v2-cat-head-inner">
+            <div className="v2-cat-title-row">
+              <h1 className="v2-cat-title">{selectedCategory || 'Todos los productos'}</h1>
+              {!isLoading && <span className="v2-cat-count">{totalFiltered} productos</span>}
+            </div>
+            <nav className="v2-chips" aria-label="Categorías">
+              <a
+                className={`v2-chip${!selectedCategory ? ' is-on' : ''}`}
+                href="/productos"
+                onClick={(e) => { e.preventDefault(); navigate('/productos'); }}
+              >
+                Todo
+              </a>
+              {categories.map((cat) => (
+                <a
+                  key={cat}
+                  className={`v2-chip${selectedCategory === cat ? ' is-on' : ''}`}
+                  href={`/productos?categoria=${encodeURIComponent(cat)}`}
+                  onClick={(e) => handleCategoryClick(e, cat)}
+                >
+                  {cat}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+      )}
+
+      {!isSingleProduct && variant !== 'v2' && (
         <CategoryBanner
           category={getCategoryFromURL() || null}
           claveOk={claveOk}
@@ -761,7 +829,7 @@ function App() {
         <SearchFilterBar
           searchInput={searchInput}
           onSearchChange={setSearchInput}
-          showFilters={!!catFilters}
+          showFilters={!!catFilters && variant !== 'v2'}
           selectedTags={selectedTags}
           onToggleTag={handleToggleTag}
           onClearFilters={handleClearFilters}
@@ -775,6 +843,78 @@ function App() {
         />
       )}
 
+      {variant === 'v2' && showToolbar && (() => {
+        const AXIS_LABEL = { genero: 'Género', origen: 'Origen', estilo: 'Estilo', tipo: 'Tipo' };
+        const axes = catFilters ? [...new Set(catFilters.map((f) => f.axis))] : [];
+        const activeCount = selectedTags.length + selectedColors.length;
+        const colorOptions = COLOR_GROUPS.filter((g) => (colorCounts[g.key] || 0) > 0 || selectedColors.includes(g.key));
+        return (
+          <>
+            <button type="button" className="v2-filters-toggle" onClick={() => setFiltersOpen((o) => !o)} aria-expanded={filtersOpen}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="10" y1="18" x2="14" y2="18"></line></svg>
+              Filtros{activeCount ? ` (${activeCount})` : ''}
+            </button>
+            <aside className={`v2-filters${filtersOpen ? ' is-open' : ''}`} aria-label="Filtros">
+              <div className="v2-filters-head">
+                <span className="v2-filters-title">Filtrar</span>
+                {activeCount > 0 && (
+                  <button type="button" className="v2-filters-clear" onClick={handleClearAll}>Limpiar todo</button>
+                )}
+              </div>
+              {axes.map((ax) => (
+                <div className="v2-filter-group" key={ax}>
+                  <span className="v2-filter-label">{AXIS_LABEL[ax] || ax}</span>
+                  <div className="v2-filter-chips">
+                    {catFilters.filter((f) => f.axis === ax && (f.key !== 'nacional' || hayNacionalVisible)).map((f) => (
+                      <button
+                        type="button"
+                        key={f.key}
+                        className={`v2-fchip${selectedTags.includes(f.key) ? ' is-on' : ''}`}
+                        onClick={() => handleToggleTag(f.key)}
+                        aria-pressed={selectedTags.includes(f.key)}
+                      >
+                        {f.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              {colorOptions.length > 0 && (
+                <div className="v2-filter-group">
+                  <span className="v2-filter-label">Color</span>
+                  <div className="v2-swatches" role="group" aria-label="Filtrar por color">
+                    {colorOptions.map((g) => {
+                      const on = selectedColors.includes(g.key);
+                      const n = colorCounts[g.key] || 0;
+                      return (
+                        <button
+                          type="button"
+                          key={g.key}
+                          className={`v2-swatch${on ? ' is-on' : ''}${g.light ? ' is-light' : ''}`}
+                          onClick={() => handleToggleColor(g.key)}
+                          aria-pressed={on}
+                          aria-label={`${g.label}, ${n} ${n === 1 ? 'producto' : 'productos'}`}
+                          data-tip={`${g.label} · ${n}`}
+                        >
+                          <span className="v2-swatch-dot" style={{ background: g.swatch }} aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7.5" /></svg>
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <p className="v2-swatches-note" aria-live="polite">
+                    {selectedColors.length
+                      ? selectedColors.map((k) => COLOR_GROUPS.find((g) => g.key === k)?.label).filter(Boolean).join(', ')
+                      : 'Elegí uno o más colores'}
+                  </p>
+                </div>
+              )}
+            </aside>
+          </>
+        );
+      })()}
+
       <main id="productsContainer" style={{ position: 'relative' }}>
         {isBelts && !isSingleProduct && !isLoading && (
           <ClaveNacional
@@ -787,7 +927,7 @@ function App() {
           <LoadingSkeleton />
         ) : totalFiltered === 0 ? (
           <EmptyState
-            searching={qWords.length > 0 || selectedTags.length > 0}
+            searching={qWords.length > 0 || selectedTags.length > 0 || selectedColors.length > 0}
             onReset={() => { setSearchInput(''); setSearchQuery(''); setSelectedTags([]); }}
           />
         ) : (
@@ -922,7 +1062,7 @@ function App() {
         onClose={closeModal}
         onImageChange={setModalImageSrc}
       />
-    </>
+    </div>
   );
 }
 

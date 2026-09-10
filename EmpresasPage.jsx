@@ -94,8 +94,8 @@ function EmpresasPage() {
                     <path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle>
                   </svg>
                 </div>
-                <h3>Personalizaci&oacute;n total</h3>
-                <p>Grabado l&aacute;ser, estampado y bordado con el logo de tu empresa. Cada producto lleva la identidad de tu marca.</p>
+                <h3>Tu logo, en el producto</h3>
+                <p>Grabado láser, estampado o bordado, según el material. Cada pieza sale con la identidad de tu empresa.</p>
               </div>
 
               <div className="info-page-card">
@@ -105,7 +105,7 @@ function EmpresasPage() {
                   </svg>
                 </div>
                 <h3>Regalos corporativos</h3>
-                <p>Sorprend&eacute; a tus empleados, clientes y socios con productos que representan bien a tu marca.</p>
+                <p>Para empleados, clientes y socios: productos que se usan todos los días, no que quedan en un cajón.</p>
               </div>
 
               <div className="info-page-card">
@@ -115,7 +115,7 @@ function EmpresasPage() {
                   </svg>
                 </div>
                 <h3>Pedidos por volumen</h3>
-                <p>Producci&oacute;n a medida con precios especiales para grandes cantidades. Entregas coordinadas a tu oficina.</p>
+                <p>Producción a medida para cantidades grandes, con presupuesto cerrado y entrega coordinada en tu oficina.</p>
               </div>
 
               <div className="info-page-card">
@@ -124,8 +124,8 @@ function EmpresasPage() {
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                   </svg>
                 </div>
-                <h3>Calidad artesanal</h3>
-                <p>Materiales de primera selecci&oacute;n, costuras reforzadas y terminaciones hechas a mano para durar.</p>
+                <h3>Hecho para durar</h3>
+                <p>Materiales seleccionados, costuras reforzadas y terminaciones cuidadas en nuestro taller de Buenos Aires.</p>
               </div>
             </div>
 

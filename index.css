@@ -5,6 +5,14 @@
 
 /* ===== B2YOU BRANDING COLORS ===== */
 :root {
+    /* Escala unica de radios para toda la web:
+       sm = controles (botones, miniaturas, segmentados), md = tarjetas y paneles,
+       lg = medios grandes y marcos, xl = escenarios/hero, pill = chips, badges y CTAs. */
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 20px;
+    --r-pill: 999px;
     --b2-black: #2D2D2D;
     --b2-cream: #FAFAF9;
     --b2-cognac: #7A4F48;
@@ -173,13 +181,15 @@ body {
 }
 
 .header-clear .cart-toggle,
-.header-clear .theme-toggle {
+.header-clear .theme-toggle,
+.header-clear .header-icon-btn {
     color: #fff;
     border-color: rgba(255, 255, 255, 0.4);
 }
 
 .header-clear .cart-toggle:hover,
-.header-clear .theme-toggle:hover {
+.header-clear .theme-toggle:hover,
+.header-clear .header-icon-btn:hover {
     color: #fff;
     border-color: #fff;
 }
@@ -246,7 +256,7 @@ body {
     text-transform: uppercase;
     color: var(--b2-white);
     background: var(--b2-cognac);
-    border-radius: 20px;
+    border-radius: var(--r-pill);
     padding: 0.25rem 0.6rem;
     margin-left: 0.4rem;
     white-space: nowrap;
@@ -334,7 +344,7 @@ body {
     border: none;
     background: transparent;
     cursor: pointer;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
@@ -361,7 +371,7 @@ body {
     max-width: min(94vw, 960px);
     background: #FFFFFF;
     border: 1px solid var(--b2-border);
-    border-radius: 14px;
+    border-radius: var(--r-lg);
     box-shadow: 0 22px 50px rgba(40, 22, 18, 0.16);
     padding: 1.5rem 1.65rem;
     z-index: 20;
@@ -438,7 +448,7 @@ body {
     display: block;
     width: 180px;
     aspect-ratio: 4 / 3;
-    border-radius: 10px;
+    border-radius: var(--r-md);
     overflow: hidden;
     background: var(--b2-cream);
 }
@@ -467,7 +477,7 @@ body {
     align-items: center;
     column-gap: 1rem;
     padding: 0.7rem 0.9rem;
-    border-radius: 10px;
+    border-radius: var(--r-md);
     text-decoration: none;
     transition: background-color 0.2s ease;
 }
@@ -488,7 +498,7 @@ body {
     flex-direction: column;
     text-decoration: none;
     border: 1px solid var(--b2-border);
-    border-radius: 12px;
+    border-radius: var(--r-md);
     overflow: hidden;
     background: transparent;
     transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, border-color 0.22s ease;
@@ -632,7 +642,7 @@ body {
     text-transform: uppercase;
     padding: 0.625rem 1.25rem;
     transition: all 0.3s ease;
-    border-radius: 6px;
+    border-radius: var(--r-sm);
     position: relative;
     background: transparent;
     border: none;
@@ -747,7 +757,7 @@ body {
     text-decoration: none;
     padding: 0.32rem 0.72rem;
     border: 1px solid var(--b2-border);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: transparent;
     white-space: nowrap;
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
@@ -810,7 +820,7 @@ body {
     gap: 0.75rem;
     width: 100%;
     padding: 0.5rem 0.85rem;
-    border-radius: 9px;
+    border-radius: var(--r-md);
     background: transparent;
     border: none;
     cursor: pointer;
@@ -868,7 +878,7 @@ body {
     cursor: pointer;
     text-align: left;
     padding: 0.42rem 0.85rem;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     font-family: inherit;
     font-size: 0.78rem;
     font-weight: 600;
@@ -896,7 +906,7 @@ body {
     flex: 0 0 42%;
     max-width: 290px;
     aspect-ratio: 4 / 5;
-    border-radius: 14px;
+    border-radius: var(--r-lg);
     overflow: hidden;
     background: var(--b2-cream);
 }
@@ -961,7 +971,7 @@ body {
     text-decoration: none;
     padding: 0.4rem 0.85rem;
     border: 1px solid var(--b2-border);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: transparent;
     white-space: nowrap;
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1006,7 +1016,8 @@ body {
 
 /* ===== CATEGORY BANNER ===== */
 .category-banner {
-    padding: 6rem 2.5rem 3rem;
+    /* Top padding clears the fixed header (var(--header-h)); everything else is tight. */
+    padding: calc(var(--header-h) + 1.5rem) 2.5rem 2rem;
     background: var(--b2-white);
     overflow: hidden;
     position: relative;
@@ -1050,7 +1061,7 @@ body {
     gap: 0.25rem;
     background: var(--b2-white);
     border: 1px solid var(--b2-border);
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     padding: 3px;
 }
 
@@ -1225,12 +1236,24 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    /* Mobile: the catalog is the product. Tight header so the first row of
+       cards is visible without scrolling; the decorative thumbnail marquee is
+       desktop-only (it cost ~230px of the first screen and adds nothing a
+       shopper can't get from the header categories or the filter bar). */
     .category-banner {
-        padding: 5rem 0 1.5rem;
+        padding: calc(var(--header-h) + 0.75rem) 0 0.75rem;
+    }
+
+    .category-banner-content {
+        margin-bottom: 1rem;
     }
 
     .category-banner-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+    }
+
+    .category-bubbles-wrapper {
+        display: none;
     }
 
     .category-bubble {
@@ -1250,11 +1273,11 @@ body {
 
 @media (max-width: 480px) {
     .category-banner {
-        padding: 4.5rem 0 1rem;
+        padding: calc(var(--header-h) + 0.5rem) 0 0.5rem;
     }
 
     .category-banner-title {
-        font-size: 2rem;
+        font-size: 1.85rem;
     }
 }
 
@@ -1438,43 +1461,7 @@ body {
     transform: translateY(0);
 }
 
-.b2b-terms {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.25rem;
-    max-width: 580px;
-    margin: 0 0 2.25rem;
-    padding: 0;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
-}
 
-.product-section:nth-child(odd) .b2b-terms {
-    justify-content: flex-end;
-}
-
-.b2b-terms li {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    color: var(--b2-black);
-    text-transform: uppercase;
-}
-
-.b2b-terms li svg {
-    color: var(--b2-cognac);
-    flex-shrink: 0;
-}
-
-.reveal-in .b2b-terms {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 .description-text {
     max-width: 580px;
@@ -1509,20 +1496,21 @@ body {
        comprimia al espacio sobrante (53px contra 130px de la miniatura) y las
        fotos quedaban cortadas por abajo. */
     flex: 0 0 auto;
-    height: 130px;
+    height: auto;
 }
+.gallery-rail-track::-webkit-scrollbar { height: 6px; }
+.gallery-rail-track::-webkit-scrollbar-track { background: transparent; }
+.gallery-rail-track::-webkit-scrollbar-thumb { background: rgba(var(--b2-cognac-rgb), 0.55); border-radius: var(--r-pill); }
 
 /* El arrastre lo maneja blossom-carousel; aca solo se oculta la barra. */
 .gallery-rail-track {
     display: flex;
     gap: 1.25rem;
     overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.gallery-rail-track::-webkit-scrollbar {
-    display: none;
+    /* Barra fina y visible: si hay mas fotos de las que entran, se nota. */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--b2-cognac-rgb), 0.55) transparent;
+    padding-bottom: 0.6rem;
 }
 
 .gallery-item {
@@ -1530,7 +1518,7 @@ body {
     width: 130px;
     aspect-ratio: 1;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     cursor: pointer;
     position: relative;
     opacity: 0;
@@ -1697,7 +1685,7 @@ body {
     padding: 0.875rem 1.125rem;
     font-family: inherit;
     font-size: 0.9375rem;
-    border-radius: 6px;
+    border-radius: var(--r-sm);
     transition: all 0.3s ease;
     /* No free-drag resize handle escaping the footer column. */
     resize: vertical;
@@ -1727,7 +1715,7 @@ body {
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
-    border-radius: 6px;
+    border-radius: var(--r-sm);
 }
 
 .form-button:hover {
@@ -1759,15 +1747,80 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Mobile: collapse the product action buttons to icons only so the row never
-   overflows the card. Labels stay available via title/aria-label. */
+/* Mobile: the buy actions become a sticky bottom bar. The two primary CTAs
+   stay LABELED (icon-only buy buttons are a conversion leak) and reachable
+   while the shopper scrolls the gallery. Share/category move out of the bar:
+   share is native on phones and the category is one tap away via "Volver". */
 @media (max-width: 768px) {
+    .product-actions {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 60;
+        margin: 0;
+        padding: 0.6rem 0.85rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+        background: var(--b2-white);
+        border-top: 1px solid var(--b2-border);
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.07);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
     .product-actions .share-btn {
-        padding: 0.7rem;
+        justify-content: center;
+        min-height: 48px;
+        padding: 0.7rem 0.5rem;
+        font-size: 0.84rem;
+        white-space: nowrap;
+        border-radius: var(--r-sm);
     }
 
     .product-actions .share-btn .btn-text {
+        display: inline;
+    }
+
+    .product-actions .share-btn.icon-btn,
+    .product-actions .share-btn.category-btn {
         display: none;
+    }
+
+    [data-theme="dark"] .product-actions {
+        background: #161616;
+        border-top-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+@media (max-width: 400px) {
+    .product-actions .share-btn {
+        font-size: 0.78rem;
+        gap: 0.35rem;
+    }
+}
+
+/* Clear the fixed buy bar: the detail page keeps its last content above it,
+   and the WhatsApp float rises so it never sits on top of the bar. */
+@media (max-width: 768px) {
+    .product-section {
+        padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+    }
+
+    body:has(.product-section) .whatsapp-float {
+        bottom: calc(92px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Smaller float on phones so it covers less of the card CTAs in the grid. */
+    .whatsapp-float {
+        width: 52px;
+        height: 52px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .whatsapp-float svg {
+        width: 24px;
+        height: 24px;
     }
 }
 
@@ -1779,7 +1832,7 @@ body {
     background: transparent;
     color: var(--b2-cognac);
     border: 1.5px solid var(--b2-cognac);
-    border-radius: 6px;
+    border-radius: var(--r-sm);
     font-family: inherit;
     font-size: 0.875rem;
     font-weight: 600;
@@ -1860,7 +1913,7 @@ body {
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
     margin-bottom: 1.5rem;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
 }
 
 .loading-text {
@@ -1876,7 +1929,7 @@ body {
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
     margin-bottom: 2.5rem;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
 }
 
 .loading-gallery {
@@ -1896,7 +1949,7 @@ body {
     );
     background-size: 200% 100%;
     animation: shimmer 2s infinite;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
 }
 
 .loading-gallery-item:nth-child(1) { animation-delay: 0.1s; }
@@ -1956,7 +2009,7 @@ body {
     max-width: 90vw;
     max-height: 85vh;
     object-fit: contain;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
 }
 
 .modal-close {
@@ -2176,7 +2229,7 @@ body {
 .product-card {
     break-inside: avoid;
     margin-bottom: 1.25rem;
-    border-radius: 12px;
+    border-radius: var(--r-md);
     overflow: hidden;
     background: var(--b2-white);
     /* Warm hairline tinted to the brand instead of a generic gray border. */
@@ -2369,6 +2422,20 @@ a.product-card-info {
 }
 
 /* Card price + WhatsApp quote CTA */
+/* Puntitos de color bajo el subtitulo de la tarjeta (familias derivadas). */
+.product-card-colors {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 0.45rem;
+}
+.product-card-color {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    box-shadow: inset 0 0 0 1.5px var(--b2-white);
+}
+
 .product-card-buy {
     display: flex;
     align-items: center;
@@ -2422,7 +2489,7 @@ a.product-card-info {
     background: var(--b2-cognac);
     border: none;
     cursor: pointer;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     padding: 0.45rem 0.85rem;
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -2439,7 +2506,7 @@ a.product-card-info {
     align-items: center;
     align-self: center;
     background: var(--b2-cognac);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     overflow: hidden;
     flex-shrink: 0;
     user-select: none;
@@ -2478,7 +2545,7 @@ a.product-card-info {
 }
 
 .qty-stepper--section {
-    border-radius: 8px;
+    border-radius: var(--r-sm);
 }
 
 .qty-stepper--section .qty-stepper-btn {
@@ -2576,7 +2643,7 @@ a.product-card-info {
     }
 
     .product-card {
-        border-radius: 8px;
+        border-radius: var(--r-sm);
     }
 
     .product-card-title {
@@ -2606,7 +2673,7 @@ a.product-card-info {
     background: var(--b2-black);
     color: var(--b2-white);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     font-family: inherit;
     font-size: 0.9375rem;
     font-weight: 600;
@@ -2653,7 +2720,7 @@ a.product-card-info {
     background: transparent;
     color: var(--b2-black);
     border: 1.5px solid var(--b2-border);
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     font-family: inherit;
     font-size: 0.9375rem;
     font-weight: 600;
@@ -2727,15 +2794,10 @@ a.product-card-info {
     .gallery-side .product-back-link,
     .gallery-side .product-price-line,
     .gallery-side .description-text,
-    .gallery-side .b2b-terms,
     .gallery-side .product-actions,
     .gallery-side .gallery-rail {
         margin-left: 0 !important;
         margin-right: 0 !important;
-    }
-
-    .product-section:nth-child(odd) .b2b-terms {
-        justify-content: flex-start;
     }
 
     .hero-side,
@@ -3196,7 +3258,8 @@ a.product-card-info {
 }
 
 /* ===== THEME TOGGLE BUTTON ===== */
-.theme-toggle {
+.theme-toggle,
+.header-icon-btn {
     position: absolute;
     right: 2.5rem;
     background: transparent;
@@ -3212,23 +3275,28 @@ a.product-card-info {
     color: var(--b2-black);
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover,
+.header-icon-btn:hover {
     border-color: var(--b2-cognac);
     color: var(--b2-cognac);
     transform: scale(1.05);
 }
 
-.theme-toggle svg {
+.theme-toggle svg,
+.header-icon-btn svg {
     width: 18px;
     height: 18px;
     transition: transform 0.3s ease;
 }
 
-.theme-toggle:hover svg {
+.theme-toggle:hover svg,
+.header-icon-btn:hover svg {
     transform: rotate(15deg);
 }
 
-/* ===== HEADER ACTIONS (cart + theme) ===== */
+/* ===== HEADER ACTIONS (cart + WhatsApp + Instagram) ===== */
+.header-icon-btn { text-decoration: none; }
+.header-icon-btn:hover svg { transform: none; }
 .header-actions {
     position: absolute;
     right: 2.5rem;
@@ -3237,7 +3305,8 @@ a.product-card-info {
     gap: 0.6rem;
 }
 
-.header-actions .theme-toggle {
+.header-actions .theme-toggle,
+.header-actions .header-icon-btn {
     position: static;
     right: auto;
 }
@@ -3275,7 +3344,7 @@ a.product-card-info {
     min-width: 18px;
     height: 18px;
     padding: 0 5px;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: var(--b2-cognac);
     color: #fff;
     font-size: 0.65rem;
@@ -3340,20 +3409,23 @@ a.product-card-info {
         height: 18px;
     }
 
-    .theme-toggle {
+    .theme-toggle,
+    .header-icon-btn {
         right: 1.5rem;
         width: 40px;
         height: 40px;
     }
 
-    .theme-toggle svg {
+    .theme-toggle svg,
+    .header-icon-btn svg {
         width: 18px;
         height: 18px;
     }
 }
 
 @media (max-width: 480px) {
-    .theme-toggle {
+    .theme-toggle,
+    .header-icon-btn {
         right: 1rem;
     }
 }
@@ -3456,7 +3528,7 @@ a.product-card-info {
     flex-shrink: 0;
     background: var(--b2-white);
     border: 1px solid var(--b2-border);
-    border-radius: 10px;
+    border-radius: var(--r-sm);
     padding: 3px;
 }
 
@@ -3485,7 +3557,7 @@ a.product-card-info {
     color: var(--b2-black);
     background: var(--b2-white);
     border: 1px solid var(--b2-border);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     padding: 0.95rem 2.9rem 0.95rem 3.1rem;
     outline: none;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -3581,7 +3653,7 @@ a.product-card-info {
     color: var(--b2-gray);
     background: transparent;
     border: 1px solid var(--b2-border);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     padding: 0.5rem 0.9rem;
     display: inline-flex;
     align-items: center;
@@ -4015,7 +4087,7 @@ a.product-card-info {
         justify-content: flex-start;
         gap: 0.6rem;
         border: none;
-        border-radius: 6px;
+        border-radius: var(--r-sm);
         background: none;
         box-shadow: none;
         padding: 0.42rem 0.5rem;
@@ -4157,7 +4229,7 @@ a.product-card-info {
     color: #fff;
     background: var(--b2-cognac);
     border: none;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     padding: 0.72rem 1.45rem;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -4320,7 +4392,7 @@ a.product-card-info {
     width: auto;
     height: auto;
     object-fit: contain;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
     cursor: pointer;
     -webkit-user-drag: none;
@@ -4457,7 +4529,7 @@ a.product-card-info {
     cursor: pointer;
     padding: 0.35rem;
     display: flex;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     transition: color 0.2s ease, background 0.2s ease;
 }
 
@@ -4515,7 +4587,7 @@ a.product-card-info {
     width: 60px;
     height: 60px;
     flex-shrink: 0;
-    border-radius: 10px;
+    border-radius: var(--r-md);
     overflow: hidden;
     background: var(--b2-cream);
     border: 1px solid var(--b2-border);
@@ -4572,7 +4644,7 @@ a.product-card-info {
     display: inline-flex;
     align-items: center;
     border: 1px solid var(--b2-border);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     overflow: hidden;
 }
 
@@ -4627,7 +4699,7 @@ a.product-card-info {
     flex-shrink: 0;
     display: flex;
     align-self: flex-start;
-    border-radius: 6px;
+    border-radius: var(--r-sm);
     transition: color 0.2s ease, background 0.2s ease;
 }
 
@@ -4677,7 +4749,7 @@ a.product-card-info {
     width: 100%;
     padding: 0.95rem 1.25rem;
     border: none;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: #25D366;
     color: #08311a;
     font-family: inherit;
@@ -4722,7 +4794,7 @@ a.product-card-info {
     width: 100%;
     padding: 0.65rem 1rem;
     border: 1px solid var(--b2-border);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: transparent;
     color: var(--b2-black);
     font-family: inherit;
@@ -4746,7 +4818,7 @@ a.product-card-info {
     min-width: 18px;
     height: 18px;
     padding: 0 5px;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     background: var(--b2-cognac);
     color: #fff;
     font-size: 0.68rem;
@@ -4788,7 +4860,7 @@ a.product-card-info {
     display: flex;
     flex-direction: column;
     background: var(--b2-white);
-    border-radius: 18px;
+    border-radius: var(--r-lg);
     box-shadow: 0 24px 60px rgba(15, 9, 7, 0.4);
     overflow: hidden;
     animation: cart-terms-pop 0.26s cubic-bezier(0.16, 1, 0.3, 1);
@@ -4822,7 +4894,7 @@ a.product-card-info {
     cursor: pointer;
     padding: 0.3rem;
     display: flex;
-    border-radius: 8px;
+    border-radius: var(--r-sm);
     transition: color 0.2s ease, background 0.2s ease;
 }
 
@@ -4946,7 +5018,7 @@ html {
 
 ::-webkit-scrollbar-thumb {
     background: rgba(122, 79, 72, 0.4);
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     border: 3px solid var(--b2-cream);
 }
 
@@ -5086,7 +5158,7 @@ html {
     align-items: center;
     gap: 0.6rem;
     padding: 0.9rem 1.6rem;
-    border-radius: 999px;
+    border-radius: var(--r-pill);
     font-family: inherit;
     font-size: 0.95rem;
     font-weight: 600;
@@ -5294,4 +5366,76 @@ html {
 
 @media (prefers-reduced-motion: reduce) {
     .clave-nac.is-error .clave-nac-input { animation: none; }
+}
+
+/* Botones de compra alineados en cada fila de tarjetas: el bloque de info es
+   una columna flexible y la fila de compra se pega al pie, asi una tarjeta con
+   mas texto (o con puntitos de color) no baja su boton respecto de las vecinas. */
+.product-card { display: flex; flex-direction: column; }
+.product-card-info { display: flex; flex-direction: column; flex: 1 1 auto; }
+.product-card-buy { margin-top: auto; padding-top: 0.7rem; }
+
+/* Tres botones en el header del telefono (carrito, WhatsApp, Instagram): mas
+   chicos y pegados para no pisar el logo centrado. */
+@media (max-width: 480px) {
+    .header-actions {
+        gap: 0.3rem;
+        right: 0.9rem;
+    }
+    .header-actions .cart-toggle,
+    .header-actions .header-icon-btn {
+        width: 34px;
+        height: 34px;
+    }
+    .header-actions .header-icon-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+@media (max-width: 480px) {
+    /* Con tres botones a la derecha el logo centrado no entra: va pegado a la
+       hamburguesa, como en cualquier tienda en el telefono. */
+    .header-container {
+        justify-content: flex-start;
+        padding-left: 3.6rem;
+    }
+}
+
+
+/* ==========================================================================
+   ESCALA TONAL DE MARCA (toda la web). Un solo matiz, del rosa palido al
+   marron profundo. 50/100/200 tintes (fondos acotados, chips, hovers), 400
+   medio (iconos, eyebrows), 500 hover, 600 el acento, 900 titulos y bandas.
+   Va al final para pisar los valores historicos del :root de arriba.
+   ========================================================================== */
+:root {
+    --p-50: #ddced3;
+    --p-100: #dcc7c6;
+    --p-200: #dab8ae;
+    --p-400: #9d7367;
+    --p-500: #865d51;
+    --p-600: #7a4f48;
+    --p-900: #432f28;
+    --v2-tint-1: var(--p-50);
+    --v2-tint-2: var(--p-100);
+    --v2-tint-3: var(--p-200);
+    --b2-black: var(--p-900);
+    --b2-gray: color-mix(in srgb, var(--p-900) 72%, #ffffff);
+    --b2-cognac: var(--p-600);
+    --b2-cognac-hover: var(--p-500);
+    --b2-cognac-rgb: 122, 79, 72;
+    --b2-espresso: var(--p-900);
+    --b2-border: var(--p-50);
+}
+[data-theme="dark"] {
+    --v2-tint-1: color-mix(in srgb, var(--p-900) 38%, #121212);
+    --v2-tint-2: color-mix(in srgb, var(--p-900) 55%, #121212);
+    --v2-tint-3: color-mix(in srgb, var(--p-900) 75%, #121212);
+    --b2-black: var(--p-50);
+    --b2-gray: color-mix(in srgb, var(--p-50) 68%, #121212);
+    --b2-cognac: var(--p-200);
+    --b2-cognac-hover: var(--p-100);
+    --b2-cognac-rgb: 218, 184, 174;
+    --b2-espresso: var(--p-900);
+    --b2-border: color-mix(in srgb, var(--p-900) 60%, #121212);
 }

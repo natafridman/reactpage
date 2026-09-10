@@ -1,6 +1,6 @@
-title: Cinturon Azul
+title: Cinturon Quebrado
 subtitle: Cuero Vacuno Nacional
-description: Cuero negro con hebilla oval martelada. Statement femenino.
+description: Cuero negro quebrado con hebilla martelada. Statement femenino.
 code: CIN-346
 images: 5835.jpg, 5836.jpg, 5837.jpg, 5838.jpg, 5839.jpg
 videos:

@@ -34,7 +34,6 @@ function FAQSection() {
     <section className="faq-section">
       <div className="faq-container">
         <div className="faq-header">
-          <span className="faq-subtitle">FAQ</span>
           <h2 className="faq-title">Preguntas frecuentes</h2>
           <div className="faq-divider"></div>
         </div>

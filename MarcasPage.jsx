@@ -102,7 +102,7 @@ function MarcasPage() {
                   </svg>
                 </div>
                 <h3>Marca blanca</h3>
-                <p>Fabricamos productos con tu etiqueta. Tus clientes reciben un producto con la identidad de tu marca.</p>
+                <p>Fabricamos con tu etiqueta. Tu cliente recibe un producto que es de tu marca de punta a punta.</p>
               </div>
 
               <div className="info-page-card">
@@ -111,8 +111,8 @@ function MarcasPage() {
                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                   </svg>
                 </div>
-                <h3>Cat&aacute;logo completo</h3>
-                <p>Bolsos, mochilas, morrales, ri&ntilde;oneras, portadocumentos, gorras y m&aacute;s. Eleg&iacute;s los productos que mejor se adapten a tu marca.</p>
+                <h3>Catálogo amplio</h3>
+                <p>Bolsos, mochilas, morrales, riñoneras, portadocumentos, gorras y más. Elegís lo que va con tu marca.</p>
               </div>
 
               <div className="info-page-card">
@@ -122,7 +122,7 @@ function MarcasPage() {
                   </svg>
                 </div>
                 <h3>Producci&oacute;n escalable</h3>
-                <p>Desde tiradas peque&ntilde;as hasta grandes vol&uacute;menes. Nos adaptamos al crecimiento de tu marca sin sacrificar calidad.</p>
+                <p>Desde tiradas chicas hasta grandes volúmenes, con la misma terminación en cada pieza.</p>
               </div>
 
               <div className="info-page-card">
@@ -131,8 +131,8 @@ function MarcasPage() {
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
                 </div>
-                <h3>Acompa&ntilde;amiento dedicado</h3>
-                <p>Trabajamos codo a codo con tu equipo en dise&ntilde;o, materiales y tiempos de entrega para que todo salga como lo imagin&aacute;s.</p>
+                <h3>Trabajo codo a codo</h3>
+                <p>Definimos con tu equipo diseño, materiales y fechas, y aprobás una muestra antes de producir.</p>
               </div>
             </div>
 

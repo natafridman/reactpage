@@ -6,13 +6,6 @@ import { flyToCart } from '/utils/flyToCart.js';
 import { useCart } from '/context/CartContext.jsx';
 import QtyStepper from '/components/QtyStepper.jsx';
 
-const B2B_TERMS = [
-  'Personalizable con tu logo',
-  'Volumen adecuado al cliente',
-  'Producción 15-30 días',
-  'Marca blanca',
-];
-
 function ProductSection({ product, onImageClick, showBackLink = false, onReturn }) {
   const navigate = useNavigate();
   const { items, addItem, increment, decrement } = useCart();
@@ -131,17 +124,6 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
         <div className="description-text" style={contentMargin}>
           <p>{metadata.description || 'Descripcion del producto.'}</p>
         </div>
-
-        <ul className="b2b-terms" style={contentMargin}>
-          {B2B_TERMS.map((term) => (
-            <li key={term}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-              {term}
-            </li>
-          ))}
-        </ul>
 
         <div className="product-actions" style={contentMargin}>
           {qty === 0 ? (

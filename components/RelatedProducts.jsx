@@ -71,7 +71,6 @@ function RelatedProducts({ category, folder, explore = false }) {
     <section className="catalog-rail-section related-section">
       <div className="featured-container">
         <div className="featured-header">
-          <span className="featured-subtitle">Seguí explorando</span>
           <h2 className="featured-title">También te puede interesar</h2>
           <div className="featured-divider"></div>
         </div>
