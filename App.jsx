@@ -71,6 +71,21 @@ function App({ variant } = {}) {
   // v2: filtro por color (familias derivadas del contenido, ver utils/colors.js)
   const [selectedColors, setSelectedColors] = useState([]);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  // Flecha con degrade al final de la fila de chips mientras quede algo por
+  // ver a la derecha (en el telefono la fila desborda y no se nota).
+  const chipsRef = useRef(null);
+  const [chipsMore, setChipsMore] = useState(false);
+  const updateChipsMore = () => {
+    const el = chipsRef.current;
+    if (!el) return;
+    const more = el.scrollWidth - el.clientWidth - el.scrollLeft > 4;
+    setChipsMore((prev) => (prev === more ? prev : more));
+  };
+  useEffect(() => {
+    updateChipsMore();
+    window.addEventListener('resize', updateChipsMore);
+    return () => window.removeEventListener('resize', updateChipsMore);
+  });
   // Clave de los cinturones nacionales. Se lee una vez al montar; si vencio,
   // estaDesbloqueado() ya la borro y arranca en false.
   const [claveOk, setClaveOk] = useState(() => estaDesbloqueado());
@@ -794,7 +809,8 @@ function App({ variant } = {}) {
               <h1 className="v2-cat-title">{selectedCategory || 'Todos los productos'}</h1>
               {!isLoading && <span className="v2-cat-count">{totalFiltered} productos</span>}
             </div>
-            <nav className="v2-chips" aria-label="Categorías">
+            <div className={`v2-chips-wrap${chipsMore ? ' has-more' : ''}`}>
+            <nav className="v2-chips" aria-label="Categorías" ref={chipsRef} onScroll={updateChipsMore}>
               <a
                 className={`v2-chip${!selectedCategory ? ' is-on' : ''}`}
                 href="/productos"
@@ -813,6 +829,16 @@ function App({ variant } = {}) {
                 </a>
               ))}
             </nav>
+            <button
+              type="button"
+              className="v2-chips-more"
+              aria-label="Ver más categorías"
+              tabIndex={chipsMore ? 0 : -1}
+              onClick={() => chipsRef.current && chipsRef.current.scrollBy({ left: Math.round(chipsRef.current.clientWidth * 0.7), behavior: 'smooth' })}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18" /></svg>
+            </button>
+            </div>
           </div>
         </div>
       )}

@@ -117,6 +117,9 @@
   position: relative;
   z-index: 3;
 }
+.v2-announce-track { display: flex; justify-content: center; }
+.v2-announce-set { display: flex; }
+.v2-announce-set.is-dup { display: none; }
 .v2-announce span { padding: 0 1.1rem; }
 .v2-announce span + span { border-left: 1px solid rgba(251, 247, 244, 0.28); }
 
@@ -452,6 +455,29 @@
   -webkit-overflow-scrolling: touch;
 }
 .catalog-v2 .v2-chips::-webkit-scrollbar { display: none; }
+/* Aviso de desborde: degrade + flecha a la derecha mientras queden chips ocultos. */
+.catalog-v2 .v2-chips-wrap { position: relative; }
+.catalog-v2 .v2-chips-more {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0.35rem;
+  width: 4.5rem;
+  border: 0;
+  padding: 0 0 0 2rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: linear-gradient(90deg, rgba(250, 250, 249, 0) 0%, var(--b2-cream) 55%);
+  color: var(--b2-cognac);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.catalog-v2 .v2-chips-more svg { width: 22px; height: 22px; }
+.catalog-v2 .v2-chips-wrap.has-more .v2-chips-more { opacity: 1; pointer-events: auto; }
 .catalog-v2 .v2-chip {
   flex: 0 0 auto;
   scroll-snap-align: start;
@@ -592,6 +618,31 @@
 }
 @media (max-width: 640px) {
   .catalog-v2 .gallery-side { padding: 1.5rem 1.25rem 1.75rem; }
+}
+@media (max-width: 1024px) {
+  /* Foto y recuadro de titulo: el recorte lo define el wrapper, no el hero-side
+     (con dos alturas distintas el titulo quedaba cortado). */
+  .catalog-v2 .hero-side { max-height: none; }
+  .catalog-v2 .hero-image-wrapper { height: auto; aspect-ratio: 1 / 1; max-height: 52vh; }
+  .catalog-v2 .hero-image { max-height: none; height: 100%; }
+}
+@media (max-width: 768px) {
+  /* En la lista hay muchas fichas: la barra de compra fija (una por producto,
+     apiladas) no tiene sentido. Va en linea dentro de cada tarjeta. */
+  .catalog-v2.is-list .product-actions {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    background: transparent;
+    border-top: 0;
+    box-shadow: none;
+  }
+  .catalog-v2.is-list .product-actions .share-btn { flex: 1 1 45%; }
+  .catalog-v2.is-list .product-section { padding-bottom: 0; }
+  body:has(.catalog-v2.is-list) .whatsapp-float { bottom: 1rem; }
 }
 @media (max-width: 640px) {
   /* En vertical el recorte se centra en las manos sobre el cuero, no en la espalda. */
@@ -736,8 +787,13 @@
 }
 
 @media (max-width: 640px) {
-  .v2-announce { font-size: 0.72rem; justify-content: flex-start; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
-  .v2-announce::-webkit-scrollbar { display: none; }
+  /* Marquee: los tres textos giran sin fin. La copia (is-dup) hace que el
+     bucle vuelva a 0 justo cuando queda alineada con el original. */
+  .v2-announce { font-size: 0.74rem; padding-left: 0; padding-right: 0; overflow: hidden; white-space: nowrap; }
+  .v2-announce-track { justify-content: flex-start; width: max-content; animation: v2-marquee 22s linear infinite; }
+  .v2-announce-set.is-dup { display: flex; }
+  .v2-announce-set span:first-child { border-left: 1px solid rgba(251, 247, 244, 0.28); }
+  @keyframes v2-marquee { to { transform: translateX(-50%); } }
   .v2-circles-row { justify-content: flex-start; gap: 0.9rem; margin: 0 calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); }
   .v2-circle { width: 84px; }
   .v2-banners { grid-template-columns: 1fr; gap: 0.75rem; }

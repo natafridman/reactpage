@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BlossomCarousel } from '@blossom-carousel/react';
+import { useRailIndicator } from '/utils/useRailIndicator.js';
 import { medSrc, quoteWhatsappUrl, buildCartItem } from '/utils/productUtils.js';
 import { flyToCart } from '/utils/flyToCart.js';
 import { useCart } from '/context/CartContext.jsx';
@@ -35,6 +36,7 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
 
   // Layout calculation
   const isOdd = (index + 1) % 2 !== 0;
+  const [railRef, rail] = useRailIndicator();
   const flexDirection = isOdd ? 'row-reverse' : 'row';
   const titlePosition = isOdd ? { left: '3rem', right: 'auto' } : { right: '3rem', left: 'auto' };
   const titleTransform = isOdd ? 'translateX(-50px)' : 'translateX(50px)';
@@ -190,7 +192,7 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
             para que al llegar al final se encadene con el principio sin salto:
             el desplazamiento vuelve a 0 justo cuando la copia queda alineada
             con el original, asi que la costura no se ve. */}
-        <div className="gallery-rail" style={contentMargin}>
+        <div className="gallery-rail" style={contentMargin} ref={railRef}>
           <BlossomCarousel className="gallery-rail-track">
             {gallerySource.map((filename, idx) => (
               <div key={idx} className="gallery-item">
@@ -210,6 +212,13 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
               </div>
             ))}
           </BlossomCarousel>
+          {/* Barra de posicion propia: en iOS la del navegador no se ve hasta
+              que se desliza, y la idea es que se note que hay mas fotos. */}
+          {rail.show && (
+            <div className="rail-bar" aria-hidden="true">
+              <span className="rail-bar-thumb" style={{ width: `${rail.w}%`, transform: `translateX(${rail.x}%)` }} />
+            </div>
+          )}
         </div>
       </div>
     </section>

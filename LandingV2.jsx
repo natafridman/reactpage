@@ -170,9 +170,15 @@ function LandingV2() {
 
       {/* Barra de anuncios (debajo del header fijo): beneficios reales, sin promos inventadas. */}
       <div className="v2-announce" role="note">
-        <span>Envíos a todo el país</span>
-        <span>Muestra antes de producir</span>
-        <span>Presupuesto cerrado por WhatsApp</span>
+        <div className="v2-announce-track">
+          {[0, 1].map((dup) => (
+            <div className={`v2-announce-set${dup ? ' is-dup' : ''}`} key={dup} aria-hidden={dup ? 'true' : undefined}>
+              <span>Envíos a todo el país</span>
+              <span>Muestra antes de producir</span>
+              <span>Presupuesto cerrado por WhatsApp</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <main>

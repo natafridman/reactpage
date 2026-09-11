@@ -1498,19 +1498,31 @@ body {
     flex: 0 0 auto;
     height: auto;
 }
-.gallery-rail-track::-webkit-scrollbar { height: 6px; }
-.gallery-rail-track::-webkit-scrollbar-track { background: transparent; }
-.gallery-rail-track::-webkit-scrollbar-thumb { background: rgba(var(--b2-cognac-rgb), 0.55); border-radius: var(--r-pill); }
+.gallery-rail-track::-webkit-scrollbar { display: none; }
+.rail-bar {
+    height: 4px;
+    margin-top: 0.7rem;
+    border-radius: var(--r-pill);
+    background: rgba(var(--b2-cognac-rgb), 0.16);
+    overflow: hidden;
+}
+.rail-bar-thumb {
+    display: block;
+    height: 100%;
+    border-radius: var(--r-pill);
+    background: var(--b2-cognac);
+    will-change: transform;
+}
 
 /* El arrastre lo maneja blossom-carousel; aca solo se oculta la barra. */
 .gallery-rail-track {
     display: flex;
     gap: 1.25rem;
     overflow-x: auto;
-    /* Barra fina y visible: si hay mas fotos de las que entran, se nota. */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(var(--b2-cognac-rgb), 0.55) transparent;
-    padding-bottom: 0.6rem;
+    /* La barra de posicion es propia (.rail-bar): la nativa se oculta porque
+       en iOS no aparece hasta que se desliza. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .gallery-item {
@@ -5438,4 +5450,10 @@ html {
     --b2-cognac-rgb: 218, 184, 174;
     --b2-espresso: var(--p-900);
     --b2-border: color-mix(in srgb, var(--p-900) 60%, #121212);
+}
+
+@media (max-width: 1024px) {
+    /* El recorte de la foto lo manda el wrapper (50vh); un tope distinto en
+       .hero-side cortaba el recuadro del titulo. */
+    .hero-side { max-height: none; }
 }
