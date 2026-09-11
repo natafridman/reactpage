@@ -4,6 +4,7 @@ import './v2.css';
 
 import Header from '/components/Header.jsx';
 import Footer from '/components/Footer.jsx';
+import ClientLogos from '/components/ClientLogos.jsx';
 import ProductCard from '/components/ProductCard.jsx';
 import { loadCatalogIndex, thumbSrc, medSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
@@ -261,6 +262,9 @@ function LandingV2() {
             <img className="v2-about-photo" src={medSrc(ABOUT_PHOTOS[1])} alt="Mochila de cuero marrón en la espalda" loading="lazy" decoding="async" />
           </div>
         </section>
+
+        {/* ===== MARCAS QUE CONFIAN (prueba social B2B) ===== */}
+        <ClientLogos />
 
         {/* ===== FAQ ===== */}
         <section className="v2-section v2-faq">

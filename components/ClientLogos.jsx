@@ -9,7 +9,6 @@ const LOGOS = [
   { name: 'Floppy Kenny', slug: 'floppy', file: 'floppy.png' },
   { name: 'Samples Studios', slug: 'samples-studios', file: 'samples studios.png' },
   { name: 'TBN Club', slug: 'tbn-club', file: 'tbn club.png' },
-  { name: 'Viacotone', slug: 'viacotone', file: 'viacotone.png' },
   { name: 'Yagmour', slug: 'yagmour', file: 'yagmour.png' },
 ];
 
