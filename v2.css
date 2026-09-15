@@ -606,6 +606,9 @@
    tenia max-height 67vh y el contenido desbordaba sobre la ficha siguiente. */
 .catalog-v2.is-list #productsContainer { display: flex; flex-direction: column; gap: 2.5rem; padding-top: 1.75rem; }
 .catalog-v2 .product-section {
+  /* En la lista cada ficha es una tarjeta dentro de la columna, no se encuadra
+     aparte. */
+  max-width: none;
   min-height: 0;
   border-radius: var(--v2-radius);
   overflow: hidden;
@@ -623,8 +626,7 @@
 .catalog-v2 .gallery-side .description-text { font-size: 1rem; line-height: 1.6; }
 @media (min-width: 1025px) {
   .catalog-v2 .hero-side { flex: 0 0 44%; min-height: 520px; max-height: none; }
-  .catalog-v2 .hero-image-wrapper { position: absolute; inset: 0; height: auto; }
-  .catalog-v2 .product-title-overlay { bottom: 1.5rem; }
+  .catalog-v2 .hero-image-wrapper { height: auto; }
 }
 @media (max-width: 640px) {
   .catalog-v2 .gallery-side { padding: 1.5rem 1.25rem 1.75rem; }
@@ -633,7 +635,7 @@
   /* Foto y recuadro de titulo: el recorte lo define el wrapper, no el hero-side
      (con dos alturas distintas el titulo quedaba cortado). */
   .catalog-v2 .hero-side { max-height: none; }
-  .catalog-v2 .hero-image-wrapper { height: auto; aspect-ratio: 1 / 1; max-height: 52vh; }
+  .catalog-v2 .hero-image-wrapper { height: auto; aspect-ratio: 4 / 5; max-height: 60vh; }
   .catalog-v2 .hero-image { max-height: none; height: 100%; }
 }
 @media (max-width: 768px) {
@@ -820,8 +822,6 @@
 }
 
 /* Ficha en v2: recuadro de titulo en marron profundo y eyebrow en tinte claro. */
-.catalog-v2 .product-title-overlay { background: rgba(67, 47, 40, 0.94); }
-.catalog-v2 .product-subtitle { color: var(--p-200); }
 
 /* Modo oscuro: el acento sube a p-200 (rosa claro), asi que las bandas grandes
    se quedan en cognac y todo lo que lleva fondo de acento pasa a texto p-900.

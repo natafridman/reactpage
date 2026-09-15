@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BlossomCarousel } from '@blossom-carousel/react';
-import { useRailIndicator } from '/utils/useRailIndicator.js';
 import { medSrc, quoteWhatsappUrl, buildCartItem } from '/utils/productUtils.js';
 import { flyToCart } from '/utils/flyToCart.js';
 import { useCart } from '/context/CartContext.jsx';
 import QtyStepper from '/components/QtyStepper.jsx';
 
-function ProductSection({ product, onImageClick, showBackLink = false, onReturn }) {
+// Ficha con la estructura de una tienda: a la izquierda las miniaturas y la foto
+// grande, a la derecha el nombre, la descripcion y los botones. El nombre ya no
+// va dentro de un recuadro encima de la foto (tapaba el producto) y el orden es
+// siempre el mismo, sin alternar lado por producto.
+function ProductSection({ product, showBackLink = false, onReturn }) {
   const navigate = useNavigate();
   const { items, addItem, increment, decrement } = useCart();
-  const { metadata, category, productFolder, index, availableImages } = product;
+  const { metadata, category, productFolder, availableImages } = product;
   const [copied, setCopied] = useState(false);
-
-
+  // null = lo que se muestra al abrir (el video si hay, si no la primera foto)
+  const [activa, setActiva] = useState(null);
 
   const cartItem = buildCartItem(product);
   const qty = items.find((i) => i.key === cartItem.key)?.qty || 0;
@@ -26,25 +28,12 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
   const IMAGES_BASE_FOLDER = '/images/Categorias';
   const productPath = `${IMAGES_BASE_FOLDER}/${category}/${productFolder}`;
 
-  // Video and image handling
   const videoList = Array.isArray(metadata.videos) ? metadata.videos : (metadata.video ? [metadata.video] : []);
   const imageList = Array.isArray(metadata.images) ? metadata.images : availableImages;
   const hasVideo = videoList.length > 0;
-  const heroImage = imageList.length > 0 ? imageList[0] : 'hero.jpg';
-
-  const gallerySource = hasVideo ? imageList : (imageList.length > 1 ? imageList.slice(1) : imageList);
-
-  // Layout calculation
-  const isOdd = (index + 1) % 2 !== 0;
-  const [railRef, rail] = useRailIndicator();
-  const flexDirection = isOdd ? 'row-reverse' : 'row';
-  const titlePosition = isOdd ? { left: '3rem', right: 'auto' } : { right: '3rem', left: 'auto' };
-  const titleTransform = isOdd ? 'translateX(-50px)' : 'translateX(50px)';
-  const textAlign = isOdd ? 'right' : 'left';
-  const numberPosition = isOdd ? { left: 'auto', right: '2rem' } : { left: '2rem', right: 'auto' };
-  const contentMargin = isOdd ? { marginLeft: 'auto', marginRight: 0 } : { marginLeft: 0, marginRight: 'auto' };
-
-
+  const mostrandoVideo = hasVideo && activa === null;
+  const indiceActivo = activa === null ? 0 : activa;
+  const fotoPrincipal = imageList[indiceActivo] || imageList[0] || 'hero.jpg';
 
   function handleShare() {
     const url = `${window.location.origin}/producto/${encodeURIComponent(category)}/${encodeURIComponent(productFolder)}`;
@@ -68,21 +57,45 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
   }
 
   return (
-    <section
-      className="product-section"
-      data-product={productFolder}
-      style={{ flexDirection }}
-    >
+    <section className="product-section" data-product={productFolder}>
       <div className="hero-side">
+        {imageList.length > 1 && (
+          <div className="gallery-rail">
+            <div className="gallery-rail-track">
+              {imageList.map((filename, idx) => (
+                <button
+                  type="button"
+                  key={filename}
+                  className={`gallery-item${!mostrandoVideo && idx === indiceActivo ? ' is-on' : ''}`}
+                  onClick={() => setActiva(idx)}
+                  aria-label={`Ver foto ${idx + 1} de ${metadata.title || productFolder}`}
+                >
+                  <img
+                    src={medSrc(`${productPath}/${filename}`)}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      if (!e.target.dataset.fallback) {
+                        e.target.dataset.fallback = '1';
+                        e.target.src = `${productPath}/${filename}`;
+                      }
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="hero-image-wrapper">
-          {hasVideo ? (
+          {mostrandoVideo ? (
             <video className="hero-image" autoPlay loop muted playsInline>
               <source src={`${productPath}/${videoList[0]}`} type="video/mp4" />
             </video>
           ) : (
             <img
-              src={medSrc(`${productPath}/${heroImage}`)}
-              data-full={`${productPath}/${heroImage}`}
+              src={medSrc(`${productPath}/${fotoPrincipal}`)}
               alt={metadata.title}
               className="hero-image"
               loading="lazy"
@@ -90,29 +103,17 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
               onError={(e) => {
                 if (!e.target.dataset.fallback) {
                   e.target.dataset.fallback = '1';
-                  e.target.src = `${productPath}/${heroImage}`;
+                  e.target.src = `${productPath}/${fotoPrincipal}`;
                 }
               }}
             />
           )}
-          <div
-            className={`product-title-overlay ${isOdd ? 'title-left' : 'title-right'}`}
-            style={{
-              ...titlePosition,
-              transform: titleTransform
-            }}
-          >
-            <div className="product-subtitle">
-              {metadata.subtitle || category.toUpperCase()}
-            </div>
-            <h2>{metadata.title || 'Producto'}</h2>
-          </div>
         </div>
       </div>
 
-      <div className="gallery-side" style={{ textAlign }}>
+      <div className="gallery-side">
         {showBackLink && (
-          <button className="product-back-link" onClick={() => (onReturn ? onReturn(category) : navigate('/productos'))} style={contentMargin}>
+          <button className="product-back-link" onClick={() => (onReturn ? onReturn(category) : navigate('/productos'))}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
@@ -121,9 +122,12 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
           </button>
         )}
 
+        <p className="product-eyebrow">{metadata.subtitle || category}</p>
+        <h1 className="product-name">{metadata.title || productFolder}</h1>
+
         {/* Sin precio ni codigo de articulo a la vista, igual que en las
             tarjetas. El codigo sigue viajando en el pedido de WhatsApp. */}
-        <div className="description-text" style={contentMargin}>
+        <div className="description-text">
           <p>{metadata.description || 'Descripcion del producto.'}</p>
         </div>
 
@@ -131,16 +135,13 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
             esto Clarity las tapa con puntitos en las grabaciones y no se
             entiende que boton toco la gente. Los campos de formulario siguen
             enmascarados siempre, eso Clarity no lo deja cambiar. */}
-        <div className="product-actions" style={contentMargin} data-clarity-unmask="true">
+        <div className="product-actions" data-clarity-unmask="true">
           {qty === 0 ? (
             <button
               className="share-btn add-cart-btn"
               onClick={handleAddToCart}
               aria-label={`Agregar ${metadata.title || productFolder} al carrito`}
             >
-              {/* Carrito, no WhatsApp: al lado esta "Pedi cotizacion", que si
-                  abre WhatsApp, y con el mismo icono quedaban dos botones
-                  identicos haciendo cosas distintas. */}
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="9" cy="21" r="1"></circle>
                 <circle cx="20" cy="21" r="1"></circle>
@@ -159,7 +160,7 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
           )}
           <button className="share-btn icon-btn" onClick={handleShare} title={copied ? 'Link copiado' : 'Compartir'}>
             {copied ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             ) : (
@@ -190,39 +191,6 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
             </svg>
             <span className="btn-text">{category}</span>
           </button>
-        </div>
-
-        {/* Fila unica de miniaturas en loop continuo. Las imagenes se duplican
-            para que al llegar al final se encadene con el principio sin salto:
-            el desplazamiento vuelve a 0 justo cuando la copia queda alineada
-            con el original, asi que la costura no se ve. */}
-        <div className="gallery-rail" style={contentMargin} ref={railRef}>
-          <BlossomCarousel className="gallery-rail-track">
-            {gallerySource.map((filename, idx) => (
-              <div key={idx} className="gallery-item">
-                <img
-                  src={medSrc(`${productPath}/${filename}`)}
-                  data-full={`${productPath}/${filename}`}
-                  alt={`${metadata.title} - Imagen ${idx + 1}`}
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    if (!e.target.dataset.fallback) {
-                      e.target.dataset.fallback = '1';
-                      e.target.src = `${productPath}/${filename}`;
-                    }
-                  }}
-                />
-              </div>
-            ))}
-          </BlossomCarousel>
-          {/* Barra de posicion propia: en iOS la del navegador no se ve hasta
-              que se desliza, y la idea es que se note que hay mas fotos. */}
-          {rail.show && (
-            <div className="rail-bar" aria-hidden="true">
-              <span className="rail-bar-thumb" style={{ width: `${rail.w}%`, transform: `translateX(${rail.x}%)` }} />
-            </div>
-          )}
         </div>
       </div>
     </section>

@@ -1292,24 +1292,22 @@ body {
     position: relative;
     scroll-snap-align: start;
     background: var(--b2-white);
+    /* Encuadrada en el ancho del sitio, como el resto de las paginas: a lo
+       ancho de la ventana el texto quedaba en renglones larguisimos. */
+    max-width: var(--content-max);
+    margin-inline: auto;
+    gap: clamp(1rem, 3vw, 2.5rem);
 }
 
-/* Alternancia de diseño */
-.product-section:nth-child(odd) {
+/* Un solo orden para todos los productos: foto a la izquierda, texto a la
+   derecha. La alternancia era un recurso de revista; en una tienda lo que sirve
+   es que el ojo encuentre el nombre y el boton siempre en el mismo lugar. */
+.product-section {
     flex-direction: row;
 }
 
-.product-section:nth-child(odd) .gallery-side {
+.product-section .gallery-side {
     text-align: left;
-}
-
-.product-section:nth-child(even) {
-    flex-direction: row-reverse;
-    background: var(--b2-cream);
-}
-
-.product-section:nth-child(even) .gallery-side {
-    text-align: right;
 }
 
 /* ===== HERO SIDE ===== */
@@ -1319,15 +1317,22 @@ body {
     max-height: 67vh;
     position: relative;
     overflow: hidden;
-    background: var(--b2-black);
+    background: var(--b2-white);
+    /* Miniaturas en columna a la izquierda y la foto grande al lado. */
+    display: flex;
+    gap: 0.9rem;
+    padding: 1.25rem 0 1.25rem 1.25rem;
+    box-sizing: border-box;
 }
 
 .hero-image-wrapper {
-    width: 100%;
-    /* Alto explicito, no height:100%. El padre (.hero-side) define su alto con
-       max-height, y contra eso un porcentaje no resuelve: el wrapper se estiraba
-       al alto del contenido y dejaba el titulo del producto fuera del recorte. */
-    height: 67vh;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    /* Se estira al alto de la fila: al lado tiene la columna de miniaturas y
+       las dos tienen que medir lo mismo. */
+    align-self: stretch;
+    height: auto;
     position: relative;
     overflow: hidden;
 }
@@ -1335,7 +1340,8 @@ body {
 .hero-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* Producto sobre blanco: se muestra entero, no recortado. */
+    object-fit: contain;
     transform: scale(1);
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1344,58 +1350,12 @@ body {
     transform: scale(1.02);
 }
 
-.product-title-overlay {
-    position: absolute;
-    bottom: 8%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(10px);
-    padding: 1.15rem 1.5rem;
-    max-width: 330px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    border: none;
-}
-
-.product-title-overlay.title-left {
-    border-right: 4px solid var(--b2-cognac);
-    border-left: none;
-}
-
-.product-title-overlay.title-right {
-    border-left: 4px solid var(--b2-cognac);
-    border-right: none;
-}
-
-.reveal-in .product-title-overlay {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.product-subtitle {
-    color: var(--b2-cognac);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-}
-
-.product-title-overlay h2 {
-    color: var(--b2-white);
-    font-size: 1.7rem;
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin: 0;
-}
-
-/* ===== GALLERY SIDE ===== */
+.reveal-in /* ===== GALLERY SIDE ===== */
 .gallery-side {
     flex: 1;
     min-height: 67vh;
     max-height: 67vh;
-    padding: 3rem 4rem;
+    padding: 3rem 2rem 3rem 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1490,35 +1450,19 @@ body {
    ProductSection.jsx). Antes era una grilla de 3 columnas que crecia hacia
    abajo y estiraba la ficha muy por encima del alto de pantalla. */
 .gallery-rail {
-    max-width: 680px;
+    /* Columna fija de miniaturas al lado de la foto. */
+    flex: 0 0 84px;
     overflow: hidden;
-    /* flex-shrink:0 + alto propio: dentro de la columna flex, el riel se
-       comprimia al espacio sobrante (53px contra 130px de la miniatura) y las
-       fotos quedaban cortadas por abajo. */
-    flex: 0 0 auto;
-    height: auto;
 }
 .gallery-rail-track::-webkit-scrollbar { display: none; }
-.rail-bar {
-    height: 4px;
-    margin-top: 0.7rem;
-    border-radius: var(--r-pill);
-    background: rgba(var(--b2-cognac-rgb), 0.16);
-    overflow: hidden;
-}
-.rail-bar-thumb {
-    display: block;
-    height: 100%;
-    border-radius: var(--r-pill);
-    background: var(--b2-cognac);
-    will-change: transform;
-}
-
 /* El arrastre lo maneja blossom-carousel; aca solo se oculta la barra. */
 .gallery-rail-track {
     display: flex;
-    gap: 1.25rem;
-    overflow-x: auto;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
     /* La barra de posicion es propia (.rail-bar): la nativa se oculta porque
        en iOS no aparece hasta que se desliza. */
     scrollbar-width: none;
@@ -1527,8 +1471,10 @@ body {
 
 .gallery-item {
     flex: 0 0 auto;
-    width: 130px;
-    aspect-ratio: 1;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border: 1px solid var(--b2-border);
+    padding: 0;
     overflow: hidden;
     border-radius: var(--r-sm);
     cursor: pointer;
@@ -2762,20 +2708,7 @@ a.product-card-info {
        !important. Aca el recuadro apoya en el borde inferior de la foto y crece
        hacia arriba, asi que el recorte no lo puede cortar por mas que el titulo
        o el subtitulo ocupen dos renglones. */
-    .product-title-overlay {
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0;
-        transform: none !important;
-        max-width: none;
-        padding: 1rem 2rem 1.1rem;
-    }
-
-    .product-title-overlay h2 {
-        font-size: 1.5rem;
-    }
-
-    .loading-product-skeleton {
+            .loading-product-skeleton {
         flex-direction: column;
     }
     
@@ -2958,14 +2891,7 @@ a.product-card-info {
     
     /* Padding lateral igual al de .gallery-side (1.5rem) para que el titulo
        quede alineado con el texto que va abajo. */
-    .product-title-overlay {
-        padding: 0.85rem 1.5rem 0.95rem;
-    }
-
-    .product-title-overlay h2 {
-        font-size: 1.3rem;
-    }
-    
+            
     .gallery-rail-track {
         gap: 0.75rem;
     }
@@ -3002,11 +2928,7 @@ a.product-card-info {
     filter: brightness(0) invert(1);
 }
 
-[data-theme="dark"] .product-title-overlay {
-    background: rgba(0, 0, 0, 0.85);
-}
-
-[data-theme="dark"] .product-section:nth-child(even) {
+[data-theme="dark"] [data-theme="dark"] .product-section:nth-child(even) {
     background: var(--b2-cream);
 }
 
@@ -3083,16 +3005,7 @@ a.product-card-info {
     color: #2c1a16;
 }
 
-[data-theme="dark"] .product-title-overlay h2,
-[data-theme="dark"] .product-subtitle {
-    color: #F0F0F0;
-}
-
-[data-theme="dark"] .product-subtitle {
-    color: var(--b2-cognac);
-}
-
-[data-theme="dark"] .pagination-btn {
+[data-theme="dark"] [data-theme="dark"] [data-theme="dark"] .pagination-btn {
     background: #F0F0F0;
     color: #121212;
 }
@@ -4164,11 +4077,6 @@ a.product-card-info {
     font-family: var(--b2-display);
     font-weight: 600;
     letter-spacing: -0.005em;
-}
-
-.product-title-overlay h2 {
-    font-family: var(--b2-display);
-    letter-spacing: -0.01em;
 }
 
 .product-card {
@@ -5328,4 +5236,76 @@ html {
     margin: 0;
     padding: 0;
     pointer-events: none;
+}
+
+/* --- Ficha: columna de texto --- */
+.gallery-side .product-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--b2-gray);
+    margin: 0 0 0.35rem;
+}
+
+.gallery-side .product-name {
+    font-family: var(--b2-display);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.1rem;
+    text-wrap: balance;
+}
+
+/* La miniatura que se esta viendo queda marcada. */
+.gallery-item.is-on {
+    border-color: var(--b2-cognac);
+    box-shadow: 0 0 0 1px var(--b2-cognac);
+}
+
+.gallery-item:hover {
+    border-color: var(--b2-cognac);
+}
+
+@media (max-width: 1024px) {
+    /* En una sola columna las miniaturas vuelven a ser una fila debajo de la
+       foto: en vertical no hay lugar al costado. */
+    .hero-side {
+        flex-direction: column;
+        padding: 0;
+        gap: 0.6rem;
+        /* Que mida lo que miden la foto y las miniaturas, sin hueco abajo. */
+        max-height: none;
+        height: auto;
+        min-height: 0;
+    }
+
+    .hero-side .gallery-rail {
+        flex: 0 0 auto;
+        width: 100%;
+        padding: 0 var(--gutter);
+        box-sizing: border-box;
+        order: 2;
+    }
+
+    .hero-side .gallery-rail-track {
+        flex-direction: row;
+        height: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .hero-side .gallery-item {
+        width: 84px;
+        flex: 0 0 auto;
+    }
+
+    .hero-side .hero-image-wrapper {
+        order: 1;
+        /* Acotada para que el nombre del producto entre en la primera pantalla:
+           con la foto a 55vh mas las miniaturas, el titulo quedaba abajo del
+           borde y se entraba a la ficha sin saber que producto es. */
+        aspect-ratio: 4 / 5;
+        max-height: 44vh;
+    }
 }
