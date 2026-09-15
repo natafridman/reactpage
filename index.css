@@ -2145,7 +2145,9 @@ body {
 .products-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.25rem;
+    /* Sin marco de tarjeta, el aire entre columnas es lo que separa un
+       producto del otro: tiene que notarse. */
+    gap: 2rem 1.75rem;
     padding: 2rem var(--gutter);
     max-width: var(--content-max);
     margin: 0 auto;
@@ -2241,13 +2243,9 @@ body {
 .product-card {
     break-inside: avoid;
     margin-bottom: 1.25rem;
-    border-radius: var(--r-md);
-    overflow: hidden;
-    background: var(--b2-white);
-    /* Warm hairline tinted to the brand instead of a generic gray border. */
-    border: 1px solid rgba(var(--b2-cognac-rgb), 0.16);
-    box-shadow: 0 2px 8px rgba(58, 32, 27, 0.05);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    /* Sin fondo, borde, redondeo ni sombra: en una grilla larga ese marco
+       compite con la foto y ensucia. Manda la imagen; el texto va debajo. */
+    background: none;
     opacity: 0;
     transform: translateY(25px);
 }
@@ -2259,7 +2257,6 @@ body {
        delay never slows down the hover lift afterwards. */
     animation: card-reveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
     animation-delay: calc(var(--stagger, 0) * 80ms);
-    transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
 }
 
 @keyframes card-reveal {
@@ -2267,21 +2264,6 @@ body {
         opacity: 0;
         transform: translateY(25px);
     }
-}
-
-.product-card:hover {
-    box-shadow: 0 12px 32px rgba(58, 32, 27, 0.13);
-    transform: translateY(-3px);
-    border-color: rgba(var(--b2-cognac-rgb), 0.3);
-}
-
-[data-theme="dark"] .product-card {
-    background: #1a1a1a;
-    border-color: #333;
-}
-
-[data-theme="dark"] .product-card:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 a.product-card-image,
@@ -2297,9 +2279,11 @@ a.product-card-info {
     /* Uniform tiles: every card is the same height so the columns line up into a
        clean grid instead of a ragged masonry. */
     aspect-ratio: 4 / 5;
-    background: var(--b2-cream);
+    /* Las fotos del catalogo son producto sobre blanco: el fondo acompaña. */
+    background: var(--b2-white);
     cursor: pointer;
     overflow: hidden;
+    display: block;
 }
 
 .product-card-image img {
@@ -2312,83 +2296,18 @@ a.product-card-info {
 }
 
 [data-theme="dark"] .product-card-image {
-    background: #202020;
+    background: #f4f0ef;
 }
 
 .product-card:hover .product-card-image img {
     transform: scale(var(--img-hover-scale));
 }
 
-.card-img-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    border: 1px solid var(--b2-border);
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--b2-black);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    z-index: 2;
-    backdrop-filter: blur(4px);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.product-card:hover .card-img-nav {
-    opacity: 1;
-}
-
 .card-img-prev { left: 8px; }
 .card-img-next { right: 8px; }
 
-.card-img-nav:hover {
-    background: rgba(255, 255, 255, 1);
-}
-
-[data-theme="dark"] .card-img-nav {
-    background: rgba(40, 40, 40, 0.9);
-    color: #eee;
-    border-color: #555;
-}
-
-[data-theme="dark"] .card-img-nav:hover {
-    background: rgba(60, 60, 60, 1);
-}
-
-.card-img-dots {
-    position: absolute;
-    bottom: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 5px;
-    z-index: 2;
-}
-
-.card-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.card-dot.active {
-    background: var(--b2-cognac);
-    border-color: var(--b2-cognac);
-    transform: scale(1.3);
-}
-
 .product-card-info {
-    padding: 0.875rem 1rem;
+    padding: 0.7rem 0 0;
     display: flex;
     flex-direction: column;
 }
@@ -2402,11 +2321,11 @@ a.product-card-info {
 
 .product-card-title {
     font-family: var(--font-heading);
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--b2-black);
-    margin: 0 0 0.2rem 0;
-    letter-spacing: 0.02em;
+    margin: 0 0 0.15rem 0;
+    letter-spacing: 0.01em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2417,11 +2336,11 @@ a.product-card-info {
 }
 
 .product-card-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.74rem;
     color: var(--b2-gray);
-    margin: 0 0 0.35rem 0;
+    margin: 0 0 0.3rem 0;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2575,14 +2494,16 @@ a.product-card-info {
 @media (max-width: 480px) {
     .product-card-buy {
         flex-direction: column;
-        align-items: stretch;
+        align-items: flex-start;
         gap: 0.5rem;
     }
 
+    /* Ancho segun el texto, no a todo lo ancho: una barra cognac debajo de
+       cada foto competia con el producto en una grilla de dos columnas. */
     .product-card-add {
         justify-content: center;
-        width: 100%;
-        padding: 0.55rem 0.85rem;
+        width: auto;
+        padding: 0.45rem 0.9rem;
     }
 
     .qty-stepper--card {
@@ -2599,17 +2520,6 @@ a.product-card-info {
 /* Touch devices: no hover, so the arrows only add clutter on a small tile.
    Hide them and let users swipe; the dots stay as the position indicator. */
 @media (hover: none) {
-    .card-img-nav {
-        display: none;
-    }
-    .card-img-dots {
-        gap: 6px;
-        bottom: 8px;
-    }
-    .card-dot {
-        width: 6px;
-        height: 6px;
-    }
 }
 
 /* Placeholder cards */
@@ -2638,11 +2548,6 @@ a.product-card-info {
         font-size: 0.875rem;
     }
 
-    .card-img-nav {
-        opacity: 1;
-        width: 26px;
-        height: 26px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -4288,48 +4193,6 @@ a.product-card-info {
 }
 
 /* ===== PRODUCT CARD IMAGE CAROUSEL (blossom, drag, no autoplay) ===== */
-.bc-card-rail {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 100%;
-    height: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    cursor: grab;
-}
-
-.bc-card-rail::-webkit-scrollbar {
-    display: none;
-}
-
-.bc-card-rail:active {
-    cursor: grabbing;
-}
-
-.card-slide {
-    scroll-snap-align: start;
-    display: block;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    /* El zoom del hover escala la <img> dentro del slide. Sin recortar aca, la
-       imagen ampliada se desborda de su celda del grid y asoma sobre el slide
-       vecino: se veia como si apareciera "otra foto al lado". */
-    overflow: hidden;
-}
-
-.card-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    -webkit-user-drag: none;
-    user-select: none;
-}
-
 /* ===== CATEGORY BANNER value-prop subtitle ===== */
 .category-banner-subtitle {
     font-size: 0.92rem;

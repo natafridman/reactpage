@@ -432,7 +432,14 @@
 /* ==========================================================================
    CATÁLOGO v2: cabecera fina + chips + grilla a todo el ancho.
    ========================================================================== */
-.catalog-v2 .v2-cat-head { background: var(--b2-cream); padding: 1.5rem 0 0.25rem; }
+.catalog-v2 .v2-cat-head { background: transparent; padding: 1.5rem 0 0.25rem; }
+/* El catalogo va sobre blanco: las fotos son producto sobre blanco, asi que
+   sobre crema cada una se recortaba como un rectangulo. Sobre blanco la foto
+   flota y lo unico que se ve es el producto. */
+.catalog-v2 { background: var(--b2-white); }
+/* La barra del buscador se apoya en el mismo blanco: sobre crema cortaba la
+   pagina con una franja gris justo arriba de la grilla. */
+.catalog-v2 .product-toolbar { background: rgba(255, 255, 255, 0.86); }
 .catalog-v2 .v2-cat-head-inner { max-width: var(--v2-max); margin: 0 auto; padding: 0 var(--gutter); }
 .catalog-v2 .v2-cat-title-row { display: flex; align-items: baseline; gap: 0.9rem; flex-wrap: wrap; }
 .catalog-v2 .v2-cat-title {
@@ -498,7 +505,7 @@
 .catalog-v2 .v2-chip:hover { background: var(--v2-tint-1); border-color: var(--v2-tint-3); color: var(--b2-cognac); }
 .catalog-v2 .v2-chip.is-on { background: var(--b2-cognac); border-color: var(--b2-cognac); color: #fff; }
 .catalog-v2 .toolbar-count, .catalog-v2 .toolbar-count-label { display: none; }
-.catalog-v2 .products-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1rem; }
+.catalog-v2 .products-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 1.75rem; }
 @media (min-width: 900px) {
   .catalog-v2 .v2-chips { flex-wrap: wrap; overflow: visible; row-gap: 0.5rem; }
 }
@@ -799,7 +806,7 @@
   .v2-banners { grid-template-columns: 1fr; gap: 0.75rem; }
   .v2-banner { aspect-ratio: 4 / 3; }
   .v2-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-  .catalog-v2 .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+  .catalog-v2 .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 0.9rem; }
   .v2-cta-row .v2-btn { flex: 1 1 100%; }
 }
 

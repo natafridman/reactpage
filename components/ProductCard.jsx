@@ -1,36 +1,32 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BlossomCarousel } from '@blossom-carousel/react';
 import { thumbSrc, medSrc, buildCartItem } from '/utils/productUtils.js';
 import { COLOR_GROUPS, productColors } from '/utils/colors.js';
 import { flyToCart } from '/utils/flyToCart.js';
 import { useCart } from '/context/CartContext.jsx';
 import QtyStepper from '/components/QtyStepper.jsx';
 
+// Una sola foto por tarjeta, la primera del producto. Antes cada tarjeta era un
+// carrusel con flechas y puntitos: en una grilla de 40 productos eso es mucho
+// ruido, obliga a decidir en cada tarjeta y carga cientos de imagenes. La grilla
+// muestra la mejor foto y el resto se ve en la ficha.
 function ProductCard({ product, staggerIndex = 0 }) {
   const navigate = useNavigate();
   const { items, addItem, increment, decrement } = useCart();
   const { metadata, category, productFolder, availableImages } = product;
   const cardRef = useRef(null);
-  const mediaRef = useRef(null);
-  const carousel = useRef(null);
-  const dragRef = useRef({ x: 0, y: 0, moved: false });
+  const imgRef = useRef(null);
   const [visible, setVisible] = useState(false);
-  const [active, setActive] = useState(0);
-  // Indices de las imagenes que ya tienen la version grande lista en cache.
-  const [sharp, setSharp] = useState(() => new Set());
-  // Perf: the rail is a horizontal scroller, so the browser's lazy-load margin
-  // pre-fetches almost every hidden slide of every card (~300 images on the
-  // grid). Non-first slides get their src only once this card is touched,
-  // hovered or paged, so a cold grid loads one thumb per card.
-  const [revealed, setRevealed] = useState(false);
-  const reveal = () => { if (!revealed) setRevealed(true); };
+  // La miniatura (280px) entra al instante; cuando la tarjeta se acerca a la
+  // pantalla se cambia por la de 1200px, que es la que se ve nitida.
+  const [sharp, setSharp] = useState(false);
 
   const IMAGES_BASE_FOLDER = '/images/Categorias';
   const productPath = `${IMAGES_BASE_FOLDER}/${category}/${productFolder}`;
   const imageList = (Array.isArray(metadata.images) ? metadata.images : availableImages) || [];
+  const file = imageList[0] || 'hero.jpg';
+  const fullPath = `${productPath}/${file}`;
   const productUrl = `/producto/${encodeURIComponent(category)}/${encodeURIComponent(productFolder)}`;
-  const multi = imageList.length > 1;
 
   const cartItem = buildCartItem(product);
   const qty = items.find((i) => i.key === cartItem.key)?.qty || 0;
@@ -42,7 +38,7 @@ function ProductCard({ product, staggerIndex = 0 }) {
     flyToCart(e.currentTarget);
   };
 
-  // Reveal on scroll into view.
+  // Aparecer al entrar en pantalla.
   useEffect(() => {
     const el = cardRef.current;
     if (!el) return;
@@ -59,102 +55,35 @@ function ProductCard({ product, staggerIndex = 0 }) {
     return () => observer.disconnect();
   }, []);
 
-  // La miniatura mide 280px y el recuadro de la tarjeta 285x356, asi que se
-  // ampliaba un 27% (mas en pantallas retina) y se veia blanda. Se muestra igual
-  // primero, porque pesa ~3 KB y pinta al instante, y en cuanto la imagen entra
-  // en pantalla se cambia por la variante .med de 1200px. El cambio se hace
-  // recien cuando la grande termino de bajar, asi no hay parpadeo; si falla,
-  // simplemente se queda la miniatura.
+  // Cambio a la version grande recien cuando termino de bajar, asi no parpadea;
+  // si falla, se queda la miniatura.
   useEffect(() => {
-    const root = mediaRef.current;
-    if (!root) return;
-    const targets = [...root.querySelectorAll('img[data-idx]')];
-    if (!targets.length) return;
-
-    const upgrade = (el) => {
-      const idx = Number(el.dataset.idx);
-      const full = el.dataset.full;
-      if (!full) return;
-      const big = new Image();
-      big.onload = () => setSharp((prev) => (prev.has(idx) ? prev : new Set(prev).add(idx)));
-      big.src = medSrc(full);
-    };
-
+    const el = imgRef.current;
+    if (!el) return;
+    setSharp(false);
     const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          io.unobserve(e.target);
-          upgrade(e.target);
-        }
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        const big = new Image();
+        big.onload = () => setSharp(true);
+        big.src = medSrc(fullPath);
       },
       // Arranca antes de que la tarjeta llegue al borde: para cuando el ojo la
       // alcanza, la version nitida ya esta.
       { rootMargin: '400px' }
     );
-    targets.forEach((el) => io.observe(el));
+    io.observe(el);
     return () => io.disconnect();
-  }, [imageList.length, productFolder]);
+  }, [fullPath]);
 
-  const getRail = () => mediaRef.current?.querySelector('.bc-card-rail');
-
-  // Track the active image from scroll position (slides are 100% wide).
-  useEffect(() => {
-    if (!multi) return;
-    const el = getRail();
-    if (!el) return;
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        if (el.clientWidth) setActive(Math.round(el.scrollLeft / el.clientWidth));
-      });
-    };
-    el.addEventListener('scroll', onScroll, { passive: true });
-    return () => { el.removeEventListener('scroll', onScroll); cancelAnimationFrame(raf); };
-  }, [multi, imageList.length]);
-
-  const goToImg = (i, e) => {
-    e.preventDefault();
-    reveal();
-    e.stopPropagation();
-    const el = getRail();
-    if (el) el.scrollTo({ left: i * el.clientWidth, behavior: 'smooth' });
-  };
-  const prev = (e) => { e.preventDefault(); e.stopPropagation(); reveal(); carousel.current?.prev({ align: 'start' }); };
-  const next = (e) => { e.preventDefault(); e.stopPropagation(); reveal(); carousel.current?.next({ align: 'start' }); };
-
-  // Distinguish a click (navigate) from a drag (browse images).
-  const onDown = (e) => { reveal(); dragRef.current = { x: e.clientX, y: e.clientY, moved: false }; };
-  const onMove = (e) => {
-    if (Math.abs(e.clientX - dragRef.current.x) > 6 || Math.abs(e.clientY - dragRef.current.y) > 6) {
-      dragRef.current.moved = true;
-    }
-  };
   const goToProduct = (e) => {
-    if (e.button === 1 || e.ctrlKey || e.metaKey) return; // allow open-in-new-tab
-    if (dragRef.current.moved) { e.preventDefault(); return; } // it was a drag
+    if (e.button === 1 || e.ctrlKey || e.metaKey) return; // abrir en pestaña nueva
     e.preventDefault();
     navigate(productUrl);
   };
 
-  const renderImg = (file, i = 0) => (
-    <img
-      data-idx={i}
-      data-full={`${productPath}/${file}`}
-      src={(i === 0 || revealed) ? (sharp.has(i) ? medSrc(`${productPath}/${file}`) : thumbSrc(`${productPath}/${file}`)) : undefined}
-      alt={metadata.title}
-      loading="lazy"
-      decoding="async"
-      draggable="false"
-      onError={(e) => {
-        if (!e.target.dataset.fallback) {
-          e.target.dataset.fallback = '1';
-          e.target.src = `${productPath}/${file}`;
-        }
-      }}
-    />
-  );
+  const colores = productColors(product).slice(0, 5);
 
   return (
     <div
@@ -163,69 +92,39 @@ function ProductCard({ product, staggerIndex = 0 }) {
       style={{ '--stagger': staggerIndex }}
       data-folder={productFolder}
     >
-      <div
-        className="product-card-image"
-        ref={mediaRef}
-        onMouseEnter={reveal}
-        onPointerDownCapture={onDown}
-        onPointerMoveCapture={onMove}
-      >
-        {multi ? (
-          <BlossomCarousel ref={carousel} className="bc-card-rail">
-            {imageList.map((file, i) => (
-              <a key={i} href={productUrl} className="card-slide" onClick={goToProduct}>
-                {renderImg(file, i)}
-              </a>
-            ))}
-          </BlossomCarousel>
-        ) : (
-          <a href={productUrl} className="card-slide card-slide-single" onClick={goToProduct}>
-            {renderImg(imageList[0] || 'hero.jpg', 0)}
-          </a>
-        )}
-
-        {multi && (
-          <>
-            <button className="card-img-nav card-img-prev" onClick={prev} aria-label="Imagen anterior">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-            </button>
-            <button className="card-img-nav card-img-next" onClick={next} aria-label="Imagen siguiente">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </button>
-            <div className="card-img-dots">
-              {imageList.map((_, i) => (
-                <span
-                  key={i}
-                  className={`card-dot ${i === active ? 'active' : ''}`}
-                  onClick={(e) => goToImg(i, e)}
-                />
-              ))}
-            </div>
-          </>
-        )}
-      </div>
+      <a href={productUrl} className="product-card-image" onClick={goToProduct} tabIndex={-1} aria-hidden="true">
+        <img
+          ref={imgRef}
+          src={sharp ? medSrc(fullPath) : thumbSrc(fullPath)}
+          alt={metadata.title || productFolder}
+          loading="lazy"
+          decoding="async"
+          draggable="false"
+          onError={(e) => {
+            if (!e.target.dataset.fallback) {
+              e.target.dataset.fallback = '1';
+              e.target.src = fullPath;
+            }
+          }}
+        />
+      </a>
 
       <div className="product-card-info">
         <a href={productUrl} className="product-card-info-text" onClick={goToProduct}>
           <h3 className="product-card-title">{metadata.title || productFolder}</h3>
           <p className="product-card-subtitle">{metadata.subtitle || category}</p>
           {/* Colores disponibles (derivados del contenido), como puntitos bajo el subtitulo. */}
-          {(() => {
-            const cs = productColors(product).slice(0, 5);
-            if (!cs.length) return null;
-            return (
-              <span className="product-card-colors" aria-label={`Colores: ${cs.map((k) => COLOR_GROUPS.find((g) => g.key === k)?.label).join(', ')}`}>
-                {cs.map((k) => {
-                  const g = COLOR_GROUPS.find((x) => x.key === k);
-                  return <span key={k} className="product-card-color" style={{ background: g?.swatch }} title={g?.label} />;
-                })}
-              </span>
-            );
-          })()}
+          {colores.length > 0 && (
+            <span
+              className="product-card-colors"
+              aria-label={`Colores: ${colores.map((k) => COLOR_GROUPS.find((g) => g.key === k)?.label).join(', ')}`}
+            >
+              {colores.map((k) => {
+                const g = COLOR_GROUPS.find((x) => x.key === k);
+                return <span key={k} className="product-card-color" style={{ background: g?.swatch }} title={g?.label} />;
+              })}
+            </span>
+          )}
         </a>
         {/* Sin precio ni codigo de articulo a la vista: el precio se cotiza y el
             codigo es interno. Igual viaja al carrito y al mensaje de WhatsApp. */}
