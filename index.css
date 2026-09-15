@@ -1473,44 +1473,31 @@ body {
     border-radius: var(--r-sm);
     cursor: pointer;
     position: relative;
-    opacity: 0;
-    transform: scale(0.9);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    /* Fondo claro, no negro: las fotos de producto vienen sobre blanco y el
-       recorte redondeado tiene los bordes suavizados, asi que un fondo oscuro
-       se filtraba por debajo y dejaba cuatro marcas curvas en las puntas. */
-    background: var(--b2-cream);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    background: var(--b2-white);
+    /* La que se esta viendo se marca con un filete por dentro: no mueve nada,
+       no agrega sombra y se entiende de una. Las demas quedan enteras, solo un
+       poco atras. */
+    opacity: 0.72;
+    transition: opacity 0.18s ease, box-shadow 0.18s ease;
 }
 
-.reveal-in .gallery-item {
+.gallery-item:hover,
+.gallery-item:focus-visible {
     opacity: 1;
-    transform: scale(1);
 }
 
-.reveal-in .gallery-item:nth-child(1) { transition-delay: 0.3s; }
-.reveal-in .gallery-item:nth-child(2) { transition-delay: 0.35s; }
-.reveal-in .gallery-item:nth-child(3) { transition-delay: 0.4s; }
-.reveal-in .gallery-item:nth-child(4) { transition-delay: 0.45s; }
-.reveal-in .gallery-item:nth-child(5) { transition-delay: 0.5s; }
-.reveal-in .gallery-item:nth-child(6) { transition-delay: 0.55s; }
-
-/* Al pasar el mouse la miniatura se levanta apenas. Sin velo de color encima:
-   tapaba la foto justo cuando la persona la esta mirando. */
-.gallery-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(58, 32, 27, 0.16);
+.gallery-item.is-on {
+    opacity: 1;
+    box-shadow: inset 0 0 0 2px var(--b2-cognac);
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
+    display: block;
+    /* A todo el cuadro: las fotos son 4:5 igual que la miniatura, asi que
+       llena sin recortar nada. Con `contain` quedaban chiquitas y flotando. */
     object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.gallery-item:hover img {
-    transform: scale(1.04);
 }
 
 /* ===== FOOTER STYLES ===== */
@@ -5235,17 +5222,6 @@ html {
     letter-spacing: -0.015em;
     margin: 0 0 1.1rem;
     text-wrap: balance;
-}
-
-/* La que se esta viendo va entera; las otras, apagadas. Sin recuadros. */
-.gallery-item {
-    opacity: 0.45;
-    transition: opacity 0.15s ease;
-}
-
-.gallery-item.is-on,
-.gallery-item:hover {
-    opacity: 1;
 }
 
 @media (max-width: 1024px) {
