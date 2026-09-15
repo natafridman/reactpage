@@ -2216,8 +2216,6 @@ a.product-card-info {
     background: #f4f0ef;
 }
 
-.card-img-prev { left: 8px; }
-.card-img-next { right: 8px; }
 
 .product-card-info {
     padding: 0.7rem 0 0;
@@ -2335,13 +2333,11 @@ a.product-card-info {
     cursor: pointer;
     border-radius: var(--r-pill);
     padding: 0.45rem 0.85rem;
-    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    transition: background 0.2s ease;
 }
 
 .product-card-add:hover {
     background: var(--b2-cognac-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(var(--b2-cognac-rgb), 0.3);
 }
 
 /* ===== INLINE QUANTITY STEPPER (shown once a product is in the cart) ===== */
@@ -4046,20 +4042,9 @@ a.product-card-info {
     letter-spacing: -0.005em;
 }
 
-.product-card {
-    transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
-}
-
-.product-card:hover {
-    box-shadow: 0 14px 36px rgba(122, 79, 72, 0.16);
-    border-color: rgba(122, 79, 72, 0.4);
-}
-
-[data-theme="dark"] .product-card:hover {
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.5);
-    border-color: rgba(192, 138, 126, 0.4);
-}
+/* La tarjeta no reacciona al pasar el mouse: ya no tiene fondo ni borde, asi
+   que la sombra que habia aca quedaba flotando alrededor de nada. Lo que indica
+   que se puede tocar es el cursor sobre la foto. */
 
 @media (max-width: 480px) {
     .category-banner-title {
@@ -4067,7 +4052,6 @@ a.product-card-info {
     }
 }
 
-/* ===== PRODUCT CARD IMAGE CAROUSEL (blossom, drag, no autoplay) ===== */
 /* ===== CATEGORY BANNER value-prop subtitle ===== */
 .category-banner-subtitle {
     font-size: 0.92rem;
