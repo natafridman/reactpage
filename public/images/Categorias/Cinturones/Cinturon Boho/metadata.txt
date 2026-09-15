@@ -2,7 +2,7 @@ title: Cinturon Boho
 subtitle: Cuero Vacuno Nacional
 description: Cuero con tachas y ojales, estilo boho western, hebilla oval.
 code: CIN-341
-images: 5805.jpg, 5806.jpg, 5807.jpg, 5808.jpg, 5809.jpg, 5810.jpg, 5811.jpg, 5814.jpg, 5815.jpg, 5816.jpg, 5817.jpg
+images: 5810.jpg
 videos:
 tags: mujer, nacional, publico
 proveedor: nacional

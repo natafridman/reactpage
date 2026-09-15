@@ -24,7 +24,7 @@ const RAW = {
   'Cinturon Charol': ['mujer', 'hombre', 'nacional'],
   'Cinturon Western Texturado': ['hombre', 'mujer', 'nacional'],
   'Cinturon Western Gamuza': ['hombre', 'mujer', 'nacional'],
-  'Cinturon Floral Western': ['mujer', 'hombre', 'importado'],
+  'Cinturon Western Fino': ['mujer', 'hombre', 'importado'],
   'Cinturon Cosido': ['hombre', 'mujer', 'nacional'],
   'Cinturon Gemas Fino': ['mujer', 'importado'],
   'Cinturon Grabado Tachas': ['hombre', 'mujer', 'importado'],

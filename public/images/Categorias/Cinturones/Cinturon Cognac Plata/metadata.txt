@@ -1,0 +1,8 @@
+title: Cinturon Cognac Plata
+subtitle: Cuero Vacuno
+description: Cinturon de cuero vacuno con hebilla metalica. Terminacion prolija. Se personaliza con grabado.
+code: CIN-312
+images: FRAUENFELD.jpg, HERISAU.jpg, WIL.jpg, USTER.jpg
+videos:
+tags: mujer, nacional
+proveedor: aston

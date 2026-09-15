@@ -46,7 +46,7 @@ const BANNERS = [
   { cat: 'Carteras', title: 'Carteras', photo: IMG('Carteras', 'Cartera Eco Hobo U71002-Y71006', '01.jpg'), pos: '50% 35%' },
   { cat: 'Bolsos', title: 'Bolsos', photo: IMG('Bolsos', 'Bolso Duffle', 'G28A0280.jpeg'), pos: '50% 50%' },
   { cat: 'Mochilas', title: 'Mochilas', photo: IMG('Mochilas', 'Mochila London', 'LONDON(1).jpeg'), pos: '50% 50%' },
-  { cat: 'Cinturones', title: 'Cinturones', photo: IMG('Cinturones', 'Cinturon Coimbra', 'COIMBRA(1).jpg'), pos: '50% 62%' },
+  { cat: 'Cinturones', title: 'Cinturones', photo: IMG('Cinturones', 'Cinturon Oval Negro', 'FARO(6).jpg'), pos: '50% 62%' },
 ];
 
 // Productos destacados: (categoria, carpeta) del indice real (misma tarjeta y carrito).

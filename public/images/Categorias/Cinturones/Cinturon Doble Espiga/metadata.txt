@@ -1,0 +1,8 @@
+title: Cinturon Doble Espiga
+subtitle: Cuero Vacuno Nacional
+description: Cuero negro con doble fila de ojales metalicos y hebilla de doble espiga. Robusto.
+code: CIN-324
+images: 5685.jpg, 5687.jpg, 5691.jpg, 5693.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

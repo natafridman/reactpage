@@ -2,7 +2,7 @@ title: Cinturon Hebilla Cuadrada
 subtitle: Cuero Vacuno Nacional
 description: Cuero marron con hebilla cuadrada envejecida. Pensado para el uso diario.
 code: CIN-330
-images: 5749.jpg, 5750.jpg, 5751.jpg, 5752.jpg, 5753.jpg, 5754.jpg, 5755.jpg
+images: 5752.jpg
 videos:
 tags: hombre, nacional, publico
 proveedor: nacional

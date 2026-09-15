@@ -1,8 +1,0 @@
-title: Cinturon Leverkusen
-subtitle: Linea Importada
-description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
-code: CIN-229
-images: LEVERKUSEN.jpg, OSNABRUCK.jpg
-videos:
-tags: hombre, importado
-proveedor: aston

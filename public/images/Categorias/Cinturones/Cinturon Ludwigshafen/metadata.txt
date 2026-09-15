@@ -1,8 +1,0 @@
-title: Cinturon Ludwigshafen
-subtitle: Linea Importada
-description: Cinturon de cuero con hebilla metalica. Linea importada, terminacion prolija. Se personaliza con grabado.
-code: CIN-227
-images: LUDWIGSHAFEN.jpg, OLDEMBURGO.jpg, GOTINGA.jpg
-videos:
-tags: hombre, importado
-proveedor: aston

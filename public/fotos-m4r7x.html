@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Fotos sueltas de cinturones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --ground: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f4f0ef;
+    --ink: #432f28;
+    --muted: #8c7a75;
+    --faint: #ab9a95;
+    --line: #e6dcda;
+    --line-soft: #efe8e6;
+    --accent: #7a4f48;
+    --accent-soft: #f0e6e3;
+    --nuevo: #2f6b57;
+    --nuevo-soft: #e4f0eb;
+    --mover: #7a4f48;
+    --mover-soft: #f0e6e3;
+    --descartar: #a33a2c;
+    --descartar-soft: #fbeae6;
+    --sel: #1f5f8b;
+    --sel-soft: #e6f0f7;
+    --display: "Fraunces", Georgia, "Times New Roman", serif;
+    --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #171310; --surface: #201b19; --surface-2: #272120;
+      --ink: #e8ded9; --muted: #a9948d; --faint: #8b7772;
+      --line: #342c29; --line-soft: #2b2422;
+      --accent: #dab8ae; --accent-soft: #332724;
+      --nuevo: #8fc4ab; --nuevo-soft: #1e2f28;
+      --mover: #dab8ae; --mover-soft: #332724;
+      --descartar: #e2887a; --descartar-soft: #3a2320;
+      --sel: #7fb6da; --sel-soft: #1d2b34;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: light dark; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; padding-bottom: 88px; }
+  button, input { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+  .bar { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--ground) 93%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .bar-in { max-width: 1560px; margin: 0 auto; padding: .7rem clamp(.9rem, 2.5vw, 1.6rem) .6rem; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .9rem; }
+  h1 { font-family: var(--display); font-weight: 600; font-size: 1.22rem; margin: 0; white-space: nowrap; }
+  .h1-sub { font-family: var(--body); font-size: .7rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); display: block; }
+  .tools { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; }
+  .search { display: flex; align-items: center; gap: .45rem; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: .3rem .8rem; min-width: 180px; }
+  .search:focus-within { border-color: var(--accent); }
+  .search input { border: 0; background: none; outline: none; width: 100%; font-size: .85rem; }
+  .search svg { width: 15px; height: 15px; color: var(--faint); flex: 0 0 auto; }
+  .segs { display: flex; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 2px; }
+  .segs button { border: 0; background: none; border-radius: 999px; padding: .28rem .7rem; font-size: .79rem; font-weight: 500; color: var(--muted); cursor: pointer; white-space: nowrap; }
+  .segs button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+  .btn { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: .36rem .85rem; font-size: .81rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-solid { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-solid:hover { filter: brightness(1.08); color: #fff; }
+  .tallies { display: flex; align-items: center; gap: .9rem; margin-left: auto; }
+  .tally { display: flex; align-items: baseline; gap: .3rem; white-space: nowrap; }
+  .tally b { font-family: var(--display); font-size: 1.08rem; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
+  .tally span { font-size: .75rem; color: var(--muted); }
+  .tally.n b { color: var(--nuevo); }
+  .tally.m b { color: var(--mover); }
+  .tally.d b { color: var(--descartar); }
+  .progress-line { height: 2px; background: var(--line-soft); }
+  .progress-line i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .25s ease; }
+  .hint { width: 100%; margin: 0; font-size: .77rem; color: var(--muted); display: flex; gap: .8rem; flex-wrap: wrap; }
+  .hint kbd { font: inherit; font-weight: 700; font-size: .72rem; color: var(--ink); background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; padding: 0 .28rem; }
+
+  main { max-width: 1560px; margin: 0 auto; padding: .4rem clamp(.9rem, 2.5vw, 1.6rem) 2rem; }
+  .grupo { padding: 1.1rem 0; border-bottom: 1px solid var(--line-soft); content-visibility: auto; contain-intrinsic-size: auto 280px; }
+  .grupo.hidden { display: none; }
+  .g-head { display: flex; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: .7rem; }
+  .g-name { font-family: var(--display); font-size: 1.02rem; font-weight: 600; margin: 0; }
+  .g-meta { font-size: .74rem; color: var(--faint); }
+  .g-acts { display: flex; gap: .4rem; margin-left: auto; flex-wrap: wrap; }
+  .ref { display: flex; align-items: center; gap: .35rem; padding: .2rem .45rem .2rem .25rem; border: 1px dashed var(--line); border-radius: 8px; }
+  .ref span { font-size: .68rem; color: var(--faint); letter-spacing: .03em; text-transform: uppercase; }
+  .ref img { width: 34px; height: 42px; object-fit: contain; background: #fff; border-radius: 4px; }
+
+  .fotos { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .foto { position: relative; width: 150px; height: 188px; padding: 0; border: 2px solid var(--line); border-radius: 8px; background: #fff; cursor: pointer; overflow: hidden; transition: border-color .12s ease, box-shadow .12s ease; }
+  .foto img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .foto:hover { border-color: var(--accent); }
+  .foto.sel { border-color: var(--sel); box-shadow: 0 0 0 3px var(--sel-soft); }
+  .foto.done img { opacity: .55; }
+  .foto.descartar img { opacity: .3; }
+  .tag { position: absolute; left: 0; right: 0; bottom: 0; font-size: .68rem; font-weight: 700; padding: .22rem .4rem; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; z-index: 2; }
+  .foto.nuevo .tag { background: var(--nuevo); color: #fff; }
+  .foto.mover .tag { background: var(--mover); color: #fff; }
+  .foto.descartar .tag { background: var(--descartar); color: #fff; }
+  .fname { position: absolute; left: 0; right: 0; top: 0; font-size: .63rem; padding: .16rem .3rem; background: color-mix(in srgb, var(--surface) 86%, transparent); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; z-index: 1; }
+  .zoom { position: absolute; top: 4px; right: 4px; width: 26px; height: 26px; border-radius: 50%; border: 0; background: color-mix(in srgb, var(--surface) 92%, transparent); color: var(--ink); display: grid; place-items: center; cursor: zoom-in; opacity: 0; z-index: 3; }
+  .foto:hover .zoom, .zoom:focus-visible { opacity: 1; }
+  @media (hover: none) { .zoom { opacity: 1; width: 30px; height: 30px; } }
+  .zoom svg { width: 14px; height: 14px; }
+
+  .actionbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: color-mix(in srgb, var(--ground) 96%, transparent); backdrop-filter: blur(10px); border-top: 1px solid var(--line); transform: translateY(105%); transition: transform .18s ease; }
+  .actionbar.on { transform: none; }
+  .actionbar-in { max-width: 1560px; margin: 0 auto; padding: .7rem clamp(.9rem, 2.5vw, 1.6rem) calc(.7rem + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+  .count { font-weight: 700; font-family: var(--display); font-size: 1.05rem; margin-right: .4rem; }
+  .btn-nuevo { background: var(--nuevo); border-color: var(--nuevo); color: #fff; }
+  .btn-mover { background: var(--mover); border-color: var(--mover); color: #fff; }
+  .btn-desc { background: var(--descartar); border-color: var(--descartar); color: #fff; }
+  .btn-nuevo:hover, .btn-mover:hover, .btn-desc:hover { filter: brightness(1.1); color: #fff; }
+
+  dialog { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); padding: 0; max-width: min(880px, 94vw); width: 100%; box-shadow: 0 18px 50px rgba(40, 25, 20, .22); }
+  dialog::backdrop { background: rgba(30, 20, 17, .55); }
+  .dlg-head { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 1.25rem .75rem; border-bottom: 1px solid var(--line-soft); }
+  .dlg-head h2 { font-family: var(--display); font-size: 1.08rem; font-weight: 600; margin: 0; }
+  .dlg-head p { margin: 0; font-size: .8rem; color: var(--muted); }
+  .dlg-body { padding: .9rem 1.25rem 1.2rem; max-height: 62vh; overflow: auto; }
+  .dlg-foot { display: flex; gap: .55rem; justify-content: flex-end; align-items: center; padding: .8rem 1.25rem; border-top: 1px solid var(--line-soft); background: var(--surface-2); border-radius: 0 0 12px 12px; }
+  .dlg-foot .status { margin-right: auto; font-size: .78rem; color: var(--nuevo); font-weight: 600; visibility: hidden; }
+  .dlg-foot .status.on { visibility: visible; }
+  textarea { width: 100%; min-height: 320px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .75rem; line-height: 1.55; border: 1px solid var(--line); border-radius: 8px; padding: .7rem; background: var(--surface-2); color: var(--ink); resize: vertical; }
+
+  #destList { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .4rem; }
+  .dest { display: flex; align-items: center; gap: .55rem; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: .35rem .5rem; cursor: pointer; }
+  .dest:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .dest img { width: 36px; height: 45px; object-fit: contain; background: #fff; border-radius: 4px; flex: 0 0 auto; }
+  .dest span { font-size: .82rem; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dest.hidden { display: none; }
+
+  #zoomDlg { max-width: none; width: auto; }
+  #zoomDlg img { display: block; width: auto; max-width: min(92vw, 1100px); max-height: 82vh; object-fit: contain; background: #fff; border-radius: 12px 12px 0 0; }
+  .zoom-foot { display: flex; align-items: center; gap: .8rem; padding: .65rem .9rem; border-top: 1px solid var(--line-soft); }
+  .zoom-foot span { font-size: .78rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .zoom-foot a { color: var(--muted); font-size: .78rem; margin-left: auto; }
+
+  @media (max-width: 720px) {
+    .bar-in { padding: .55rem .9rem .5rem; gap: .4rem .5rem; }
+    h1 { order: 1; font-size: 1rem; }
+    .tallies { order: 2; margin-left: auto; gap: .7rem; }
+    .tools { order: 3; flex: 0 0 100%; }
+    .hint { display: none; }
+    .h1-sub { display: none; }
+    main { padding: .3rem .9rem 2rem; }
+    .fotos { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: .45rem; }
+    .foto { width: 100%; height: auto; aspect-ratio: 4 / 5; }
+    .g-acts { margin-left: 0; width: 100%; }
+    textarea { min-height: 240px; font-size: .71rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <h1><span class="h1-sub">B2YOU · cinturones</span>Fotos sueltas</h1>
+    <div class="tools">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+        <input id="q" type="search" placeholder="Buscar producto de origen" autocomplete="off">
+      </label>
+      <div class="segs" id="filters">
+        <button type="button" data-f="pend" aria-pressed="true">Sin decidir</button>
+        <button type="button" data-f="all">Todas</button>
+        <button type="button" data-f="hechas">Decididas</button>
+      </div>
+      <button type="button" class="btn btn-solid" id="openSum">Ver y copiar</button>
+    </div>
+    <div class="tallies">
+      <div class="tally n"><b id="tN">0</b><span>productos nuevos</span></div>
+      <div class="tally m"><b id="tM">0</b><span>a mover</span></div>
+      <div class="tally d"><b id="tD">0</b><span>descartadas</span></div>
+      <div class="tally"><b id="tP">249</b><span>sin decidir</span></div>
+    </div>
+    <p class="hint">
+      <span>Tocá las fotos que son <b>el mismo cinturón</b> y elegí qué hacer abajo.</span>
+      <span><kbd>N</kbd> producto nuevo · <kbd>M</kbd> mover · <kbd>D</kbd> descartar · <kbd>Esc</kbd> deshacer</span>
+      <span id="saveNote"></span>
+    </p>
+  </div>
+  <div class="progress-line"><i id="prog"></i></div>
+</div>
+
+<main id="list"></main>
+
+<div class="actionbar" id="actionbar">
+  <div class="actionbar-in">
+    <span class="count" id="selCount">0 fotos</span>
+    <button type="button" class="btn btn-nuevo" id="aNuevo">Producto nuevo</button>
+    <button type="button" class="btn btn-mover" id="aMover">Mover a un producto…</button>
+    <button type="button" class="btn btn-desc" id="aDesc">Descartar</button>
+    <button type="button" class="btn" id="aClear">Sacar la marca</button>
+    <button type="button" class="btn" id="aNone" style="margin-left:auto">Deseleccionar</button>
+  </div>
+</div>
+
+<dialog id="destDlg">
+  <div class="dlg-head">
+    <h2>¿A qué cinturón van?</h2>
+    <p id="destCount"></p>
+  </div>
+  <div class="dlg-body">
+    <label class="search" style="width:100%;margin-bottom:.7rem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
+      <input id="destQ" type="search" placeholder="Escribí el nombre" autocomplete="off">
+    </label>
+    <div id="destList"></div>
+  </div>
+  <div class="dlg-foot"><button type="button" class="btn" id="destClose">Cancelar</button></div>
+</dialog>
+
+<dialog id="sumDlg">
+  <div class="dlg-head">
+    <h2>Pasale esto a Claude</h2>
+    <p id="sumCount"></p>
+  </div>
+  <div class="dlg-body"><textarea id="sumText" readonly spellcheck="false"></textarea></div>
+  <div class="dlg-foot">
+    <span class="status" id="copied">Copiado al portapapeles</span>
+    <button type="button" class="btn" id="dlBtn">Descargar .txt</button>
+    <button type="button" class="btn btn-solid" id="copyBtn">Copiar todo</button>
+    <button type="button" class="btn" id="closeSum">Cerrar</button>
+  </div>
+</dialog>
+
+<dialog id="zoomDlg">
+  <img id="zoomImg" alt="">
+  <div class="zoom-foot">
+    <span id="zoomName"></span>
+    <a id="zoomOpen" href="#" target="_blank" rel="noopener">Abrir al 100%</a>
+    <button type="button" class="btn" id="zoomClose">Cerrar</button>
+  </div>
+</dialog>
+
+<script>
+window.__FOTOS={"base":"/images/Categorias/Cinturones","grupos":[{"f":"2 Cinturones Dallas Y80030-Y80031-L80023-E80000","t":"2 Cinturones Dallas","s":"Pack de 2","pub":true,"vis":["03.jpg"],"o":["01.jpg","02.jpg"]},{"f":"2 Cinturones Finos Minimal S80021-S80004","t":"2 Cinturones Finos Minimal S80021-S80004","s":"","pub":false,"vis":[],"o":["01.jpg"]},{"f":"2 Cinturones Hexagonales W80020","t":"2 Cinturones Hexagonales W80020","s":"","pub":false,"vis":[],"o":["01.jpg"]},{"f":"2 Cinturones Urban Rock Y80017-Y80018-Y80043","t":"2 Cinturones Urban Rock","s":"Pack de 2","pub":true,"vis":["01.jpg","02.jpg"],"o":["03.jpg"]},{"f":"2 Cinturones West Vintage Y80046-Y80038-U80072-G80043","t":"2 Cinturones West Vintage","s":"Pack de 2","pub":true,"vis":["01.jpg","02.png","03.png"],"o":["04.jpg"]},{"f":"Cinturon Basico","t":"Cinturon Basico","s":"Cuero Liso Multicolor","pub":true,"vis":["8O3A6079.jpeg","8O3A6082.jpeg","8O3A6091.jpeg"],"o":["8O3A6098.jpeg"]},{"f":"Cinturon Boho","t":"Cinturon Boho","s":"Cuero Vacuno Nacional","pub":true,"vis":["5810.jpg"],"o":["5805.jpg","5806.jpg","5807.jpg","5808.jpg","5809.jpg","5811.jpg","5814.jpg","5815.jpg","5816.jpg","5817.jpg"]},{"f":"Cinturon Bronce","t":"Cinturon Bronce","s":"Linea Importada","pub":true,"vis":["GOTINGA.jpg"],"o":["LUDWIGSHAFEN.jpg","OLDEMBURGO.jpg"]},{"f":"Cinturon Cacao","t":"Cinturon Cacao","s":"Cuero Vacuno Nacional","pub":true,"vis":["5842.jpg"],"o":["5840.jpg","5841.jpg"]},{"f":"Cinturon Cardiff","t":"Cinturon Cardiff","s":"Cuero Nacional","pub":true,"vis":["UTRECHT.jpg","UTRECHT(1).jpg","UTRECHT(2).jpg"],"o":["CARDIFF(1).jpg","CARDIFF(2).jpg","CARDIFF.jpg","MALMO(10).jpg","MALMO(11).jpg","MALMO(12).jpg","MALMO(13).jpg","MALMO(9).jpg","MALMO.jpg","UTRECHT(11).jpg","UTRECHT(12).jpg","UTRECHT(4).jpg","UTRECHT(5).jpg","UTRECHT(6).jpg","UTRECHT(7).jpg","UTRECHT(8).jpg"]},{"f":"Cinturon Cebra","t":"Cinturon Cebra","s":"Pack de 2","pub":true,"vis":["01.jpg","03.jpg"],"o":["02.png"]},{"f":"Cinturon Cheboksary","t":"Cinturon Cheboksary","s":"Linea Importada","pub":true,"vis":["CHEBOKSARY.jpg"],"o":["KARLSRUHE.jpg"]},{"f":"Cinturon Cierre Metalico","t":"Cinturon Cierre Metalico","s":"Cuero Vacuno Nacional","pub":true,"vis":["5800.jpg","5801.jpg","5804.jpg"],"o":["5802.jpg","5803.jpg"]},{"f":"Cinturon Clasico","t":"Cinturon Clasico","s":"Cuero Negro Atemporal","pub":true,"vis":["8O3A6874.jpeg","8O3A6876.jpeg"],"o":["8O3A6872.jpeg"]},{"f":"Cinturon Croco","t":"Cinturon Croco","s":"Linea Importada","pub":true,"vis":["GUIMARAES.jpg","GUIMARAES(1).jpg","VISEU.jpg"],"o":["BOCHUM.jpg","BRAUNSCHWEIG.jpg","DUISBURGO.jpg","MAGDEBURGO.jpg","NUREMBERG.jpg","WUPPERTAL.jpg"]},{"f":"Cinturon Cuero Trenzado","t":"Cinturon Cuero Trenzado","s":"Pack de 2","pub":true,"vis":["04.jpg"],"o":["01.png","02.png","03.png","05.jpg"]},{"f":"Cinturon Diario","t":"Cinturon Diario","s":"Cuero Vacuno Nacional","pub":true,"vis":["5743.jpg","5747.jpg"],"o":["5736.jpg","5737.jpg","5738.jpg","5739.jpg","5740.jpg","5741.jpg","5742.jpg","5744.jpg","5745.jpg","5746.jpg","5748.jpg"]},{"f":"Cinturon Doble Espiga","t":"Cinturon Doble Espiga","s":"Cuero Vacuno Nacional","pub":true,"vis":["5685.jpg","5687.jpg","5691.jpg"],"o":["5686.jpg","5688.jpg","5689.jpg","5690.jpg","5692.jpg","5694.jpg","5695.jpg","5696.jpg","5697.jpg","5698.jpg","5699.jpg","5700.jpg"]},{"f":"Cinturon Doble Faz","t":"Cinturon Doble Faz","s":"Linea Importada","pub":true,"vis":["HEIDELBERG.jpg","HERNE.jpg"],"o":["SOLINGEN.jpg"]},{"f":"Cinturon Dresde","t":"Cinturon Dresde","s":"Cuero Nacional","pub":true,"vis":["DRESDE.jpg","DRESDE(1).jpg","DRESDE(2).jpg"],"o":["BUDAPEST.jpg","DRESDE(4).jpg"]},{"f":"Cinturon Edimburgo","t":"Cinturon Edimburgo","s":"Cuero Nacional","pub":true,"vis":["EDIMBURGO(1).jpg","ZARAGOZA.jpg","ZARAGOZA(1).jpg"],"o":["EDIMBURGO.jpg","FRANKFURT(1).jpg","FRANKFURT.jpg","VALENCIA(1).jpg","VALENCIA(5).jpg","VALENCIA.jpg"]},{"f":"Cinturon Esmirna","t":"Cinturon Esmirna","s":"Linea Importada","pub":true,"vis":["ESMIRNA.jpg","ANTALYA.jpg","ADANA.jpg"],"o":["BURSA.jpg"]},{"f":"Cinturon Estocolmo","t":"Cinturon Estocolmo","s":"Cuero Nacional","pub":true,"vis":["ESTOCOLMO.jpg","ESTOCOLMO(1).jpg","ESTOCOLMO(2).jpg"],"o":["ESTOCOLMO(5).jpg"]},{"f":"Cinturon Faja Estrella","t":"Cinturon Faja Estrella","s":"Pack de 2","pub":true,"vis":["01.jpg"],"o":["02.jpg","03.jpg","04.jpg"]},{"f":"Cinturon Fino de Vestir","t":"Cinturon Fino de Vestir","s":"Cuero Vacuno Nacional","pub":true,"vis":["5782.jpg"],"o":["5783.jpg","5784.jpg","5785.jpg"]},{"f":"Cinturon Fino Dorado","t":"Cinturon Fino Dorado","s":"Pack de 2","pub":true,"vis":["01.jpg"],"o":["02.jpg"]},{"f":"Cinturon Fino Marron","t":"Cinturon Fino Marron","s":"Cuero Vacuno Nacional","pub":true,"vis":["5843.jpg","5846.jpg","5847.jpg"],"o":["5845.jpg"]},{"f":"Cinturon Fino Moderno","t":"Cinturon Fino Moderno","s":"Cuero Vacuno Nacional","pub":true,"vis":["5703.jpg","5706.jpg","5708.jpg"],"o":["5701.jpg","5702.jpg","5704.jpg","5705.jpg","5707.jpg","5709.jpg","5710.jpg","5711.jpg"]},{"f":"Cinturon Fino Negro","t":"Cinturon Fino Negro","s":"Cuero Vacuno Nacional","pub":true,"vis":["5834.jpg"],"o":["5833.jpg"]},{"f":"Cinturon Fino Plata","t":"Cinturon Fino Plata","s":"Cuero Vacuno","pub":true,"vis":["INTERLAKEN.jpg"],"o":["LIESTAL.jpg"]},{"f":"Cinturon Gaucho","t":"Cinturon Gaucho","s":"Cuero Vacuno Nacional","pub":true,"vis":["5818.jpg","5819.jpg","5820.jpg"],"o":["5823.jpg","5824.jpg","5825.jpg","5826.jpg","5827.jpg","5828.jpg","5829.jpg","5830.jpg"]},{"f":"Cinturon Genova","t":"Cinturon Genova","s":"Cuero Nacional","pub":true,"vis":["GENOVA.jpg","GENOVA(2).jpg"],"o":["GENOVA(1).jpg","GENOVA(3).jpg","GENOVA(4).jpg","GENOVA(5).jpg"]},{"f":"Cinturon Granada","t":"Cinturon Granada","s":"Cuero Nacional","pub":true,"vis":["GRANADA.jpg","GRANADA(1).jpg","GRANADA(3).jpg"],"o":["GRANADA(2).jpg","GRANADA(4).jpg"]},{"f":"Cinturon Hagen","t":"Cinturon Hagen","s":"","pub":false,"vis":[],"o":["HAGEN.jpg"]},{"f":"Cinturon Hebilla Cuadrada","t":"Cinturon Hebilla Cuadrada","s":"Cuero Vacuno Nacional","pub":true,"vis":["5752.jpg"],"o":["5749.jpg","5750.jpg","5751.jpg","5753.jpg","5754.jpg","5755.jpg"]},{"f":"Cinturon Hebilla Oval","t":"Cinturon Hebilla Oval","s":"Cuero Vacuno Nacional","pub":true,"vis":["5728.jpg","5731.jpg","5732.jpg"],"o":["5723.jpg","5724.jpg","5725.jpg","5726.jpg","5727.jpg","5729.jpg","5730.jpg","5733.jpg","5734.jpg"]},{"f":"Cinturon Konstanza","t":"Cinturon Konstanza","s":"Linea Importada","pub":true,"vis":["BRAGANZA.jpg","BRAGANZA(1).jpg"],"o":["BRAGANZA(2).jpg","BRAGANZA(3).jpg","KONSTANZA.jpg"]},{"f":"Cinturon Lausana","t":"Cinturon Lausana","s":"Cuero Nacional","pub":true,"vis":["LAUSANA.jpg","LAUSANA(1).jpg","LAUSANA(2).jpg"],"o":["LAUSANA(3).jpg","TOULOUSE(3).jpg"]},{"f":"Cinturon Leopardo","t":"Cinturon Leopardo","s":"Cuero con Pelo Nacional","pub":true,"vis":["5789.jpg","5790.jpg","5792.jpg"],"o":["5791.jpg","5793.jpg","5794.jpg"]},{"f":"Cinturon Liepaja","t":"Cinturon Liepaja","s":"Linea Importada","pub":true,"vis":["LIEPAJA.jpg","DAUGAVPILS.jpg","GDANSK.jpg"],"o":["DAUGAVPILS(1).jpg","KATOWICE.jpg"]},{"f":"Cinturon Lipetsk","t":"Cinturon Lipetsk","s":"Linea Importada","pub":true,"vis":["LIPETSK.jpg","KASSEL.jpg"],"o":["KIROV.jpg"]},{"f":"Cinturon Lona","t":"Cinturon Lona","s":"Lona con Cuero Nacional","pub":true,"vis":["5777.jpg"],"o":["5775.jpg","5776.jpg","5778.jpg","5779.jpg","5780.jpg","5781.jpg"]},{"f":"Cinturon Manchester","t":"Cinturon Manchester","s":"Cuero Nacional","pub":true,"vis":["MANCHESTER(1).jpg","MANCHESTER.jpg","MANCHESTER(2).jpg"],"o":["MANCHESTER(4).jpg","MANCHESTER(5).jpg","MANCHESTER(6).jpg","MANCHESTER(7).jpg","MANCHESTER(8).jpg","MANCHESTER(9).jpg"]},{"f":"Cinturon Marino","t":"Cinturon Marino","s":"Cuero Vacuno Nacional","pub":true,"vis":["5767.jpg"],"o":["5764.jpg","5765.jpg","5766.jpg"]},{"f":"Cinturon Marsella","t":"Cinturon Marsella","s":"Cuero Nacional","pub":true,"vis":["MARSELLA(1).jpg","MARSELLA(2).jpg","LYON(3).jpg"],"o":["LYON(1).jpg","LYON(2).jpg","LYON.jpg","MARSELLA(3).jpg","MARSELLA.jpg"]},{"f":"Cinturon Napoles","t":"Cinturon Napoles","s":"Cuero Nacional","pub":true,"vis":["NAPOLES.jpg","NAPOLES(3).jpg"],"o":["NAPOLES(1).jpg","NAPOLES(2).jpg"]},{"f":"Cinturon Negro Liso","t":"Cinturon Negro Liso","s":"Cuero Vacuno Nacional","pub":true,"vis":["5774.jpg"],"o":["5770.jpg","5771.jpg","5772.jpg","5773.jpg"]},{"f":"Cinturon Negro Mate","t":"Cinturon Negro Mate","s":"Linea Importada","pub":true,"vis":["KALININGRADO.jpg"],"o":["MONCHENGLADBACH.jpg","WIESBADEN.jpg"]},{"f":"Cinturon Noche","t":"Cinturon Noche","s":"Linea Importada","pub":true,"vis":["MAGUNCIA.jpg","LUBECK.jpg"],"o":["KREFELD.jpg"]},{"f":"Cinturon Oval Negro","t":"Cinturon Oval Negro","s":"Hebilla Ovalada","pub":true,"vis":["COIMBRA.jpg","COIMBRA(4).jpg","COIMBRA(5).jpg"],"o":["COIMBRA(1).jpg","COIMBRA(2).jpg","COIMBRA(3).jpg","FARO(1).jpg","FARO(3).jpg","FARO(5).jpg"]},{"f":"Cinturon Palermo","t":"Cinturon Palermo","s":"Cuero Nacional","pub":true,"vis":["PALERMO.jpg","PALERMO(1).jpg","PALERMO(2).jpg"],"o":["PALERMO(7).jpg"]},{"f":"Cinturon Pelo Vacuno","t":"Cinturon Pelo Vacuno","s":"Cuero con Pelo Nacional","pub":true,"vis":["5788.jpg"],"o":["5786.jpg","5787.jpg"]},{"f":"Cinturon Perforado","t":"Cinturon Perforado","s":"Cuero Vacuno Nacional","pub":true,"vis":["5716.jpg","5717.jpg"],"o":["5712.jpg","5713.jpg","5714.jpg","5715.jpg"]},{"f":"Cinturon Perm","t":"Cinturon Perm","s":"Linea Importada","pub":true,"vis":["PERM.jpg","ROSTOV.jpg","SARATOV.jpg"],"o":["VOLGOGRADO.jpg","VORONEZH.jpg"]},{"f":"Cinturon Placa","t":"Cinturon Placa","s":"","pub":false,"vis":[],"o":["5756.jpg","5757.jpg","5758.jpg","5759.jpg"]},{"f":"Cinturon Placa Negra","t":"Cinturon Placa Negra","s":"Cuero Vacuno Nacional","pub":true,"vis":["LJUBLJANA.jpg"],"o":["MURCIA.jpg"]},{"f":"Cinturon Presov","t":"Cinturon Presov","s":"Linea Importada","pub":true,"vis":["IASI.jpg","CONSTANZA.jpg","NOVISAD.jpg"],"o":["PRESOV.jpg"]},{"f":"Cinturon Quebrado","t":"Cinturon Quebrado","s":"Cuero Vacuno Nacional","pub":true,"vis":["5837.jpg","5839.jpg"],"o":["5835.jpg","5836.jpg","5838.jpg"]},{"f":"Cinturon Recklinghausen","t":"Cinturon Recklinghausen","s":"Linea Importada","pub":true,"vis":["REUTLINGEN.jpg","BREMERHAVEN.jpg","WURZBURG.jpg"],"o":["KOBLENZ.jpg","RECKLINGHAUSEN.jpg"]},{"f":"Cinturon Reversible Fino","t":"Cinturon Reversible Fino","s":"Cuero Vacuno Nacional","pub":true,"vis":["5760.jpg"],"o":["5761.jpg","5762.jpg","5763.jpg"]},{"f":"Cinturon Riga","t":"Cinturon Riga","s":"Cuero Vacuno Nacional","pub":true,"vis":["BELFAST.jpg"],"o":["BELFAST(1).jpg","RIGA.jpg"]},{"f":"Cinturon Rijeka","t":"Cinturon Rijeka","s":"Linea Importada","pub":true,"vis":["OSIJEK.jpg","MARIBOR.jpg","MOSTAR.jpg"],"o":["RIJEKA.jpg"]},{"f":"Cinturon Rodillo","t":"Cinturon Rodillo","s":"Cuero Vacuno Nacional","pub":true,"vis":["5642.jpg","5647.jpg","5648.jpg"],"o":["5643.jpg","5644.jpg","5645.jpg","5646.jpg","5649.jpg","5650.jpg","5652.jpg","5653.jpg","5654.jpg","5656.jpg","5657.jpg","5658.jpg","5660.jpg","5661.jpg","5662.jpg","5663.jpg","5664.jpg","5665.jpg","5666.jpg","5667.jpg","5669.jpg"]},{"f":"Cinturon Samarcanda","t":"Cinturon Samarcanda","s":"Linea Importada","pub":true,"vis":["SAMARCANDA.jpg","BUJARA.jpg","UFA.jpg"],"o":["ASGABAT.jpg","DUSAMBE.jpg","TULA.jpg","YAROSLAVL.jpg"]},{"f":"Cinturon Santander","t":"Cinturon Santander","s":"Cuero Vacuno Nacional","pub":true,"vis":["SANTANDER(1).jpg","OVIEDO.jpg"],"o":["SANTANDER.jpg"]},{"f":"Cinturon Setubal","t":"Cinturon Setubal","s":"Texan Shell","pub":true,"vis":["SETUBAL.jpg","SETUBAL(1).jpg"],"o":["BELLINZONA.jpg","MONTREUX.jpg"]},{"f":"Cinturon Sintra","t":"Cinturon Sintra","s":"Cuero Vacuno","pub":true,"vis":["SINTRA.jpg","SINTRA(1).jpg"],"o":["CASCAIS.jpg"]},{"f":"Cinturon Sobrio","t":"Cinturon Sobrio","s":"Cuero Vacuno Nacional","pub":true,"vis":["5681.jpg","5683.jpg"],"o":["5680.jpg","5682.jpg","5684.jpg"]},{"f":"Cinturon Suela","t":"Cinturon Suela","s":"Cuero Vacuno Nacional","pub":true,"vis":["5719.jpg","5720.jpg"],"o":["5718.jpg","5721.jpg","5722.jpg"]},{"f":"Cinturon Tachas Piramide","t":"Cinturon Tachas Piramide","s":"Cuero Vacuno","pub":true,"vis":["VEVEY.jpg","NYON.jpg","AARAU.jpg"],"o":["MORGES.jpg"]},{"f":"Cinturon Texturado Negro","t":"Cinturon Texturado Negro","s":"Cuero Vacuno Nacional","pub":true,"vis":["5768.jpg"],"o":["5769.jpg"]},{"f":"Cinturon Ulm","t":"Cinturon Ulm","s":"Linea Importada","pub":true,"vis":["HEILBRONN.jpg","PFORZHEIM.jpg","WOLFSBURGO.jpg"],"o":["ULM.jpg"]},{"f":"Cinturon Urbano","t":"Cinturon Urbano","s":"Cuero Vacuno Nacional","pub":true,"vis":["5672.jpg","5674.jpg"],"o":["5670.jpg","5671.jpg","5673.jpg"]},{"f":"Cinturon Varsovia","t":"Cinturon Varsovia","s":"Cuero Nacional","pub":true,"vis":["VARSOVIA(1).jpg","THUN.jpg","LOCARNO.jpg"],"o":["VARSOVIA(2).jpg","VARSOVIA.jpg"]}],"destinos":[{"f":"2 Cinturones Butterfly R80007","t":"2 Cinturones Butterfly","i":"01.jpg"},{"f":"2 Cinturones Classic Y80064","t":"2 Cinturones Classic","i":"01.jpg"},{"f":"2 Cinturones con Glitter S8011","t":"2 Cinturones con Glitter","i":"01.webp"},{"f":"2 Cinturones Corazon Y80062-Y80055","t":"2 Cinturones Corazon","i":"01.png"},{"f":"2 Cinturones Corazon T80000","t":"2 Cinturones Corazon","i":"01.jpg"},{"f":"2 Cinturones Dallas Y80030-Y80031-L80023-E80000","t":"2 Cinturones Dallas","i":"03.jpg"},{"f":"2 Cinturones Doble Aro W80016-C","t":"2 Cinturones Doble Aro","i":"01.jpg"},{"f":"2 Cinturones Eslabones W80017","t":"2 Cinturones Eslabones","i":"01.jpg"},{"f":"2 Cinturones Eslabones Circulares W80018","t":"2 Cinturones Eslabones Circulares","i":"01.jpg"},{"f":"2 Cinturones Eslabones Texture W80022","t":"2 Cinturones Eslabones Texture","i":"01.jpg"},{"f":"2 Cinturones Faja Western Medallon Y80050","t":"2 Cinturones Faja Western Medallon","i":"01.png"},{"f":"2 Cinturones Fajas Urban Basic R80021-U80008","t":"2 Cinturones Fajas Urban Basic","i":"01.png"},{"f":"2 Cinturones Fine S80003","t":"2 Cinturones Fine","i":"01.jpg"},{"f":"2 Cinturones Hebilla Silver U80043","t":"2 Cinturones Hebilla Silver","i":"01.png"},{"f":"2 Cinturones Love T80008","t":"2 Cinturones Love","i":"01.jpg"},{"f":"2 Cinturones Lovely B80017","t":"2 Cinturones Lovely","i":"01.jpg"},{"f":"2 Cinturones Medallon W80016-D","t":"2 Cinturones Medallon","i":"01.jpg"},{"f":"2 Cinturones Mix Y80033-Y80040-Y80042","t":"2 Cinturones Mix","i":"01.jpg"},{"f":"2 Cinturones Moño Glam W80016-A","t":"2 Cinturones Moño Glam","i":"01.jpg"},{"f":"2 Cinturones Oasis T80011","t":"2 Cinturones Oasis","i":"01.jpg"},{"f":"2 Cinturones Orbit Glam W80023","t":"2 Cinturones Orbit Glam","i":"01.jpg"},{"f":"2 Cinturones Power Stud R80010","t":"2 Cinturones Power Stud","i":"01.png"},{"f":"2 Cinturones Sculpt Gold U80056-Y80058","t":"2 Cinturones Sculpt Gold","i":"01.png"},{"f":"2 Cinturones Sea T80005","t":"2 Cinturones Sea","i":"01.jpg"},{"f":"2 Cinturones Shell T80001","t":"2 Cinturones Shell","i":"01.jpg"},{"f":"2 Cinturones Shine S8012-W8034-B","t":"2 Cinturones Shine","i":"01.jpg"},{"f":"2 Cinturones Strass W80024","t":"2 Cinturones Strass","i":"01.jpg"},{"f":"2 Cinturones Tachas Soft Y80013-Y80019","t":"2 Cinturones Tachas Soft","i":"01.jpg"},{"f":"2 Cinturones Transparent W8037","t":"2 Cinturones Transparent","i":"01.webp"},{"f":"2 Cinturones Urban Eyelet Y80049-Y80051","t":"2 Cinturones Urban Eyelet","i":"01.jpg"},{"f":"2 Cinturones Urban Rock Y80017-Y80018-Y80043","t":"2 Cinturones Urban Rock","i":"01.jpg"},{"f":"2 Cinturones West Vintage Y80046-Y80038-U80072-G80043","t":"2 Cinturones West Vintage","i":"01.jpg"},{"f":"2 Cinturones Western Y80022-Y80023-Y80024-Y80025","t":"2 Cinturones Western","i":"01.jpg"},{"f":"2 Fajas Boho Mandala Y80045","t":"2 Fajas Boho Mandala","i":"01.png"},{"f":"2 Fajas Doble Hebilla W80015","t":"2 Fajas Doble Hebilla","i":"01.jpg"},{"f":"2 Fajas Elastizadas Buckles R80013","t":"2 Fajas Elastizadas Buckles","i":"01.jpg"},{"f":"2 Fajas Elastizadas Elegant R80016","t":"2 Fajas Elastizadas Elegant","i":"01.jpg"},{"f":"2 Fajas Elastizadas Gold Y80021","t":"2 Fajas Elastizadas Gold","i":"01.jpg"},{"f":"2 Fajas Elastizadas Trenza Gold U80015-Y80041","t":"2 Fajas Elastizadas Trenza Gold","i":"01.jpg"},{"f":"6 Cintos Anchos para Sombreros Y80009","t":"6 Cintos Anchos para Sombreros","i":"01.jpg"},{"f":"6 Cintos para Sombreros Y80003-Y80005-Y80006-Y80007","t":"6 Cintos para Sombreros","i":"01.jpg"},{"f":"6 Cintos para Sombreros Y80001-Y80002-Y80004","t":"6 Cintos para Sombreros","i":"01.jpg"},{"f":"Cinturon Alicante","t":"Cinturon Alicante","i":"ALICANTE.jpg"},{"f":"Cinturon Altdorf","t":"Cinturon Altdorf","i":"ALTDORF.jpg"},{"f":"Cinturon Amsterdam","t":"Cinturon Amsterdam","i":"AMSTERDAM(1).jpg"},{"f":"Cinturon Ancho","t":"Cinturon Ancho","i":"3395(1).jpeg"},{"f":"Cinturon Ancho Texturado","t":"Cinturon Ancho Texturado","i":"SC0162Z-1.webp"},{"f":"Cinturon Argolla","t":"Cinturon Argolla","i":"8O3A6104.jpeg"},{"f":"Cinturon Aro Dorado","t":"Cinturon Aro Dorado","i":"KLOTEN.jpg"},{"f":"Cinturon Aveiro","t":"Cinturon Aveiro","i":"AVEIRO.jpg"},{"f":"Cinturon Baden","t":"Cinturon Baden","i":"BADEN.jpg"},{"f":"Cinturon Baixa","t":"Cinturon Baixa","i":"BAIXA.jpg"},{"f":"Cinturon Barcelona","t":"Cinturon Barcelona","i":"BARCELONA.jpg"},{"f":"Cinturon Basico","t":"Cinturon Basico","i":"8O3A6079.jpeg"},{"f":"Cinturon Basilea","t":"Cinturon Basilea","i":"BASILEA.jpg"},{"f":"Cinturon Batumi","t":"Cinturon Batumi","i":"BATUMI.jpg"},{"f":"Cinturon Belem","t":"Cinturon Belem","i":"BELEM.jpg"},{"f":"Cinturon Belgrado","t":"Cinturon Belgrado","i":"BELGRADO.jpg"},{"f":"Cinturon Bielefeld","t":"Cinturon Bielefeld","i":"BIELEFELD.jpg"},{"f":"Cinturon Boho","t":"Cinturon Boho","i":"5810.jpg"},{"f":"Cinturon Bolonia","t":"Cinturon Bolonia","i":"BOLONIA.jpg"},{"f":"Cinturon Bonn","t":"Cinturon Bonn","i":"BONN.jpg"},{"f":"Cinturon Bordado Tachas","t":"Cinturon Bordado Tachas","i":"SC0154Z-1.webp"},{"f":"Cinturon Bottrop","t":"Cinturon Bottrop","i":"BOTTROP.jpg"},{"f":"Cinturon Bremen","t":"Cinturon Bremen","i":"BREMEN.jpg"},{"f":"Cinturon Bronce","t":"Cinturon Bronce","i":"GOTINGA.jpg"},{"f":"Cinturon Bucarest","t":"Cinturon Bucarest","i":"BUCAREST.jpg"},{"f":"Cinturon Burdeos","t":"Cinturon Burdeos","i":"BURDEOS.jpg"},{"f":"Cinturon Burgas","t":"Cinturon Burgas","i":"BURGAS.jpg"},{"f":"Cinturon Cacao","t":"Cinturon Cacao","i":"5842.jpg"},{"f":"Cinturon Cadiz","t":"Cinturon Cadiz","i":"CADIZ.jpg"},{"f":"Cinturon Calado","t":"Cinturon Calado","i":"BRATISLAVA.jpg"},{"f":"Cinturon Camel","t":"Cinturon Camel","i":"LUCERNA.jpg"},{"f":"Cinturon Carbon","t":"Cinturon Carbon","i":"LEVERKUSEN.jpg"},{"f":"Cinturon Cardiff","t":"Cinturon Cardiff","i":"UTRECHT.jpg"},{"f":"Cinturon Cebra","t":"Cinturon Cebra","i":"01.jpg"},{"f":"Cinturon Charol","t":"Cinturon Charol","i":"8O3A5339.jpeg"},{"f":"Cinturon Cheboksary","t":"Cinturon Cheboksary","i":"CHEBOKSARY.jpg"},{"f":"Cinturon Chemnitz","t":"Cinturon Chemnitz","i":"CHEMNITZ.jpg"},{"f":"Cinturon Chiado","t":"Cinturon Chiado","i":"CHIADO.jpg"},{"f":"Cinturon Chisinau","t":"Cinturon Chisinau","i":"CHISINAU.jpg"},{"f":"Cinturon Cierre Metalico","t":"Cinturon Cierre Metalico","i":"5800.jpg"},{"f":"Cinturon Clasico","t":"Cinturon Clasico","i":"8O3A6874.jpeg"},{"f":"Cinturon Cluj","t":"Cinturon Cluj","i":"CLUJ.jpg"},{"f":"Cinturon Cognac Plata","t":"Cinturon Cognac Plata","i":"FRAUENFELD.jpg"},{"f":"Cinturon Colonia","t":"Cinturon Colonia","i":"COLONIA.jpg"},{"f":"Cinturon Combinado","t":"Cinturon Combinado","i":"WURZBURGO.jpg"},{"f":"Cinturon Corazon","t":"Cinturon Corazon","i":"SC0169Z-1.webp"},{"f":"Cinturon Cosido","t":"Cinturon Cosido","i":"8O3A2378.jpeg"},{"f":"Cinturon Croco","t":"Cinturon Croco","i":"GUIMARAES.jpg"},{"f":"Cinturon Cuadrille Negro","t":"Cinturon Cuadrille Negro","i":"OSH.jpg"},{"f":"Cinturon Cuadrille Suela","t":"Cinturon Cuadrille Suela","i":"KLAIPEDA.jpg"},{"f":"Cinturon Cuero Trenzado","t":"Cinturon Cuero Trenzado","i":"04.jpg"},{"f":"Cinturon Darmstadt","t":"Cinturon Darmstadt","i":"DARMSTADT.jpg"},{"f":"Cinturon Debrecen","t":"Cinturon Debrecen","i":"DEBRECEN.jpg"},{"f":"Cinturon Delemont","t":"Cinturon Delemont","i":"DELEMONT.jpg"},{"f":"Cinturon Delicado","t":"Cinturon Delicado","i":"5831.jpg"},{"f":"Cinturon Detalle PU","t":"Cinturon Detalle PU","i":"SC0177Z-1.webp"},{"f":"Cinturon Diario","t":"Cinturon Diario","i":"5743.jpg"},{"f":"Cinturon Doble Argolla","t":"Cinturon Doble Argolla","i":"VERBIER.jpg"},{"f":"Cinturon Doble Espiga","t":"Cinturon Doble Espiga","i":"5685.jpg"},{"f":"Cinturon Doble Faz","t":"Cinturon Doble Faz","i":"HEIDELBERG.jpg"},{"f":"Cinturon Dresde","t":"Cinturon Dresde","i":"DRESDE.jpg"},{"f":"Cinturon Dublin","t":"Cinturon Dublin","i":"DUBLIN.jpg"},{"f":"Cinturon Edimburgo","t":"Cinturon Edimburgo","i":"EDIMBURGO(1).jpg"},{"f":"Cinturon Erfurt","t":"Cinturon Erfurt","i":"ERFURT.jpg"},{"f":"Cinturon Esencial","t":"Cinturon Esencial","i":"01.jpg"},{"f":"Cinturon Esmirna","t":"Cinturon Esmirna","i":"ESMIRNA.jpg"},{"f":"Cinturon Espoo","t":"Cinturon Espoo","i":"ESPOO.jpg"},{"f":"Cinturon Estampado Tachas","t":"Cinturon Estampado Tachas","i":"SC0175Z-1.webp"},{"f":"Cinturon Estocolmo","t":"Cinturon Estocolmo","i":"ESTOCOLMO.jpg"},{"f":"Cinturon Estoril","t":"Cinturon Estoril","i":"ESTORIL.jpg"},{"f":"Cinturon Estrella","t":"Cinturon Estrella","i":"SC0145Z-1.webp"},{"f":"Cinturon Evora","t":"Cinturon Evora","i":"EVORA.jpg"},{"f":"Cinturon Faja Arnes","t":"Cinturon Faja Arnes","i":"01.png"},{"f":"Cinturon Faja Estrella","t":"Cinturon Faja Estrella","i":"01.jpg"},{"f":"Cinturon Faja Negra","t":"Cinturon Faja Negra","i":"01.jpg"},{"f":"Cinturon Faja Tachas","t":"Cinturon Faja Tachas","i":"01.png"},{"f":"Cinturon Fatima","t":"Cinturon Fatima","i":"FATIMA.jpg"},{"f":"Cinturon Filigrana","t":"Cinturon Filigrana","i":"01.jpg"},{"f":"Cinturon Fino Clasico","t":"Cinturon Fino Clasico","i":"SC0173Z-1.webp"},{"f":"Cinturon Fino de Vestir","t":"Cinturon Fino de Vestir","i":"5782.jpg"},{"f":"Cinturon Fino Dorado","t":"Cinturon Fino Dorado","i":"01.jpg"},{"f":"Cinturon Fino Marron","t":"Cinturon Fino Marron","i":"5843.jpg"},{"f":"Cinturon Fino Moderno","t":"Cinturon Fino Moderno","i":"5703.jpg"},{"f":"Cinturon Fino Negro","t":"Cinturon Fino Negro","i":"5834.jpg"},{"f":"Cinturon Fino Plata","t":"Cinturon Fino Plata","i":"INTERLAKEN.jpg"},{"f":"Cinturon Gamuza","t":"Cinturon Gamuza","i":"8O3A5298.jpeg"},{"f":"Cinturon Gamuza Gris","t":"Cinturon Gamuza Gris","i":"MANNHEIM.jpg"},{"f":"Cinturon Ganja","t":"Cinturon Ganja","i":"GANJA.jpg"},{"f":"Cinturon Gaucho","t":"Cinturon Gaucho","i":"5818.jpg"},{"f":"Cinturon Gemas","t":"Cinturon Gemas","i":"SC0140Z-1.webp"},{"f":"Cinturon Gemas Fino","t":"Cinturon Gemas Fino","i":"SC0143Z-1.webp"},{"f":"Cinturon Genova","t":"Cinturon Genova","i":"GENOVA.jpg"},{"f":"Cinturon Gijon","t":"Cinturon Gijon","i":"8O3A2284.jpeg"},{"f":"Cinturon Glarus","t":"Cinturon Glarus","i":"GLARUS.jpg"},{"f":"Cinturon Glasgow","t":"Cinturon Glasgow","i":"GLASGOW.jpg"},{"f":"Cinturon Grabado","t":"Cinturon Grabado","i":"5675.jpg"},{"f":"Cinturon Grabado Tachas","t":"Cinturon Grabado Tachas","i":"SC0155Z-1.webp"},{"f":"Cinturon Grafito","t":"Cinturon Grafito","i":"BRNO.jpg"},{"f":"Cinturon Granada","t":"Cinturon Granada","i":"GRANADA.jpg"},{"f":"Cinturon Graneado","t":"Cinturon Graneado","i":"8O3A5367.jpeg"},{"f":"Cinturon Halle","t":"Cinturon Halle","i":"HALLE.jpg"},{"f":"Cinturon Hamburgo","t":"Cinturon Hamburgo","i":"HAMBURGO.jpg"},{"f":"Cinturon Hebilla Cuadrada","t":"Cinturon Hebilla Cuadrada","i":"5752.jpg"},{"f":"Cinturon Hebilla Labrada","t":"Cinturon Hebilla Labrada","i":"HORGEN.jpg"},{"f":"Cinturon Hebilla Lisa","t":"Cinturon Hebilla Lisa","i":"SC0142Z-1.webp"},{"f":"Cinturon Hebilla Lisa Ancho","t":"Cinturon Hebilla Lisa Ancho","i":"SC0168Z-1.webp"},{"f":"Cinturon Hebilla Organica","t":"Cinturon Hebilla Organica","i":"8O3A5358.jpeg"},{"f":"Cinturon Hebilla Oval","t":"Cinturon Hebilla Oval","i":"5728.jpg"},{"f":"Cinturon Heraklion","t":"Cinturon Heraklion","i":"HERAKLION.jpg"},{"f":"Cinturon Kaunas","t":"Cinturon Kaunas","i":"KAUNAS.jpg"},{"f":"Cinturon Kazan","t":"Cinturon Kazan","i":"KAZAN.jpg"},{"f":"Cinturon Kiel","t":"Cinturon Kiel","i":"KIEL.jpg"},{"f":"Cinturon Konstanza","t":"Cinturon Konstanza","i":"BRAGANZA.jpg"},{"f":"Cinturon Lausana","t":"Cinturon Lausana","i":"LAUSANA.jpg"},{"f":"Cinturon Leiria","t":"Cinturon Leiria","i":"LEIRIA.jpg"},{"f":"Cinturon Leopardo","t":"Cinturon Leopardo","i":"5789.jpg"},{"f":"Cinturon Leopardo Plata","t":"Cinturon Leopardo Plata","i":"01.jpg"},{"f":"Cinturon Liepaja","t":"Cinturon Liepaja","i":"LIEPAJA.jpg"},{"f":"Cinturon Lipetsk","t":"Cinturon Lipetsk","i":"LIPETSK.jpg"},{"f":"Cinturon Liso","t":"Cinturon Liso","i":"3380 N .jpeg"},{"f":"Cinturon Lona","t":"Cinturon Lona","i":"5777.jpg"},{"f":"Cinturon Lublin","t":"Cinturon Lublin","i":"LUBLIN.jpg"},{"f":"Cinturon Lucerne","t":"Cinturon Lucerne","i":"LUCERNE.jpg"},{"f":"Cinturon Macrame","t":"Cinturon Macrame","i":"01.jpg"},{"f":"Cinturon Manchester","t":"Cinturon Manchester","i":"MANCHESTER(1).jpg"},{"f":"Cinturon Marino","t":"Cinturon Marino","i":"5767.jpg"},{"f":"Cinturon Marsella","t":"Cinturon Marsella","i":"MARSELLA(1).jpg"},{"f":"Cinturon Microtachas","t":"Cinturon Microtachas","i":"MAFRA.jpg"},{"f":"Cinturon Mini Tachas","t":"Cinturon Mini Tachas","i":"SC0156Z-1.webp"},{"f":"Cinturon Minimal Negro","t":"Cinturon Minimal Negro","i":"01.png"},{"f":"Cinturon Minsk","t":"Cinturon Minsk","i":"MINSK.jpg"},{"f":"Cinturon Moderno","t":"Cinturon Moderno","i":"8O3A2335.jpeg"},{"f":"Cinturon Monedas","t":"Cinturon Monedas","i":"01.jpg"},{"f":"Cinturon Munich","t":"Cinturon Munich","i":"MUNICH.jpg"},{"f":"Cinturon Napoles","t":"Cinturon Napoles","i":"NAPOLES.jpg"},{"f":"Cinturon Narva","t":"Cinturon Narva","i":"NARVA.jpg"},{"f":"Cinturon Nazare","t":"Cinturon Nazare","i":"NAZARE.jpg"},{"f":"Cinturon Negro Liso","t":"Cinturon Negro Liso","i":"5774.jpg"},{"f":"Cinturon Negro Mate","t":"Cinturon Negro Mate","i":"KALININGRADO.jpg"},{"f":"Cinturon Neuss","t":"Cinturon Neuss","i":"NEUSS.jpg"},{"f":"Cinturon Noche","t":"Cinturon Noche","i":"MAGUNCIA.jpg"},{"f":"Cinturon Nudo Dorado","t":"Cinturon Nudo Dorado","i":"01.jpg"},{"f":"Cinturon Odense","t":"Cinturon Odense","i":"ODENSE.jpg"},{"f":"Cinturon Oficina","t":"Cinturon Oficina","i":"01.png"},{"f":"Cinturon Ojales","t":"Cinturon Ojales","i":"8O3A5286.jpeg"},{"f":"Cinturon Ojales Metalicos","t":"Cinturon Ojales Metalicos","i":"SC0172Z-1.webp"},{"f":"Cinturon Ojales y Tachas","t":"Cinturon Ojales y Tachas","i":"SC0176Z-1.webp"},{"f":"Cinturon Oval Negro","t":"Cinturon Oval Negro","i":"COIMBRA.jpg"},{"f":"Cinturon Ovalado","t":"Cinturon Ovalado","i":"8O3A5506.jpeg"},{"f":"Cinturon Palermo","t":"Cinturon Palermo","i":"PALERMO.jpg"},{"f":"Cinturon Pasador Fino","t":"Cinturon Pasador Fino","i":"SC0159Z-1.webp"},{"f":"Cinturon Pasador Metalico","t":"Cinturon Pasador Metalico","i":"SC0157Z_foto1.png"},{"f":"Cinturon Patras","t":"Cinturon Patras","i":"PATRAS.jpg"},{"f":"Cinturon Pelo","t":"Cinturon Pelo","i":"8O3A5416.jpeg"},{"f":"Cinturon Pelo Vacuno","t":"Cinturon Pelo Vacuno","i":"5788.jpg"},{"f":"Cinturon Perforado","t":"Cinturon Perforado","i":"5716.jpg"},{"f":"Cinturon Perm","t":"Cinturon Perm","i":"PERM.jpg"},{"f":"Cinturon Piedra","t":"Cinturon Piedra","i":"KURSK.jpg"},{"f":"Cinturon Placa Negra","t":"Cinturon Placa Negra","i":"LJUBLJANA.jpg"},{"f":"Cinturon Plata Vieja","t":"Cinturon Plata Vieja","i":"01.jpg"},{"f":"Cinturon Plzen","t":"Cinturon Plzen","i":"PLZEN.jpg"},{"f":"Cinturon Potsdam","t":"Cinturon Potsdam","i":"POTSDAM.jpg"},{"f":"Cinturon Presov","t":"Cinturon Presov","i":"IASI.jpg"},{"f":"Cinturon Print","t":"Cinturon Print","i":"5812.jpg"},{"f":"Cinturon Quebrado","t":"Cinturon Quebrado","i":"5837.jpg"},{"f":"Cinturon Recklinghausen","t":"Cinturon Recklinghausen","i":"REUTLINGEN.jpg"},{"f":"Cinturon Reversible","t":"Cinturon Reversible","i":"8O3A2304.jpeg"},{"f":"Cinturon Reversible Fino","t":"Cinturon Reversible Fino","i":"5760.jpg"},{"f":"Cinturon Riga","t":"Cinturon Riga","i":"BELFAST.jpg"},{"f":"Cinturon Rijeka","t":"Cinturon Rijeka","i":"OSIJEK.jpg"},{"f":"Cinturon Roca","t":"Cinturon Roca","i":"ZAGREB.jpg"},{"f":"Cinturon Rodillo","t":"Cinturon Rodillo","i":"5642.jpg"},{"f":"Cinturon Rotterdam","t":"Cinturon Rotterdam","i":"ROTTERDAM.jpg"},{"f":"Cinturon Salamanca","t":"Cinturon Salamanca","i":"SALAMANCA.jpg"},{"f":"Cinturon Samarcanda","t":"Cinturon Samarcanda","i":"SAMARCANDA.jpg"},{"f":"Cinturon Santander","t":"Cinturon Santander","i":"SANTANDER(1).jpg"},{"f":"Cinturon Setubal","t":"Cinturon Setubal","i":"SETUBAL.jpg"},{"f":"Cinturon Sintra","t":"Cinturon Sintra","i":"SINTRA.jpg"},{"f":"Cinturon Sobrio","t":"Cinturon Sobrio","i":"5681.jpg"},{"f":"Cinturon Split","t":"Cinturon Split","i":"SPLIT.jpg"},{"f":"Cinturon Suela","t":"Cinturon Suela","i":"5719.jpg"},{"f":"Cinturon Tabaco","t":"Cinturon Tabaco","i":"KONYA.jpg"},{"f":"Cinturon Tachas","t":"Cinturon Tachas","i":"3378.jpeg"},{"f":"Cinturon Tachas Ancho","t":"Cinturon Tachas Ancho","i":"SC0148Z-1.webp"},{"f":"Cinturon Tachas Brillantes","t":"Cinturon Tachas Brillantes","i":"SC0152Z-1.webp"},{"f":"Cinturon Tachas Clasico","t":"Cinturon Tachas Clasico","i":"SC0146Z-1.webp"},{"f":"Cinturon Tachas Decorativas","t":"Cinturon Tachas Decorativas","i":"SC0150Z-1.webp"},{"f":"Cinturon Tachas Fino","t":"Cinturon Tachas Fino","i":"SC0153Z-1.webp"},{"f":"Cinturon Tachas Pequeñas","t":"Cinturon Tachas Pequeñas","i":"SC0174Z-1.webp"},{"f":"Cinturon Tachas Piramide","t":"Cinturon Tachas Piramide","i":"VEVEY.jpg"},{"f":"Cinturon Tachas Plata","t":"Cinturon Tachas Plata","i":"SARAJEVO.jpg"},{"f":"Cinturon Tachas y Ojales","t":"Cinturon Tachas y Ojales","i":"SC0147Z-1.webp"},{"f":"Cinturon Tallin","t":"Cinturon Tallin","i":"TALLIN.jpg"},{"f":"Cinturon Tampere","t":"Cinturon Tampere","i":"TAMPERE.jpg"},{"f":"Cinturon Tartu","t":"Cinturon Tartu","i":"TARTU.jpg"},{"f":"Cinturon Texturado Negro","t":"Cinturon Texturado Negro","i":"5768.jpg"},{"f":"Cinturon Texturado Tachas","t":"Cinturon Texturado Tachas","i":"SC0160Z-1.webp"},{"f":"Cinturon Tirana","t":"Cinturon Tirana","i":"TIRANA.jpg"},{"f":"Cinturon Toledo","t":"Cinturon Toledo","i":"TOLEDO.jpg"},{"f":"Cinturon Tomar","t":"Cinturon Tomar","i":"TOMAR.jpg"},{"f":"Cinturon Trenzado","t":"Cinturon Trenzado","i":"8O3A2361.jpeg"},{"f":"Cinturon Trier","t":"Cinturon Trier","i":"TRIER.jpg"},{"f":"Cinturon Trondheim","t":"Cinturon Trondheim","i":"TRONDHEIM.jpg"},{"f":"Cinturon Ulm","t":"Cinturon Ulm","i":"HEILBRONN.jpg"},{"f":"Cinturon Urbano","t":"Cinturon Urbano","i":"5672.jpg"},{"f":"Cinturon Varsovia","t":"Cinturon Varsovia","i":"VARSOVIA(1).jpg"},{"f":"Cinturon Vilnius","t":"Cinturon Vilnius","i":"VILNIUS.jpg"},{"f":"Cinturon Vintage","t":"Cinturon Vintage","i":"8O3A2292.jpeg"},{"f":"Cinturon Volos","t":"Cinturon Volos","i":"VOLOS.jpg"},{"f":"Cinturon Western Fino","t":"Cinturon Western Fino","i":"SC0167Z-1.webp"},{"f":"Cinturon Western Gamuza","t":"Cinturon Western Gamuza","i":"8O3A5378.jpeg"},{"f":"Cinturon Western Texturado","t":"Cinturon Western Texturado","i":"8O3A6054.jpeg"},{"f":"Cinturon Winterthur","t":"Cinturon Winterthur","i":"WINTERTHUR.jpg"}]};
+</script>
+<script>
+(function () {
+  const D = window.__FOTOS;
+  const KEY = "b2you-fotos-sueltas-v1";
+  const ICON_ZOOM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2M11 8.5v5M8.5 11h5"/></svg>';
+  const seg = s => encodeURIComponent(s);
+  const stem = n => n.replace(/\.[^.]+$/, "");
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const thumb = (f, n) => D.base + "/" + seg(f) + "/.thumbs/" + seg(stem(n)) + ".webp";
+  const full = (f, n) => D.base + "/" + seg(f) + "/" + seg(n);
+
+  // id de cada foto: "<carpeta de origen>|<archivo>"
+  const fotos = [];
+  D.grupos.forEach(g => g.o.forEach(n => fotos.push({ id: g.f + "|" + n, f: g.f, n, t: g.t })));
+  // decision: null | {k:"nuevo", g:<n>} | {k:"mover", to:<carpeta>, tt:<titulo>} | {k:"descartar"}
+  const dec = new Map();
+  const sel = new Set();
+  let nextGrupo = 1;
+
+  const list = document.getElementById("list");
+  const cardOf = new Map();
+  const frag = document.createDocumentFragment();
+
+  D.grupos.forEach(g => {
+    const sec = document.createElement("section");
+    sec.className = "grupo";
+    sec.dataset.f = g.f;
+
+    const head = document.createElement("div");
+    head.className = "g-head";
+    const box = document.createElement("div");
+    const h = document.createElement("h2");
+    h.className = "g-name";
+    h.textContent = g.t;
+    const meta = document.createElement("div");
+    meta.className = "g-meta";
+    meta.textContent = (g.pub ? "" : "ya no se publica · ") + g.o.length + (g.o.length === 1 ? " foto suelta" : " fotos sueltas") + (g.s ? " · " + g.s : "");
+    box.append(h, meta);
+    head.appendChild(box);
+
+    if (g.vis.length) {
+      const ref = document.createElement("div");
+      ref.className = "ref";
+      const lab = document.createElement("span");
+      lab.textContent = "sigue publicado";
+      ref.appendChild(lab);
+      g.vis.forEach(v => {
+        const im = document.createElement("img");
+        im.loading = "lazy";
+        im.alt = "Foto publicada de " + g.t;
+        im.src = thumb(g.f, v);
+        ref.appendChild(im);
+      });
+      head.appendChild(ref);
+    }
+
+    const acts = document.createElement("div");
+    acts.className = "g-acts";
+    const bAll = document.createElement("button");
+    bAll.type = "button";
+    bAll.className = "btn";
+    bAll.textContent = "Seleccionar las " + g.o.length;
+    const bCada = document.createElement("button");
+    bCada.type = "button";
+    bCada.className = "btn";
+    bCada.textContent = "Cada foto = un producto";
+    acts.append(bAll, bCada);
+    head.appendChild(acts);
+
+    const wrap = document.createElement("div");
+    wrap.className = "fotos";
+    g.o.forEach(n => {
+      const id = g.f + "|" + n;
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "foto";
+      b.dataset.id = id;
+      const img = document.createElement("img");
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.alt = g.t + " — " + n;
+      img.src = thumb(g.f, n);
+      img.onerror = () => { if (!img.dataset.fb) { img.dataset.fb = "1"; img.src = full(g.f, n); } };
+      const fn = document.createElement("span");
+      fn.className = "fname";
+      fn.textContent = n;
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      const z = document.createElement("button");
+      z.type = "button";
+      z.className = "zoom";
+      z.title = "Ver grande";
+      z.setAttribute("aria-label", "Ver " + n + " en grande");
+      z.innerHTML = ICON_ZOOM;
+      b.append(img, fn, tag, z);
+      wrap.appendChild(b);
+      cardOf.set(id, b);
+    });
+
+    sec.append(head, wrap);
+    frag.appendChild(sec);
+
+    wrap.addEventListener("click", e => {
+      const el = e.target.closest(".foto");
+      if (!el) return;
+      if (e.target.closest(".zoom")) { openZoom(el.dataset.id); return; }
+      toggleSel(el.dataset.id);
+    });
+    bAll.addEventListener("click", () => { g.o.forEach(n => sel.add(g.f + "|" + n)); paintSel(); });
+    bCada.addEventListener("click", () => {
+      g.o.forEach(n => dec.set(g.f + "|" + n, { k: "nuevo", g: nextGrupo++ }));
+      sel.clear();
+      paintAll();
+      save();
+    });
+  });
+  list.appendChild(frag);
+
+  function toggleSel(id) { sel.has(id) ? sel.delete(id) : sel.add(id); paintSel(); }
+
+  function paintOne(id) {
+    const el = cardOf.get(id);
+    const d = dec.get(id);
+    el.classList.toggle("sel", sel.has(id));
+    el.classList.remove("nuevo", "mover", "descartar", "done");
+    const tag = el.querySelector(".tag");
+    if (!d) { tag.textContent = ""; return; }
+    el.classList.add(d.k, "done");
+    tag.textContent = d.k === "nuevo" ? "Nuevo " + d.g : d.k === "mover" ? "→ " + d.tt : "Descartar";
+  }
+  function paintSel() {
+    cardOf.forEach((el, id) => el.classList.toggle("sel", sel.has(id)));
+    const n = sel.size;
+    document.getElementById("selCount").textContent = n + (n === 1 ? " foto" : " fotos");
+    document.getElementById("actionbar").classList.toggle("on", n > 0);
+  }
+  function paintAll() {
+    cardOf.forEach((_, id) => paintOne(id));
+    paintSel();
+    tally();
+    applyAll();
+  }
+
+  function tally() {
+    let n = 0, m = 0, d2 = 0;
+    const gs = new Set();
+    dec.forEach(v => {
+      if (v.k === "nuevo") { n++; gs.add(v.g); }
+      else if (v.k === "mover") m++;
+      else d2++;
+    });
+    document.getElementById("tN").textContent = gs.size;
+    document.getElementById("tM").textContent = m;
+    document.getElementById("tD").textContent = d2;
+    document.getElementById("tP").textContent = fotos.length - dec.size;
+    document.getElementById("prog").style.width = (dec.size / fotos.length * 100).toFixed(1) + "%";
+  }
+
+  function aplicar(d) {
+    if (!sel.size) return;
+    sel.forEach(id => d ? dec.set(id, d) : dec.delete(id));
+    sel.clear();
+    paintAll();
+    save();
+  }
+  document.getElementById("aNuevo").addEventListener("click", () => aplicar({ k: "nuevo", g: nextGrupo++ }));
+  document.getElementById("aDesc").addEventListener("click", () => aplicar({ k: "descartar" }));
+  document.getElementById("aClear").addEventListener("click", () => aplicar(null));
+  document.getElementById("aNone").addEventListener("click", () => { sel.clear(); paintSel(); });
+  document.getElementById("aMover").addEventListener("click", abrirDestinos);
+
+  document.addEventListener("keydown", e => {
+    if (e.target.matches("input, textarea")) return;
+    if (document.querySelector("dialog[open]")) return;
+    const k = e.key.toLowerCase();
+    if (k === "n") { e.preventDefault(); document.getElementById("aNuevo").click(); }
+    else if (k === "m") { e.preventDefault(); abrirDestinos(); }
+    else if (k === "d") { e.preventDefault(); document.getElementById("aDesc").click(); }
+    else if (e.key === "Escape" && sel.size) { sel.clear(); paintSel(); }
+  });
+
+  // ---------- destinos ----------
+  const destDlg = document.getElementById("destDlg");
+  const destList = document.getElementById("destList");
+  D.destinos.forEach(t => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "dest";
+    b.dataset.t = t.t.toLowerCase();
+    b.dataset.f = t.f;
+    const im = document.createElement("img");
+    im.loading = "lazy";
+    im.alt = "";
+    if (t.i) im.src = thumb(t.f, t.i);
+    const s = document.createElement("span");
+    s.textContent = t.t;
+    b.append(im, s);
+    b.addEventListener("click", () => {
+      aplicar({ k: "mover", to: t.f, tt: t.t });
+      destDlg.close();
+    });
+    destList.appendChild(b);
+  });
+  function abrirDestinos() {
+    if (!sel.size) return;
+    document.getElementById("destCount").textContent = sel.size + (sel.size === 1 ? " foto seleccionada" : " fotos seleccionadas");
+    destDlg.showModal();
+    document.getElementById("destQ").focus();
+  }
+  document.getElementById("destQ").addEventListener("input", e => {
+    const q = e.target.value.trim().toLowerCase();
+    destList.querySelectorAll(".dest").forEach(b => b.classList.toggle("hidden", !!q && !b.dataset.t.includes(q)));
+  });
+  document.getElementById("destClose").addEventListener("click", () => destDlg.close());
+
+  // ---------- filtros ----------
+  let filtro = "pend", query = "";
+  function visible(id) {
+    const d = dec.get(id);
+    if (filtro === "pend" && d) return false;
+    if (filtro === "hechas" && !d) return false;
+    return true;
+  }
+  function applyAll() {
+    document.querySelectorAll(".grupo").forEach(sec => {
+      const f = sec.dataset.f;
+      let algo = false;
+      sec.querySelectorAll(".foto").forEach(el => {
+        const ok = visible(el.dataset.id);
+        el.style.display = ok ? "" : "none";
+        if (ok) algo = true;
+      });
+      const qok = !query || (f + " " + (sec.querySelector(".g-name").textContent || "")).toLowerCase().includes(query);
+      sec.classList.toggle("hidden", !algo || !qok);
+    });
+  }
+  document.getElementById("filters").addEventListener("click", e => {
+    const b = e.target.closest("button[data-f]");
+    if (!b) return;
+    filtro = b.dataset.f;
+    document.querySelectorAll("#filters button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    applyAll();
+  });
+  document.getElementById("q").addEventListener("input", e => { query = e.target.value.trim().toLowerCase(); applyAll(); });
+
+  // ---------- zoom ----------
+  const zoomDlg = document.getElementById("zoomDlg");
+  const zoomImg = document.getElementById("zoomImg");
+  function openZoom(id) {
+    const [f, n] = id.split("|");
+    const u = full(f, n);
+    zoomImg.src = u;
+    zoomImg.alt = n;
+    document.getElementById("zoomOpen").href = u;
+    document.getElementById("zoomName").textContent = f + " · " + n;
+    if (!zoomDlg.open) zoomDlg.showModal();
+  }
+  document.getElementById("zoomClose").addEventListener("click", () => zoomDlg.close());
+
+  // ---------- salida ----------
+  function texto() {
+    const nuevos = new Map(), mover = new Map(), desc = new Map();
+    dec.forEach((d, id) => {
+      const [f, n] = id.split("|");
+      if (d.k === "nuevo") { if (!nuevos.has(d.g)) nuevos.set(d.g, []); nuevos.get(d.g).push([f, n]); }
+      else if (d.k === "mover") { const key = d.to + "||" + d.tt; if (!mover.has(key)) mover.set(key, []); mover.get(key).push([f, n]); }
+      else { if (!desc.has(f)) desc.set(f, []); desc.get(f).push(n); }
+    });
+    let t = "FOTOS SUELTAS DE CINTURONES — " + new Date().toLocaleDateString("es-AR") + "\n";
+    t += "De " + fotos.length + " fotos ocultas: " + nuevos.size + " productos nuevos, ";
+    t += [...mover.values()].reduce((a, v) => a + v.length, 0) + " a mover, ";
+    t += [...desc.values()].reduce((a, v) => a + v.length, 0) + " a descartar.\n";
+    t += "\n== PRODUCTOS NUEVOS (" + nuevos.size + ") ==\n";
+    t += "Poneles vos un nombre facil y vendible.\n";
+    if (!nuevos.size) t += "(ninguno)\n";
+    [...nuevos.entries()].sort((a, b) => a[0] - b[0]).forEach(([g, arr]) => {
+      t += "- Nuevo " + g + " (" + arr.length + (arr.length === 1 ? " foto" : " fotos") + ")\n";
+      const porOrigen = {};
+      arr.forEach(([f, n]) => { (porOrigen[f] = porOrigen[f] || []).push(n); });
+      Object.entries(porOrigen).forEach(([f, ns]) => { t += "    desde " + f + ": " + ns.join(", ") + "\n"; });
+    });
+    t += "\n== MOVER A UN PRODUCTO QUE YA EXISTE ==\n";
+    if (!mover.size) t += "(ninguna)\n";
+    [...mover.entries()].forEach(([key, arr]) => {
+      const [to, tt] = key.split("||");
+      t += "- A \"" + tt + "\" [carpeta: " + to + "]\n";
+      const porOrigen = {};
+      arr.forEach(([f, n]) => { (porOrigen[f] = porOrigen[f] || []).push(n); });
+      Object.entries(porOrigen).forEach(([f, ns]) => { t += "    desde " + f + ": " + ns.join(", ") + "\n"; });
+    });
+    t += "\n== DESCARTAR ==\n";
+    if (!desc.size) t += "(ninguna)\n";
+    [...desc.entries()].forEach(([f, ns]) => { t += "- " + f + ": " + ns.join(", ") + "\n"; });
+    const pend = fotos.length - dec.size;
+    if (pend) t += "\n(Quedan " + pend + " fotos sin decidir: dejalas como estan.)\n";
+    return t;
+  }
+
+  const sumDlg = document.getElementById("sumDlg");
+  document.getElementById("openSum").addEventListener("click", () => {
+    document.getElementById("sumText").value = texto();
+    document.getElementById("sumCount").textContent = dec.size + " de " + fotos.length + " fotos decididas";
+    document.getElementById("copied").classList.remove("on");
+    sumDlg.showModal();
+  });
+  document.getElementById("closeSum").addEventListener("click", () => sumDlg.close());
+  document.getElementById("copyBtn").addEventListener("click", async () => {
+    const ta = document.getElementById("sumText");
+    try { await navigator.clipboard.writeText(ta.value); } catch (_) { ta.focus(); ta.select(); }
+    document.getElementById("copied").classList.add("on");
+  });
+  document.getElementById("dlBtn").addEventListener("click", () => {
+    const b = new Blob([document.getElementById("sumText").value], { type: "text/plain;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(b);
+    a.download = "fotos-sueltas.txt";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+  });
+
+  // ---------- guardado ----------
+  let t0 = 0;
+  function save() {
+    clearTimeout(t0);
+    t0 = setTimeout(() => {
+      const o = { n: nextGrupo, d: {} };
+      dec.forEach((v, k) => { o.d[k] = v; });
+      try {
+        localStorage.setItem(KEY, JSON.stringify(o));
+        document.getElementById("saveNote").textContent = "Guardado · " + new Date().toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit" });
+      } catch (_) {
+        document.getElementById("saveNote").textContent = "No se pudo guardar: copiá el resumen antes de cerrar.";
+      }
+    }, 400);
+  }
+  (function load() {
+    let o;
+    try { o = JSON.parse(localStorage.getItem(KEY) || "null"); } catch (_) { o = null; }
+    if (!o) { document.getElementById("saveNote").textContent = "Se guarda solo en este navegador."; return; }
+    nextGrupo = o.n || 1;
+    Object.entries(o.d || {}).forEach(([k, v]) => { if (cardOf.has(k)) dec.set(k, v); });
+    document.getElementById("saveNote").textContent = "Recuperado: " + dec.size + " fotos ya decididas";
+  })();
+
+  paintAll();
+})();
+</script>
+</body>
+</html>

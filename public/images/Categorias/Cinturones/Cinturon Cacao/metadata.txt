@@ -1,0 +1,8 @@
+title: Cinturon Cacao
+subtitle: Cuero Vacuno Nacional
+description: Cuero marron oscuro con hebilla plateada. Clasico atemporal.
+code: CIN-347
+images: 5842.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

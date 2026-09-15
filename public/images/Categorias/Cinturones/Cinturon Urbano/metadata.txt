@@ -2,7 +2,7 @@ title: Cinturon Urbano
 subtitle: Cuero Vacuno Nacional
 description: Cuero negro con tachas metalicas y hebilla rodillo. Estilo urbano rustico.
 code: CIN-321
-images: 5670.jpg, 5671.jpg, 5672.jpg, 5673.jpg, 5674.jpg
+images: 5672.jpg, 5674.jpg
 videos:
 tags: hombre, nacional, publico
 proveedor: nacional

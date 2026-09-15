@@ -1,0 +1,6 @@
+title: Cinturon Faja Estrella
+subtitle: Pack de 2
+description: Versátiles, modernos y fáciles de combinar Contiene: 2 cinturones
+code: Y80012/Y80015/Y80028/Y80032/W80014
+images: 01.jpg
+proveedor: carey

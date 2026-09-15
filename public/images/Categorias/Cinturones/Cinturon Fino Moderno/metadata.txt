@@ -1,0 +1,8 @@
+title: Cinturon Fino Moderno
+subtitle: Cuero Vacuno Nacional
+description: Cuero texturado fino en negro y marron, hebilla discreta. Linea delgada.
+code: CIN-325
+images: 5703.jpg, 5706.jpg, 5708.jpg
+videos:
+tags: hombre, nacional, publico
+proveedor: nacional

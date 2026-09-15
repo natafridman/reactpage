@@ -1,0 +1,8 @@
+title: Cinturon Gaucho
+subtitle: Cuero Vacuno Nacional
+description: Cuero suela con hebilla western trabajada. Estilo de campo.
+code: CIN-343
+images: 5818.jpg, 5819.jpg, 5820.jpg, 5821.jpg, 5822.jpg
+videos:
+tags: mujer, nacional, publico
+proveedor: nacional

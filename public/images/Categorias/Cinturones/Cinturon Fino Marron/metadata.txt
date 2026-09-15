@@ -2,7 +2,7 @@ title: Cinturon Fino Marron
 subtitle: Cuero Vacuno Nacional
 description: Cuero marron fino con hebilla plateada y pasador. Sobrio.
 code: CIN-348
-images: 5843.jpg, 5845.jpg, 5846.jpg, 5847.jpg
+images: 5843.jpg, 5846.jpg, 5847.jpg
 videos:
 tags: hombre, nacional, publico
 proveedor: nacional
