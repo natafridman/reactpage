@@ -71,6 +71,17 @@
     --h3: 1.3rem;
 }
 
+/* Monitores anchos: el contenido se ensancha y el margen lateral se achica en
+   proporcion, en vez de dejar dos franjas vacias con las tarjetas chicas en el
+   medio. Lo usan header, landing, catalogo y ficha, asi que todo sigue
+   alineado entre si. */
+@media (min-width: 1400px) {
+    :root {
+        --content-max: min(1720px, 94vw);
+        --gutter: clamp(1.5rem, 2vw, 2.25rem);
+    }
+}
+
 [data-theme="dark"] {
     --b2-cognac-hover: #D49A8D;
     --b2-cognac-rgb: 192, 138, 126;
@@ -1461,6 +1472,8 @@ body {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
+    /* El scroll para de a una miniatura, no en cualquier punto. */
+    scroll-snap-type: y mandatory;
     /* La barra de posicion es propia (.rail-bar): la nativa se oculta porque
        en iOS no aparece hasta que se desliza. */
     scrollbar-width: none;
@@ -1470,11 +1483,14 @@ body {
 .gallery-item {
     flex: 0 0 auto;
     width: 100%;
-    aspect-ratio: 4 / 5;
+    /* Mismo alto para todas, tomado de la foto mas alta del producto (lo
+       calcula la ficha y lo pasa en --thumb-ratio). */
+    aspect-ratio: 1 / var(--thumb-ratio, 1.25);
     border: 0;
     padding: 0;
     overflow: hidden;
-    border-radius: var(--r-sm);
+    border-radius: 0;
+    scroll-snap-align: start;
     cursor: pointer;
     position: relative;
     background: var(--b2-white);
@@ -1499,9 +1515,9 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-    /* A todo el cuadro: las fotos son 4:5 igual que la miniatura, asi que
-       llena sin recortar nada. Con `contain` quedaban chiquitas y flotando. */
+    /* Llena el cuadro: lo que sobra se recorta por los costados, centrado. */
     object-fit: cover;
+    object-position: center;
 }
 
 /* ===== FOOTER STYLES ===== */
@@ -5249,6 +5265,8 @@ html {
         height: auto;
         overflow-x: auto;
         overflow-y: hidden;
+        /* En fila el enganche va para el otro lado. */
+        scroll-snap-type: x mandatory;
     }
 
     .hero-side .gallery-item {

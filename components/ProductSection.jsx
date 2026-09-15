@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { medSrc, quoteWhatsappUrl, buildCartItem } from '/utils/productUtils.js';
+import { medSrc, thumbSrc, quoteWhatsappUrl, buildCartItem } from '/utils/productUtils.js';
 import { flyToCart } from '/utils/flyToCart.js';
 import { useCart } from '/context/CartContext.jsx';
 import QtyStepper from '/components/QtyStepper.jsx';
@@ -20,6 +20,9 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
   const [sentido, setSentido] = useState(1);
   const rielRef = useRef(null);
   const [flechas, setFlechas] = useState(false);
+  // Alto comun de las miniaturas, en proporcion (alto/ancho). Se calcula abajo,
+  // cuando se conocen las fotos del producto.
+  const [altoMiniatura, setAltoMiniatura] = useState(1.25);
 
   // Las flechas del riel solo aparecen si hay mas miniaturas de las que entran.
   useEffect(() => {
@@ -31,7 +34,10 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
     ro && ro.observe(el);
     window.addEventListener('resize', medir);
     return () => { ro && ro.disconnect(); window.removeEventListener('resize', medir); };
-  }, []);
+    // El alto de la miniatura se define despues de medir las fotos, asi que hay
+    // que volver a preguntar si sobran: el observer mira el tamaño del riel, que
+    // no cambia, y no el del contenido.
+  }, [altoMiniatura, productFolder]);
 
   function verFoto(i) {
     setSentido(i > (activa === null ? 0 : activa) ? 1 : -1);
@@ -84,6 +90,34 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
   const indiceActivo = activa === null ? 0 : activa;
   const fotoPrincipal = imageList[indiceActivo] || imageList[0] || 'hero.jpg';
 
+  // Todas las miniaturas miden lo mismo de alto, y ese alto sale de la foto mas
+  // alta del producto: asi esa entra completa y las mas anchas se recortan por
+  // los costados, centradas. Se mide sobre las miniaturas de 280px (livianas),
+  // no sobre las fotos grandes.
+  useEffect(() => {
+    if (!imageList.length) return undefined;
+    let vivo = true;
+    let mayor = 0;
+    let faltan = imageList.length;
+    const listo = () => {
+      if (--faltan === 0 && vivo && mayor > 0) {
+        // Un tope por si alguna foto es desproporcionadamente alta: sin el, el
+        // riel entraria dos miniaturas y nada mas.
+        setAltoMiniatura(Math.min(1.5, Math.max(1, mayor)));
+      }
+    };
+    imageList.forEach((f) => {
+      const im = new Image();
+      im.onload = () => {
+        if (im.naturalWidth) mayor = Math.max(mayor, im.naturalHeight / im.naturalWidth);
+        listo();
+      };
+      im.onerror = listo;
+      im.src = thumbSrc(`${productPath}/${f}`);
+    });
+    return () => { vivo = false; };
+  }, [productFolder, imageList.length]);
+
   function handleShare() {
     const url = `${window.location.origin}/producto/${encodeURIComponent(category)}/${encodeURIComponent(productFolder)}`;
     navigator.clipboard.writeText(url).then(() => {
@@ -109,7 +143,7 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
     <section className="product-section" data-product={productFolder}>
       <div className="hero-side">
         {imageList.length > 1 && (
-          <div className="gallery-rail">
+          <div className="gallery-rail" style={{ '--thumb-ratio': altoMiniatura }}>
             {flechas && (
               <button type="button" className="rail-arrow rail-arrow-prev" onClick={() => correrRiel(-1)} aria-label="Ver miniaturas anteriores">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15" /></svg>

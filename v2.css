@@ -184,7 +184,7 @@
   gap: 0.55rem;
   text-decoration: none;
   color: inherit;
-  width: clamp(88px, 8.2vw, 118px);
+  width: clamp(88px, 8.2vw, 150px);
 }
 .v2-tile-media {
   display: block;
@@ -559,22 +559,26 @@
   text-transform: uppercase;
   color: var(--b2-gray);
 }
-.catalog-v2 .v2-filter-chips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+/* Las sub-opciones van como la lista de categorias de arriba, no como
+   pastillas: en una columna angosta, seis pastillas sueltas se amontonan y
+   cada una pide su propio borde. */
+.catalog-v2 .v2-filter-chips { display: flex; flex-direction: column; gap: 0.3rem; }
 .catalog-v2 .v2-fchip {
-  min-height: 36px;
-  padding: 0 0.85rem;
-  border-radius: var(--r-pill);
-  border: 1.5px solid var(--b2-border);
-  background: var(--b2-white);
-  color: var(--b2-black);
+  min-height: 0;
+  padding: 0.28rem 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  text-align: left;
   font: inherit;
-  font-size: 0.86rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--b2-gray);
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+  transition: color 0.15s ease;
 }
-.catalog-v2 .v2-fchip:hover { background: var(--v2-tint-1); border-color: var(--v2-tint-3); color: var(--b2-cognac); }
-.catalog-v2 .v2-fchip.is-on { background: var(--b2-cognac); border-color: var(--b2-cognac); color: #fff; }
+.catalog-v2 .v2-fchip:hover { background: none; border: 0; color: var(--b2-cognac); }
+.catalog-v2 .v2-fchip.is-on { background: none; border: 0; color: var(--b2-black); font-weight: 600; }
 /* Buscador bien visible: blanco, borde marcado y sombra suave sobre la crema. */
 .catalog-v2 .toolbar-search-input {
   font-size: 1rem;
@@ -866,7 +870,7 @@
 .catalog-v2 .v2-cats {
   display: flex;
   flex-direction: column;
-  gap: 0.05rem;
+  gap: 0.3rem;
 }
 
 .catalog-v2 .v2-cat-link {
@@ -956,4 +960,11 @@
   top: auto;
   max-height: none;
   overflow: visible;
+}
+
+/* En pantallas anchas el catalogo respira mas entre la columna de filtros y
+   la grilla. El ancho de pagina lo maneja --content-max, en index.css. */
+@media (min-width: 1400px) {
+  .catalog-v2 .catalog-layout { column-gap: 2.25rem; }
+}
 }

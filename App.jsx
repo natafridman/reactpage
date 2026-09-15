@@ -928,11 +928,13 @@ function App({ variant } = {}) {
                       );
                     })}
                   </div>
-                  <p className="v2-swatches-note" aria-live="polite">
-                    {selectedColors.length
-                      ? selectedColors.map((k) => COLOR_GROUPS.find((g) => g.key === k)?.label).filter(Boolean).join(', ')
-                      : 'Elegí uno o más colores'}
-                  </p>
+                  {/* Solo se nombra lo elegido: el "Elegí uno o más colores"
+                      explicaba algo que los circulos ya dicen solos. */}
+                  {selectedColors.length > 0 && (
+                    <p className="v2-swatches-note" aria-live="polite">
+                      {selectedColors.map((k) => COLOR_GROUPS.find((g) => g.key === k)?.label).filter(Boolean).join(', ')}
+                    </p>
+                  )}
                 </div>
               )}
             </aside>
