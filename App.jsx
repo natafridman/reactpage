@@ -630,42 +630,9 @@ function App({ variant } = {}) {
     }
   }, [modalDisplay]);
 
-  // ===== GALLERY ITEM CLICKS =====
-  useEffect(() => {
-    if (pageProducts.length === 0) return;
-
-    const timer = setTimeout(() => {
-      const productSections = document.querySelectorAll('.product-section');
-
-      productSections.forEach(function (section) {
-        const allImgs = [];
-        // Use the full-resolution original (data-full) for the modal, not the
-        // medium display variant the <img> actually renders.
-        const fullOf = (el) => el.dataset.full || el.src;
-        const heroImg = section.querySelector('.hero-image-wrapper img');
-        if (heroImg) allImgs.push(fullOf(heroImg));
-        const galleryImgs = section.querySelectorAll('.gallery-item img');
-        galleryImgs.forEach(img => allImgs.push(fullOf(img)));
-
-        if (heroImg) {
-          heroImg.style.cursor = 'pointer';
-          heroImg.onclick = () => openModal(fullOf(heroImg), allImgs);
-        }
-
-        const galleryItems = section.querySelectorAll('.gallery-item');
-        galleryItems.forEach(function (item) {
-          item.style.cursor = 'pointer';
-          const handleClick = function () {
-            const img = this.querySelector('img');
-            if (img) openModal(fullOf(img), allImgs);
-          };
-          item.addEventListener('click', handleClick);
-        });
-      });
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [displayKey, isLoading]);
+  // La vista previa la abre la ficha (ProductSection) desde su propio manejador:
+  // antes se enganchaba a mano sobre el DOM y se pisaba con el clic de las
+  // miniaturas, que ahora sirven para cambiar la foto principal.
 
   // ===== MODAL FUNCTIONS =====
   function closeModal() {

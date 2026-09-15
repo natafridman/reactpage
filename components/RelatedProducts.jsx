@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ProductSlideshow from '/components/ProductSlideshow.jsx';
-import { loadManifest, parseMetadata, medSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
+import ProductCard from '/components/ProductCard.jsx';
+import { loadManifest, parseMetadata, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
-// "También te puede interesar" - full-width slideshow on the single-product page.
-// Prefers products from the same category, then fills with others.
-// Con `explore` (pie del catalogo) invierte la logica: muestra productos de
-// OTRAS categorias, para seguir explorando el resto del catalogo.
+// "También te puede interesar": una fila con las mismas tarjetas del catalogo.
+// Antes era un pase de diapositivas de una tarjeta gigante con puntitos; la
+// tienda de referencia muestra simplemente cuatro productos como en la grilla,
+// que ademas es lo que el visitante ya sabe leer.
+// Con `explore` (pie del catalogo) muestra productos de OTRAS categorias.
 function RelatedProducts({ category, folder, explore = false }) {
-  const navigate = useNavigate();
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -32,9 +31,9 @@ function RelatedProducts({ category, folder, explore = false }) {
           pool = shuffle(
             (manifest[category] || []).filter((f) => f !== folder).map((f) => ({ cat: category, folder: f }))
           );
-          if (pool.length < 8) pool = pool.concat(shuffle(others));
+          if (pool.length < 4) pool = pool.concat(shuffle(others));
         }
-        const picked = pool.slice(0, 8);
+        const picked = pool.slice(0, 4);
 
         const loaded = await Promise.all(picked.map(async ({ cat, folder: f }) => {
           try {
@@ -43,17 +42,8 @@ function RelatedProducts({ category, folder, explore = false }) {
             const meta = parseMetadata(await res.text());
             const imgs = Array.isArray(meta.images) ? meta.images : [];
             if (!imgs.length) return null;
-            const full = `/${IMAGES_BASE_FOLDER}/${cat}/${f}/${imgs[0]}`;
-            return {
-              key: `${cat}-${f}`,
-              src: medSrc(full),
-              full,
-              eyebrow: cat,
-              title: meta.title || f,
-              description: meta.subtitle || '',
-              cta: 'Ver producto',
-              onClick: () => navigate(`/producto/${encodeURIComponent(cat)}/${encodeURIComponent(f)}`),
-            };
+            // La misma forma que usa la grilla, asi la tarjeta es identica.
+            return { metadata: meta, category: cat, productFolder: f, availableImages: imgs };
           } catch { return null; }
         }));
 
@@ -63,19 +53,19 @@ function RelatedProducts({ category, folder, explore = false }) {
       }
     })();
     return () => { alive = false; };
-  }, [category, folder, navigate]);
+  }, [category, folder, explore]);
 
   if (items.length < 3) return null;
 
   return (
-    <section className="catalog-rail-section related-section">
-      <div className="featured-container">
-        <div className="featured-header">
-          <h2 className="featured-title">También te puede interesar</h2>
-          <div className="featured-divider"></div>
+    <section className="related-section">
+      <div className="related-inner">
+        <h2 className="related-title">{explore ? 'Seguí explorando' : 'También te puede interesar'}</h2>
+        <div className="related-grid">
+          {items.map((p) => (
+            <ProductCard key={`${p.category}/${p.productFolder}`} product={p} />
+          ))}
         </div>
-
-        <ProductSlideshow items={items} autoplay={false} />
       </div>
     </section>
   );

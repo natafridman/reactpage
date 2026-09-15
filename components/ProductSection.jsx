@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { medSrc, quoteWhatsappUrl, buildCartItem } from '/utils/productUtils.js';
 import { flyToCart } from '/utils/flyToCart.js';
@@ -9,13 +9,49 @@ import QtyStepper from '/components/QtyStepper.jsx';
 // grande, a la derecha el nombre, la descripcion y los botones. El nombre ya no
 // va dentro de un recuadro encima de la foto (tapaba el producto) y el orden es
 // siempre el mismo, sin alternar lado por producto.
-function ProductSection({ product, showBackLink = false, onReturn }) {
+function ProductSection({ product, onImageClick, showBackLink = false, onReturn }) {
   const navigate = useNavigate();
   const { items, addItem, increment, decrement } = useCart();
   const { metadata, category, productFolder, availableImages } = product;
   const [copied, setCopied] = useState(false);
   // null = lo que se muestra al abrir (el video si hay, si no la primera foto)
   const [activa, setActiva] = useState(null);
+  // 1 = la nueva entra desde la derecha, -1 desde la izquierda
+  const [sentido, setSentido] = useState(1);
+  const rielRef = useRef(null);
+  const [flechas, setFlechas] = useState(false);
+
+  // Las flechas del riel solo aparecen si hay mas miniaturas de las que entran.
+  useEffect(() => {
+    const el = rielRef.current;
+    if (!el) return undefined;
+    const medir = () => setFlechas(el.scrollHeight - el.clientHeight > 4 || el.scrollWidth - el.clientWidth > 4);
+    medir();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(medir) : null;
+    ro && ro.observe(el);
+    window.addEventListener('resize', medir);
+    return () => { ro && ro.disconnect(); window.removeEventListener('resize', medir); };
+  }, []);
+
+  function verFoto(i) {
+    setSentido(i > (activa === null ? 0 : activa) ? 1 : -1);
+    setActiva(i);
+    // Que la miniatura elegida quede a la vista dentro del riel.
+    const el = rielRef.current;
+    const hijo = el && el.children[i];
+    if (hijo) hijo.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+
+  // Desplaza el riel una miniatura, en la direccion que corresponda segun este
+  // en columna (escritorio) o en fila (telefono).
+  function correrRiel(paso) {
+    const el = rielRef.current;
+    if (!el) return;
+    const hijo = el.children[0];
+    const salto = hijo ? (el.scrollHeight > el.clientHeight ? hijo.offsetHeight + 10 : hijo.offsetWidth + 10) : 100;
+    if (el.scrollHeight > el.clientHeight) el.scrollBy({ top: paso * salto, behavior: 'smooth' });
+    else el.scrollBy({ left: paso * salto, behavior: 'smooth' });
+  }
 
   const cartItem = buildCartItem(product);
   const qty = items.find((i) => i.key === cartItem.key)?.qty || 0;
@@ -61,13 +97,18 @@ function ProductSection({ product, showBackLink = false, onReturn }) {
       <div className="hero-side">
         {imageList.length > 1 && (
           <div className="gallery-rail">
-            <div className="gallery-rail-track">
+            {flechas && (
+              <button type="button" className="rail-arrow rail-arrow-prev" onClick={() => correrRiel(-1)} aria-label="Ver miniaturas anteriores">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
+              </button>
+            )}
+            <div className="gallery-rail-track" ref={rielRef}>
               {imageList.map((filename, idx) => (
                 <button
                   type="button"
                   key={filename}
                   className={`gallery-item${!mostrandoVideo && idx === indiceActivo ? ' is-on' : ''}`}
-                  onClick={() => setActiva(idx)}
+                  onClick={() => verFoto(idx)}
                   aria-label={`Ver foto ${idx + 1} de ${metadata.title || productFolder}`}
                 >
                   <img
@@ -85,6 +126,11 @@ function ProductSection({ product, showBackLink = false, onReturn }) {
                 </button>
               ))}
             </div>
+            {flechas && (
+              <button type="button" className="rail-arrow rail-arrow-next" onClick={() => correrRiel(1)} aria-label="Ver más miniaturas">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+              </button>
+            )}
           </div>
         )}
 
@@ -95,11 +141,13 @@ function ProductSection({ product, showBackLink = false, onReturn }) {
             </video>
           ) : (
             <img
+              key={fotoPrincipal}
               src={medSrc(`${productPath}/${fotoPrincipal}`)}
               alt={metadata.title}
-              className="hero-image"
+              className={`hero-image entra-${sentido > 0 ? 'derecha' : 'izquierda'}`}
               loading="lazy"
               decoding="async"
+              onClick={() => onImageClick && onImageClick(`${productPath}/${fotoPrincipal}`, imageList.map((f) => `${productPath}/${f}`))}
               onError={(e) => {
                 if (!e.target.dataset.fallback) {
                   e.target.dataset.fallback = '1';

@@ -1342,12 +1342,6 @@ body {
     height: 100%;
     /* Producto sobre blanco: se muestra entero, no recortado. */
     object-fit: contain;
-    transform: scale(1);
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.product-section:hover .hero-image {
-    transform: scale(1.02);
 }
 
 .reveal-in /* ===== GALLERY SIDE ===== */
@@ -1473,7 +1467,7 @@ body {
     flex: 0 0 auto;
     width: 100%;
     aspect-ratio: 4 / 5;
-    border: 1px solid var(--b2-border);
+    border: 0;
     padding: 0;
     overflow: hidden;
     border-radius: var(--r-sm);
@@ -2196,20 +2190,11 @@ body {
     transform: translateY(25px);
 }
 
+/* Las tarjetas se ven desde el primer momento: no aparecen de a una al
+   scrollear. En una grilla larga esa entrada escalonada solo hace esperar. */
 .product-card.card-visible {
     opacity: 1;
-    transform: translateY(0);
-    /* Reveal runs as an animation (not a transition) so the per-column stagger
-       delay never slows down the hover lift afterwards. */
-    animation: card-reveal 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-    animation-delay: calc(var(--stagger, 0) * 80ms);
-}
-
-@keyframes card-reveal {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
+    transform: none;
 }
 
 a.product-card-image,
@@ -2238,15 +2223,10 @@ a.product-card-info {
     display: block;
     object-fit: cover;
     object-position: center;
-    transition: transform var(--img-hover-dur) var(--ease-soft);
 }
 
 [data-theme="dark"] .product-card-image {
     background: #f4f0ef;
-}
-
-.product-card:hover .product-card-image img {
-    transform: scale(var(--img-hover-scale));
 }
 
 .card-img-prev { left: 8px; }
@@ -5257,14 +5237,15 @@ html {
     text-wrap: balance;
 }
 
-/* La miniatura que se esta viendo queda marcada. */
-.gallery-item.is-on {
-    border-color: var(--b2-cognac);
-    box-shadow: 0 0 0 1px var(--b2-cognac);
+/* La que se esta viendo va entera; las otras, apagadas. Sin recuadros. */
+.gallery-item {
+    opacity: 0.45;
+    transition: opacity 0.15s ease;
 }
 
+.gallery-item.is-on,
 .gallery-item:hover {
-    border-color: var(--b2-cognac);
+    opacity: 1;
 }
 
 @media (max-width: 1024px) {
@@ -5308,4 +5289,89 @@ html {
         aspect-ratio: 4 / 5;
         max-height: 44vh;
     }
+}
+
+/* --- También te puede interesar: la misma tarjeta del catalogo, en fila --- */
+.related-section {
+    background: var(--b2-white);
+    padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--line-soft, var(--b2-border));
+}
+
+.related-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+
+.related-title {
+    font-family: var(--b2-display);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    letter-spacing: -0.01em;
+    margin: 0 0 1.4rem;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem 1.75rem;
+}
+
+@media (max-width: 900px) {
+    .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.5rem 0.9rem;
+    }
+}
+
+/* --- Ficha: flechas del riel y cambio de foto con deslizamiento --- */
+.gallery-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.rail-arrow {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 22px;
+    border: 0;
+    background: none;
+    color: var(--b2-gray);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    padding: 0;
+}
+
+.rail-arrow:hover { color: var(--b2-cognac); }
+
+.hero-image-wrapper { cursor: zoom-in; }
+
+/* La foto nueva entra corrida desde el lado por el que se avanza. */
+@keyframes foto-desde-derecha {
+    from { opacity: 0; transform: translateX(4%); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes foto-desde-izquierda {
+    from { opacity: 0; transform: translateX(-4%); }
+    to { opacity: 1; transform: none; }
+}
+
+.hero-image.entra-derecha { animation: foto-desde-derecha 0.28s ease-out; }
+.hero-image.entra-izquierda { animation: foto-desde-izquierda 0.28s ease-out; }
+
+@media (max-width: 1024px) {
+    /* En fila las flechas van a los costados. */
+    .hero-side .gallery-rail { flex-direction: row; }
+    .hero-side .rail-arrow { width: 26px; height: auto; align-self: stretch; }
+    .hero-side .rail-arrow svg { transform: rotate(-90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-image.entra-derecha,
+    .hero-image.entra-izquierda { animation: none; }
 }
