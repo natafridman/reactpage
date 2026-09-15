@@ -59,9 +59,13 @@ function App({ variant } = {}) {
     const params = new URLSearchParams(window.location.search);
     return parseInt(params.get('pagina')) || 1;
   });
-  const [viewMode, setViewMode] = useState(() => {
+  // Una sola vista: grilla. La "vista detallada" se saco, asi que no hay nada
+  // que elegir ni que recordar entre visitas.
+  const viewMode = 'grid';
+  const setViewMode = () => {};
+  const _viewModeSinUsar = (() => {
     const params = new URLSearchParams(window.location.search);
-    return params.get('vista') || localStorage.getItem('b2you-viewMode') || DEFAULT_VIEW_MODE;
+    return DEFAULT_VIEW_MODE;
   });
 
   // Search + filter state
@@ -785,6 +789,30 @@ function App({ variant } = {}) {
             <div className="v2-cat-title-row">
               <h1 className="v2-cat-title">{selectedCategory || 'Productos'}</h1>
               {!isLoading && <span className="v2-cat-count">{totalFiltered} productos</span>}
+              {/* El buscador va aca arriba, con el titulo: antes vivia solo en
+                  una franja aparte al lado del selector de vista, que ya no
+                  existe. */}
+              <label className="toolbar-search v2-cat-search">
+                <svg className="toolbar-search-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m20 20-3.2-3.2" />
+                </svg>
+                <input
+                  className="toolbar-search-input"
+                  type="search"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  placeholder="Buscar en el catálogo"
+                  aria-label="Buscar productos"
+                />
+                {searchInput && (
+                  <button type="button" className="toolbar-search-clear" onClick={() => setSearchInput('')} aria-label="Borrar la búsqueda">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round">
+                      <path d="M6 6l12 12M18 6L6 18" />
+                    </svg>
+                  </button>
+                )}
+              </label>
             </div>
             <div className={`v2-chips-wrap${chipsMore ? ' has-more' : ''}`}>
             <nav className="v2-chips" aria-label="Categorías" ref={chipsRef} onScroll={updateChipsMore}>
@@ -828,7 +856,7 @@ function App({ variant } = {}) {
       )}
 
       <div className={`catalog-layout${useSidebar ? ' has-sidebar' : ''}`}>
-      {showToolbar && (
+      {showToolbar && variant !== 'v2' && (
         <SearchFilterBar
           searchInput={searchInput}
           onSearchChange={setSearchInput}

@@ -855,3 +855,25 @@
 [data-theme="dark"] .v2 .add-cart-btn svg,
 [data-theme="dark"] .v2 .product-card-add svg { color: var(--p-900); }
 [data-theme="dark"] .v2 .v2-btn-light { background: var(--p-50); border-color: var(--p-50); color: var(--p-900); }
+
+/* Buscador arriba, en la misma linea que el titulo y el conteo. */
+.catalog-v2 .v2-cat-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.catalog-v2 .v2-cat-search {
+  margin-left: auto;
+  flex: 0 1 22rem;
+  align-self: center;
+}
+
+@media (max-width: 720px) {
+  .catalog-v2 .v2-cat-search {
+    margin-left: 0;
+    flex: 1 1 100%;
+    order: 3;
+  }
+}

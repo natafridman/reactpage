@@ -1783,11 +1783,11 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Solo cambia de color. El salto de 2px con sombra que habia aca quedaba muy
+   mal sobre todo en Compartir, que no tiene recuadro. */
 .share-btn:hover {
     background: var(--b2-cognac);
     color: var(--b2-white);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(122, 79, 72, 0.3);
 }
 
 /* Primary add-to-cart button (filled) inside the product actions row. */
@@ -5287,17 +5287,67 @@ html {
     margin: 0 0 1.4rem;
 }
 
-.related-grid {
+.related-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.4rem;
+}
+
+.related-title { margin: 0; }
+
+.related-arrows {
+    display: flex;
+    gap: 0.4rem;
+    margin-left: auto;
+}
+
+.related-arrows button {
+    width: 36px;
+    height: 36px;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem 1.75rem;
+    place-items: center;
+    border: 1px solid var(--b2-border);
+    border-radius: 50%;
+    background: var(--b2-white);
+    color: var(--b2-black);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.related-arrows button:hover:not(:disabled) {
+    border-color: var(--b2-cognac);
+    color: var(--b2-cognac);
+}
+
+.related-arrows button:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+
+/* Fila que se desliza: cuatro a la vista en escritorio, dos en el telefono.
+   Se puede arrastrar con el dedo y con las flechas de arriba. */
+.related-rail {
+    display: flex;
+    gap: 1.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 0.25rem;
+}
+
+.related-rail::-webkit-scrollbar { display: none; }
+
+.related-rail > * {
+    flex: 0 0 calc((100% - 3 * 1.75rem) / 4);
+    scroll-snap-align: start;
 }
 
 @media (max-width: 900px) {
-    .related-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.5rem 0.9rem;
-    }
+    .related-rail { gap: 0.9rem; }
+    .related-rail > * { flex: 0 0 calc((100% - 0.9rem) / 2); }
+    .related-arrows { display: none; }
 }
 
 /* --- Ficha: flechas del riel y cambio de foto con deslizamiento --- */

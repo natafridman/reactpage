@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ProductCard from '/components/ProductCard.jsx';
 import { loadManifest, parseMetadata, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
@@ -9,6 +9,33 @@ import { loadManifest, parseMetadata, IMAGES_BASE_FOLDER } from '/utils/productU
 // Con `explore` (pie del catalogo) muestra productos de OTRAS categorias.
 function RelatedProducts({ category, folder, explore = false }) {
   const [items, setItems] = useState([]);
+  const rielRef = useRef(null);
+  // Que flecha se puede usar: si no queda nada para ese lado, no se muestra.
+  const [puede, setPuede] = useState({ izq: false, der: false });
+
+  function medir() {
+    const el = rielRef.current;
+    if (!el) return;
+    const resto = el.scrollWidth - el.clientWidth;
+    setPuede({ izq: el.scrollLeft > 4, der: resto - el.scrollLeft > 4 });
+  }
+
+  function correr(paso) {
+    const el = rielRef.current;
+    if (!el) return;
+    const tarjeta = el.children[0];
+    const salto = tarjeta ? tarjeta.getBoundingClientRect().width + 28 : el.clientWidth * 0.8;
+    el.scrollBy({ left: paso * salto, behavior: 'smooth' });
+  }
+
+  useEffect(() => {
+    const el = rielRef.current;
+    if (!el) return undefined;
+    medir();
+    el.addEventListener('scroll', medir, { passive: true });
+    window.addEventListener('resize', medir);
+    return () => { el.removeEventListener('scroll', medir); window.removeEventListener('resize', medir); };
+  }, [items.length]);
 
   useEffect(() => {
     let alive = true;
@@ -31,9 +58,9 @@ function RelatedProducts({ category, folder, explore = false }) {
           pool = shuffle(
             (manifest[category] || []).filter((f) => f !== folder).map((f) => ({ cat: category, folder: f }))
           );
-          if (pool.length < 4) pool = pool.concat(shuffle(others));
+          if (pool.length < 10) pool = pool.concat(shuffle(others));
         }
-        const picked = pool.slice(0, 4);
+        const picked = pool.slice(0, 10);
 
         const loaded = await Promise.all(picked.map(async ({ cat, folder: f }) => {
           try {
@@ -60,8 +87,18 @@ function RelatedProducts({ category, folder, explore = false }) {
   return (
     <section className="related-section">
       <div className="related-inner">
-        <h2 className="related-title">{explore ? 'Seguí explorando' : 'También te puede interesar'}</h2>
-        <div className="related-grid">
+        <div className="related-head">
+          <h2 className="related-title">{explore ? 'Seguí explorando' : 'También te puede interesar'}</h2>
+          <div className="related-arrows">
+            <button type="button" onClick={() => correr(-1)} disabled={!puede.izq} aria-label="Ver anteriores">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+            </button>
+            <button type="button" onClick={() => correr(1)} disabled={!puede.der} aria-label="Ver siguientes">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+            </button>
+          </div>
+        </div>
+        <div className="related-rail" ref={rielRef}>
           {items.map((p) => (
             <ProductCard key={`${p.category}/${p.productFolder}`} product={p} />
           ))}
