@@ -743,6 +743,9 @@ function App({ variant } = {}) {
   function handleCategoryClick(e, cat, sub) {
     e.preventDefault();
     setIsMenuActive(false);
+    // Elegir categoria cambia de pagina: la capa de filtros del telefono se
+    // cierra sola, no tiene sentido quedar tapando el listado nuevo.
+    setFiltersOpen(false);
     navigate(`${base}/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
   }
 
@@ -760,6 +763,15 @@ function App({ variant } = {}) {
   function handleClearFilters() {
     setSelectedTags([]);
   }
+
+  // Con los filtros abiertos en el telefono ocupan toda la pantalla: si el
+  // fondo sigue scrolleando, al cerrar se vuelve a otro lugar del catalogo.
+  useEffect(() => {
+    if (!filtersOpen) return undefined;
+    const previo = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = previo; };
+  }, [filtersOpen]);
 
   const showToolbar = !isSingleProduct && !isLoading;
   // La columna de filtros se dibuja tambien mientras carga: es la que sostiene
@@ -864,6 +876,19 @@ function App({ variant } = {}) {
                 {activeCount > 0 && (
                   <button type="button" className="v2-filters-clear" onClick={handleClearAll}>Limpiar todo</button>
                 )}
+                {/* Solo en telefono, donde los filtros se abren como una capa
+                    encima de todo. En escritorio esta columna esta siempre a la
+                    vista y no hay nada que cerrar. */}
+                <button
+                  type="button"
+                  className="v2-filters-close"
+                  onClick={() => setFiltersOpen(false)}
+                  aria-label="Cerrar los filtros"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                    <path d="M6 6l12 12M18 6L6 18" />
+                  </svg>
+                </button>
               </div>
 
               {/* Las categorias van aca, como lista. Antes eran quince pastillas
@@ -874,7 +899,7 @@ function App({ variant } = {}) {
                   <a
                     className={`v2-cat-link${!selectedCategory ? ' is-on' : ''}`}
                     href="/productos"
-                    onClick={(e) => { e.preventDefault(); navigate('/productos'); }}
+                    onClick={(e) => { e.preventDefault(); setFiltersOpen(false); navigate('/productos'); }}
                   >
                     Todas
                   </a>
@@ -941,6 +966,12 @@ function App({ variant } = {}) {
                   )}
                 </div>
               )}
+
+              <div className="v2-filters-foot">
+                <button type="button" className="v2-filters-apply" onClick={() => setFiltersOpen(false)}>
+                  Aplicar
+                </button>
+              </div>
             </aside>
           </>
         );

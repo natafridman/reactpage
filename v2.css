@@ -527,7 +527,9 @@
   display: grid;
   gap: 2.4rem;
 }
-.catalog-v2 .v2-filters-toggle { display: none; }
+.catalog-v2 .v2-filters-toggle,
+.catalog-v2 .v2-filters-close,
+.catalog-v2 .v2-filters-foot { display: none; }
 .catalog-v2 .v2-filters-head {
   display: flex;
   align-items: baseline;
@@ -768,7 +770,77 @@
     padding: 0.75rem 0 0.5rem;
     gap: 1.1rem;
   }
-  .catalog-v2 .v2-filters.is-open { display: grid; }
+
+  /* Abiertos, los filtros son una capa sobre toda la pantalla: en el telefono
+     empujaban la grilla hacia abajo y habia que scrollear a ciegas para ver
+     que estaba marcado. Va por encima del encabezado (1000) y del boton de
+     WhatsApp (999). */
+  .catalog-v2 .v2-filters.is-open {
+    display: grid;
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    /* La columna de escritorio usa align-self: start, y sobre una capa fija eso
+       la hace medir lo que mide el contenido en vez de la pantalla: quedaba mas
+       alta que la ventana y no scrolleaba. */
+    align-self: auto;
+    align-content: start;
+    gap: 1.9rem;
+    margin: 0;
+    padding: 0 var(--gutter) 6rem;
+    background: var(--b2-white);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* El titulo y el cerrar quedan a la vista aunque la lista sea larga. */
+  .catalog-v2 .v2-filters.is-open .v2-filters-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--b2-white);
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 0.9rem;
+  }
+
+  .catalog-v2 .v2-filters.is-open .v2-filters-close {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    margin-right: calc(var(--gutter) * -0.35);
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--b2-black);
+    cursor: pointer;
+  }
+
+  .catalog-v2 .v2-filters.is-open .v2-filters-foot {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem var(--gutter) calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    background: var(--b2-white);
+    border-top: 1px solid var(--b2-border);
+  }
+
+  .catalog-v2 .v2-filters-apply {
+    width: 100%;
+    min-height: 50px;
+    border: 0;
+    border-radius: var(--r-sm);
+    background: var(--b2-cognac);
+    color: #fff;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
 }
 
 /* ==========================================================================
