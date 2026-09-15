@@ -291,7 +291,9 @@ window.__CAT={"base":"/images/Categorias","cats":["Cinturones","Carteras"],"prod
   const dir = p => D.base + "/" + seg(p.k) + "/" + seg(p.f);
   const thumbUrl = (p, im) => dir(p) + (im.t ? "/.thumbs/" + seg(stem(im.n)) + ".webp" : "/" + seg(im.n));
   // El zoom abre el archivo original, sin recomprimir: es el que hay que juzgar.
-  const bigUrl = (p, im) => dir(p) + "/" + seg(im.n);
+  // Los originales no se despliegan (estan en .gitignore): la version grande
+  // publicada es .med.webp (~1200 px), el tamaño real de estas fotos.
+  const bigUrl = (p, im) => dir(p) + "/.thumbs/" + seg(stem(im.n)) + ".med.webp";
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const startsWithQty = t => /^\s*\d+\s+\S/.test(t);
   const idOf = p => p.k + "/" + p.f;
@@ -543,6 +545,8 @@ window.__CAT={"base":"/images/Categorias","cats":["Cinturones","Carteras"],"prod
     const p = P[pi], im = p.i[k];
     const url = bigUrl(p, im);
     zoomPx.textContent = "";
+    zoomImg.dataset.fb = "";
+    zoomImg.onerror = () => { if (!zoomImg.dataset.fb) { zoomImg.dataset.fb = "1"; zoomImg.src = dir(p) + "/" + seg(im.n); } };
     zoomImg.src = url;
     zoomImg.alt = p.t + " — " + im.n;
     zoomOpen.href = url;

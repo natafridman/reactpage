@@ -125,12 +125,25 @@
   .dlg-foot .status.on { visibility: visible; }
   textarea { width: 100%; min-height: 320px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .75rem; line-height: 1.55; border: 1px solid var(--line); border-radius: 8px; padding: .7rem; background: var(--surface-2); color: var(--ink); resize: vertical; }
 
-  #destList { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .4rem; }
-  .dest { display: flex; align-items: center; gap: .55rem; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: .35rem .5rem; cursor: pointer; }
+  /* Selector de destino a pantalla completa: arriba quedan fijas las fotos que
+     estoy moviendo y abajo la grilla del catalogo, para comparar de un vistazo. */
+  #destDlg { max-width: none; width: 96vw; height: 92vh; display: flex; flex-direction: column; border-radius: 14px; }
+  #destDlg .dlg-body { flex: 1 1 auto; max-height: none; }
+  .movidas { display: flex; align-items: center; gap: .5rem; padding: .6rem 1.25rem; border-bottom: 1px solid var(--line-soft); background: var(--sel-soft); overflow-x: auto; }
+  .movidas .lab { font-size: .7rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--sel); white-space: nowrap; flex: 0 0 auto; }
+  .movidas img { width: 120px; height: 150px; object-fit: contain; background: #fff; border: 2px solid var(--sel); border-radius: 8px; flex: 0 0 auto; }
+  #destList { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .6rem; }
+  .dest { display: flex; flex-direction: column; gap: .35rem; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: .4rem; cursor: pointer; }
   .dest:hover { border-color: var(--accent); background: var(--accent-soft); }
-  .dest img { width: 36px; height: 45px; object-fit: contain; background: #fff; border-radius: 4px; flex: 0 0 auto; }
-  .dest span { font-size: .82rem; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .dest img { width: 100%; aspect-ratio: 4 / 5; object-fit: contain; background: #fff; border-radius: 6px; }
+  .dest span { font-size: .78rem; font-weight: 600; line-height: 1.25; }
   .dest.hidden { display: none; }
+  @media (max-width: 720px) {
+    #destDlg { width: 100vw; height: 100vh; max-width: none; border-radius: 0; }
+    #destList { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: .45rem; }
+    .movidas img { width: 84px; height: 105px; }
+    .movidas { padding: .5rem .9rem; }
+  }
 
   #zoomDlg { max-width: none; width: auto; }
   #zoomDlg img { display: block; width: auto; max-width: min(92vw, 1100px); max-height: 82vh; object-fit: contain; background: #fff; border-radius: 12px 12px 0 0; }
@@ -204,6 +217,7 @@
     <h2>¿A qué cinturón van?</h2>
     <p id="destCount"></p>
   </div>
+  <div class="movidas" id="movidas"></div>
   <div class="dlg-body">
     <label class="search" style="width:100%;margin-bottom:.7rem">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
@@ -249,6 +263,9 @@ window.__FOTOS={"base":"/images/Categorias/Cinturones","grupos":[{"f":"2 Cinturo
   const stem = n => n.replace(/\.[^.]+$/, "");
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const thumb = (f, n) => D.base + "/" + seg(f) + "/.thumbs/" + seg(stem(n)) + ".webp";
+  // Los originales no se despliegan (estan en .gitignore): la version grande
+  // publicada es .med.webp (~1200 px), que es el tamaño real de estas fotos.
+  const grande = (f, n) => D.base + "/" + seg(f) + "/.thumbs/" + seg(stem(n)) + ".med.webp";
   const full = (f, n) => D.base + "/" + seg(f) + "/" + seg(n);
 
   // id de cada foto: "<carpeta de origen>|<archivo>"
@@ -446,6 +463,18 @@ window.__FOTOS={"base":"/images/Categorias/Cinturones","grupos":[{"f":"2 Cinturo
   function abrirDestinos() {
     if (!sel.size) return;
     document.getElementById("destCount").textContent = sel.size + (sel.size === 1 ? " foto seleccionada" : " fotos seleccionadas");
+    // Las fotos que estoy moviendo quedan fijas arriba para comparar.
+    const mv = document.getElementById("movidas");
+    mv.innerHTML = '<span class="lab">' + (sel.size === 1 ? "La que movés" : "Las que movés") + "</span>";
+    sel.forEach(id => {
+      const [f, n] = id.split("|");
+      const im = document.createElement("img");
+      im.loading = "lazy";
+      im.alt = n;
+      im.title = n;
+      im.src = thumb(f, n);
+      mv.appendChild(im);
+    });
     destDlg.showModal();
     document.getElementById("destQ").focus();
   }
@@ -490,8 +519,10 @@ window.__FOTOS={"base":"/images/Categorias/Cinturones","grupos":[{"f":"2 Cinturo
   const zoomImg = document.getElementById("zoomImg");
   function openZoom(id) {
     const [f, n] = id.split("|");
-    const u = full(f, n);
+    const u = grande(f, n);
     zoomImg.src = u;
+    zoomImg.onerror = () => { if (!zoomImg.dataset.fb) { zoomImg.dataset.fb = "1"; zoomImg.src = full(f, n); } };
+    zoomImg.dataset.fb = "";
     zoomImg.alt = n;
     document.getElementById("zoomOpen").href = u;
     document.getElementById("zoomName").textContent = f + " · " + n;
