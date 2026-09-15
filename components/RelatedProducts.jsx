@@ -89,19 +89,25 @@ function RelatedProducts({ category, folder, explore = false }) {
       <div className="related-inner">
         <div className="related-head">
           <h2 className="related-title">{explore ? 'Seguí explorando' : 'También te puede interesar'}</h2>
-          <div className="related-arrows">
-            <button type="button" onClick={() => correr(-1)} disabled={!puede.izq} aria-label="Ver anteriores">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
-            </button>
-            <button type="button" onClick={() => correr(1)} disabled={!puede.der} aria-label="Ver siguientes">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
-            </button>
-          </div>
         </div>
-        <div className="related-rail" ref={rielRef}>
-          {items.map((p) => (
-            <ProductCard key={`${p.category}/${p.productFolder}`} product={p} />
-          ))}
+        {/* Las flechas van a los costados de la fila, con el mismo trazo suelto
+            que las del riel de miniaturas: sin circulo ni borde. */}
+        <div className="related-rail-wrap">
+          {puede.izq && (
+            <button type="button" className="rail-arrow related-arrow related-arrow-prev" onClick={() => correr(-1)} aria-label="Ver anteriores">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+            </button>
+          )}
+          <div className="related-rail" ref={rielRef}>
+            {items.map((p) => (
+              <ProductCard key={`${p.category}/${p.productFolder}`} product={p} />
+            ))}
+          </div>
+          {puede.der && (
+            <button type="button" className="rail-arrow related-arrow related-arrow-next" onClick={() => correr(1)} aria-label="Ver siguientes">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+            </button>
+          )}
         </div>
       </div>
     </section>

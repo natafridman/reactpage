@@ -197,12 +197,12 @@ function LandingV2() {
         </section>
 
         {/* ===== CIRCULOS DE CATEGORIAS ===== */}
-        <section className="v2-section v2-circles" aria-label="Categorías">
-          <div className="v2-circles-row">
+        <section className="v2-section v2-tiles" aria-label="Categorías">
+          <div className="v2-tiles-row">
             {circles.map((c, i) => (
-              <a key={c.name} className="v2-circle v2-reveal" style={{ '--i': i }} href={`/productos?categoria=${encodeURIComponent(c.name)}`} onClick={(e) => goCat(e, c.name)}>
-                <span className="v2-circle-media">{c.image && <img src={c.image} alt="" loading="lazy" decoding="async" />}</span>
-                <span className="v2-circle-name">{c.label}</span>
+              <a key={c.name} className="v2-tile v2-reveal" style={{ '--i': i }} href={`/productos?categoria=${encodeURIComponent(c.name)}`} onClick={(e) => goCat(e, c.name)}>
+                <span className="v2-tile-media">{c.image && <img src={c.image} alt="" loading="lazy" decoding="async" />}</span>
+                <span className="v2-tile-name">{c.label}</span>
               </a>
             ))}
           </div>
@@ -212,10 +212,12 @@ function LandingV2() {
         <section className="v2-section v2-banners">
           {BANNERS.map((b, i) => (
             <a key={b.cat} className={`v2-banner v2-reveal${b.contain ? ' v2-banner--contain' : ''}`} style={{ '--i': i }} href={`/productos?categoria=${encodeURIComponent(b.cat)}`} onClick={(e) => goCat(e, b.cat)}>
-              <img src={medSrc(b.photo)} alt="" loading="lazy" decoding="async" style={{ objectPosition: b.pos }} />
+              <span className="v2-banner-media">
+                <img src={medSrc(b.photo)} alt="" loading="lazy" decoding="async" style={{ objectPosition: b.pos }} />
+              </span>
               <span className="v2-banner-body">
                 <span className="v2-banner-title">{b.title}</span>
-                <span className="v2-banner-cta">Ver más</span>
+                <span className="v2-banner-cta">Ver más <span aria-hidden="true">→</span></span>
               </span>
             </a>
           ))}

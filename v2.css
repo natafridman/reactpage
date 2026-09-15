@@ -167,8 +167,8 @@
 /* ==========================================================================
    CÍRCULOS DE CATEGORÍAS (acceso rápido).
    ========================================================================== */
-.v2-circles { padding-top: clamp(1.75rem, 4vw, 3rem); padding-bottom: 0.5rem; }
-.v2-circles-row {
+.v2-tiles { padding-top: clamp(1.75rem, 4vw, 3rem); padding-bottom: 0.5rem; }
+.v2-tiles-row {
   display: flex;
   justify-content: center;
   gap: clamp(0.9rem, 2.4vw, 2.2rem);
@@ -176,8 +176,8 @@
   scrollbar-width: none;
   padding-bottom: 0.4rem;
 }
-.v2-circles-row::-webkit-scrollbar { display: none; }
-.v2-circle {
+.v2-tiles-row::-webkit-scrollbar { display: none; }
+.v2-tile {
   flex: 0 0 auto;
   display: grid;
   justify-items: center;
@@ -186,38 +186,36 @@
   color: inherit;
   width: clamp(88px, 8.2vw, 118px);
 }
-.v2-circle-media {
+.v2-tile-media {
   display: block;
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 50%;
-  background: #fff;
-  border: 1px solid var(--b2-border);
+  /* Recuadros, no burbujas: sin borde ni sombra, como el resto del sitio. */
+  border-radius: var(--r-md);
+  background: var(--b2-cream);
+  border: 0;
   overflow: hidden;
-  box-shadow: 0 8px 22px rgba(var(--b2-cognac-rgb), 0.1);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
-.v2-circle-media img {
+.v2-tile-media img {
   width: 100%;
   height: 100%;
   /* Las fotos traen margen blanco propio (reencuadre 4:5), asi que un padding
      chico no alcanza: se recorta con cover y se acerca con escala. */
   object-fit: cover;
   padding: 0;
-  transform: scale(1);
   display: block;
-  transition: transform var(--img-hover-dur, 0.9s) var(--ease-soft, ease);
+  transition: opacity 0.15s ease;
 }
-.v2-circle:hover .v2-circle-media { border-color: var(--b2-cognac); box-shadow: 0 10px 26px rgba(var(--b2-cognac-rgb), 0.2); }
-.v2-circle:hover .v2-circle-media img { transform: scale(1.03); }
-.v2-circle-name {
+/* El mismo gesto que la grilla y el menu: la foto se apaga un poco. */
+.v2-tile:hover .v2-tile-media img { opacity: 0.72; }
+.v2-tile-name {
   font-size: 0.86rem;
   font-weight: 600;
   text-align: center;
   color: var(--b2-black);
   transition: color 0.2s ease;
 }
-.v2-circle:hover .v2-circle-name { color: var(--b2-cognac); }
+.v2-tile:hover .v2-tile-name { color: var(--b2-cognac); }
 
 /* ==========================================================================
    BANNERS CON FOTO: dos por fila, nombre en Fraunces y "Ver más".
@@ -229,69 +227,55 @@
   padding-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 .v2-banner {
-  position: relative;
+  /* Foto arriba y nombre debajo, como las tarjetas del catalogo. Antes el
+     nombre iba encima de la foto con un degradado marron: sobre fotos claras
+     quedaba una mancha sucia en la mitad de abajo. */
+  display: grid;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+.v2-banner-media {
   display: block;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 4 / 3;
   border-radius: var(--v2-radius);
   overflow: hidden;
-  background: var(--b2-espresso);
-  text-decoration: none;
-  color: #FBF7F4;
+  background: var(--b2-cream);
 }
-.v2-banner {
-  box-shadow: 0 12px 30px rgba(var(--b2-cognac-rgb), 0.1);
-  transition: transform 0.35s var(--ease-soft, ease), box-shadow 0.35s ease;
-}
-.v2-banner:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(var(--b2-cognac-rgb), 0.16); }
 .v2-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform var(--img-hover-dur, 0.9s) var(--ease-soft, ease);
+  transition: opacity 0.15s ease;
 }
-.v2-banner--contain { background: #fff; }
+.v2-banner--contain .v2-banner-media { background: #fff; }
 .v2-banner--contain img { object-fit: contain; padding: 6% 10%; }
-.v2-banner::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(67, 47, 40, 0) 45%, rgba(67, 47, 40, 0.74) 100%);
-}
-.v2-banner:hover img { transform: scale(var(--img-hover-scale, 1.018)); }
+.v2-banner:hover img { opacity: 0.72; }
 .v2-banner-body {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
   display: flex;
-  align-items: flex-end;
+  align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  padding: clamp(1rem, 2.4vw, 1.75rem);
 }
 .v2-banner-title {
   font-family: var(--b2-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
-  line-height: 1;
+  font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+  line-height: 1.1;
   letter-spacing: -0.01em;
+  color: var(--b2-black);
 }
 .v2-banner-cta {
   flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  min-height: 38px;
-  padding: 0 1rem;
-  border-radius: var(--r-pill);
-  background: rgba(251, 247, 244, 0.94);
-  color: var(--p-900);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  color: var(--b2-cognac);
 }
+.v2-banner-cta span { display: inline-block; transition: transform 0.2s ease; }
+.v2-banner:hover .v2-banner-cta span { transform: translateX(3px); }
 
 /* ==========================================================================
    BANDA DE BENEFICIOS: cognac plano, tres pasos con ícono.
@@ -812,8 +796,8 @@
   .v2-announce-set.is-dup { display: flex; }
   .v2-announce-set span:first-child { border-left: 1px solid rgba(251, 247, 244, 0.28); }
   @keyframes v2-marquee { to { transform: translateX(-50%); } }
-  .v2-circles-row { justify-content: flex-start; gap: 0.9rem; margin: 0 calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); }
-  .v2-circle { width: 84px; }
+  .v2-tiles-row { justify-content: flex-start; gap: 0.9rem; margin: 0 calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); }
+  .v2-tile { width: 84px; }
   .v2-banners { grid-template-columns: 1fr; gap: 0.75rem; }
   .v2-banner { aspect-ratio: 4 / 3; }
   .v2-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
@@ -824,7 +808,7 @@
 @media (prefers-reduced-motion: reduce) {
   .v2-reveal { opacity: 1; transform: none; transition: none; }
   .v2-hero-photo-img { animation: none; }
-  .v2-btn, .v2-circle-media, .v2-circle-media img, .v2-banner img, .catalog-v2 .v2-chip { transition: none; }
+  .v2-btn, .v2-tile-media, .v2-tile-media img, .v2-banner img, .catalog-v2 .v2-chip { transition: none; }
 }
 
 /* Ficha en v2: recuadro de titulo en marron profundo y eyebrow en tinte claro. */

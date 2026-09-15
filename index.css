@@ -5296,33 +5296,28 @@ html {
 
 .related-title { margin: 0; }
 
-.related-arrows {
-    display: flex;
-    gap: 0.4rem;
-    margin-left: auto;
+/* Flechas a los costados de la fila, en el margen de la pagina: el mismo
+   trazo suelto de las miniaturas, sin circulo ni borde. */
+.related-rail-wrap { position: relative; }
+
+/* Gana en especificidad a .rail-arrow, que es ancho completo por el riel
+   vertical de miniaturas. */
+.related-rail-wrap .related-arrow {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 26px;
+    height: 26px;
+    z-index: 2;
 }
 
-.related-arrows button {
-    width: 36px;
-    height: 36px;
-    display: grid;
-    place-items: center;
-    border: 1px solid var(--b2-border);
-    border-radius: 50%;
-    background: var(--b2-white);
-    color: var(--b2-black);
-    cursor: pointer;
-    transition: border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
-}
+.related-rail-wrap .related-arrow-prev { left: calc(var(--gutter) * -1); }
+.related-rail-wrap .related-arrow-next { right: calc(var(--gutter) * -1); }
 
-.related-arrows button:hover:not(:disabled) {
-    border-color: var(--b2-cognac);
-    color: var(--b2-cognac);
-}
-
-.related-arrows button:disabled {
-    opacity: 0.3;
-    cursor: default;
+@media (max-width: 1024px) {
+    /* En pantallas chicas no hay margen donde ponerlas y la fila se arrastra
+       con el dedo, asi que no hacen falta. */
+    .related-arrow { display: none; }
 }
 
 /* Fila que se desliza: cuatro a la vista en escritorio, dos en el telefono.
@@ -5644,3 +5639,11 @@ html {
 }
 
 .mnav-all { grid-column: 1 / -1; padding-top: 0.9rem !important; }
+
+/* La ficha de producto arrancaba pegada al borde del header: la foto tocaba la
+   linea del menu. Le damos aire arriba, a la foto y al texto por igual. */
+.product-section { padding-top: clamp(1.75rem, 3.4vw, 3rem); }
+
+@media (max-width: 1024px) {
+    .product-section { padding-top: 1.25rem; }
+}
