@@ -1327,7 +1327,12 @@ body {
 
 /* ===== HERO SIDE ===== */
 .hero-side {
-    flex: 1;
+    /* Reparto fijo entre foto y texto. Con `flex: 1` a secas el ancho de cada
+       columna terminaba dependiendo del contenido (min-width:auto), asi que un
+       producto con descripcion larga se llevaba mas lugar que uno corto y la
+       ficha se veia distinta en cada producto. */
+    flex: 1 1 58%;
+    min-width: 0;
     min-height: 67vh;
     max-height: 67vh;
     position: relative;
@@ -1361,7 +1366,8 @@ body {
 
 .reveal-in /* ===== GALLERY SIDE ===== */
 .gallery-side {
-    flex: 1;
+    flex: 1 1 42%;
+    min-width: 0;
     min-height: 67vh;
     max-height: 67vh;
     padding: 3rem var(--gutter);
@@ -1468,6 +1474,9 @@ body {
 .gallery-rail-track {
     display: flex;
     flex-direction: column;
+    /* Sin esto el ancho lo define el contenido: con fotos da 84px de casualidad
+       y sin fotos (el esqueleto) da 0. */
+    width: 100%;
     gap: 0.6rem;
     height: 100%;
     overflow-y: auto;
@@ -1820,103 +1829,14 @@ body {
 }
 
 /* ===== LOADING OVERLAY ===== */
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--b2-white);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-.loading-product-skeleton {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-}
 
-.loading-hero-side {
-    flex: 1;
-    background: linear-gradient(
-        90deg,
-        #E5E5E5 0%,
-        #F5F5F5 50%,
-        #E5E5E5 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-}
 
-.loading-gallery-side {
-    flex: 1;
-    padding: 5rem 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--b2-cream);
-}
 
-.loading-number {
-    width: 180px;
-    height: 130px;
-    background: linear-gradient(
-        90deg,
-        #E5E5E5 0%,
-        #F5F5F5 50%,
-        #E5E5E5 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-    margin-bottom: 1.5rem;
-    border-radius: var(--r-sm);
-}
 
-.loading-text {
-    width: 100%;
-    max-width: 580px;
-    height: 100px;
-    background: linear-gradient(
-        90deg,
-        #E5E5E5 0%,
-        #F5F5F5 50%,
-        #E5E5E5 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-    margin-bottom: 2.5rem;
-    border-radius: var(--r-sm);
-}
 
-.loading-gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
-    max-width: 680px;
-}
 
-.loading-gallery-item {
-    aspect-ratio: 1;
-    background: linear-gradient(
-        90deg,
-        #E5E5E5 0%,
-        #F5F5F5 50%,
-        #E5E5E5 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-    border-radius: var(--r-sm);
-}
 
-.loading-gallery-item:nth-child(1) { animation-delay: 0.1s; }
-.loading-gallery-item:nth-child(2) { animation-delay: 0.2s; }
-.loading-gallery-item:nth-child(3) { animation-delay: 0.3s; }
-.loading-gallery-item:nth-child(4) { animation-delay: 0.4s; }
-.loading-gallery-item:nth-child(5) { animation-delay: 0.5s; }
-.loading-gallery-item:nth-child(6) { animation-delay: 0.6s; }
 
 @keyframes shimmer {
     0% {
@@ -2688,20 +2608,6 @@ a.product-card-info {
         max-height: none;
     }
 
-    /* El corrimiento lateral y el ancho de 330px tambien son del layout de dos
-       columnas, y llegan como estilo en linea desde ProductSection: por eso el
-       !important. Aca el recuadro apoya en el borde inferior de la foto y crece
-       hacia arriba, asi que el recorte no lo puede cortar por mas que el titulo
-       o el subtitulo ocupen dos renglones. */
-            .loading-product-skeleton {
-        flex-direction: column;
-    }
-    
-    .loading-hero-side,
-    .loading-gallery-side {
-        width: 100%;
-        min-height: 50vh;
-    }
 }
 
 @media (max-width: 768px) {
@@ -3056,15 +2962,7 @@ a.product-card-info {
 [data-theme="dark"] .loading-hero-side,
 [data-theme="dark"] .loading-number,
 [data-theme="dark"] .loading-text,
-[data-theme="dark"] .loading-gallery-item {
-    background: linear-gradient(90deg, #222 0%, #333 50%, #222 100%);
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
-}
 
-[data-theme="dark"] .loading-gallery-side {
-    background: var(--b2-cream);
-}
 
 /* Keep the viewer backdrop fully opaque in dark mode too; a translucent one
    lets the page bleed through around the cover-flow. */
@@ -5701,6 +5599,58 @@ html {
     pointer-events: none;
 }
 
-/* Ver el comentario en App.jsx: el esqueleto de carga es una capa fija y no
-   ocupa lugar en el flujo. */
-#productsContainer.is-loading { min-height: 78vh; }
+
+/* --- Esqueleto de carga: mismas cajas que el contenido real --- */
+.hueso {
+    display: block;
+    /* Un gris tenido de cognac. Con var(--b2-cream) no se veia nada: ese token
+       es #FAFAF9, casi el mismo color que el fondo de la pagina. */
+    background: rgba(67, 47, 40, 0.07);
+    border-radius: var(--r-sm);
+}
+
+.hueso-foto {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+}
+
+/* Gana a .gallery-item, que pinta el fondo blanco: si no, las miniaturas del
+   esqueleto quedan blancas sobre blanco y no se ven. */
+.gallery-rail-track .gallery-item.hueso {
+    border-radius: 0;
+    opacity: 1;
+    background: rgba(67, 47, 40, 0.07);
+}
+
+.hueso-linea {
+    height: 0.85rem;
+    width: 100%;
+}
+
+.hueso-titulo {
+    height: 2.4rem;
+    width: min(80%, 22rem);
+    margin: 0.35rem 0 0.15rem;
+}
+
+.hueso-parrafo {
+    display: grid;
+    gap: 0.5rem;
+    width: min(100%, 26rem);
+    margin-top: 0.5rem;
+}
+
+.hueso-botones {
+    display: grid;
+    gap: 0.6rem;
+    width: min(100%, 20rem);
+    margin-top: 2.2rem;
+}
+
+.hueso-boton {
+    height: 50px;
+    border-radius: var(--r-sm);
+}
+
+.products-grid .product-card .hueso-linea { margin-bottom: 0.4rem; }

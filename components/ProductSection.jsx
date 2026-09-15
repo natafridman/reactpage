@@ -191,7 +191,10 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
               key={fotoPrincipal}
               src={medSrc(`${productPath}/${fotoPrincipal}`)}
               alt={metadata.title}
-              className={`hero-image entra-${sentido > 0 ? 'derecha' : 'izquierda'}`}
+              /* El deslizamiento es para cuando se cambia de foto. Al abrir la
+                 ficha, `activa` todavia es null: la primera foto entra quieta,
+                 sin fundido lateral. */
+              className={`hero-image${activa !== null ? ` entra-${sentido > 0 ? 'derecha' : 'izquierda'}` : ''}`}
               loading="lazy"
               decoding="async"
               onClick={() => onImageClick && onImageClick(`${productPath}/${fotoPrincipal}`, imageList.map((f) => `${productPath}/${f}`))}

@@ -942,10 +942,7 @@ function App({ variant } = {}) {
         );
       })()}
 
-      {/* Mientras carga, el contenedor igual ocupa alto: el esqueleto es una
-          capa fija y no empuja nada, asi que el pie de pagina quedaba pegado al
-          header y bajaba de golpe cuando llegaba el contenido. */}
-      <main id="productsContainer" className={isLoading ? 'is-loading' : undefined} style={{ position: 'relative' }}>
+      <main id="productsContainer" style={{ position: 'relative' }}>
         {isBelts && !isSingleProduct && !isLoading && (
           <ClaveNacional
             desbloqueado={claveOk}
@@ -954,7 +951,7 @@ function App({ variant } = {}) {
           />
         )}
         {isLoading ? (
-          <LoadingSkeleton />
+          <LoadingSkeleton variant={isSingleProduct ? 'product' : 'grid'} />
         ) : totalFiltered === 0 ? (
           <EmptyState
             searching={qWords.length > 0 || selectedTags.length > 0 || selectedColors.length > 0}
@@ -1064,13 +1061,17 @@ function App({ variant } = {}) {
               </div>
             )}
 
-            {isSingleProduct && products[0] && (
-              <RelatedProducts
-                category={products[0].category}
-                folder={products[0].productFolder}
-              />
-            )}
           </>
+        )}
+
+        {/* Va afuera del "si esta cargando": asi la fila ya reserva su lugar
+            mientras llega el producto, en vez de aparecer despues y empujar
+            todo hacia abajo. La categoria sale de la URL hasta que carga. */}
+        {isSingleProduct && (
+          <RelatedProducts
+            category={products[0]?.category || decodeURIComponent(paramCategoria || '')}
+            folder={products[0]?.productFolder || decodeURIComponent(paramNombre || '')}
+          />
         )}
       </main>
       </div>
