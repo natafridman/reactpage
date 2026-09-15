@@ -136,7 +136,7 @@ function ProductCard({ product, staggerIndex = 0 }) {
               type="button"
               className="product-card-add"
               onClick={addToCart}
-              aria-label={`Agregar ${metadata.title || productFolder} al carrito`}
+              aria-label={`Agregar ${metadata.title || productFolder} al pedido`}
             >
               {/* WhatsApp y no carrito, a proposito, y solo aca. En la tarjeta
                   el boton esta solo, asi que el icono cuenta a donde termina el

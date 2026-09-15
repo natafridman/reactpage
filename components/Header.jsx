@@ -100,7 +100,7 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
         <div className="header-actions">
           <button
             className="cart-toggle"
-            aria-label={count > 0 ? `Abrir carrito (${count})` : 'Abrir carrito'}
+            aria-label={count > 0 ? `Abrir el pedido (${count})` : 'Abrir el pedido'}
             onClick={openCart}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

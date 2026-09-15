@@ -877,3 +877,99 @@
     order: 3;
   }
 }
+
+/* Categorías como lista en la columna izquierda, no como pastillas arriba. */
+.catalog-v2 .v2-cats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.catalog-v2 .v2-cat-link {
+  font-size: 0.9rem;
+  color: var(--b2-gray);
+  text-decoration: none;
+  padding: 0.28rem 0;
+  transition: color 0.15s ease;
+}
+
+.catalog-v2 .v2-cat-link:hover { color: var(--b2-cognac); }
+
+.catalog-v2 .v2-cat-link.is-on {
+  color: var(--b2-black);
+  font-weight: 600;
+}
+
+/* Buscador: un campo con linea, alineado a la derecha del titulo.
+   El icono deja de estar posicionado en absoluto (pisaba el texto al sacarle
+   el relleno al input) y pasa a ser un hermano mas de la fila. */
+.catalog-v2 .v2-cat-search {
+  flex: 0 0 auto;
+  width: min(360px, 46vw);
+  margin-inline: 0;
+  margin-left: auto;
+  gap: 0.55rem;
+  background: var(--b2-cream);
+  border: 1px solid var(--b2-border);
+  border-radius: var(--r-sm);
+  box-shadow: none;
+  padding: 0.15rem 0.9rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.catalog-v2 .v2-cat-search:hover { border-color: var(--b2-light-gray); }
+
+.catalog-v2 .v2-cat-search:focus-within {
+  background: var(--b2-white);
+  border-color: var(--b2-cognac);
+}
+
+.catalog-v2 .v2-cat-search .toolbar-search-icon { color: var(--b2-cognac); }
+
+.catalog-v2 .v2-cat-search .toolbar-search-icon {
+  position: static;
+  flex: 0 0 auto;
+}
+
+.catalog-v2 .v2-cat-search:focus-within .toolbar-search-icon { transform: none; }
+
+.catalog-v2 .v2-cat-search .toolbar-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.95rem;
+  padding: 0.62rem 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.catalog-v2 .v2-cat-search .toolbar-search-input:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+.catalog-v2 .v2-cat-head { padding-bottom: 0.9rem; }
+
+@media (max-width: 720px) {
+  /* En el telefono el buscador baja debajo del titulo y ocupa todo el ancho. */
+  .catalog-v2 .v2-cat-title-row { flex-wrap: wrap; }
+
+  .catalog-v2 .v2-cat-search {
+    width: 100%;
+    margin-left: 0;
+    order: 3;
+    margin-top: 0.9rem;
+  }
+}
+
+/* La columna de filtros arranca a la misma altura que la primera tarjeta
+   (traia 32px de relleno arriba) y se queda quieta: acompanar el scroll con
+   una lista tan larga hacia que la columna se moviera sola al costado. */
+.catalog-v2 .v2-filters {
+  padding-top: 0;
+  position: static;
+  top: auto;
+  max-height: none;
+  overflow: visible;
+}

@@ -788,7 +788,6 @@ function App({ variant } = {}) {
           <div className="v2-cat-head-inner">
             <div className="v2-cat-title-row">
               <h1 className="v2-cat-title">{selectedCategory || 'Productos'}</h1>
-              {!isLoading && <span className="v2-cat-count">{totalFiltered} productos</span>}
               {/* El buscador va aca arriba, con el titulo: antes vivia solo en
                   una franja aparte al lado del selector de vista, que ya no
                   existe. */}
@@ -813,36 +812,6 @@ function App({ variant } = {}) {
                   </button>
                 )}
               </label>
-            </div>
-            <div className={`v2-chips-wrap${chipsMore ? ' has-more' : ''}`}>
-            <nav className="v2-chips" aria-label="Categorías" ref={chipsRef} onScroll={updateChipsMore}>
-              <a
-                className={`v2-chip${!selectedCategory ? ' is-on' : ''}`}
-                href="/productos"
-                onClick={(e) => { e.preventDefault(); navigate('/productos'); }}
-              >
-                Todo
-              </a>
-              {categories.map((cat) => (
-                <a
-                  key={cat}
-                  className={`v2-chip${selectedCategory === cat ? ' is-on' : ''}`}
-                  href={`/productos?categoria=${encodeURIComponent(cat)}`}
-                  onClick={(e) => handleCategoryClick(e, cat)}
-                >
-                  {cat}
-                </a>
-              ))}
-            </nav>
-            <button
-              type="button"
-              className="v2-chips-more"
-              aria-label="Ver más categorías"
-              tabIndex={chipsMore ? 0 : -1}
-              onClick={() => chipsRef.current && chipsRef.current.scrollBy({ left: Math.round(chipsRef.current.clientWidth * 0.7), behavior: 'smooth' })}
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18" /></svg>
-            </button>
             </div>
           </div>
         </div>
@@ -891,6 +860,31 @@ function App({ variant } = {}) {
                 {activeCount > 0 && (
                   <button type="button" className="v2-filters-clear" onClick={handleClearAll}>Limpiar todo</button>
                 )}
+              </div>
+
+              {/* Las categorias van aca, como lista. Antes eran quince pastillas
+                  en dos filas arriba de todo: ruido antes de ver un producto. */}
+              <div className="v2-filter-group">
+                <span className="v2-filter-label">Categorías</span>
+                <nav className="v2-cats" aria-label="Categorías">
+                  <a
+                    className={`v2-cat-link${!selectedCategory ? ' is-on' : ''}`}
+                    href="/productos"
+                    onClick={(e) => { e.preventDefault(); navigate('/productos'); }}
+                  >
+                    Todas
+                  </a>
+                  {categories.map((cat) => (
+                    <a
+                      key={cat}
+                      className={`v2-cat-link${selectedCategory === cat ? ' is-on' : ''}`}
+                      href={`/productos?categoria=${encodeURIComponent(cat)}`}
+                      onClick={(e) => handleCategoryClick(e, cat)}
+                    >
+                      {cat}
+                    </a>
+                  ))}
+                </nav>
               </div>
               {axes.map((ax) => (
                 <div className="v2-filter-group" key={ax}>
