@@ -1040,3 +1040,169 @@
   .catalog-v2 .catalog-layout { column-gap: 2.25rem; }
 }
 }
+
+/* ==========================================================================
+   PAGINAS "PARA MARCAS" (Empresas, Marcas, Nosotros)
+   Mismo lenguaje que la landing; aca van solo las piezas que la landing no
+   tiene: el hero mas bajo, los pasos numerados, la ficha de datos y las dos
+   puertas de entrada.
+   ========================================================================== */
+.v2-pagina main { background: var(--b2-white); }
+
+/* El hero de estas paginas es mas bajo que el de la landing: son paginas para
+   leer, y el contenido tiene que empezar arriba. */
+.v2-hero-pagina { min-height: min(62vh, 560px); }
+
+.v2-eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(251, 247, 244, 0.82);
+  margin-bottom: 0.9rem;
+}
+
+/* Cuatro beneficios en vez de tres. */
+.v2-benefits-inner--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* Los banners de estas paginas van de a cuatro, mas chicos que en la landing. */
+.v2-banners--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.v2-banners--4 .v2-banner-media { aspect-ratio: 4 / 5; }
+.v2-banners--4 .v2-banner-title { font-size: clamp(1rem, 1.4vw, 1.2rem); }
+
+/* --- Pasos: numerados porque son una secuencia real --- */
+.v2-pasos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: paso;
+}
+
+.v2-paso {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--b2-border);
+}
+
+.v2-paso-n {
+  font-family: var(--b2-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--b2-cognac);
+}
+
+.v2-paso h3 {
+  margin: 0;
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.25;
+  color: var(--b2-black);
+}
+
+.v2-paso p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--b2-gray);
+}
+
+/* --- Ficha de datos del pedido --- */
+.v2-ficha {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  background: var(--b2-border);
+  border: 1px solid var(--b2-border);
+}
+
+.v2-ficha > div {
+  display: grid;
+  gap: 0.3rem;
+  padding: 1.5rem 1.25rem;
+  background: var(--b2-white);
+}
+
+.v2-ficha dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--b2-light-gray);
+}
+
+.v2-ficha dd {
+  margin: 0;
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--b2-black);
+}
+
+/* --- Dos puertas: por marca o por empresa --- */
+.v2-puertas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.v2-puerta {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+  /* Un gris tenido de cognac: --b2-cream es #FAFAF9, practicamente el fondo de
+     la pagina, y las dos tarjetas quedaban invisibles. */
+  background: rgba(67, 47, 40, 0.05);
+  border-radius: var(--v2-radius);
+  transition: background 0.15s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.v2-puerta-titulo {
+  font-family: var(--b2-display);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  color: var(--b2-black);
+}
+
+.v2-puerta-texto {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--b2-gray);
+  max-width: 34ch;
+}
+
+.v2-puerta:hover { background: rgba(67, 47, 40, 0.09); }
+
+.v2-puerta .v2-banner-cta { margin-top: 0.4rem; }
+
+@media (max-width: 900px) {
+  .v2-benefits-inner--4,
+  .v2-pasos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .v2-banners--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .v2-ficha { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .v2-puertas { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .v2-benefits-inner--4 { grid-template-columns: 1fr; }
+  .v2-pasos { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+
+/* La banda va pegada al hero: el aire de arriba es para cuando viene despues de
+   una seccion, no cuando arranca la pagina. */
+.v2-hero-pagina + .v2-benefits { margin-top: 0; }
+
+/* Con cuatro banners por fila el nombre y el "Ver más" se pisan entre tarjetas
+   vecinas y se leen como un solo renglon corrido. Queda el nombre: la tarjeta
+   entera es el enlace y la foto se apaga al pasar por encima. */
+.v2-banners--4 .v2-banner-cta { display: none; }

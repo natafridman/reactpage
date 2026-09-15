@@ -1,222 +1,111 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '/components/Header.jsx';
-import Footer from '/components/Footer.jsx';
-import FAQSection from '/components/FAQSection.jsx';
-import { loadManifest } from '/utils/productUtils.js';
-import './landing.css';
+import ClientLogos from '/components/ClientLogos.jsx';
+import PaginaV2, { HeroPagina, Pasos, Ficha, Preguntas, Cierre, Icono, waLink } from '/components/PaginaV2.jsx';
+import { medSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
-const WA_NUMBER = '5491178279281';
+const IMG = (cat, folder, file) => `/${IMAGES_BASE_FOLDER}/${cat}/${folder}/${file}`;
+const WA = 'Hola B2YOU, somos una empresa y queremos cotizar productos con nuestro logo.';
+
+// Lo que mas se pide para regalo corporativo. Cada uno entra a su categoria.
+const REGALOS = [
+  { cat: 'Billeteras', titulo: 'Billeteras', foto: IMG('Billeteras', 'Billetera Roma', 'ROMA(1).jpeg') },
+  { cat: 'Maletines', titulo: 'Maletines', foto: IMG('Maletines', 'Maletin Ejecutivo', 'IMG_1571.jpeg') },
+  { cat: 'Gorras', titulo: 'Gorras', foto: IMG('Gorras', 'Gorra Casual', 'IMG_4567.jpeg') },
+  { cat: 'Necessaries', titulo: 'Neceseres', foto: IMG('Necessaries', 'Necessaire Lisboa', 'LISBOA_vfirst.jpeg') },
+];
+
+const VENTAJAS = [
+  { icono: 'logo', titulo: 'Tu logo, en el producto', texto: 'Grabado láser, estampado o bordado, según el material.' },
+  { icono: 'equipo', titulo: 'Para tu equipo y tus clientes', texto: 'Productos que se usan todos los días, no que quedan en un cajón.' },
+  { icono: 'volumen', titulo: 'Pedidos por volumen', texto: 'Presupuesto cerrado y entrega coordinada en tu oficina.' },
+  { icono: 'cuero', titulo: 'Hecho para durar', texto: 'Materiales seleccionados y costuras reforzadas, de nuestro taller.' },
+];
+
+const PASOS = [
+  ['Nos contás qué necesitás', 'Producto, cantidad, fecha estimada y cualquier referencia de diseño o logo.'],
+  ['Te mandamos una propuesta', 'Con opciones de materiales, técnicas de personalización y presupuesto detallado.'],
+  ['Aprobás la muestra', 'Hacemos una muestra con tu marca. Recién cuando la aprobás arranca la producción.'],
+  ['Entrega coordinada', 'Llevamos el pedido a tu oficina o al punto que nos digas.'],
+];
+
+const FICHA = [
+  ['Volumen', 'Adecuado al cliente'],
+  ['Producción', '15 a 30 días hábiles'],
+  ['Personalización', 'Logo, grabado, etiquetas'],
+  ['Muestras', 'Disponibles con costo'],
+];
+
+const PREGUNTAS = [
+  ['¿Cuál es el volumen de pedido?', 'No manejamos un mínimo fijo: adecuamos el volumen a cada cliente. Escribinos y armamos una propuesta a tu medida.'],
+  ['¿Cuánto tarda la producción?', 'De 15 a 30 días hábiles desde la aprobación de la muestra. Pedidos grandes pueden requerir más tiempo.'],
+  ['¿Puedo pedir muestras antes?', 'Sí, siempre lo recomendamos. Las muestras tienen un costo que se descuenta del pedido final una vez confirmado.'],
+  ['¿Entregan en la oficina?', 'Sí. Coordinamos la entrega en el punto que nos indiques, y hacemos envíos a todo el país.'],
+];
 
 function EmpresasPage() {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
-  const [isMenuActive, setIsMenuActive] = useState(false);
-
-  useEffect(() => {
-    document.title = 'B2YOU - Empresas';
-  }, []);
-
-  useEffect(() => {
-    async function init() {
-      try {
-        const manifest = await loadManifest();
-        setCategories(Object.keys(manifest));
-      } catch (error) {
-        console.error('Error cargando categorias:', error);
-      }
-    }
-    init();
-  }, []);
-
-  function handleContactSubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('contactName').value;
-    const email = document.getElementById('contactEmail').value;
-    const message = document.getElementById('contactMessage').value;
-    const subject = encodeURIComponent(`Mensaje de ${name}`);
-    const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
-    window.open(`https://wa.me/${WA_NUMBER}?text=${subject}%0A%0A${body}`, '_blank');
-    e.target.reset();
-  }
-
-  function handleLogoClick() {
-    window.location.href = window.location.origin;
-  }
-
-  function handleCategoryClick(e, cat, sub) {
-    e.preventDefault();
-    navigate(`/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
-  }
-
-  function enviarWhatsApp() {
-    const msg = encodeURIComponent('Hola, los contacto desde la web. Somos una empresa interesada en productos corporativos personalizados.');
-    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
-  }
+  const verCatalogo = (e) => { e.preventDefault(); navigate('/productos'); };
+  const verCategoria = (e, cat) => { e.preventDefault(); navigate(`/productos?categoria=${encodeURIComponent(cat)}`); };
 
   return (
-    <div className="landing-page">
-      <Header
-        categories={categories}
-        isMenuActive={isMenuActive}
-        isHeaderHidden={false}
-        setIsMenuActive={setIsMenuActive}
-        onLogoClick={handleLogoClick}
-        onCategoryClick={handleCategoryClick}
+    <PaginaV2 titulo="B2YOU - Empresas">
+      <HeroPagina
+        base="hero-empresas"
+        alto="Maletín de cuero negro apoyado en una oficina"
+        eyebrow="Para empresas"
+        titulo={<>Un regalo con tu logo que <em>se sigue usando</em> en marzo.</>}
+        bajada="Billeteras, maletines, gorras y neceseres de cuero para tu equipo, tus clientes y tus socios. Producidos en Buenos Aires con la identidad de tu empresa."
+        acciones={<>
+          <a className="v2-btn v2-btn-light" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
+          <a className="v2-btn v2-btn-outline-light" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Pedí tu cotización</a>
+        </>}
       />
 
-      <main className="landing-main">
-        <section className="info-page-hero info-page-hero-empresas">
-          <div className="info-page-hero-overlay"></div>
-          <div className="info-page-hero-content">
-            <span className="info-page-label">B2YOU para</span>
-            <h1 className="info-page-title">Empresas</h1>
-            <p className="info-page-subtitle">
-              Regalos corporativos y productos personalizados que representan tu marca con distinci&oacute;n
-            </p>
-            <div className="info-page-hero-actions">
-              <button className="info-page-hero-btn primary" onClick={() => navigate('/productos')}>
-                Ver productos
-              </button>
-              <button className="info-page-hero-btn ghost" onClick={enviarWhatsApp}>
-                Pedí tu cotización
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <section className="info-page-section">
-          <div className="info-page-container">
-            <div className="info-page-grid">
-              <div className="info-page-card">
-                <div className="info-page-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-                </div>
-                <h3>Tu logo, en el producto</h3>
-                <p>Grabado láser, estampado o bordado, según el material. Cada pieza sale con la identidad de tu empresa.</p>
-              </div>
-
-              <div className="info-page-card">
-                <div className="info-page-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line>
-                  </svg>
-                </div>
-                <h3>Regalos corporativos</h3>
-                <p>Para empleados, clientes y socios: productos que se usan todos los días, no que quedan en un cajón.</p>
-              </div>
-
-              <div className="info-page-card">
-                <div className="info-page-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle>
-                  </svg>
-                </div>
-                <h3>Pedidos por volumen</h3>
-                <p>Producción a medida para cantidades grandes, con presupuesto cerrado y entrega coordinada en tu oficina.</p>
-              </div>
-
-              <div className="info-page-card">
-                <div className="info-page-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                  </svg>
-                </div>
-                <h3>Hecho para durar</h3>
-                <p>Materiales seleccionados, costuras reforzadas y terminaciones cuidadas en nuestro taller de Buenos Aires.</p>
+      <section className="v2-benefits">
+        <div className="v2-benefits-inner v2-benefits-inner--4">
+          {VENTAJAS.map((v) => (
+            <div className="v2-benefit" key={v.titulo}>
+              <Icono name={v.icono} />
+              <div>
+                <span className="v2-benefit-title">{v.titulo}</span>
+                <span className="v2-benefit-text">{v.texto}</span>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            <section className="process-section">
-              <div className="process-header">
-                <span className="process-label">Proceso</span>
-                <h2 className="process-title">Cómo trabajamos</h2>
-              </div>
-              <div className="process-steps">
-                <div className="process-step">
-                  <span className="process-step-number">01</span>
-                  <h3>Nos contás qué necesitás</h3>
-                  <p>Producto, cantidad, fecha estimada y cualquier referencia de diseño o logo.</p>
-                </div>
-                <div className="process-step">
-                  <span className="process-step-number">02</span>
-                  <h3>Te mandamos una propuesta</h3>
-                  <p>Con opciones de materiales, técnicas de personalización y presupuesto detallado.</p>
-                </div>
-                <div className="process-step">
-                  <span className="process-step-number">03</span>
-                  <h3>Aprobás y arranca producción</h3>
-                  <p>Hacemos una muestra para tu aprobación antes de producir en volumen.</p>
-                </div>
-                <div className="process-step">
-                  <span className="process-step-number">04</span>
-                  <h3>Entrega en tiempo y forma</h3>
-                  <p>Coordinamos la entrega en tu oficina o el punto acordado.</p>
-                </div>
-              </div>
-            </section>
+      <section className="v2-section">
+        <div className="v2-section-head">
+          <h2 className="v2-h2">Lo que más se regala</h2>
+          <a className="v2-link" href="/productos" onClick={verCatalogo}>Ver todo el catálogo</a>
+        </div>
+        <div className="v2-banners v2-banners--4">
+          {REGALOS.map((b) => (
+            <a key={b.cat} className="v2-banner" href={`/productos?categoria=${encodeURIComponent(b.cat)}`} onClick={(e) => verCategoria(e, b.cat)}>
+              <span className="v2-banner-media">
+                <img src={medSrc(b.foto)} alt="" loading="lazy" decoding="async" />
+              </span>
+              <span className="v2-banner-body">
+                <span className="v2-banner-title">{b.titulo}</span>
+                <span className="v2-banner-cta">Ver más <span aria-hidden="true">→</span></span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
 
-            <section className="order-info-section">
-              <div className="order-info-grid">
-                <div className="order-info-item">
-                  <span className="order-info-label">Volumen</span>
-                  <span className="order-info-value">adecuado al cliente</span>
-                </div>
-                <div className="order-info-item">
-                  <span className="order-info-label">Tiempo de producción</span>
-                  <span className="order-info-value">15-30 días hábiles</span>
-                </div>
-                <div className="order-info-item">
-                  <span className="order-info-label">Personalización</span>
-                  <span className="order-info-value">Logo, grabado, etiquetas</span>
-                </div>
-                <div className="order-info-item">
-                  <span className="order-info-label">Muestras</span>
-                  <span className="order-info-value">Disponibles con costo</span>
-                </div>
-              </div>
-            </section>
+      <Pasos titulo="Cómo trabajamos" pasos={PASOS} />
+      <Ficha datos={FICHA} />
+      <ClientLogos />
+      <Preguntas items={PREGUNTAS} />
 
-            <div className="info-page-cta-section">
-              <h2>Hac&eacute; que tu empresa se destaque</h2>
-              <p>Contactanos y armamos una propuesta a medida para tu equipo.</p>
-              <div className="info-page-cta-buttons">
-                <button className="info-page-cta" onClick={enviarWhatsApp}>
-                  Contactar por WhatsApp
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </button>
-                <button className="info-page-cta-secondary" onClick={() => navigate('/productos')}>
-                  Ver Productos
-                </button>
-              </div>
-              <ul className="guarantee-row guarantee-row-on-dark">
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Aprob&aacute;s la muestra antes de producir
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Presupuesto cerrado, sin sorpresas
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Cuero genuino, hecho para durar
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <FAQSection />
-      </main>
-
-      <Footer onContactSubmit={handleContactSubmit} />
-    </div>
+      <Cierre
+        titulo="¿Arrancamos con una muestra?"
+        texto="Contanos qué producto y cuántas unidades. Te respondemos con una propuesta cerrada."
+        textoWa={WA}
+      />
+    </PaginaV2>
   );
 }
 

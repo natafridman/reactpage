@@ -1,238 +1,96 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '/components/Header.jsx';
-import Footer from '/components/Footer.jsx';
-import { loadManifest, medSrc } from '/utils/productUtils.js';
-import './landing.css';
+import ClientLogos from '/components/ClientLogos.jsx';
+import PaginaV2, { HeroPagina, Cierre, Icono, waLink } from '/components/PaginaV2.jsx';
+import { medSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
-const WA_NUMBER = '5491178279281';
-const NOSOTROS_IMG = '/images/Categorias/Carteras/Cartera Milan/MILAN_Negra_1.png';
+const IMG = (cat, folder, file) => `/${IMAGES_BASE_FOLDER}/${cat}/${folder}/${file}`;
+const LOGO = '/images/Branding/B2 B2YOU Header Landscape 2.png';
+const WA = 'Hola B2YOU, quiero saber más sobre cómo trabajan.';
 
-const valores = [
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-      </svg>
-    ),
-    title: 'Buenos materiales',
-    description: 'Cuero genuino, herrajes de alta resistencia y telas seleccionadas. No usamos materiales de relleno.'
-  },
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="12" y1="8" x2="12" y2="12"></line>
-        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-      </svg>
-    ),
-    title: 'Diseño con criterio',
-    description: 'Cada producto tiene un propósito claro. Pensamos en el uso real, no en tendencias pasajeras.'
-  },
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-        <circle cx="9" cy="7" r="4"></circle>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-      </svg>
-    ),
-    title: 'Trabajo honesto',
-    description: 'Contacto directo, presupuestos claros y plazos que cumplimos. Sin intermediarios ni sorpresas.'
-  },
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-      </svg>
-    ),
-    title: 'Confidencialidad total',
-    description: 'Tus diseños, tu marca y tus ideas quedan entre nosotros. No compartimos ni filtramos nada de lo que trabajamos juntos.'
-  }
+// Las mismas dos fotos propias que enmarcan el bloque de la landing.
+const FOTOS = [
+  IMG('Carteras', 'Cartera Buckle Z71018', '01.jpg'),
+  IMG('Carteras', 'Cartera Convertible Terra Y71009', '01.jpg'),
+];
+
+const COMO = [
+  { icono: 'taller', titulo: 'Taller propio', texto: 'Producimos en Buenos Aires. No tercerizamos la terminación.' },
+  { icono: 'cuero', titulo: 'Materiales reales', texto: 'Cuero genuino y herrajes elegidos pieza por pieza.' },
+  { icono: 'logo', titulo: 'A medida', texto: 'Grabado, estampado, bordado y etiquetas con tu identidad.' },
+  { icono: 'reloj', titulo: 'Fechas que se cumplen', texto: 'De 15 a 30 días hábiles desde que aprobás la muestra.' },
 ];
 
 function NosotrosPage() {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
-  const [isMenuActive, setIsMenuActive] = useState(false);
-
-  useEffect(() => {
-    document.title = 'B2YOU - Quiénes Somos';
-  }, []);
-
-  useEffect(() => {
-    async function init() {
-      try {
-        const manifest = await loadManifest();
-        setCategories(Object.keys(manifest));
-      } catch (error) {
-        console.error('Error cargando categorias:', error);
-      }
-    }
-    init();
-  }, []);
-
-  function handleContactSubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('contactName').value;
-    const email = document.getElementById('contactEmail').value;
-    const message = document.getElementById('contactMessage').value;
-    const subject = encodeURIComponent(`Mensaje de ${name}`);
-    const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
-    window.open(`https://wa.me/${WA_NUMBER}?text=${subject}%0A%0A${body}`, '_blank');
-    e.target.reset();
-  }
-
-  function handleLogoClick() {
-    window.location.href = window.location.origin;
-  }
-
-  function handleCategoryClick(e, cat, sub) {
-    e.preventDefault();
-    navigate(`/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
-  }
-
-  function enviarWhatsApp() {
-    const msg = encodeURIComponent('Hola, los contacto desde la web. Me gustaría conocer más sobre B2YOU.');
-    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
-  }
+  const verCatalogo = (e) => { e.preventDefault(); navigate('/productos'); };
 
   return (
-    <div className="landing-page">
-      <Header
-        categories={categories}
-        isMenuActive={isMenuActive}
-        isHeaderHidden={false}
-        setIsMenuActive={setIsMenuActive}
-        onLogoClick={handleLogoClick}
-        onCategoryClick={handleCategoryClick}
+    <PaginaV2 titulo="B2YOU - Quiénes somos">
+      <HeroPagina
+        base="hero-nosotros"
+        alto="Herramientas de marroquinería sobre la mesa de trabajo"
+        eyebrow="Quiénes somos"
+        titulo={<>Una fábrica de accesorios, <em>no un catálogo prestado</em>.</>}
+        bajada="Diseñamos y producimos en Buenos Aires para marcas y empresas que quieren productos con su identidad y que duren."
+        acciones={<>
+          <a className="v2-btn v2-btn-light" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
+          <a className="v2-btn v2-btn-outline-light" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Hablemos por WhatsApp</a>
+        </>}
       />
 
-      <main className="landing-main">
-        <section className="info-page-hero nosotros-hero">
-          <div className="info-page-hero-overlay"></div>
-          <div className="info-page-hero-content">
-            <span className="info-page-label">B2YOU</span>
-            <h1 className="info-page-title">Quiénes somos</h1>
-            <p className="info-page-subtitle">
-              Una fábrica de Buenos Aires que produce y entrega productos bien hechos, con materiales reales y trabajo a tiempo.
-            </p>
+      {/* El bloque enmarcado de la landing: dos fotos propias y el texto al medio. */}
+      <section className="v2-section v2-about">
+        <div className="v2-about-frame">
+          <img className="v2-about-photo" src={medSrc(FOTOS[0])} alt="Cartera de cuero marrón al hombro" loading="lazy" decoding="async" />
+          <div className="v2-about-copy">
+            <h2 className="v2-about-title">Lo que nos mueve</h2>
+            <img className="v2-about-logo" src={LOGO} alt="B2YOU" loading="lazy" decoding="async" />
+            <p>Arrancamos con una idea simple: los accesorios tienen que durar. Que lo que sale del taller sea algo que de verdad uses, que te acompañe, y que represente bien a quien lo lleva.</p>
+            <p>Trabajamos con marcas y empresas que buscan lo mismo. Cada proyecto se encara desde cero, sin moldes fijos: producción artesanal con escala profesional, para que el resultado sea igual de bueno en diez unidades que en mil.</p>
           </div>
-        </section>
+          <img className="v2-about-photo" src={medSrc(FOTOS[1])} alt="Mochila de cuero marrón en la espalda" loading="lazy" decoding="async" />
+        </div>
+      </section>
 
-        <section className="nosotros-intro-section">
-          <div className="info-page-container">
-            <div className="nosotros-intro-grid">
-              <div className="nosotros-intro-text">
-                <span className="nosotros-label">Nuestra historia</span>
-                <h2 className="nosotros-intro-title">Lo que nos mueve</h2>
-                <p>
-                  B2YOU nació de la convicción de que los accesorios tienen que durar. Que cada producto que sale del taller tiene que ser algo que de verdad uses, que te acompañe, y que represente bien a quien lo lleva.
-                </p>
-                <p>
-                  Trabajamos con marcas y empresas que buscan lo mismo: productos bien hechos, con su identidad, a su medida. Sin moldes fijos. Cada proyecto lo encaramos desde cero.
-                </p>
-                <p>
-                  Con sede en Buenos Aires, combinamos producción artesanal con escala profesional para que el resultado sea siempre consistente, sin importar la cantidad del pedido.
-                </p>
-              </div>
-              <div className="nosotros-intro-media">
-                <img
-                  src={medSrc(NOSOTROS_IMG)}
-                  alt="Marroquinería B2YOU"
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    if (!e.target.dataset.fallback) {
-                      e.target.dataset.fallback = '1';
-                      e.target.src = NOSOTROS_IMG;
-                    }
-                  }}
-                />
-                <div className="nosotros-intro-badge">
-                  <span className="nosotros-intro-badge-top">Taller propio</span>
-                  <span className="nosotros-intro-badge-bottom">Buenos Aires, Argentina</span>
-                </div>
+      <section className="v2-benefits">
+        <div className="v2-benefits-inner v2-benefits-inner--4">
+          {COMO.map((v) => (
+            <div className="v2-benefit" key={v.titulo}>
+              <Icono name={v.icono} />
+              <div>
+                <span className="v2-benefit-title">{v.titulo}</span>
+                <span className="v2-benefit-text">{v.texto}</span>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            <div className="nosotros-stats-strip">
-              <div className="nosotros-stat">
-                <span className="nosotros-stat-value">Taller propio</span>
-                <span className="nosotros-stat-label">Producción en Buenos Aires</span>
-              </div>
-              <div className="nosotros-stat">
-                <span className="nosotros-stat-value">A medida</span>
-                <span className="nosotros-stat-label">Grabado, estampado y bordado</span>
-              </div>
-              <div className="nosotros-stat">
-                <span className="nosotros-stat-value">Por mayor y menor</span>
-                <span className="nosotros-stat-label">Para marcas y empresas</span>
-              </div>
-            </div>
-          </div>
-        </section>
+      {/* Las dos puertas de entrada: por que lado viene cada visitante. */}
+      <section className="v2-section">
+        <div className="v2-section-head"><h2 className="v2-h2">Cómo podemos trabajar juntos</h2></div>
+        <div className="v2-puertas">
+          <a className="v2-puerta" href="/Marcas" onClick={(e) => { e.preventDefault(); navigate('/Marcas'); }}>
+            <span className="v2-puerta-titulo">Tenés una marca</span>
+            <span className="v2-puerta-texto">Producimos con tu etiqueta, de la muestra a la entrega.</span>
+            <span className="v2-banner-cta">Ver cómo <span aria-hidden="true">→</span></span>
+          </a>
+          <a className="v2-puerta" href="/Empresas" onClick={(e) => { e.preventDefault(); navigate('/Empresas'); }}>
+            <span className="v2-puerta-titulo">Sos una empresa</span>
+            <span className="v2-puerta-texto">Regalos y productos con tu logo para tu equipo y tus clientes.</span>
+            <span className="v2-banner-cta">Ver cómo <span aria-hidden="true">→</span></span>
+          </a>
+        </div>
+      </section>
 
-        <section className="nosotros-valores-section">
-          <div className="info-page-container">
-            <div className="nosotros-valores-header">
-              <span className="nosotros-label">Valores</span>
-              <h2 className="nosotros-valores-title">Cómo lo hacemos</h2>
-            </div>
-            <div className="info-page-grid">
-              {valores.map((v, i) => (
-                <div key={i} className="info-page-card">
-                  <div className="info-page-icon">
-                    {v.icon}
-                  </div>
-                  <h3>{v.title}</h3>
-                  <p>{v.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+      <ClientLogos />
 
-        <section className="nosotros-cta-section">
-          <div className="info-page-container">
-            <div className="info-page-cta-section">
-              <h2>¿Querés trabajar con nosotros?</h2>
-              <p>Contanos qué necesitás y armamos una propuesta a medida.</p>
-              <div className="info-page-cta-buttons">
-                <button className="info-page-cta" onClick={enviarWhatsApp}>
-                  Contactar por WhatsApp
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </button>
-                <button className="info-page-cta-secondary" onClick={() => navigate('/productos')}>
-                  Ver Productos
-                </button>
-              </div>
-              <ul className="guarantee-row guarantee-row-on-dark">
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Aprob&aacute;s la muestra antes de producir
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Presupuesto cerrado, sin sorpresas
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Cuero genuino, hecho para durar
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer onContactSubmit={handleContactSubmit} />
-    </div>
+      <Cierre
+        titulo="¿Querés trabajar con nosotros?"
+        texto="Contanos qué necesitás y armamos una propuesta a medida."
+        textoWa={WA}
+      />
+    </PaginaV2>
   );
 }
 

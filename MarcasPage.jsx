@@ -1,229 +1,111 @@
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '/components/Header.jsx';
-import Footer from '/components/Footer.jsx';
-import FAQSection from '/components/FAQSection.jsx';
-import CategoriesCarousel from '/components/CategoriesCarousel.jsx';
-import { loadManifest } from '/utils/productUtils.js';
-import './landing.css';
+import ClientLogos from '/components/ClientLogos.jsx';
+import PaginaV2, { HeroPagina, Pasos, Ficha, Preguntas, Cierre, Icono, waLink } from '/components/PaginaV2.jsx';
+import { medSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
-const WA_NUMBER = '5491178279281';
+const IMG = (cat, folder, file) => `/${IMAGES_BASE_FOLDER}/${cat}/${folder}/${file}`;
+const WA = 'Hola B2YOU, tengo una marca y quiero cotizar una producción con mi etiqueta.';
+
+// Las cuatro lineas mas pedidas por marcas. Cada una entra a su categoria.
+const LINEAS = [
+  { cat: 'Carteras', titulo: 'Carteras', foto: IMG('Carteras', 'Cartera Eco Hobo U71002-Y71006', '01.jpg'), pos: '50% 35%' },
+  { cat: 'Bolsos', titulo: 'Bolsos', foto: IMG('Bolsos', 'Bolso Duffle', 'G28A0280.jpeg'), pos: '50% 50%' },
+  { cat: 'Mochilas', titulo: 'Mochilas', foto: IMG('Mochilas', 'Mochila London', 'LONDON(1).jpeg'), pos: '50% 50%' },
+  { cat: 'Cinturones', titulo: 'Cinturones', foto: IMG('Cinturones', 'Cinturon Oval Negro', 'FARO(6).jpg'), pos: '50% 62%' },
+];
+
+const VENTAJAS = [
+  { icono: 'etiqueta', titulo: 'Marca blanca', texto: 'Fabricamos con tu etiqueta. El producto es de tu marca de punta a punta.' },
+  { icono: 'volumen', titulo: 'Producción escalable', texto: 'Desde tiradas chicas hasta grandes volúmenes, con la misma terminación.' },
+  { icono: 'logo', titulo: 'Tu identidad en cada pieza', texto: 'Grabado láser, estampado, bordado y etiquetas propias.' },
+  { icono: 'tilde', titulo: 'Trabajo codo a codo', texto: 'Definimos diseño, materiales y fechas con tu equipo, y aprobás la muestra.' },
+];
+
+const PASOS = [
+  ['Nos contás qué necesitás', 'Producto, cantidad, la estética de tu marca y cualquier referencia de diseño.'],
+  ['Te mandamos una propuesta', 'Con opciones de materiales, terminaciones y presupuesto detallado.'],
+  ['Aprobás la muestra', 'Hacemos una muestra con tu branding. Recién cuando la aprobás arranca la producción.'],
+  ['Entrega o despacho', 'Coordinamos según tu operación, con envíos a todo el país.'],
+];
+
+const FICHA = [
+  ['Volumen', 'Adecuado al cliente'],
+  ['Producción', '15 a 30 días hábiles'],
+  ['Marca blanca', 'Tu logo y tus etiquetas'],
+  ['Muestras', 'Disponibles con costo'],
+];
+
+const PREGUNTAS = [
+  ['¿Puedo vender los productos con mi marca?', 'Sí, para eso trabajamos. Producimos con tu etiqueta y tu logo, sin ninguna referencia a nosotros en el producto.'],
+  ['¿Cuál es el volumen de pedido?', 'No manejamos un mínimo fijo: adecuamos el volumen a cada cliente. Escribinos y armamos una propuesta a tu medida.'],
+  ['¿Cuánto tarda la producción?', 'De 15 a 30 días hábiles desde la aprobación de la muestra. Pedidos grandes pueden requerir más tiempo.'],
+  ['¿Qué técnicas de personalización ofrecen?', 'Grabado láser, estampado en calor, bordado computarizado y etiquetas personalizadas, según el material.'],
+];
 
 function MarcasPage() {
   const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
-  const [isMenuActive, setIsMenuActive] = useState(false);
-
-  useEffect(() => {
-    document.title = 'B2YOU - Marcas';
-  }, []);
-
-  useEffect(() => {
-    async function init() {
-      try {
-        const manifest = await loadManifest();
-        setCategories(Object.keys(manifest));
-      } catch (error) {
-        console.error('Error cargando categorias:', error);
-      }
-    }
-    init();
-  }, []);
-
-  function handleContactSubmit(e) {
-    e.preventDefault();
-    const name = document.getElementById('contactName').value;
-    const email = document.getElementById('contactEmail').value;
-    const message = document.getElementById('contactMessage').value;
-    const subject = encodeURIComponent(`Mensaje de ${name}`);
-    const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
-    window.open(`https://wa.me/${WA_NUMBER}?text=${subject}%0A%0A${body}`, '_blank');
-    e.target.reset();
-  }
-
-  function handleLogoClick() {
-    window.location.href = window.location.origin;
-  }
-
-  function handleCategoryClick(e, cat, sub) {
-    e.preventDefault();
-    navigate(`/productos?categoria=${encodeURIComponent(cat)}${sub ? `&sub=${encodeURIComponent(sub)}` : ''}`);
-  }
-
-  function enviarWhatsApp() {
-    const msg = encodeURIComponent('Hola, los contacto desde la web. Tengo una marca y me interesa trabajar con B2YOU.');
-    window.open(`https://wa.me/${WA_NUMBER}?text=${msg}`, '_blank');
-  }
+  const verCatalogo = (e) => { e.preventDefault(); navigate('/productos'); };
+  const verCategoria = (e, cat) => { e.preventDefault(); navigate(`/productos?categoria=${encodeURIComponent(cat)}`); };
 
   return (
-    <div className="landing-page">
-      <Header
-        categories={categories}
-        isMenuActive={isMenuActive}
-        isHeaderHidden={false}
-        setIsMenuActive={setIsMenuActive}
-        onLogoClick={handleLogoClick}
-        onCategoryClick={handleCategoryClick}
+    <PaginaV2 titulo="B2YOU - Marcas">
+      <HeroPagina
+        base="hero-marcas"
+        alto="Billeteras de cuero natural sobre una mesa de madera"
+        eyebrow="Para marcas"
+        titulo={<>Tu etiqueta, nuestra <em>fábrica</em>.</>}
+        bajada="Producimos accesorios de cuero con tu marca, de la muestra a la entrega. Vos ponés la identidad, nosotros el taller."
+        acciones={<>
+          <a className="v2-btn v2-btn-light" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
+          <a className="v2-btn v2-btn-outline-light" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Pedí tu cotización</a>
+        </>}
       />
 
-      <main className="landing-main">
-        <section className="info-page-hero info-page-hero-marcas">
-          <div className="info-page-hero-overlay"></div>
-          <div className="info-page-hero-content">
-            <span className="info-page-label">B2YOU para</span>
-            <h1 className="info-page-title">Marcas</h1>
-            <p className="info-page-subtitle">
-              Producci&oacute;n de accesorios con tu marca. Calidad artesanal, escala profesional.
-            </p>
-            <div className="info-page-hero-actions">
-              <button className="info-page-hero-btn primary" onClick={() => navigate('/productos')}>
-                Ver productos
-              </button>
-              <button className="info-page-hero-btn ghost" onClick={enviarWhatsApp}>
-                Pedí tu cotización
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <CategoriesCarousel
-          eyebrow="Catálogo"
-          title="Todo lo que fabricamos para tu marca"
-          intro="Bolsos, carteras, mochilas, cinturones, gorras y más. Elegí lo que mejor representa tu identidad."
-        />
-
-        <section className="info-page-section">
-          <div className="info-page-container">
-            <div className="info-page-grid">
-              <div className="info-page-card">
-                <div className="info-page-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle>
-                  </svg>
-                </div>
-                <h3>Marca blanca</h3>
-                <p>Fabricamos con tu etiqueta. Tu cliente recibe un producto que es de tu marca de punta a punta.</p>
-              </div>
-
-              <div className="info-page-card">
-                <div className="info-page-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                  </svg>
-                </div>
-                <h3>Catálogo amplio</h3>
-                <p>Bolsos, mochilas, morrales, riñoneras, portadocumentos, gorras y más. Elegís lo que va con tu marca.</p>
-              </div>
-
-              <div className="info-page-card">
-                <div className="info-page-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                  </svg>
-                </div>
-                <h3>Producci&oacute;n escalable</h3>
-                <p>Desde tiradas chicas hasta grandes volúmenes, con la misma terminación en cada pieza.</p>
-              </div>
-
-              <div className="info-page-card">
-                <div className="info-page-icon">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                  </svg>
-                </div>
-                <h3>Trabajo codo a codo</h3>
-                <p>Definimos con tu equipo diseño, materiales y fechas, y aprobás una muestra antes de producir.</p>
+      <section className="v2-benefits">
+        <div className="v2-benefits-inner v2-benefits-inner--4">
+          {VENTAJAS.map((v) => (
+            <div className="v2-benefit" key={v.titulo}>
+              <Icono name={v.icono} />
+              <div>
+                <span className="v2-benefit-title">{v.titulo}</span>
+                <span className="v2-benefit-text">{v.texto}</span>
               </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            <section className="process-section">
-              <div className="process-header">
-                <span className="process-label">Proceso</span>
-                <h2 className="process-title">Cómo trabajamos</h2>
-              </div>
-              <div className="process-steps">
-                <div className="process-step">
-                  <span className="process-step-number">01</span>
-                  <h3>Nos contás qué necesitás</h3>
-                  <p>Producto, cantidad, estética de tu marca y cualquier referencia de diseño.</p>
-                </div>
-                <div className="process-step">
-                  <span className="process-step-number">02</span>
-                  <h3>Te mandamos una propuesta</h3>
-                  <p>Con opciones de materiales, terminaciones y presupuesto detallado.</p>
-                </div>
-                <div className="process-step">
-                  <span className="process-step-number">03</span>
-                  <h3>Aprobás y arranca producción</h3>
-                  <p>Hacemos una muestra con tu branding para aprobar antes de producir en volumen.</p>
-                </div>
-                <div className="process-step">
-                  <span className="process-step-number">04</span>
-                  <h3>Entrega en tiempo y forma</h3>
-                  <p>Coordinamos la entrega o el despacho según tu operación.</p>
-                </div>
-              </div>
-            </section>
+      <section className="v2-section">
+        <div className="v2-section-head">
+          <h2 className="v2-h2">Lo que fabricamos</h2>
+          <a className="v2-link" href="/productos" onClick={verCatalogo}>Ver todo el catálogo</a>
+        </div>
+        <div className="v2-banners v2-banners--4">
+          {LINEAS.map((b) => (
+            <a key={b.cat} className="v2-banner" href={`/productos?categoria=${encodeURIComponent(b.cat)}`} onClick={(e) => verCategoria(e, b.cat)}>
+              <span className="v2-banner-media">
+                <img src={medSrc(b.foto)} alt="" loading="lazy" decoding="async" style={{ objectPosition: b.pos }} />
+              </span>
+              <span className="v2-banner-body">
+                <span className="v2-banner-title">{b.titulo}</span>
+                <span className="v2-banner-cta">Ver más <span aria-hidden="true">→</span></span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
 
-            <section className="order-info-section">
-              <div className="order-info-grid">
-                <div className="order-info-item">
-                  <span className="order-info-label">Volumen</span>
-                  <span className="order-info-value">adecuado al cliente</span>
-                </div>
-                <div className="order-info-item">
-                  <span className="order-info-label">Tiempo de producción</span>
-                  <span className="order-info-value">15-30 días hábiles</span>
-                </div>
-                <div className="order-info-item">
-                  <span className="order-info-label">Marca blanca</span>
-                  <span className="order-info-value">Tu logo y etiquetas</span>
-                </div>
-                <div className="order-info-item">
-                  <span className="order-info-label">Muestras</span>
-                  <span className="order-info-value">Disponibles con costo</span>
-                </div>
-              </div>
-            </section>
+      <Pasos titulo="Cómo trabajamos" pasos={PASOS} />
+      <Ficha datos={FICHA} />
+      <ClientLogos />
+      <Preguntas items={PREGUNTAS} />
 
-            <div className="info-page-cta-section">
-              <h2>Cre&aacute; productos &uacute;nicos para tu marca</h2>
-              <p>Escribinos y armamos juntos una propuesta a medida.</p>
-              <div className="info-page-cta-buttons">
-                <button className="info-page-cta" onClick={enviarWhatsApp}>
-                  Contactar por WhatsApp
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
-                  </svg>
-                </button>
-                <button className="info-page-cta-secondary" onClick={() => navigate('/productos')}>
-                  Ver Productos
-                </button>
-              </div>
-              <ul className="guarantee-row guarantee-row-on-dark">
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Aprob&aacute;s la muestra antes de producir
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Presupuesto cerrado, sin sorpresas
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                  Cuero genuino, hecho para durar
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <FAQSection />
-      </main>
-
-      <Footer onContactSubmit={handleContactSubmit} />
-    </div>
+      <Cierre
+        titulo="¿Arrancamos con una muestra?"
+        texto="Contanos qué producto y cuántas unidades. Te respondemos con una propuesta cerrada."
+        textoWa={WA}
+      />
+    </PaginaV2>
   );
 }
 
