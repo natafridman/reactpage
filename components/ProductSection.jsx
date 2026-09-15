@@ -127,7 +127,11 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
           <p>{metadata.description || 'Descripcion del producto.'}</p>
         </div>
 
-        <div className="product-actions" style={contentMargin}>
+        {/* data-clarity-unmask: son etiquetas nuestras, no datos de nadie. Sin
+            esto Clarity las tapa con puntitos en las grabaciones y no se
+            entiende que boton toco la gente. Los campos de formulario siguen
+            enmascarados siempre, eso Clarity no lo deja cambiar. */}
+        <div className="product-actions" style={contentMargin} data-clarity-unmask="true">
           {qty === 0 ? (
             <button
               className="share-btn add-cart-btn"

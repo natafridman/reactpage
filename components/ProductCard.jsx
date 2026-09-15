@@ -229,7 +229,9 @@ function ProductCard({ product, staggerIndex = 0 }) {
         </a>
         {/* Sin precio ni codigo de articulo a la vista: el precio se cotiza y el
             codigo es interno. Igual viaja al carrito y al mensaje de WhatsApp. */}
-        <div className="product-card-buy">
+        {/* Ver el comentario en ProductSection: sin esto Clarity tapa el texto
+            del boton con puntitos en las grabaciones. */}
+        <div className="product-card-buy" data-clarity-unmask="true">
           {qty === 0 ? (
             <button
               type="button"
