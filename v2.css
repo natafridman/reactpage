@@ -1076,6 +1076,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.75rem;
+  align-items: start;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1084,17 +1085,34 @@
 
 .v2-paso {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.45rem;
   align-content: start;
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--b2-border);
+}
+
+.v2-paso-media {
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--v2-radius);
+  overflow: hidden;
+  background: rgba(67, 47, 40, 0.05);
+  margin-bottom: 0.6rem;
+}
+
+.v2-paso-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .v2-paso-n {
-  font-family: var(--b2-display);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--b2-cognac);
+  display: block;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--b2-border);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--b2-light-gray);
 }
 
 .v2-paso h3 {
@@ -1206,3 +1224,21 @@
    vecinas y se leen como un solo renglon corrido. Queda el nombre: la tarjeta
    entera es el enlace y la foto se apaga al pasar por encima. */
 .v2-banners--4 .v2-banner-cta { display: none; }
+
+/* Un llamado a la accion centrado al pie de una seccion. */
+.v2-cta-row--centro {
+  justify-content: center;
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+}
+
+/* Las columnas pares bajan un escalon: la fila deja de leerse como cuatro
+   tarjetas calcadas y se nota que alguien la compuso. El desfase es siempre el
+   mismo, asi que sigue estando prolijo. */
+@media (min-width: 901px) {
+  .v2-paso:nth-child(even) { margin-top: 3.25rem; }
+  .v2-paso:nth-child(even) .v2-paso-media { aspect-ratio: 1 / 1; }
+}
+
+/* Los llamados a la accion de seccion van alineados con el titulo, no al medio:
+   centrar todo es lo que hace que una pagina parezca una plantilla. */
+.v2-cta-row--centro { justify-content: flex-start; }

@@ -122,25 +122,30 @@ export function HeroPagina({ base, alto, eyebrow, titulo, bajada, acciones }) {
 }
 
 // Los pasos van numerados porque son una secuencia real: uno detras del otro.
-export function Pasos({ titulo, pasos }) {
+// Cada uno lleva su foto: cuatro bloques de texto seguidos se saltean.
+export function Pasos({ titulo, pasos, cta }) {
   return (
     <section className="v2-section">
       <div className="v2-section-head"><h2 className="v2-h2">{titulo}</h2></div>
       <ol className="v2-pasos">
-        {pasos.map(([t, d], i) => (
+        {pasos.map(({ titulo: t, texto, foto, alto }, i) => (
           <li className="v2-paso" key={t}>
+            <span className="v2-paso-media">
+              <img src={foto} alt={alto} loading="lazy" decoding="async" />
+            </span>
             <span className="v2-paso-n">{String(i + 1).padStart(2, '0')}</span>
             <h3>{t}</h3>
-            <p>{d}</p>
+            <p>{texto}</p>
           </li>
         ))}
       </ol>
+      {cta && <div className="v2-cta-row v2-cta-row--centro">{cta}</div>}
     </section>
   );
 }
 
 // Datos duros del pedido, sin inventar nada: lo que ya se responde por WhatsApp.
-export function Ficha({ datos }) {
+export function Ficha({ datos, cta }) {
   return (
     <section className="v2-section">
       <dl className="v2-ficha">
@@ -151,6 +156,7 @@ export function Ficha({ datos }) {
           </div>
         ))}
       </dl>
+      {cta && <div className="v2-cta-row v2-cta-row--centro">{cta}</div>}
     </section>
   );
 }
@@ -166,13 +172,13 @@ export function Preguntas({ items }) {
   );
 }
 
-export function Cierre({ titulo, texto, textoWa }) {
+export function Cierre({ titulo, texto, textoWa, boton = 'Pedí tu cotización' }) {
   return (
     <section className="v2-close-band">
       <h2 className="v2-close-title">{titulo}</h2>
       <p>{texto}</p>
       <a className="v2-btn v2-btn-light" href={waLink(textoWa)} target="_blank" rel="noopener noreferrer">
-        Pedí tu cotización
+        {boton}
       </a>
     </section>
   );

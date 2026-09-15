@@ -15,17 +15,17 @@ const REGALOS = [
 ];
 
 const VENTAJAS = [
-  { icono: 'logo', titulo: 'Tu logo, en el producto', texto: 'Grabado láser, estampado o bordado, según el material.' },
-  { icono: 'equipo', titulo: 'Para tu equipo y tus clientes', texto: 'Productos que se usan todos los días, no que quedan en un cajón.' },
-  { icono: 'volumen', titulo: 'Pedidos por volumen', texto: 'Presupuesto cerrado y entrega coordinada en tu oficina.' },
-  { icono: 'cuero', titulo: 'Hecho para durar', texto: 'Materiales seleccionados y costuras reforzadas, de nuestro taller.' },
+  { icono: 'logo', titulo: 'Tu logo en el producto', texto: 'Grabado, estampado o bordado.' },
+  { icono: 'equipo', titulo: 'Se usa, no se guarda', texto: 'Objetos de todos los días.' },
+  { icono: 'volumen', titulo: 'Presupuesto cerrado', texto: 'Sin sorpresas al final.' },
+  { icono: 'envio', titulo: 'Entrega en tu oficina', texto: 'Coordinamos día y punto.' },
 ];
 
 const PASOS = [
-  ['Nos contás qué necesitás', 'Producto, cantidad, fecha estimada y cualquier referencia de diseño o logo.'],
-  ['Te mandamos una propuesta', 'Con opciones de materiales, técnicas de personalización y presupuesto detallado.'],
-  ['Aprobás la muestra', 'Hacemos una muestra con tu marca. Recién cuando la aprobás arranca la producción.'],
-  ['Entrega coordinada', 'Llevamos el pedido a tu oficina o al punto que nos digas.'],
+  { titulo: 'Contanos qué necesitás', texto: 'Producto, cantidad y fecha.', foto: '/images/proceso/empresas-1.webp', alto: 'Sellos de bronce con logos en la mano' },
+  { titulo: 'Te pasamos la propuesta', texto: 'Materiales, personalización y precio cerrado.', foto: '/images/proceso/empresas-2.webp', alto: 'Prensa grabando el logo sobre el cuero' },
+  { titulo: 'Aprobás la muestra', texto: 'Con tu logo puesto, antes de producir.', foto: '/images/proceso/empresas-3.webp', alto: 'Manos terminando una pieza de cuero' },
+  { titulo: 'Lo llevamos a tu oficina', texto: 'Y a todo el país.', foto: '/images/proceso/empresas-4.webp', alto: 'Manos cerrando una caja con cinta' },
 ];
 
 const FICHA = [
@@ -36,16 +36,19 @@ const FICHA = [
 ];
 
 const PREGUNTAS = [
-  ['¿Cuál es el volumen de pedido?', 'No manejamos un mínimo fijo: adecuamos el volumen a cada cliente. Escribinos y armamos una propuesta a tu medida.'],
-  ['¿Cuánto tarda la producción?', 'De 15 a 30 días hábiles desde la aprobación de la muestra. Pedidos grandes pueden requerir más tiempo.'],
-  ['¿Puedo pedir muestras antes?', 'Sí, siempre lo recomendamos. Las muestras tienen un costo que se descuenta del pedido final una vez confirmado.'],
-  ['¿Entregan en la oficina?', 'Sí. Coordinamos la entrega en el punto que nos indiques, y hacemos envíos a todo el país.'],
+  ['¿Cuántas unidades tengo que pedir?', 'No hay mínimo fijo. Escribinos con la cantidad que tenés en mente y te armamos la propuesta.'],
+  ['¿Cuánto tarda?', 'De 15 a 30 días hábiles desde que aprobás la muestra.'],
+  ['¿Puedo ver una muestra antes?', 'Sí, y lo recomendamos. Tiene un costo que se descuenta del pedido.'],
+  ['¿Entregan en la oficina?', 'Sí, y hacemos envíos a todo el país.'],
 ];
 
 function EmpresasPage() {
   const navigate = useNavigate();
   const verCatalogo = (e) => { e.preventDefault(); navigate('/productos'); };
   const verCategoria = (e, cat) => { e.preventDefault(); navigate(`/productos?categoria=${encodeURIComponent(cat)}`); };
+  const botonWa = (texto) => (
+    <a className="v2-btn v2-btn-primary" href={waLink(WA)} target="_blank" rel="noopener noreferrer">{texto}</a>
+  );
 
   return (
     <PaginaV2 titulo="B2YOU - Empresas">
@@ -54,10 +57,10 @@ function EmpresasPage() {
         alto="Maletín de cuero negro apoyado en una oficina"
         eyebrow="Para empresas"
         titulo={<>Un regalo con tu logo que <em>se sigue usando</em> en marzo.</>}
-        bajada="Billeteras, maletines, gorras y neceseres de cuero para tu equipo, tus clientes y tus socios. Producidos en Buenos Aires con la identidad de tu empresa."
+        bajada="Billeteras, maletines, gorras y neceseres de cuero, con la identidad de tu empresa. Producidos en Buenos Aires."
         acciones={<>
-          <a className="v2-btn v2-btn-light" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
-          <a className="v2-btn v2-btn-outline-light" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Pedí tu cotización</a>
+          <a className="v2-btn v2-btn-light" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Pedí tu cotización</a>
+          <a className="v2-btn v2-btn-outline-light" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
         </>}
       />
 
@@ -95,15 +98,16 @@ function EmpresasPage() {
         </div>
       </section>
 
-      <Pasos titulo="Cómo trabajamos" pasos={PASOS} />
-      <Ficha datos={FICHA} />
+      <Pasos titulo="Cómo trabajamos" pasos={PASOS} cta={botonWa('Pedí tu cotización')} />
+      <Ficha datos={FICHA} cta={botonWa('Contanos qué necesitás')} />
       <ClientLogos />
       <Preguntas items={PREGUNTAS} />
 
       <Cierre
-        titulo="¿Arrancamos con una muestra?"
+        titulo="Empecemos por una muestra"
         texto="Contanos qué producto y cuántas unidades. Te respondemos con una propuesta cerrada."
         textoWa={WA}
+        boton="Pedí tu cotización"
       />
     </PaginaV2>
   );

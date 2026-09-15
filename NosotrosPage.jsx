@@ -30,8 +30,8 @@ function NosotrosPage() {
         base="hero-nosotros"
         alto="Herramientas de marroquinería sobre la mesa de trabajo"
         eyebrow="Quiénes somos"
-        titulo={<>Una fábrica de accesorios, <em>no un catálogo prestado</em>.</>}
-        bajada="Diseñamos y producimos en Buenos Aires para marcas y empresas que quieren productos con su identidad y que duren."
+        titulo={<>Una fábrica de productos, <em>no un catálogo prestado</em>.</>}
+        bajada="Diseñamos y producimos en Buenos Aires, para marcas y empresas."
         acciones={<>
           <a className="v2-btn v2-btn-light" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
           <a className="v2-btn v2-btn-outline-light" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Hablemos por WhatsApp</a>
@@ -45,8 +45,9 @@ function NosotrosPage() {
           <div className="v2-about-copy">
             <h2 className="v2-about-title">Lo que nos mueve</h2>
             <img className="v2-about-logo" src={LOGO} alt="B2YOU" loading="lazy" decoding="async" />
-            <p>Arrancamos con una idea simple: los accesorios tienen que durar. Que lo que sale del taller sea algo que de verdad uses, que te acompañe, y que represente bien a quien lo lleva.</p>
-            <p>Trabajamos con marcas y empresas que buscan lo mismo. Cada proyecto se encara desde cero, sin moldes fijos: producción artesanal con escala profesional, para que el resultado sea igual de bueno en diez unidades que en mil.</p>
+            <p>Arrancamos con una idea simple: lo que sale del taller tiene que durar y representar bien a quien lo lleva.</p>
+            <p>Cada proyecto se encara desde cero, sin moldes fijos. El resultado es el mismo en diez unidades que en mil.</p>
+            <a className="v2-btn v2-btn-primary" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Hablemos por WhatsApp</a>
           </div>
           <img className="v2-about-photo" src={medSrc(FOTOS[1])} alt="Mochila de cuero marrón en la espalda" loading="lazy" decoding="async" />
         </div>
@@ -68,7 +69,10 @@ function NosotrosPage() {
 
       {/* Las dos puertas de entrada: por que lado viene cada visitante. */}
       <section className="v2-section">
-        <div className="v2-section-head"><h2 className="v2-h2">Cómo podemos trabajar juntos</h2></div>
+        <div className="v2-section-head">
+          <h2 className="v2-h2">Cómo podemos trabajar juntos</h2>
+          <a className="v2-link" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
+        </div>
         <div className="v2-puertas">
           <a className="v2-puerta" href="/Marcas" onClick={(e) => { e.preventDefault(); navigate('/Marcas'); }}>
             <span className="v2-puerta-titulo">Tenés una marca</span>
@@ -86,9 +90,10 @@ function NosotrosPage() {
       <ClientLogos />
 
       <Cierre
-        titulo="¿Querés trabajar con nosotros?"
+        titulo="¿Trabajamos juntos?"
         texto="Contanos qué necesitás y armamos una propuesta a medida."
         textoWa={WA}
+        boton="Escribinos por WhatsApp"
       />
     </PaginaV2>
   );

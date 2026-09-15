@@ -15,17 +15,17 @@ const LINEAS = [
 ];
 
 const VENTAJAS = [
-  { icono: 'etiqueta', titulo: 'Marca blanca', texto: 'Fabricamos con tu etiqueta. El producto es de tu marca de punta a punta.' },
-  { icono: 'volumen', titulo: 'Producción escalable', texto: 'Desde tiradas chicas hasta grandes volúmenes, con la misma terminación.' },
-  { icono: 'logo', titulo: 'Tu identidad en cada pieza', texto: 'Grabado láser, estampado, bordado y etiquetas propias.' },
-  { icono: 'tilde', titulo: 'Trabajo codo a codo', texto: 'Definimos diseño, materiales y fechas con tu equipo, y aprobás la muestra.' },
+  { icono: 'etiqueta', titulo: 'Marca blanca', texto: 'Tu etiqueta, no la nuestra.' },
+  { icono: 'volumen', titulo: 'Tiradas chicas o grandes', texto: 'La misma terminación en las dos.' },
+  { icono: 'logo', titulo: 'Tu identidad en cada pieza', texto: 'Grabado, bordado y etiquetas propias.' },
+  { icono: 'muestra', titulo: 'Muestra antes de producir', texto: 'La aprobás vos.' },
 ];
 
 const PASOS = [
-  ['Nos contás qué necesitás', 'Producto, cantidad, la estética de tu marca y cualquier referencia de diseño.'],
-  ['Te mandamos una propuesta', 'Con opciones de materiales, terminaciones y presupuesto detallado.'],
-  ['Aprobás la muestra', 'Hacemos una muestra con tu branding. Recién cuando la aprobás arranca la producción.'],
-  ['Entrega o despacho', 'Coordinamos según tu operación, con envíos a todo el país.'],
+  { titulo: 'Nos mostrás tu marca', texto: 'Referencias, materiales y la idea.', foto: '/images/proceso/marcas-1.webp', alto: 'Corte de cuero sobre la mesa de trabajo' },
+  { titulo: 'Armamos la propuesta', texto: 'Opciones, terminaciones y precio cerrado.', foto: '/images/proceso/marcas-2.webp', alto: 'Billeteras de cuero junto a bocetos' },
+  { titulo: 'Te mandamos la muestra', texto: 'Con tu etiqueta puesta. Si va, seguimos.', foto: '/images/proceso/marcas-3.webp', alto: 'Tarjetero de cuero con el logo grabado' },
+  { titulo: 'Producimos y despachamos', texto: '15 a 30 días hábiles.', foto: '/images/proceso/marcas-4.webp', alto: 'Cajas listas para despachar' },
 ];
 
 const FICHA = [
@@ -36,16 +36,19 @@ const FICHA = [
 ];
 
 const PREGUNTAS = [
-  ['¿Puedo vender los productos con mi marca?', 'Sí, para eso trabajamos. Producimos con tu etiqueta y tu logo, sin ninguna referencia a nosotros en el producto.'],
-  ['¿Cuál es el volumen de pedido?', 'No manejamos un mínimo fijo: adecuamos el volumen a cada cliente. Escribinos y armamos una propuesta a tu medida.'],
-  ['¿Cuánto tarda la producción?', 'De 15 a 30 días hábiles desde la aprobación de la muestra. Pedidos grandes pueden requerir más tiempo.'],
-  ['¿Qué técnicas de personalización ofrecen?', 'Grabado láser, estampado en calor, bordado computarizado y etiquetas personalizadas, según el material.'],
+  ['¿Los productos salen con mi marca?', 'Sí. Tu etiqueta y tu logo, sin ninguna referencia a nosotros.'],
+  ['¿Puedo arrancar con poca cantidad?', 'Sí. No hay mínimo fijo: nos adecuamos a cada cliente.'],
+  ['¿Qué técnicas de personalización hay?', 'Grabado láser, estampado en calor, bordado computarizado y etiquetas, según el material.'],
+  ['¿Puedo llevar mi propio diseño?', 'Sí. Trabajamos sobre tus moldes y referencias, o adaptamos un modelo del catálogo.'],
 ];
 
 function MarcasPage() {
   const navigate = useNavigate();
   const verCatalogo = (e) => { e.preventDefault(); navigate('/productos'); };
   const verCategoria = (e, cat) => { e.preventDefault(); navigate(`/productos?categoria=${encodeURIComponent(cat)}`); };
+  const botonWa = (texto) => (
+    <a className="v2-btn v2-btn-primary" href={waLink(WA)} target="_blank" rel="noopener noreferrer">{texto}</a>
+  );
 
   return (
     <PaginaV2 titulo="B2YOU - Marcas">
@@ -54,10 +57,10 @@ function MarcasPage() {
         alto="Billeteras de cuero natural sobre una mesa de madera"
         eyebrow="Para marcas"
         titulo={<>Tu etiqueta, nuestra <em>fábrica</em>.</>}
-        bajada="Producimos accesorios de cuero con tu marca, de la muestra a la entrega. Vos ponés la identidad, nosotros el taller."
+        bajada="Producimos accesorios de cuero con tu marca. De la muestra a la entrega."
         acciones={<>
-          <a className="v2-btn v2-btn-light" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
-          <a className="v2-btn v2-btn-outline-light" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Pedí tu cotización</a>
+          <a className="v2-btn v2-btn-light" href={waLink(WA)} target="_blank" rel="noopener noreferrer">Pedí tu cotización</a>
+          <a className="v2-btn v2-btn-outline-light" href="/productos" onClick={verCatalogo}>Ver el catálogo</a>
         </>}
       />
 
@@ -95,15 +98,16 @@ function MarcasPage() {
         </div>
       </section>
 
-      <Pasos titulo="Cómo trabajamos" pasos={PASOS} />
-      <Ficha datos={FICHA} />
+      <Pasos titulo="Cómo trabajamos" pasos={PASOS} cta={botonWa('Pedí tu cotización')} />
+      <Ficha datos={FICHA} cta={botonWa('Mostranos tu marca')} />
       <ClientLogos />
       <Preguntas items={PREGUNTAS} />
 
       <Cierre
-        titulo="¿Arrancamos con una muestra?"
+        titulo="Empecemos por una muestra"
         texto="Contanos qué producto y cuántas unidades. Te respondemos con una propuesta cerrada."
         textoWa={WA}
+        boton="Pedí tu cotización"
       />
     </PaginaV2>
   );
