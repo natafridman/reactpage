@@ -5320,3 +5320,12 @@ html {
        .hero-side cortaba el recuadro del titulo. */
     .hero-side { max-height: none; }
 }
+
+/* Testigo de la barra del catalogo: alto cero, solo sirve para saber si la
+   barra ya llego al tope. Ver el comentario en SearchFilterBar. */
+.product-toolbar-sentinel {
+    height: 0;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+}

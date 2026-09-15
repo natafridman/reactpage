@@ -535,8 +535,16 @@ function App({ variant } = {}) {
   }, [displayKey, isLoading]);
 
   // ===== HEADER SCROLL FUNCTIONALITY =====
+  // El encabezado se esconde al bajar y vuelve al subir, pero hay que moverse
+  // 12px seguidos en una misma direccion para que cambie. Antes alcanzaba
+  // cualquier temblor (el rebote del scroll por inercia en el telefono, el
+  // ajuste de una imagen que termina de cargar) para hacerlo aparecer, y un
+  // timer de 150ms lo volvia a esconder: iba y venia todo el tiempo.
   useEffect(() => {
-    const scrollThreshold = 100;
+    const ALTURA_MINIMA = 100; // no se esconde antes de este punto
+    const DELTA = 12;          // recorrido seguido que hace falta para cambiar
+    let direccion = 0;         // 1 bajando, -1 subiendo
+    let ancla = window.scrollY; // desde donde se viene moviendo en esa direccion
 
     function handleScroll() {
       const currentScrollY = window.scrollY;
@@ -544,25 +552,27 @@ function App({ variant } = {}) {
       if (currentScrollY < 10) {
         setIsHeaderHidden(false);
         lastScrollY.current = currentScrollY;
+        ancla = currentScrollY;
+        direccion = 0;
         return;
       }
 
-      if (Math.abs(currentScrollY - lastScrollY.current) < 5) {
-        return;
+      const paso = currentScrollY - lastScrollY.current;
+      if (paso === 0) return;
+      const nueva = paso > 0 ? 1 : -1;
+      // Al cambiar de sentido el ancla se reinicia: un temblor corto vuelve a
+      // empezar la cuenta en vez de disparar el cambio.
+      if (nueva !== direccion) {
+        direccion = nueva;
+        ancla = lastScrollY.current;
       }
+      lastScrollY.current = currentScrollY;
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > scrollThreshold) {
-        if (scrollTimer.current) clearTimeout(scrollTimer.current);
-        scrollTimer.current = setTimeout(() => {
-          setIsHeaderHidden(true);
-        }, 150);
-      }
-      else if (currentScrollY < lastScrollY.current) {
-        if (scrollTimer.current) clearTimeout(scrollTimer.current);
+      if (direccion > 0) {
+        if (currentScrollY > ALTURA_MINIMA && currentScrollY - ancla > DELTA) setIsHeaderHidden(true);
+      } else if (ancla - currentScrollY > DELTA) {
         setIsHeaderHidden(false);
       }
-
-      lastScrollY.current = currentScrollY;
     }
 
     let ticking = false;
@@ -806,7 +816,7 @@ function App({ variant } = {}) {
         <div className="v2-cat-head">
           <div className="v2-cat-head-inner">
             <div className="v2-cat-title-row">
-              <h1 className="v2-cat-title">{selectedCategory || 'Todos los productos'}</h1>
+              <h1 className="v2-cat-title">{selectedCategory || 'Productos'}</h1>
               {!isLoading && <span className="v2-cat-count">{totalFiltered} productos</span>}
             </div>
             <div className={`v2-chips-wrap${chipsMore ? ' has-more' : ''}`}>

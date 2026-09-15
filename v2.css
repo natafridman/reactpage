@@ -521,7 +521,10 @@
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
-.catalog-v2 .catalog-layout > :first-child { grid-column: 1 / -1; }
+/* La barra cruza las dos columnas. Se nombra explicitamente y no con
+   :first-child porque antes de ella va el testigo de alto cero. */
+.catalog-v2 .catalog-layout > .product-toolbar-sentinel,
+.catalog-v2 .catalog-layout > .product-toolbar { grid-column: 1 / -1; }
 .catalog-v2 .catalog-layout > main { grid-column: 2; min-width: 0; }
 .catalog-v2 .products-grid { padding-left: 0; padding-right: 0; max-width: none; }
 .catalog-v2 .v2-filters {

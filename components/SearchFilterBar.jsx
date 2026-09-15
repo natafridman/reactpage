@@ -79,6 +79,7 @@ function SearchFilterBar({
   hayNacional = false,
 }) {
   const scope = useRef(null);
+  const testigo = useRef(null);
   const countRef = useRef(null);
   const prevCount = useRef(resultCount);
   const filtersRef = useRef(null);
@@ -88,16 +89,22 @@ function SearchFilterBar({
   // Importa porque solo se la esconde cuando esta clavada: si se la esconde
   // mientras todavia esta en el medio de la pagina, se corre su propio alto
   // desde donde este y el salto queda en mitad de la vista.
-  // `offsetTop` es posicion de maquetado, asi que no lo afecta el `transform`
-  // que la esconde y se puede leer aunque este corrida.
+  //
+  // Se mide con un testigo de alto cero que va justo antes de la barra. No se
+  // puede usar la barra misma: `offsetTop` de un `position: sticky` ya clavado
+  // devuelve `scrollY + top`, asi que la cuenta daba siempre justo en el limite
+  // y con los decimales del scroll suave alternaba true/false. La barra
+  // parpadeaba, y cuando caia en false con el encabezado escondido quedaba
+  // flotando sola con producto asomando por arriba. El testigo no es sticky ni
+  // se transforma, asi que su posicion en pantalla es la respuesta directa.
   useEffect(() => {
-    const el = scope.current;
+    const el = testigo.current;
     if (!el) return;
-    const TOPE = 75; // el mismo `top` que tiene en el CSS
+    const TOPE = 75; // el mismo `top` que tiene la barra en el CSS
     let raf = 0;
     const medir = () => {
       raf = 0;
-      setPegada(window.scrollY + TOPE >= el.offsetTop);
+      setPegada(el.getBoundingClientRect().top <= TOPE);
     };
     const alScrollear = () => { if (!raf) raf = requestAnimationFrame(medir); };
     medir();
@@ -190,6 +197,8 @@ function SearchFilterBar({
   ) : null;
 
   return (
+    <>
+      <div className="product-toolbar-sentinel" ref={testigo} aria-hidden="true" />
     <div className={`product-toolbar${headerHidden && pegada ? ' is-tucked' : ''}`} ref={scope}>
       {/* Envoltorio necesario para el modo columna: el elemento de la grilla se
           estira a lo alto de la fila y este de adentro es el que queda fijo al
@@ -287,6 +296,7 @@ function SearchFilterBar({
       </div>
       </div>
     </div>
+    </>
   );
 }
 
