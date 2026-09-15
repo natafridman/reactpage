@@ -144,8 +144,8 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
       <div className="hero-side">
         {imageList.length > 1 && (
           <div className="gallery-rail" style={{ '--thumb-ratio': altoMiniatura }}>
-            {flechas && (
-              <button type="button" className="rail-arrow rail-arrow-prev" onClick={() => correrRiel(-1)} aria-label="Ver miniaturas anteriores">
+            {imageList.length > 1 && (
+              <button type="button" className="rail-arrow rail-arrow-prev" hidden={!flechas} onClick={() => correrRiel(-1)} aria-label="Ver miniaturas anteriores">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
               </button>
             )}
@@ -173,8 +173,8 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
                 </button>
               ))}
             </div>
-            {flechas && (
-              <button type="button" className="rail-arrow rail-arrow-next" onClick={() => correrRiel(1)} aria-label="Ver más miniaturas">
+            {imageList.length > 1 && (
+              <button type="button" className="rail-arrow rail-arrow-next" hidden={!flechas} onClick={() => correrRiel(1)} aria-label="Ver más miniaturas">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
               </button>
             )}

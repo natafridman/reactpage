@@ -942,7 +942,10 @@ function App({ variant } = {}) {
         );
       })()}
 
-      <main id="productsContainer" style={{ position: 'relative' }}>
+      {/* Mientras carga, el contenedor igual ocupa alto: el esqueleto es una
+          capa fija y no empuja nada, asi que el pie de pagina quedaba pegado al
+          header y bajaba de golpe cuando llegaba el contenido. */}
+      <main id="productsContainer" className={isLoading ? 'is-loading' : undefined} style={{ position: 'relative' }}>
         {isBelts && !isSingleProduct && !isLoading && (
           <ClaveNacional
             desbloqueado={claveOk}

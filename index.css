@@ -5333,9 +5333,16 @@ html {
 .related-rail-wrap .related-arrow-next { right: calc(var(--gutter) * -1); }
 
 @media (max-width: 1024px) {
-    /* En pantallas chicas no hay margen donde ponerlas y la fila se arrastra
-       con el dedo, asi que no hacen falta. */
-    .related-arrow { display: none; }
+    /* En el telefono no hay margen al costado donde ponerlas, asi que suben a
+       la linea del titulo, a la derecha. El riel igual se arrastra con el dedo. */
+    .related-rail-wrap .related-arrow {
+        top: auto;
+        bottom: calc(100% + 1.55rem);
+        transform: none;
+    }
+
+    .related-rail-wrap .related-arrow-prev { left: auto; right: 2.1rem; }
+    .related-rail-wrap .related-arrow-next { right: 0; }
 }
 
 /* Fila que se desliza: cuatro a la vista en escritorio, dos en el telefono.
@@ -5354,6 +5361,11 @@ html {
 
 .related-rail > * {
     flex: 0 0 calc((100% - 3 * 1.75rem) / 4);
+    /* Sin esto la tarjeta no puede achicarse por debajo de su contenido
+       (min-width:auto) y un subtitulo largo la ensancha: en la fila quedaban
+       tarjetas de 209 y 228 al lado de otras de 186, con los titulos a
+       distinta altura. */
+    min-width: 0;
     scroll-snap-align: start;
 }
 
@@ -5665,3 +5677,30 @@ html {
 @media (max-width: 1024px) {
     .product-section { padding-top: 1.25rem; }
 }
+
+/* Hueco de "También te puede interesar" mientras cargan los productos: mismas
+   medidas que una tarjeta (foto 4:5 + el texto de abajo), sin pintar nada. */
+.related-hueco { display: block; }
+
+.related-hueco-foto {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+}
+
+.related-hueco-texto {
+    display: block;
+    height: 106px;
+}
+
+/* Las flechas del riel reservan su lugar siempre: cuando aparecian recien
+   despues de medir, corrian las miniaturas 24px hacia abajo. */
+.rail-arrow[hidden] {
+    display: grid;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Ver el comentario en App.jsx: el esqueleto de carga es una capa fija y no
+   ocupa lugar en el flujo. */
+#productsContainer.is-loading { min-height: 78vh; }

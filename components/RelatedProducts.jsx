@@ -9,6 +9,10 @@ import { loadManifest, parseMetadata, IMAGES_BASE_FOLDER } from '/utils/productU
 // Con `explore` (pie del catalogo) muestra productos de OTRAS categorias.
 function RelatedProducts({ category, folder, explore = false }) {
   const [items, setItems] = useState([]);
+  // Mientras carga, la seccion igual ocupa su lugar. Si devuelve null, al
+  // entrar a un producto la pagina se acorta de golpe y se vuelve a estirar
+  // 60ms despues: eso es el "todo se mueve y se acomoda" que se ve al entrar.
+  const [cargando, setCargando] = useState(true);
   const rielRef = useRef(null);
   // Que flecha se puede usar: si no queda nada para ese lado, no se muestra.
   const [puede, setPuede] = useState({ izq: false, der: false });
@@ -40,6 +44,7 @@ function RelatedProducts({ category, folder, explore = false }) {
   useEffect(() => {
     let alive = true;
     setItems([]);
+    setCargando(true);
     (async () => {
       try {
         const manifest = await loadManifest();
@@ -77,18 +82,47 @@ function RelatedProducts({ category, folder, explore = false }) {
         if (alive) setItems(loaded.filter(Boolean));
       } catch (e) {
         console.error('Error loading related products:', e);
+      } finally {
+        if (alive) setCargando(false);
       }
     })();
     return () => { alive = false; };
   }, [category, folder, explore]);
 
-  if (items.length < 3) return null;
+  if (!cargando && items.length < 3) return null;
+
+  const titulo = explore ? 'Seguí explorando' : 'También te puede interesar';
+
+  // El hueco reservado mientras llegan los datos: la misma fila, con tarjetas
+  // vacias del mismo alto (foto 4:5 + el texto de abajo). Queda invisible, pero
+  // ocupa el lugar exacto, asi que cuando llegan los productos no salta nada.
+  if (cargando) {
+    return (
+      <section className="related-section" aria-hidden="true">
+        <div className="related-inner">
+          <div className="related-head">
+            <h2 className="related-title">{titulo}</h2>
+          </div>
+          <div className="related-rail-wrap">
+            <div className="related-rail">
+              {Array.from({ length: 4 }, (_, i) => (
+                <div className="related-hueco" key={i}>
+                  <span className="related-hueco-foto" />
+                  <span className="related-hueco-texto" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="related-section">
       <div className="related-inner">
         <div className="related-head">
-          <h2 className="related-title">{explore ? 'Seguí explorando' : 'También te puede interesar'}</h2>
+          <h2 className="related-title">{titulo}</h2>
         </div>
         {/* Las flechas van a los costados de la fila, con el mismo trazo suelto
             que las del riel de miniaturas: sin circulo ni borde. */}

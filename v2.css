@@ -525,7 +525,7 @@
   top: calc(var(--header-h) + 101px + 1rem);
   padding: 2rem 0 2rem;
   display: grid;
-  gap: 1.25rem;
+  gap: 2.4rem;
 }
 .catalog-v2 .v2-filters-toggle { display: none; }
 .catalog-v2 .v2-filters-head {
@@ -551,7 +551,7 @@
   cursor: pointer;
   border-bottom: 1px solid currentColor;
 }
-.catalog-v2 .v2-filter-group { display: grid; gap: 0.6rem; }
+.catalog-v2 .v2-filter-group { display: grid; gap: 0.8rem; }
 .catalog-v2 .v2-filter-label {
   font-size: 0.74rem;
   font-weight: 700;
