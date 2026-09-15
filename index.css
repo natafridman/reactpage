@@ -5626,3 +5626,29 @@ html {
 }
 
 .products-grid .product-card .hueso-linea { margin-bottom: 0.4rem; }
+
+/* El hueco de la foto copia a la tarjeta real, que no tiene esquinas
+   redondeadas. */
+.product-card-image.hueso { border-radius: 0; }
+
+/* La miniatura del video: la tapa es la primera foto y encima va el play, para
+   que se lea de una que ese item no es una foto mas. */
+.gallery-item--video { position: relative; }
+
+.gallery-play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+}
+
+.gallery-play svg {
+    width: 34px;
+    height: 34px;
+    color: #fff;
+    background: rgba(40, 22, 18, 0.55);
+    border-radius: 50%;
+    padding: 0.42rem;
+    box-sizing: border-box;
+}

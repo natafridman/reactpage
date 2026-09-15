@@ -762,6 +762,10 @@ function App({ variant } = {}) {
   }
 
   const showToolbar = !isSingleProduct && !isLoading;
+  // La columna de filtros se dibuja tambien mientras carga: es la que sostiene
+  // el ancho de la grilla. Si aparece recien despues, la grilla arranca de un
+  // ancho y salta a otro.
+  const showFilters = !isSingleProduct;
 
   // En cuadricula la barra pasa a ser una columna a la izquierda, al estilo de
   // una tienda online. En vista de lista se queda arriba, porque cada producto
@@ -843,7 +847,7 @@ function App({ variant } = {}) {
         />
       )}
 
-      {variant === 'v2' && showToolbar && (() => {
+      {variant === 'v2' && showFilters && (() => {
         const AXIS_LABEL = { genero: 'Género', origen: 'Origen', estilo: 'Estilo', tipo: 'Tipo' };
         const axes = catFilters ? [...new Set(catFilters.map((f) => f.axis))] : [];
         const activeCount = selectedTags.length + selectedColors.length;

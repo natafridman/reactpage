@@ -39,6 +39,14 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
     // no cambia, y no el del contenido.
   }, [altoMiniatura, productFolder]);
 
+  // El video, si existe, ocupa el primer lugar del riel: las fotos quedan
+  // corridas un lugar para las cuentas de desplazamiento.
+  function verVideo() {
+    setActiva(null);
+    const el = rielRef.current;
+    if (el) el.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }
+
   function verFoto(i) {
     setSentido(i > (activa === null ? 0 : activa) ? 1 : -1);
     setActiva(i);
@@ -48,7 +56,7 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
     // riel. Se usa la posicion real en pantalla y no offsetLeft/offsetTop,
     // que dependen de cual sea el ancestro posicionado.
     const el = rielRef.current;
-    const hijo = el && el.children[i];
+    const hijo = el && el.children[i + (hasVideo ? 1 : 0)];
     if (!el || !hijo) return;
     const m = hijo.getBoundingClientRect();
     const caja = el.getBoundingClientRect();
@@ -142,14 +150,32 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
   return (
     <section className="product-section" data-product={productFolder}>
       <div className="hero-side">
-        {imageList.length > 1 && (
+        {(imageList.length > 1 || hasVideo) && (
           <div className="gallery-rail" style={{ '--thumb-ratio': altoMiniatura }}>
-            {imageList.length > 1 && (
+            {(
               <button type="button" className="rail-arrow rail-arrow-prev" hidden={!flechas} onClick={() => correrRiel(-1)} aria-label="Ver miniaturas anteriores">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
               </button>
             )}
             <div className="gallery-rail-track" ref={rielRef}>
+              {/* Si el producto tiene video va primero, con el play encima para
+                  que se entienda que no es una foto mas. La tapa es la primera
+                  foto del producto. */}
+              {hasVideo && (
+                <button
+                  type="button"
+                  className={`gallery-item gallery-item--video${mostrandoVideo ? ' is-on' : ''}`}
+                  onClick={verVideo}
+                  aria-label={`Ver el video de ${metadata.title || productFolder}`}
+                >
+                  {imageList[0] && (
+                    <img src={medSrc(`${productPath}/${imageList[0]}`)} alt="" loading="lazy" decoding="async" />
+                  )}
+                  <span className="gallery-play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 6.8v10.4a.6.6 0 0 0 .92.5l8.2-5.2a.6.6 0 0 0 0-1l-8.2-5.2a.6.6 0 0 0-.92.5z" /></svg>
+                  </span>
+                </button>
+              )}
               {imageList.map((filename, idx) => (
                 <button
                   type="button"
