@@ -1364,7 +1364,7 @@ body {
     object-fit: contain;
 }
 
-.reveal-in /* ===== GALLERY SIDE ===== */
+/* ===== GALLERY SIDE ===== */
 .gallery-side {
     flex: 1 1 42%;
     min-width: 0;
@@ -1385,24 +1385,12 @@ body {
     line-height: 1;
     letter-spacing: 0.1em;
     margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
     -webkit-text-stroke: 0;
     position: relative;
 }
 
 .accent-number::before {
     content: none;
-}
-
-.product-section:nth-child(even) .accent-number {
-    transform: translateY(-10px);
-}
-
-.reveal-in .accent-number {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .product-price-line {
@@ -1412,9 +1400,6 @@ body {
     color: var(--b2-cognac);
     line-height: 1;
     margin-bottom: 1.5rem;
-    opacity: 0;
-    transform: translateY(-8px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
 }
 
 .product-price-line em {
@@ -1431,24 +1416,9 @@ body {
     color: var(--b2-gray);
 }
 
-.reveal-in .product-price-line {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-
 .description-text {
     max-width: 580px;
     margin-bottom: 2.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
-}
-
-.reveal-in .description-text {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .description-text p {
@@ -2113,8 +2083,10 @@ body {
     /* Sin fondo, borde, redondeo ni sombra: en una grilla larga ese marco
        compite con la foto y ensucia. Manda la imagen; el texto va debajo. */
     background: none;
-    opacity: 0;
-    transform: translateY(25px);
+    /* Se ven desde el primer cuadro. Arrancar en opacity 0 y 25px mas abajo
+       hacia que toda la grilla (y la fila de relacionados) entrara moviendose
+       a medida que se scrollea, y dejaba el contenido invisible si el
+       observador no llegaba a marcarlas. */
 }
 
 /* Las tarjetas se ven desde el primer momento: no aparecen de a una al
