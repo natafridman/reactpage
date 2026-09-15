@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useCart } from '/context/CartContext.jsx';
-import ShiftingNav from '/components/ShiftingNav.jsx';
+import ShiftingNav, { DESTACADOS, featImage } from '/components/ShiftingNav.jsx';
 import { loadCatalogIndex } from '/utils/productUtils.js';
 
 function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMenuActive, onCategoryClick, clearAtTop = false }) {
@@ -64,6 +64,11 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
     indexLoaded.current = true;
     loadCatalogIndex().then(setIndex).catch(() => {});
   };
+
+  // El menu del telefono tambien muestra los destacados con foto, asi que el
+  // indice se pide al abrirlo (igual que al abrir un dropdown en escritorio).
+  const destacados = DESTACADOS.filter((d) => categories.includes(d.cat));
+  useEffect(() => { if (isMenuActive) loadIndex(); }, [isMenuActive]);
 
   const goCat = (e, cat, sub) => { onCategoryClick && onCategoryClick(e, cat, sub); };
   const goPage = (path) => { navigate(path); setIsMenuActive(false); };
@@ -143,16 +148,33 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
             En desktop el nav es el ShiftingNav (en el header, arriba). */}
         <div className="menu-classic">
           <div className="categories-container">
-            <div className="nav-group">
-              <span className="menu-section-label">MENÚ</span>
-              <button className="category-link" onClick={() => goPage('/Empresas')}>EMPRESAS</button>
-              <button className="category-link" onClick={() => goPage('/Marcas')}>MARCAS</button>
-              <button className="category-link nav-nosotros" onClick={() => goPage('/Nosotros')}>NOSOTROS</button>
+            {/* Los mismos cuatro destacados que en escritorio, con foto: es lo
+                primero que se ve al abrir el menu en el telefono. */}
+            <div className="mnav-group">
+              <span className="menu-section-label">DESTACADOS</span>
+              <div className="mnav-dest">
+                {destacados.map((d) => {
+                  const src = featImage(index, d);
+                  return (
+                    <a
+                      key={d.cat}
+                      href={`?categoria=${encodeURIComponent(d.cat)}`}
+                      className="mnav-dest-item"
+                      onClick={(e) => goCat(e, d.cat)}
+                    >
+                      <span className="mnav-dest-media">
+                        {src && <img src={src} alt="" loading="lazy" decoding="async" />}
+                      </span>
+                      <span className="mnav-dest-name">{d.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
             </div>
-            <div className="categories-group">
-              <span className="menu-section-label">CATEGORÍAS</span>
+
+            <div className="mnav-group">
+              <span className="menu-section-label">TODO EL CATÁLOGO</span>
               <div className="categories-links">
-                <button className="category-link" onClick={() => goPage('/productos')}>TODO</button>
                 {catList.map((cat) => (
                   <a
                     key={cat}
@@ -160,9 +182,21 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
                     className="category-link"
                     onClick={(e) => goCat(e, cat)}
                   >
-                    {cat.toUpperCase()}
+                    {cat}
                   </a>
                 ))}
+                <button className="category-link mnav-all" onClick={() => goPage('/productos')}>
+                  Ver todo el catálogo <span aria-hidden="true">→</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="mnav-group">
+              <span className="menu-section-label">PARA MARCAS</span>
+              <div className="categories-links">
+                <button className="category-link" onClick={() => goPage('/Empresas')}>Empresas</button>
+                <button className="category-link" onClick={() => goPage('/Marcas')}>Marcas</button>
+                <button className="category-link nav-nosotros" onClick={() => goPage('/Nosotros')}>Nosotros</button>
               </div>
             </div>
           </div>

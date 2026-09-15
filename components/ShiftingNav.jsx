@@ -1,9 +1,9 @@
 import { useState, useRef, useLayoutEffect } from 'react';
 import { thumbSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
-// Resuelve la foto del featured: un producto puntual {cat, folder} o, si no se
-// da folder, el primer producto con imagen de esa categoria. Sale del indice.
-function featImage(index, feat) {
+// Resuelve la foto de una categoria: un producto puntual {cat, folder} o, si no
+// se da folder, el primer producto con imagen de esa categoria. Sale del indice.
+export function featImage(index, feat) {
   if (!index || !feat || !feat.cat) return null;
   const items = index[feat.cat] || [];
   const it = feat.folder
@@ -14,14 +14,26 @@ function featImage(index, feat) {
   return thumbSrc(`/${IMAGES_BASE_FOLDER}/${feat.cat}/${it.productFolder}/${imgs[0]}`);
 }
 
-// Nav de escritorio: barra de tabs centrada, cada una abre un dropdown que se
-// desliza. Una flechita ("nub") apunta al tab activo y el contenido entra desde
-// el lado del que venís. Adaptado del patron ShiftingDropDown, con los colores y
-// tipografia de B2YOU y sin framer-motion (las animaciones van por CSS).
+// Nav de escritorio. Dos entradas y nada mas: todo lo que se vende esta dentro
+// de "Productos", y "Para marcas" es lo que no es catalogo.
 //
-// Las 16 categorias no entran sueltas, asi que se agrupan en pocos tabs. Cada
-// item {cat,sub} entra a una categoria (con subcategoria opcional ya filtrada);
+// Antes habia cuatro tabs (Catálogo, Cinturones, Ropa de Trabajo, Para marcas):
+// tres puertas distintas al mismo catalogo, y el visitante tenia que adivinar
+// cual. Ahora el panel de Productos abre con los cuatro destacados en foto y
+// debajo el catalogo entero agrupado, asi que no hay nada escondido en otro tab.
+//
+// Cada item {cat,sub} entra a una categoria (con subcategoria ya filtrada);
 // {path} navega a una pagina.
+
+// Los cuatro que van con foto, en orden. Donde hace falta se elige el producto
+// a mano: las cuatro fotos tienen que ser del mismo tipo (producto sobre fondo
+// claro) o el bloque queda con dos fotos de estudio y dos de ambiente.
+export const DESTACADOS = [
+  { label: 'Cinturones', cat: 'Cinturones' },
+  { label: 'Gorras', cat: 'Gorras' },
+  { label: 'Bolsos', cat: 'Bolsos', folder: 'Bolso Mujer 1' },
+  { label: 'Carteras', cat: 'Carteras' },
+];
 
 function buildTabs(categories) {
   const has = (c) => categories.includes(c);
@@ -29,7 +41,8 @@ function buildTabs(categories) {
   const cols = (arr) => arr.map((c) => ({ ...c, items: keep(c.items) })).filter((c) => c.items.length);
   const tabs = [];
 
-  const marro = cols([
+  const ind = has('Indumentaria de Trabajo');
+  const grupos = cols([
     { h: 'Bolsos', items: [
       { label: 'Bolsos', cat: 'Bolsos' },
       { label: 'Mochilas', cat: 'Mochilas' },
@@ -40,61 +53,44 @@ function buildTabs(categories) {
       { label: 'Carteras', cat: 'Carteras' },
       { label: 'Riñoneras', cat: 'Riñoneras' },
       { label: 'Billeteras', cat: 'Billeteras' },
+      { label: 'Necessaires', cat: 'Necessaries' },
     ] },
     { h: 'Accesorios', items: [
-      { label: 'Necessaires', cat: 'Necessaries' },
+      { label: 'Gorras', cat: 'Gorras' },
+      { label: 'Cinturones de hombre', cat: 'Cinturones', sub: 'hombre' },
+      { label: 'Cinturones de mujer', cat: 'Cinturones', sub: 'mujer' },
       { label: 'Portadocumentos', cat: 'Portadocumentos' },
       { label: 'Portacelular', cat: 'Portacelular' },
       { label: 'Bufandas', cat: 'Bufandas' },
     ] },
-    { h: 'Más', items: [
-      { label: 'Cinturones', cat: 'Cinturones' },
-      { label: 'Ropa de Trabajo', cat: 'Indumentaria de Trabajo' },
+    { h: 'Ropa de trabajo', items: [
+      ...(ind ? [
+        { label: 'Camisas', cat: 'Indumentaria de Trabajo', sub: 'camisas' },
+        { label: 'Remeras y chombas', cat: 'Indumentaria de Trabajo', sub: 'remeras-chombas' },
+        { label: 'Pantalones', cat: 'Indumentaria de Trabajo', sub: 'pantalones' },
+        { label: 'Camperas y buzos', cat: 'Indumentaria de Trabajo', sub: 'camperas' },
+        { label: 'Ver toda la indumentaria', cat: 'Indumentaria de Trabajo' },
+      ] : []),
       { label: 'Calzado', cat: 'Calzado' },
     ] },
   ]);
-  if (marro.length) tabs.push({ id: 1, title: 'Catálogo', cols: marro, feat: { cat: 'Bolsos', folder: 'Bolso Duffle' }, all: { path: '/productos', label: 'Ver todo el catálogo' } });
 
-  if (has('Cinturones')) {
-    tabs.push({
-      id: 2, title: 'Cinturones', feat: { cat: 'Cinturones' },
-      all: { cat: 'Cinturones', label: 'Ver todos los cinturones' },
-      cols: [{ h: 'Por género', items: [
-        { label: 'Ver todos', cat: 'Cinturones' },
-        { label: 'Hombre', cat: 'Cinturones', sub: 'hombre' },
-        { label: 'Mujer', cat: 'Cinturones', sub: 'mujer' },
-      ] }],
-    });
-  }
-
-  if (has('Indumentaria de Trabajo') || has('Calzado')) {
-    const ind = has('Indumentaria de Trabajo');
-    const c = cols([
-      { h: 'Indumentaria', items: ind ? [
-        { label: 'Camisas', cat: 'Indumentaria de Trabajo', sub: 'camisas' },
-        { label: 'Remeras y Chombas', cat: 'Indumentaria de Trabajo', sub: 'remeras-chombas' },
-        { label: 'Pantalones', cat: 'Indumentaria de Trabajo', sub: 'pantalones' },
-        { label: 'Bombachas y Bermudas', cat: 'Indumentaria de Trabajo', sub: 'bombachas-bermudas' },
-      ] : [] },
-      { h: 'Abrigo', items: ind ? [
-        { label: 'Camperas', cat: 'Indumentaria de Trabajo', sub: 'camperas' },
-        { label: 'Buzos', cat: 'Indumentaria de Trabajo', sub: 'buzos' },
-        { label: 'Mameluco', cat: 'Indumentaria de Trabajo', sub: 'mameluco' },
-      ] : [] },
-      { h: 'También', items: [
-        ...(ind ? [{ label: 'Varios', cat: 'Indumentaria de Trabajo', sub: 'varios' }] : []),
-        { label: 'Calzado', cat: 'Calzado' },
-      ] },
-    ]);
-    tabs.push({
-      id: 3, title: 'Ropa de Trabajo', cols: c,
-      feat: ind ? { cat: 'Indumentaria de Trabajo', folder: 'Campera Gabardina Antiestatica 2010' } : { cat: 'Calzado' },
-      all: ind ? { cat: 'Indumentaria de Trabajo', label: 'Ver toda la indumentaria' } : { cat: 'Calzado', label: 'Ver el calzado' },
-    });
-  }
+  // Cualquier categoria que no entre en los grupos de arriba igual tiene que
+  // aparecer: si mañana se suma una, no queda fuera del menu sin que se note.
+  const listadas = new Set(grupos.flatMap((c) => c.items.map((it) => it.cat)));
+  const sueltas = categories.filter((c) => !listadas.has(c)).map((c) => ({ label: c, cat: c }));
+  if (sueltas.length) grupos.push({ h: 'Más', items: sueltas });
 
   tabs.push({
-    id: 4, title: 'Para marcas',
+    id: 1,
+    title: 'Productos',
+    dest: DESTACADOS.filter((d) => has(d.cat)),
+    cols: grupos,
+    all: { path: '/productos', label: 'Ver todo el catálogo' },
+  });
+
+  tabs.push({
+    id: 2, title: 'Para marcas',
     brand: [
       { label: 'Empresas', path: '/Empresas', desc: 'Uniformes y regalería con tu logo', src: '/images/menu/empresas.jpg' },
       { label: 'Marcas', path: '/Marcas', desc: 'Productos para potenciar tu marca', src: '/images/menu/marcas.jpg' },
@@ -198,7 +194,23 @@ function ShiftingNav({ categories, index, onOpen, onCat, onNav }) {
                 })}
               </div>
             ) : (
-              <div className="snav-dd">
+              <div className="snav-prod">
+                {/* Los cuatro destacados, con foto: es lo primero que se ve. */}
+                <div className="snav-dest">
+                  {active.dest.map((d) => {
+                    const src = featImage(index, d);
+                    return (
+                      <a key={d.cat} href={hrefFor(d)} className="snav-dest-item" onClick={(e) => go(e, d)}>
+                        <span className="snav-dest-media">
+                          {src ? <img src={src} alt="" loading="lazy" decoding="async" /> : <span className="snav-feat-ph" />}
+                        </span>
+                        <span className="snav-dest-name">{d.label}</span>
+                      </a>
+                    );
+                  })}
+                </div>
+
+                {/* Y debajo, el catalogo completo agrupado. */}
                 <div className="snav-cols">
                   {active.cols.map((col) => (
                     <div className="snav-col" key={col.h}>
@@ -207,7 +219,7 @@ function ShiftingNav({ categories, index, onOpen, onCat, onNav }) {
                         <a
                           key={it.label}
                           href={hrefFor(it)}
-                          className={`snav-link${it.mundial ? ' snav-link--mundial' : ''}`}
+                          className="snav-link"
                           onClick={(e) => go(e, it)}
                         >
                           {it.label}
@@ -217,16 +229,9 @@ function ShiftingNav({ categories, index, onOpen, onCat, onNav }) {
                   ))}
                 </div>
 
-                {active.feat && (
-                  <a className="snav-feat" href={hrefFor(active.all)} onClick={(e) => go(e, active.all)}>
-                    <span className="snav-feat-media">
-                      {featImage(index, active.feat)
-                        ? <img src={featImage(index, active.feat)} alt="" loading="lazy" decoding="async" />
-                        : <span className="snav-feat-ph" />}
-                    </span>
-                    <span className="snav-feat-cta">{active.all?.label || 'Ver todo'} <span aria-hidden="true">→</span></span>
-                  </a>
-                )}
+                <a className="snav-all" href={hrefFor(active.all)} onClick={(e) => go(e, active.all)}>
+                  {active.all.label} <span aria-hidden="true">→</span>
+                </a>
               </div>
             )}
           </div>
