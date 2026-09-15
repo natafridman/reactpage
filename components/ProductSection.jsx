@@ -36,10 +36,23 @@ function ProductSection({ product, onImageClick, showBackLink = false, onReturn 
   function verFoto(i) {
     setSentido(i > (activa === null ? 0 : activa) ? 1 : -1);
     setActiva(i);
-    // Que la miniatura elegida quede a la vista dentro del riel.
+    // Que la miniatura elegida quede a la vista DENTRO del riel. Con
+    // scrollIntoView el navegador puede terminar desplazando la pagina entera y
+    // dejando la ficha debajo del encabezado fijo, asi que se mueve solo el
+    // riel. Se usa la posicion real en pantalla y no offsetLeft/offsetTop,
+    // que dependen de cual sea el ancestro posicionado.
     const el = rielRef.current;
     const hijo = el && el.children[i];
-    if (hijo) hijo.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    if (!el || !hijo) return;
+    const m = hijo.getBoundingClientRect();
+    const caja = el.getBoundingClientRect();
+    if (el.scrollHeight > el.clientHeight + 1) {
+      if (m.top < caja.top) el.scrollBy({ top: m.top - caja.top, behavior: 'smooth' });
+      else if (m.bottom > caja.bottom) el.scrollBy({ top: m.bottom - caja.bottom, behavior: 'smooth' });
+    } else {
+      if (m.left < caja.left) el.scrollBy({ left: m.left - caja.left, behavior: 'smooth' });
+      else if (m.right > caja.right) el.scrollBy({ left: m.right - caja.right, behavior: 'smooth' });
+    }
   }
 
   // Desplaza el riel una miniatura, en la direccion que corresponda segun este

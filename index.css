@@ -115,6 +115,10 @@
 html {
     scroll-behavior: smooth;
     overflow-x: clip;
+    /* El encabezado es fijo: sin esto, cualquier salto a un elemento (un ancla,
+       un scrollIntoView, el foco con el teclado) lo deja pegado al borde de
+       arriba y tapado por el encabezado. */
+    scroll-padding-top: calc(var(--header-h, 75px) + 0.75rem);
 }
 
 body {
