@@ -1349,7 +1349,7 @@ body {
     flex: 1;
     min-height: 67vh;
     max-height: 67vh;
-    padding: 3rem 2rem 3rem 0;
+    padding: 3rem var(--gutter);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -2449,8 +2449,10 @@ a.product-card-info {
         gap: 0.75rem;
     }
 
+    /* Sin margen lateral: el texto de la tarjeta arranca en la misma linea que
+       la foto. Los 0.75rem eran de cuando la tarjeta tenia marco. */
     .product-card-info {
-        padding: 0.65rem 0.75rem;
+        padding: 0.6rem 0 0;
     }
 
     .product-card-title {
@@ -4042,9 +4044,18 @@ a.product-card-info {
     letter-spacing: -0.005em;
 }
 
-/* La tarjeta no reacciona al pasar el mouse: ya no tiene fondo ni borde, asi
-   que la sombra que habia aca quedaba flotando alrededor de nada. Lo que indica
-   que se puede tocar es el cursor sobre la foto. */
+/* Solo opacidad, nada se mueve y no hay sombras. La foto se ve entera siempre;
+   al pasar el mouse se apaga un poco, que es la señal de "estas sobre esta".
+   Al reves quedaria todo el catalogo grisaceo hasta que apuntes algo. El texto
+   no cambia: se apaga la foto, no la tarjeta. */
+.product-card .product-card-image {
+    transition: opacity 0.18s ease;
+}
+
+.product-card:hover .product-card-image,
+.product-card:focus-within .product-card-image {
+    opacity: 0.72;
+}
 
 @media (max-width: 480px) {
     .category-banner-title {
@@ -5325,13 +5336,117 @@ html {
 .hero-image.entra-izquierda { animation: foto-desde-izquierda 0.28s ease-out; }
 
 @media (max-width: 1024px) {
-    /* En fila las flechas van a los costados. */
+    /* En el telefono la tira se desliza con el dedo: las flechas son un recurso
+       de escritorio y ademas empujaban las miniaturas 26px, desalineandolas del
+       titulo y del texto. */
     .hero-side .gallery-rail { flex-direction: row; }
-    .hero-side .rail-arrow { width: 26px; height: auto; align-self: stretch; }
-    .hero-side .rail-arrow svg { transform: rotate(-90deg); }
+    .hero-side .rail-arrow { display: none; }
+
+    /* La columna de texto mide lo que mide el texto. Con los 67vh y el
+       contenido centrado del layout de dos columnas quedaba un hueco blanco de
+       200px entre las miniaturas y el nombre del producto. */
+    .product-section .gallery-side {
+        min-height: 0;
+        max-height: none;
+        justify-content: flex-start;
+        padding-top: 1.5rem;
+        padding-bottom: 2rem;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .hero-image.entra-derecha,
     .hero-image.entra-izquierda { animation: none; }
+}
+
+/* ============================================================
+   FICHA DE PRODUCTO: columna de texto
+   ============================================================ */
+
+/* Orientacion arriba, en voz baja. Antes habia dos renglones en mayuscula
+   gris seguidos ("VOLVER AL CATALOGO" y el subtitulo) que competian entre si
+   y no se entendia cual era cual. */
+.product-crumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--b2-faint, var(--b2-light-gray));
+    margin-bottom: 1.1rem;
+}
+
+.product-crumbs button {
+    border: 0;
+    background: none;
+    padding: 0;
+    font: inherit;
+    color: var(--b2-gray);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.15s ease, color 0.15s ease;
+}
+
+.product-crumbs button:hover {
+    color: var(--b2-cognac);
+    text-decoration-color: currentColor;
+}
+
+/* El subtitulo baja debajo del nombre y en caja normal: ahi acompaña en vez
+   de pelear con el titulo. */
+.gallery-side .product-lead {
+    font-size: 1rem;
+    color: var(--b2-gray);
+    margin: 0 0 1.1rem;
+}
+
+/* La descripcion es un parrafo, no una cita: el filete cognac al costado
+   sostenia una linea de texto y parecia un adorno suelto. */
+.gallery-side .description-text p {
+    padding-left: 0;
+    border-left: 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 46ch;
+}
+
+@media (min-width: 769px) {
+    /* Una accion principal, una secundaria y el resto en voz baja. Antes eran
+       cuatro botones del mismo tamaño en fila y los cuatro parecian igual de
+       importantes. */
+    .gallery-side .product-actions {
+        display: grid;
+        gap: 0.6rem;
+        max-width: 22rem;
+        margin-top: 1.6rem;
+    }
+
+    .gallery-side .product-actions .share-btn {
+        width: 100%;
+        justify-content: center;
+        min-height: 48px;
+        border-radius: var(--r-sm);
+    }
+
+    /* Compartir, al final y sin recuadro. */
+    .gallery-side .product-actions .icon-btn {
+        min-height: 0;
+        border: 0;
+        background: none;
+        color: var(--b2-gray);
+        font-size: 0.85rem;
+        padding: 0.2rem;
+        gap: 0.45rem;
+    }
+
+    .gallery-side .product-actions .icon-btn:hover {
+        background: none;
+        color: var(--b2-cognac);
+    }
+
+    .gallery-side .qty-stepper--section {
+        width: 100%;
+        justify-content: space-between;
+    }
 }
