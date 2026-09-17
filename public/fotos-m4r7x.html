@@ -155,7 +155,7 @@
      contra la grilla de productos. Con varias se achican para que entren. */
   .movidas img:only-of-type { width: 300px; height: 380px; }
   #destList { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: .6rem; }
-  .dest { display: flex; flex-direction: column; gap: .35rem; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: .4rem; cursor: pointer; }
+  .dest { display: flex; flex-direction: column; gap: .35rem; text-align: left; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: .4rem; }
   .dest:hover { border-color: var(--accent); background: var(--accent-soft); }
   .dest img { width: 100%; aspect-ratio: 4 / 5; object-fit: contain; background: #fff; border-radius: 6px; }
   .dest span { font-size: .78rem; font-weight: 600; line-height: 1.25; }
@@ -531,8 +531,6 @@ window.__FOTOS={"base":"/images/Categorias/Cinturones","grupos":[{"f":"2 Cinturo
     // lupa y el tilde), y un boton no puede contener otros botones.
     const b = document.createElement("div");
     b.className = "dest";
-    b.tabIndex = 0;
-    b.setAttribute("role", "button");
     b.dataset.t = t.t.toLowerCase();
     b.dataset.f = t.f;
 
@@ -565,11 +563,6 @@ window.__FOTOS={"base":"/images/Categorias/Cinturones","grupos":[{"f":"2 Cinturo
     const s = document.createElement("span");
     s.textContent = t.t;
     b.append(media, s);
-
-    b.addEventListener("click", () => elegirDestino(t));
-    b.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); elegirDestino(t); }
-    });
     destList.appendChild(b);
   });
 
