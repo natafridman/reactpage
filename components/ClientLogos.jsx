@@ -10,6 +10,11 @@ const LOGOS = [
   { name: 'Samples Studios', slug: 'samples-studios', file: 'samples studios.png' },
   { name: 'TBN Club', slug: 'tbn-club', file: 'tbn club.png' },
   { name: 'Yagmour', slug: 'yagmour', file: 'yagmour.png' },
+  { name: 'Azzaro', slug: 'azzaro', file: 'azzaro.png' },
+  // `escala`: los logotipos muy pesados se achican para no tapar a los finos
+  { name: 'Job Booz', slug: 'job-booz', file: 'job booz.png', escala: 0.88 },
+  { name: 'Resuelto', slug: 'resuelto', file: 'resuelto.png', escala: 0.78 },
+  { name: 'Malabia', slug: 'malabia', file: 'malabia.png' },
 ];
 
 const BASE = '/images/Clientes';
@@ -26,6 +31,7 @@ function ClientLogos() {
                 <img
                   src={`${BASE}/.opt/${logo.slug}.webp`}
                   alt={`Logo de ${logo.name}`}
+                  style={logo.escala ? { maxWidth: `${logo.escala * 100}%` } : undefined}
                   loading="lazy"
                   decoding="async"
                   onError={(e) => {
