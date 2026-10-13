@@ -1,0 +1,5 @@
+title: Botella Térmica Lisa
+subtitle: Acero Blanco
+description: Botella térmica de líneas simples, cuerpo blanco y tapa negra. Se personaliza con grabado láser del logo de tu marca.
+code: BOT-006
+images: 01.jpg

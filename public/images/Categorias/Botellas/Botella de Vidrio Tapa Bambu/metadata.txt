@@ -1,0 +1,5 @@
+title: Botella de Vidrio Bambú
+subtitle: Vidrio con Tapa de Bambú
+description: Botella de vidrio transparente con tapa de bambú a rosca. Se personaliza con grabado o impresión del logo de tu marca.
+code: BOT-003
+images: 01.jpg

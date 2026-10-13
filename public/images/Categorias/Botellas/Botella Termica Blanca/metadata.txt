@@ -1,0 +1,5 @@
+title: Botella Térmica Blanca
+subtitle: Acero Mate
+description: Botella térmica de acero, terminación mate y tapa al tono. Se personaliza con grabado láser del logo de tu marca.
+code: BOT-016
+images: 01.jpg

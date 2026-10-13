@@ -1,0 +1,5 @@
+title: Botella Cristal con Cordón
+subtitle: PET con Cordón
+description: Botella transparente con tapa plateada y cordón para colgar. Se personaliza con tampografía o impresión del logo de tu marca.
+code: BOT-013
+images: 01.jpg

@@ -1,0 +1,5 @@
+title: Vaso Térmico Slim
+subtitle: Tapa con Traba
+description: Vaso térmico alto y angosto con tapa de traba, entra en cualquier mochila. Negro. Se personaliza con grabado láser del logo de tu marca.
+code: VAS-014
+images: 01.jpg

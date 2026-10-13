@@ -1,0 +1,5 @@
+title: Botella Térmica Abatible
+subtitle: Tapa con Traba
+description: Botella térmica con tapa abatible y traba de seguridad. Negro. Se personaliza con grabado láser del logo de tu marca.
+code: BOT-019
+images: 01.jpg

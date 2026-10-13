@@ -1,0 +1,5 @@
+title: Vaso Térmico con Traba
+subtitle: Tapa con Cierre
+description: Vaso térmico con tapa de cierre y borde cómodo para tomar. Negro. Se personaliza con grabado láser del logo de tu marca.
+code: VAS-009
+images: 01.jpg

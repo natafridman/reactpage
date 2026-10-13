@@ -1,0 +1,5 @@
+title: Vaso Travel
+subtitle: Tapa Antiderrame
+description: Vaso térmico de viaje con tapa antiderrame y agarre ergonómico. Gris. Se personaliza con grabado láser del logo de tu marca.
+code: VAS-010
+images: 01.jpg

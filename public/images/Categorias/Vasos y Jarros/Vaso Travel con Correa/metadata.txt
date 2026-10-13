@@ -1,0 +1,5 @@
+title: Vaso Travel con Correa
+subtitle: Correa de Mano y Tapa
+description: Vaso térmico con correa de mano para llevar y tapa con cierre. En azul marino y blanco. Se personaliza con grabado láser del logo de tu marca.
+code: VAS-013
+images: 01.jpg, 02.jpg

@@ -28,12 +28,12 @@ const ABOUT_PHOTOS = [
 ];
 
 // Circulos de categorias: producto curado con foto limpia sobre blanco.
-const CIRCLES = ['Carteras', 'Bolsos', 'Cinturones', 'Mochilas', 'Billeteras', 'Gorras', 'Maletines', 'Necessaries'];
+const CIRCLES = ['Carteras', 'Bolsos', 'Cinturones', 'Botellas', 'Billeteras', 'Gorras', 'Maletines', 'Necessaries'];
 const CIRCLE_PICKS = {
   Carteras: ['Cartera Florencia', '3(1).jpeg'],
   Bolsos: ['Bolso Duffle', 'IMG_1585.jpeg'],
   Cinturones: ['Cinturon Moderno', '8O3A2335.jpeg'],
-  Mochilas: ['Mochila Roma', null],
+  Botellas: ['Botella Termica Clasica', '01.jpg'],
   Billeteras: ['Billetera Roma', null],
   Gorras: ['Gorra Casual', 'IMG_4567.jpeg'],
   Maletines: ['Maletin Ejecutivo', 'IMG_1571.jpeg'],
@@ -59,6 +59,15 @@ const FEATURED = [
   ['Gorras', 'Gorra Casual'],
   ['Billeteras', 'Billetera Roma'],
   ['Necessaries', 'Necessaire Lisboa'],
+];
+
+// Merchandising: las tres fotos de estudio de la linea de drinkware (con el logo
+// de B2YOU grabado, como muestra de personalizacion). Cada una abre su categoria.
+const MERCH = [
+  { cat: 'Botellas', img: 'botellas', alt: 'Diez botellas con el logo de B2YOU grabado' },
+  { cat: 'Vasos y Jarros', img: 'mugs-metalicos', alt: 'Vasos térmicos de acero con el logo de B2YOU grabado' },
+  { cat: 'Vasos y Jarros', img: 'mugs-plasticos', alt: 'Vasos reutilizables con el logo de B2YOU' },
+  { cat: 'Botellas', img: 'botella-sola', alt: 'Botella térmica negra con el logo de B2YOU grabado', stat: '15 a 30 días', statText: 'de producción. Muestra aprobada antes.' },
 ];
 
 // Banda de beneficios = como se compra, en tres pasos reales (del FAQ).
@@ -95,7 +104,7 @@ function LandingV2() {
   const [categories, setCategories] = useState([]);
   const [index, setIndex] = useState(null);
 
-  useEffect(() => { document.title = 'B2YOU - Accesorios con tu marca'; }, []);
+  useEffect(() => { document.title = 'B2YOU - Accesorios y merchandising con tu marca'; }, []);
 
   useEffect(() => {
     let alive = true;
@@ -128,6 +137,7 @@ function LandingV2() {
       return p ? { ...p, category: cat } : null;
     }).filter(Boolean);
   }, [index]);
+
 
   const goCat = (e, cat) => { e.preventDefault(); setIsMenuActive(false); navigate(`/productos?categoria=${encodeURIComponent(cat)}`); };
   const goAll = (e) => { e.preventDefault(); navigate('/productos'); };
@@ -175,6 +185,7 @@ function LandingV2() {
           {[0, 1].map((dup) => (
             <div className={`v2-announce-set${dup ? ' is-dup' : ''}`} key={dup} aria-hidden={dup ? 'true' : undefined}>
               <span>Envíos a todo el país</span>
+              <span>Merchandising para empresas</span>
               <span>Muestra antes de producir</span>
               <span>Presupuesto cerrado por WhatsApp</span>
             </div>
@@ -188,7 +199,7 @@ function LandingV2() {
           <img className="v2-hero-photo-img" src="/images/hero/hero-v2-2400.webp" srcSet="/images/hero/hero-v2-1400.webp 1400w, /images/hero/hero-v2-2400.webp 2400w" sizes="100vw" alt="Cuero sobre la mesa de trabajo de la curtiembre" fetchpriority="high" decoding="async" />
           <div className="v2-hero-photo-inner">
             <h1 className="v2-h1">Tu marca, en productos que <em>se usan</em> todos los días.</h1>
-            <p className="v2-lead">Bolsos, cinturones, carteras y gorras fabricados en Buenos Aires, con tu logo grabado, bordado o estampado.</p>
+            <p className="v2-lead">Bolsos, cinturones, carteras y gorras fabricados en Buenos Aires, y merchandising para empresas: botellas, vasos y jarros entre otros, con tu logo grabado.</p>
             <div className="v2-cta-row">
               <a className="v2-btn v2-btn-light" href="/productos" onClick={goAll}>Ver el catálogo</a>
               <a className="v2-btn v2-btn-outline-light" href={WA_QUOTE} target="_blank" rel="noopener noreferrer">Pedí tu cotización</a>
@@ -221,6 +232,30 @@ function LandingV2() {
               </span>
             </a>
           ))}
+        </section>
+
+        {/* ===== MERCHANDISING: panel corto + mosaico 2x2 de fotos a sangre ===== */}
+        <section className="v2-section v2-merch" aria-labelledby="v2-merch-title">
+          <div className="v2-merch-frame">
+            <div className="v2-merch-copy">
+              <div>
+                <h2 className="v2-merch-title" id="v2-merch-title">El merch de tu marca, <em>resuelto</em></h2>
+                <p className="v2-merch-lead">Botellas, vasos y jarros entre otros, con tu logo grabado. Aprobás la muestra antes de producir.</p>
+              </div>
+              <div className="v2-cta-row">
+                <a className="v2-btn v2-btn-primary" href="/productos?categoria=Botellas" onClick={(e) => goCat(e, 'Botellas')}>Ver botellas</a>
+                <a className="v2-btn v2-btn-outline" href="/productos?categoria=Vasos%20y%20Jarros" onClick={(e) => goCat(e, 'Vasos y Jarros')}>Ver vasos y jarros</a>
+              </div>
+            </div>
+            <div className="v2-merch-mosaic">
+              {MERCH.map((m, i) => (
+                <a key={m.img} className={`v2-merch-tile v2-reveal${m.stat ? ' has-stat' : ''}`} style={{ '--i': i }} href={`/productos?categoria=${encodeURIComponent(m.cat)}`} onClick={(e) => goCat(e, m.cat)}>
+                  <img src={`/images/merch/${m.img}-700.webp`} srcSet={`/images/merch/${m.img}-700.webp 700w, /images/merch/${m.img}-1200.webp 1200w`} sizes="(max-width: 640px) 50vw, 25vw" alt={m.alt} loading="lazy" decoding="async" />
+                  {m.stat && <span className="v2-merch-stat"><strong>{m.stat}</strong><span>{m.statText}</span></span>}
+                </a>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* ===== BANDA DE BENEFICIOS (como se compra) ===== */}

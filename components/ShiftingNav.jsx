@@ -63,6 +63,10 @@ function buildTabs(categories) {
       { label: 'Portacelular', cat: 'Portacelular' },
       { label: 'Bufandas', cat: 'Bufandas' },
     ] },
+    { h: 'Merchandising', items: [
+      { label: 'Botellas', cat: 'Botellas' },
+      { label: 'Vasos y jarros', cat: 'Vasos y Jarros' },
+    ] },
     { h: 'Ropa de trabajo', items: [
       ...(ind ? [
         { label: 'Camisas', cat: 'Indumentaria de Trabajo', sub: 'camisas' },
@@ -88,6 +92,14 @@ function buildTabs(categories) {
     cols: grupos,
     all: { path: '/productos', label: 'Ver todo el catálogo' },
   });
+
+  // Merchandising para empresas: tab propio, con las fotos de estudio de la linea.
+  const merch = [
+    { label: 'Botellas', cat: 'Botellas', desc: 'Térmicas, de aluminio y de vidrio, con tu logo grabado', src: '/images/merch/botellas-700.webp' },
+    { label: 'Vasos y jarros', cat: 'Vasos y Jarros', desc: 'Térmicos de acero, enlozados y reutilizables', src: '/images/merch/mugs-metalicos-700.webp' },
+    { label: 'Para empresas', path: '/Empresas', desc: 'Regalos corporativos y kits con tu marca', src: '/images/merch/mugs-plasticos-700.webp' },
+  ].filter((it) => it.path || has(it.cat));
+  if (merch.length) tabs.push({ id: 3, title: 'Merchandising', brand: merch });
 
   tabs.push({
     id: 2, title: 'Para marcas',
@@ -183,7 +195,7 @@ function ShiftingNav({ categories, index, onOpen, onCat, onNav }) {
                 {active.brand.map((b) => {
                   const src = b.logo ? LOGO : (b.src || featImage(index, b.img));
                   return (
-                    <a key={b.label} href={b.path} className={`snav-card${b.logo ? ' snav-card--logo' : ''}`} onClick={(e) => go(e, b)}>
+                    <a key={b.label} href={hrefFor(b)} className={`snav-card${b.logo ? ' snav-card--logo' : ''}`} onClick={(e) => go(e, b)}>
                       <span className="snav-card-media">
                         {src ? <img src={src} alt="" loading="lazy" decoding="async" /> : <span className="snav-feat-ph" />}
                       </span>

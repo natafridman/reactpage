@@ -1,0 +1,5 @@
+title: Vaso Travel Texturado
+subtitle: Agarre Antideslizante
+description: Vaso térmico con faja texturada antideslizante y tapa con traba. En blanco y negro. Se personaliza con grabado láser del logo de tu marca.
+code: VAS-012
+images: 01.jpg

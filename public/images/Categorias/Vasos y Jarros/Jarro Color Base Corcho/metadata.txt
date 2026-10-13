@@ -1,0 +1,5 @@
+title: Jarro Color con Corcho
+subtitle: Base de Corcho
+description: Jarro con manija y base de corcho. Azul. Se personaliza con tampografía o impresión del logo de tu marca.
+code: VAS-021
+images: 01.jpg

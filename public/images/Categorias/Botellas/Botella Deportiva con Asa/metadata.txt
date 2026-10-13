@@ -1,0 +1,5 @@
+title: Botella Deportiva con Asa
+subtitle: Plástico Libre de BPA
+description: Botella deportiva traslúcida con tapa a rosca y asa para colgar. Se personaliza con tampografía o impresión del logo de tu marca.
+code: BOT-007
+images: 01.jpg

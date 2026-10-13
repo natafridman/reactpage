@@ -1,0 +1,5 @@
+title: Vaso Esmerilado con Correa
+subtitle: Tapa y Correa de Mano
+description: Vaso esmerilado con tapa negra y correa de mano. Se personaliza con tampografía o impresión del logo de tu marca.
+code: VAS-022
+images: 01.jpg

@@ -1,0 +1,5 @@
+title: Vaso Térmico Facetado
+subtitle: Superficie Martillada
+description: Vaso térmico con superficie facetada que se siente firme en la mano, tapa transparente. En azul y acero. Se personaliza con grabado láser del logo de tu marca.
+code: VAS-007
+images: 01.jpg, 02.jpg

@@ -1,0 +1,5 @@
+title: Vaso Térmico con Manija
+subtitle: Con Sorbete y Tapa
+description: Vaso térmico con manija lateral, tapa con sorbete y base angosta que entra en el portavasos del auto. En negro, blanco y gris. Se personaliza con grabado láser del logo de tu marca.
+code: VAS-003
+images: 01.jpg, 02.jpg, 03.jpg, 04.jpg

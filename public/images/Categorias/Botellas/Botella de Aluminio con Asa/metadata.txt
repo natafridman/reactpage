@@ -1,0 +1,5 @@
+title: Botella de Aluminio con Asa
+subtitle: Aluminio Liviano
+description: Botella de aluminio liviana con asa metálica en la tapa. En plata y rojo. Se personaliza con grabado láser del logo de tu marca.
+code: BOT-014
+images: 01.jpg, 02.jpg

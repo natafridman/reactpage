@@ -1,0 +1,5 @@
+title: Vaso Térmico Grande
+subtitle: Acero Inoxidable Doble Pared
+description: Vaso térmico de gran capacidad con base de acero a la vista y tapa transparente. En blanco y negro. Se personaliza con grabado láser del logo de tu marca.
+code: VAS-002
+images: 01.jpg

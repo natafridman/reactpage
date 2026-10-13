@@ -1,0 +1,5 @@
+title: Vaso Reutilizable
+subtitle: Plástico con Tapa
+description: Vaso reutilizable con tapa a presión, liviano y apto para el día a día. En negro y blanco. Se personaliza con tampografía o impresión del logo de tu marca.
+code: VAS-018
+images: 01.jpg, 02.jpg
