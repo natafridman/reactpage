@@ -1,0 +1,5 @@
+title: Llavero Destapador
+subtitle: Con Argolla Metálica
+description: Llavero destapador liviano y resistente, con argolla metálica. Se personaliza con el logo de tu marca impreso. Colores: amarillo, verde, rojo, azul, negro, blanco.
+code: OFI-004
+images: 01-amarillo.jpg, 02-verde.jpg, 03-rojo.jpg, 04-azul.jpg, 05-negro.jpg, 06-blanco.jpg

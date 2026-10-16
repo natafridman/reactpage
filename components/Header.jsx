@@ -191,11 +191,11 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
               </div>
             </div>
 
-            {(catList.includes('Botellas') || catList.includes('Vasos y Jarros')) && (
+            {['Botellas', 'Vasos y Jarros', 'Oficina', 'Tecnología'].some((c) => catList.includes(c)) && (
               <div className="mnav-group">
                 <span className="menu-section-label">MERCHANDISING</span>
                 <div className="categories-links">
-                  {['Botellas', 'Vasos y Jarros'].filter((c) => catList.includes(c)).map((cat) => (
+                  {['Botellas', 'Vasos y Jarros', 'Oficina', 'Tecnología'].filter((c) => catList.includes(c)).map((cat) => (
                     <a key={cat} href={`?categoria=${encodeURIComponent(cat)}`} className="category-link" onClick={(e) => goCat(e, cat)}>{cat}</a>
                   ))}
                   <button className="category-link" onClick={() => goPage('/Empresas')}>Para empresas</button>

@@ -1,0 +1,5 @@
+title: Bolígrafo Clásico
+subtitle: Aluminio con Anillos
+description: Bolígrafo de aluminio con anillos plateados y pulsador. Se personaliza con grabado láser del logo de tu marca. Colores: negro, plateado, azul francia, celeste, verde, verde lima, amarillo, naranja, rojo, rosa, violeta, blanco.
+code: OFI-002
+images: 01-negro.jpg, 02-plateado.jpg, 03-azul-francia.jpg, 04-celeste.jpg, 05-verde.jpg, 06-verde-lima.jpg, 07-amarillo.jpg, 08-naranja.jpg, 09-rojo.jpg, 10-rosa.jpg, 11-violeta.jpg, 12-blanco.jpg

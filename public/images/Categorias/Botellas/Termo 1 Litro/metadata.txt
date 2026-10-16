@@ -1,0 +1,5 @@
+title: Termo 1 Litro
+subtitle: Acero con Manija
+description: Termo de acero de 1 litro con manija rebatible y tapa vaso. Se personaliza con grabado láser del logo de tu marca. Colores: verde, negro, gris azulado, blanco.
+code: BOT-022
+images: 01-verde.jpg, 02-negro.jpg, 03-gris-azulado.jpg, 04-blanco.jpg

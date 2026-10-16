@@ -1,0 +1,5 @@
+title: Porta Tarjetas para Celular
+subtitle: Silicona Adhesiva
+description: Porta tarjetas de silicona que se pega atrás del celular. Se personaliza con el logo de tu marca impreso. Colores: azul, rojo, blanco.
+code: TEC-003
+images: 01-azul.jpg, 02-rojo.jpg, 03-blanco.jpg

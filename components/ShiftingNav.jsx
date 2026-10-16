@@ -66,6 +66,8 @@ function buildTabs(categories) {
     { h: 'Merchandising', items: [
       { label: 'Botellas', cat: 'Botellas' },
       { label: 'Vasos y jarros', cat: 'Vasos y Jarros' },
+      { label: 'Oficina', cat: 'Oficina' },
+      { label: 'Tecnología', cat: 'Tecnología' },
     ] },
     { h: 'Ropa de trabajo', items: [
       ...(ind ? [
@@ -97,7 +99,8 @@ function buildTabs(categories) {
   const merch = [
     { label: 'Botellas', cat: 'Botellas', desc: 'Térmicas, de aluminio y de vidrio, con tu logo grabado', src: '/images/merch/botellas-700.webp' },
     { label: 'Vasos y jarros', cat: 'Vasos y Jarros', desc: 'Térmicos de acero, enlozados y reutilizables', src: '/images/merch/mugs-metalicos-700.webp' },
-    { label: 'Para empresas', path: '/Empresas', desc: 'Regalos corporativos y kits con tu marca', src: '/images/merch/mugs-plasticos-700.webp' },
+    { label: 'Oficina', cat: 'Oficina', desc: 'Bolígrafos, cuadernos y llaveros con tu marca', src: '/images/merch/oficina-700.webp' },
+    { label: 'Tecnología', cat: 'Tecnología', desc: 'Parlantes, auriculares y porta tarjetas', src: '/images/merch/tecnologia-700.webp' },
   ].filter((it) => it.path || has(it.cat));
   if (merch.length) tabs.push({ id: 3, title: 'Merchandising', brand: merch });
 
@@ -191,7 +194,7 @@ function ShiftingNav({ categories, index, onOpen, onCat, onNav }) {
 
           <div className="snav-content" key={selected} data-dir={dir || 'c'}>
             {active.brand ? (
-              <div className="snav-cards">
+              <div className={`snav-cards${active.brand.length === 4 ? ' snav-cards--4' : ''}`}>
                 {active.brand.map((b) => {
                   const src = b.logo ? LOGO : (b.src || featImage(index, b.img));
                   return (

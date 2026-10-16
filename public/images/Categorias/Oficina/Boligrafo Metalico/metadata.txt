@@ -1,0 +1,5 @@
+title: Bolígrafo Metálico
+subtitle: Soft Touch con Clip
+description: Bolígrafo de cuerpo metálico con terminación soft touch, clip y punta de acero. Se personaliza con grabado láser del logo de tu marca. Colores: crema, verde militar, bordó, negro, azul marino, azul francia, celeste, turquesa, verde, verde lima, amarillo, naranja, rojo, rosa, violeta, blanco.
+code: OFI-001
+images: 01-crema.jpg, 02-verde-militar.jpg, 03-bordo.jpg, 04-negro.jpg, 05-azul-marino.jpg, 06-azul-francia.jpg, 07-celeste.jpg, 08-turquesa.jpg, 09-verde.jpg, 10-verde-lima.jpg, 11-amarillo.jpg, 12-naranja.jpg, 13-rojo.jpg, 14-rosa.jpg, 15-violeta.jpg, 16-blanco.jpg

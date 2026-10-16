@@ -1,0 +1,5 @@
+title: Auriculares Inalámbricos
+subtitle: Con Estuche de Carga
+description: Auriculares inalámbricos con estuche de carga. Se personaliza con el logo de tu marca en el estuche. Colores: blanco, negro.
+code: TEC-002
+images: 01-blanco.jpg, 02-negro.jpg

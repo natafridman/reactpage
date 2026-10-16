@@ -175,7 +175,8 @@
     "Botella de Aluminio con Asa",
     "Botella de Aluminio con Mosqueton",
     "Botella de Vidrio Funda Yute",
-    "Botella de Vidrio Tapa Bambu"
+    "Botella de Vidrio Tapa Bambu",
+    "Termo 1 Litro"
   ],
   "Vasos y Jarros": [
     "Copon Termico",
@@ -184,6 +185,7 @@
     "Jarro Enlozado Alto",
     "Jarro Pastel",
     "Jarro Termico Base Corcho",
+    "Taza Facetada",
     "Taza de Vidrio Tapa Bambu",
     "Vaso Ecologico de Fibra",
     "Vaso Esmerilado con Correa",
@@ -201,6 +203,17 @@
     "Vaso Travel Crema",
     "Vaso Travel Texturado",
     "Vaso Travel con Correa"
+  ],
+  "Oficina": [
+    "Boligrafo Clasico",
+    "Boligrafo Metalico",
+    "Cuaderno A5",
+    "Llavero Destapador"
+  ],
+  "Tecnología": [
+    "Auriculares Inalambricos",
+    "Parlante Bluetooth",
+    "Porta Tarjetas para Celular"
   ],
   "Cinturones": [
     "Cinturon Ancho",

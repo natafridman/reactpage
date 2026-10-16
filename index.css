@@ -5652,3 +5652,6 @@ html {
     padding: 0.42rem;
     box-sizing: border-box;
 }
+
+/* Tab Merchandising: cuatro categorias en una sola fila. */
+.snav-cards--4 { grid-template-columns: repeat(4, minmax(150px, 1fr)); }

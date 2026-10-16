@@ -1,0 +1,5 @@
+title: Parlante Bluetooth
+subtitle: Portátil con Correa
+description: Parlante bluetooth portátil con correa de mano. Se personaliza con el logo de tu marca en el frente. Colores: negro, gris.
+code: TEC-001
+images: 01-negro.jpg, 02-gris.jpg

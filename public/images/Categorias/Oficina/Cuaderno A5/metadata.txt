@@ -1,0 +1,5 @@
+title: Cuaderno A5
+subtitle: Tapa Flexible
+description: Cuaderno tamaño A5 de tapa flexible. Se personaliza con tu marca en relieve o impresa en la tapa. Colores: azul, gris, rojo, blanco.
+code: OFI-003
+images: 01-azul.jpg, 02-gris.jpg, 03-rojo.jpg, 04-blanco.jpg
