@@ -1,5 +1,0 @@
-title: Taza Facetada
-subtitle: Base Prismática
-description: Taza con base facetada y manija amplia. Se personaliza con el logo de tu marca. Colores: hueso, verde inglés, ladrillo, gris oscuro, negro, melange.
-code: VAS-024
-images: 01-hueso.jpg, 02-verde-ingles.jpg, 03-ladrillo.jpg, 04-gris-oscuro.jpg, 05-negro.jpg, 06-melange.jpg

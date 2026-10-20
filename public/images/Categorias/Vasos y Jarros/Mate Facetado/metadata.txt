@@ -1,0 +1,5 @@
+title: Mate Facetado
+subtitle: Plástico con Bombilla
+description: Mate de plástico libre de BPA, con asa y base facetada. Incluye bombilla de acero inoxidable con disco autolimpiante. Mide 8 cm de alto. Se personaliza con el logo de tu marca. Colores: hueso, verde inglés, ladrillo, gris oscuro, negro, melange.
+code: VAS-024
+images: 01-hueso.jpg, 02-verde-ingles.jpg, 03-ladrillo.jpg, 04-gris-oscuro.jpg, 05-negro.jpg, 06-melange.jpg
