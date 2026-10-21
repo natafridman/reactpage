@@ -101,8 +101,10 @@ function buildTabs(categories) {
     { label: 'Vasos y jarros', cat: 'Vasos y Jarros', desc: 'Térmicos de acero, enlozados y reutilizables', src: '/images/merch/mugs-metalicos-700.webp' },
     { label: 'Oficina', cat: 'Oficina', desc: 'Bolígrafos, cuadernos y llaveros con tu marca', src: '/images/merch/oficina-700.webp' },
     { label: 'Tecnología', cat: 'Tecnología', desc: 'Parlantes, auriculares y porta tarjetas', src: '/images/merch/tecnologia-700.webp' },
+    { label: 'Kits para regalar', path: '/Merchandising#kits', desc: 'Doce kits armados, con tu logo en cada pieza', src: '/images/merch/kit-k05-700.webp' },
   ].filter((it) => it.path || has(it.cat));
-  if (merch.length) tabs.push({ id: 3, title: 'Merchandising', brand: merch });
+  // Click en el tab lleva a la pagina de merchandising; el hover abre el panel.
+  if (merch.length) tabs.push({ id: 3, title: 'Merchandising', brand: merch, all: { path: '/Merchandising', label: 'Ver todo el merchandising' } });
 
   tabs.push({
     id: 2, title: 'Para marcas',
@@ -194,7 +196,7 @@ function ShiftingNav({ categories, index, onOpen, onCat, onNav }) {
 
           <div className="snav-content" key={selected} data-dir={dir || 'c'}>
             {active.brand ? (
-              <div className={`snav-cards${active.brand.length === 4 ? ' snav-cards--4' : ''}`}>
+              <div className={`snav-cards${active.brand.length >= 4 ? ' snav-cards--' + active.brand.length : ''}`}>
                 {active.brand.map((b) => {
                   const src = b.logo ? LOGO : (b.src || featImage(index, b.img));
                   return (
@@ -207,6 +209,11 @@ function ShiftingNav({ categories, index, onOpen, onCat, onNav }) {
                     </a>
                   );
                 })}
+                {active.all && (
+                  <a className="snav-all snav-all--cards" href={hrefFor(active.all)} onClick={(e) => go(e, active.all)}>
+                    {active.all.label} <span aria-hidden="true">→</span>
+                  </a>
+                )}
               </div>
             ) : (
               <div className="snav-prod">

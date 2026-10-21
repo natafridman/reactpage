@@ -11,6 +11,7 @@ import App from '/App.jsx';
 // las dos paginas de arriba descargan menos.
 const EmpresasPage = lazy(() => import('/EmpresasPage.jsx'));
 const MarcasPage = lazy(() => import('/MarcasPage.jsx'));
+const MerchandisingPage = lazy(() => import('/MerchandisingPage.jsx'));
 const NosotrosPage = lazy(() => import('/NosotrosPage.jsx'));
 const RedProductosPage = lazy(() => import('/RedProductosPage.jsx'));
 const NotFoundPage = lazy(() => import('/components/NotFoundPage.jsx'));
@@ -81,6 +82,8 @@ function Main() {
             <Route path="/producto/:categoria/:nombre" element={<App />} />
             <Route path="/Empresas" element={<EmpresasPage />} />
             <Route path="/Marcas" element={<MarcasPage />} />
+            <Route path="/Merchandising" element={<MerchandisingPage />} />
+            <Route path="/merchandising" element={<MerchandisingPage />} />
             <Route path="/Nosotros" element={<NosotrosPage />} />
             <Route path="/red" element={<RedProductosPage />} />
             {/* La v2 ya es la version principal: los enlaces viejos redirigen

@@ -66,8 +66,8 @@ const FEATURED = [
 const MERCH = [
   { cat: 'Botellas', img: 'botellas', alt: 'Diez botellas con el logo de B2YOU grabado' },
   { cat: 'Vasos y Jarros', img: 'mugs-metalicos', alt: 'Vasos térmicos de acero con el logo de B2YOU grabado' },
-  { cat: 'Vasos y Jarros', img: 'mugs-plasticos', alt: 'Vasos reutilizables con el logo de B2YOU' },
-  { cat: 'Botellas', img: 'botella-sola', alt: 'Botella térmica negra con el logo de B2YOU grabado', stat: '15 a 30 días', statText: 'de producción. Muestra aprobada antes.' },
+  { cat: 'Tecnología', img: 'cat-tecnologia', alt: 'Parlantes bluetooth con el logo de B2YOU' },
+  { path: '/Merchandising#kits', img: 'kit-k05', alt: 'Kit matero con termo, mate, yerbera y matera con el logo de B2YOU', stat: '12 kits', statText: 'listos para regalar, con tu logo.' },
 ];
 
 // Banda de beneficios = como se compra, en tres pasos reales (del FAQ).
@@ -240,16 +240,16 @@ function LandingV2() {
             <div className="v2-merch-copy">
               <div>
                 <h2 className="v2-merch-title" id="v2-merch-title">El merch de tu marca, <em>resuelto</em></h2>
-                <p className="v2-merch-lead">Botellas, vasos y jarros entre otros, con tu logo grabado. Aprobás la muestra antes de producir.</p>
+                <p className="v2-merch-lead">Botellas, vasos, oficina, tecnología y kits listos para regalar, con tu logo. Aprobás la muestra antes de producir.</p>
               </div>
               <div className="v2-cta-row">
-                <a className="v2-btn v2-btn-primary" href="/productos?categoria=Botellas" onClick={(e) => goCat(e, 'Botellas')}>Ver botellas</a>
-                <a className="v2-btn v2-btn-outline" href="/productos?categoria=Vasos%20y%20Jarros" onClick={(e) => goCat(e, 'Vasos y Jarros')}>Ver vasos y jarros</a>
+                <a className="v2-btn v2-btn-primary" href="/Merchandising" onClick={(e) => { e.preventDefault(); navigate('/Merchandising'); }}>Ver merchandising</a>
+                <a className="v2-btn v2-btn-outline" href="/Merchandising#kits" onClick={(e) => { e.preventDefault(); navigate('/Merchandising#kits'); }}>Ver los kits</a>
               </div>
             </div>
             <div className="v2-merch-mosaic">
               {MERCH.map((m, i) => (
-                <a key={m.img} className={`v2-merch-tile v2-reveal${m.stat ? ' has-stat' : ''}`} style={{ '--i': i }} href={`/productos?categoria=${encodeURIComponent(m.cat)}`} onClick={(e) => goCat(e, m.cat)}>
+                <a key={m.img} className={`v2-merch-tile v2-reveal${m.stat ? ' has-stat' : ''}`} style={{ '--i': i }} href={m.path || `/productos?categoria=${encodeURIComponent(m.cat)}`} onClick={(e) => { if (m.path) { e.preventDefault(); navigate(m.path); } else goCat(e, m.cat); }}>
                   <img src={`/images/merch/${m.img}-700.webp`} srcSet={`/images/merch/${m.img}-700.webp 700w, /images/merch/${m.img}-1200.webp 1200w`} sizes="(max-width: 640px) 50vw, 25vw" alt={m.alt} loading="lazy" decoding="async" />
                   {m.stat && <span className="v2-merch-stat"><strong>{m.stat}</strong><span>{m.statText}</span></span>}
                 </a>

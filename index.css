@@ -5655,3 +5655,5 @@ html {
 
 /* Tab Merchandising: cuatro categorias en una sola fila. */
 .snav-cards--4 { grid-template-columns: repeat(4, minmax(150px, 1fr)); }
+.snav-cards--5 { grid-template-columns: repeat(5, minmax(140px, 1fr)); }
+.snav-all--cards { grid-column: 1 / -1; justify-self: start; }

@@ -198,7 +198,8 @@ function Header({ categories, isHeaderHidden, onLogoClick, isMenuActive, setIsMe
                   {['Botellas', 'Vasos y Jarros', 'Oficina', 'Tecnología'].filter((c) => catList.includes(c)).map((cat) => (
                     <a key={cat} href={`?categoria=${encodeURIComponent(cat)}`} className="category-link" onClick={(e) => goCat(e, cat)}>{cat}</a>
                   ))}
-                  <button className="category-link" onClick={() => goPage('/Empresas')}>Para empresas</button>
+                  <button className="category-link" onClick={() => goPage('/Merchandising#kits')}>Kits para regalar</button>
+                  <button className="category-link mnav-all" onClick={() => goPage('/Merchandising')}>Ver todo el merchandising <span aria-hidden="true">→</span></button>
                 </div>
               </div>
             )}
