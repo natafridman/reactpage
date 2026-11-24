@@ -1,0 +1,6 @@
+title: Bolso Rosedal
+subtitle: Tote Amplio de Uso Diario
+description: Tote amplio de líneas simples, con dos manijas para llevar en la mano o al hombro y terminación envejecida. Lo producimos para una marca de Buenos Aires. Disponible en Marrón, Gris y Negro. Se produce con la marca de tu empresa.
+code: BOL-003
+images: ROSEDAL_1.jpeg, ROSEDAL_2.jpeg, ROSEDAL_Marron_1.jpeg, ROSEDAL_Gris_1.jpeg, ROSEDAL_3.jpeg, ROSEDAL_Negro_1.jpeg
+videos:
