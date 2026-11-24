@@ -1,8 +1,9 @@
 import { useState, useRef, useLayoutEffect } from 'react';
 import { thumbSrc, IMAGES_BASE_FOLDER } from '/utils/productUtils.js';
 
-// Resuelve la foto de una categoria: un producto puntual {cat, folder} o, si no
-// se da folder, el primer producto con imagen de esa categoria. Sale del indice.
+// Resuelve la foto de una categoria: un producto puntual {cat, folder}, y dentro
+// de el una foto puntual {img}; si no se da folder, el primer producto con imagen
+// de esa categoria, y si no se da img, su primera foto. Sale del indice.
 export function featImage(index, feat) {
   if (!index || !feat || !feat.cat) return null;
   const items = index[feat.cat] || [];
@@ -11,7 +12,8 @@ export function featImage(index, feat) {
     : items.find((p) => ((p.metadata && p.metadata.images) || p.availableImages || []).length);
   const imgs = it ? ((it.metadata && it.metadata.images) || it.availableImages || []) : [];
   if (!it || !imgs.length) return null;
-  return thumbSrc(`/${IMAGES_BASE_FOLDER}/${feat.cat}/${it.productFolder}/${imgs[0]}`);
+  const img = feat.img && imgs.includes(feat.img) ? feat.img : imgs[0];
+  return thumbSrc(`/${IMAGES_BASE_FOLDER}/${feat.cat}/${it.productFolder}/${img}`);
 }
 
 // Nav de escritorio. Dos entradas y nada mas: todo lo que se vende esta dentro
@@ -25,14 +27,15 @@ export function featImage(index, feat) {
 // Cada item {cat,sub} entra a una categoria (con subcategoria ya filtrada);
 // {path} navega a una pagina.
 
-// Los cuatro que van con foto, en orden. Donde hace falta se elige el producto
-// a mano: las cuatro fotos tienen que ser del mismo tipo (producto sobre fondo
-// claro) o el bloque queda con dos fotos de estudio y dos de ambiente.
+// Los cuatro que van con foto, en orden. Producto y foto elegidos a mano: las
+// cuatro tienen que ser del mismo tipo (producto entero sobre fondo blanco) o el
+// bloque queda con dos fotos de estudio y dos de ambiente. Los colores se
+// reparten (suela, camel, negro, bordo) para que no queden cuatro piezas negras.
 export const DESTACADOS = [
-  { label: 'Cinturones', cat: 'Cinturones' },
-  { label: 'Gorras', cat: 'Gorras' },
-  { label: 'Bolsos', cat: 'Bolsos', folder: 'Bolso Mujer 1' },
-  { label: 'Carteras', cat: 'Carteras' },
+  { label: 'Cinturones', cat: 'Cinturones', folder: 'Cinturon Odense', img: 'ODENSE.jpg' },
+  { label: 'Gorras', cat: 'Gorras', folder: 'Gorra Milan', img: '8O3A0177.jpeg' },
+  { label: 'Bolsos', cat: 'Bolsos', folder: 'Bolso Duffle', img: 'IMG_1579.jpeg' },
+  { label: 'Carteras', cat: 'Carteras', folder: 'Cartera Musher', img: 'cartera2.jpeg' },
 ];
 
 function buildTabs(categories) {
